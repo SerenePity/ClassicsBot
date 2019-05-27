@@ -5,6 +5,8 @@ import re
 
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
+MAX_QUOTES_LENGTH = 500
+MIN_QUOTES_LENGTH = 20
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos"] + ROMAN_NUMERALS
@@ -42,12 +44,13 @@ class RoboticRoman():
         first_pass = [s for s in re.split(DELIMITERS_REGEX, self._replace_abbreviation_period(text))]
         return [re.sub(REGEX_SUB, '', t).strip().replace('%','.') + first_pass[i+1] for i,t in
                 enumerate(first_pass) if 'LATIN' not in t.upper() and 'LIBRARY' not in t.upper()
-                 and t.strip().replace('\n','') != '' and len(t) > 20 and len(t) < 320 and i < len(first_pass) - 1]
+                and t.strip().replace('\n','') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
+                i < len(first_pass) - 1]
 
     def _process_holy_text(self, scripture):
         return [s for s in re.split(BIBLE_DELIMITERS, self._replace_abbreviation_period(scripture))
                 if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
-                and len(s) > 20 and len(s) < 320]
+                and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
 
     def _replace_abbreviation_period(self, text):
         for abbreviations in ABBREVIATIONS:
@@ -118,4 +121,4 @@ class RoboticRoman():
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
 
     def make_sentence(self, person):
-        return self.train_model(person)(max_length=320)
+        return self.train_model(person)(max_length=MAX_QUOTES_LENGTH)
