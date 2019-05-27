@@ -24,7 +24,7 @@ class RoboticRoman():
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
         self.markov_dict = dict()
-        self.authors = [f.path.split('\\')[-1] for f in os.scandir(LATIN_TEXTS_PATH) if f.is_dir() and not f.path.split('\\')[-1].startswith('.')]
+        self.authors = [f.path.split('/')[-1] for f in os.scandir(LATIN_TEXTS_PATH) if f.is_dir() and not f.path.split('/')[-1].startswith('.')]
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         for author in self.authors:
             print(author)
