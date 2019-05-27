@@ -73,7 +73,7 @@ class RoboticRoman():
         author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.greek_quotes_dict[author].append(open(file))
+                self.greek_quotes_dict[author].append(open(f"{author_path}/{file}"))
 
     def load_quotes(self, author):
         self.quotes_dict[author] = []
