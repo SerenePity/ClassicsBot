@@ -75,16 +75,14 @@ class RoboticRoman():
         author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                with open(author_path + '/' + file, encoding="utf8") as fp:
-                    self.greek_quotes_dict[author] += self._process_text(fp.read())
+                self.greek_quotes_dict[author].append(file)
 
     def load_quotes(self, author):
         self.quotes_dict[author] = []
         author_path = f"{LATIN_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                with open(author_path + '/' + file, encoding="utf8") as fp:
-                    self.quotes_dict[author] += self._process_text(fp.read())
+                self.quotes_dict[author].append(file)
 
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
@@ -95,8 +93,8 @@ class RoboticRoman():
 
     def random_quote(self, person):
         if person in self.greek_quotes_dict:
-            return random.choice(self.greek_quotes_dict[person])
-        return random.choice(self.quotes_dict[person])
+            return random.choice(self._process_text(self.greek_quotes_dict[person].read()))
+        return random.choice(self._process_text(self.quotes_dict[person].read()))
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))
