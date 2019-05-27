@@ -28,12 +28,10 @@ class RoboticRoman():
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         for author in self.authors:
             print(author)
-            self.markov_dict[author] = MarkovText()
             self.quotes_dict[author] = []
 
         for grecian in self.greek_authors:
             print(grecian)
-            self.markov_dict[grecian] = MarkovText()
             self.greek_quotes_dict[grecian] = []
 
     def help_command(self):
@@ -53,36 +51,36 @@ class RoboticRoman():
     def load_all_models(self):
         for author in self.authors:
             print(author)
-            self.load_markov_model(author)
             self.load_quotes(author)
 
         for grecian in self.greek_quotes_dict:
             print(grecian)
-            self.load_markov_model(grecian)
             self.load_greek_quotes(grecian)
 
         print("Finished loading models")
 
+    """
     def load_markov_model(self, author):
         try:
-            self.markov_dict[author] = MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
+            self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
         except:
             self.train_model(author)
-            self.markov_dict[author] = MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
+            self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
+    """
 
     def load_greek_quotes(self, author):
         author_dir = author.replace(' ', '_')
         author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.greek_quotes_dict[author].append(file)
+                self.greek_quotes_dict[author].append(open(file))
 
     def load_quotes(self, author):
         self.quotes_dict[author] = []
         author_path = f"{LATIN_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.quotes_dict[author].append(file)
+                self.quotes_dict[author].append(open(file))
 
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
@@ -100,9 +98,6 @@ class RoboticRoman():
         author = random.choice(list(self.greek_quotes_dict.keys()))
         return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
 
-    def greek_quote(self, person):
-        return random.choice(self.greek_quotes_dict[person])
-
     def train_model(self, author):
         if author in self.greek_quotes_dict:
             author_dir = author.replace(' ', '_')
@@ -110,11 +105,12 @@ class RoboticRoman():
         else:
             author_path = f"{LATIN_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
-            with open(author_path + '/' + file, encoding="utf8") as fp:
-                self.markov_dict[author].data(fp.read())
+            self.markov_dict[author] = file
         if not os.path.exists(f"markov_models/{author}"):
             os.mkdir(f"markov_models/{author}")
-        self.markov_dict[author].save(f"markov_models/{author}/{author}_markov.json")
+        markov = MarkovText()
+        markov.save(f"markov_models/{author}/{author}_markov.json")
+        return markov
 
     def make_sentence(self, person):
-        return self.markov_dict[person](max_length=320)
+        return self.train_model(person)(max_length=320)
