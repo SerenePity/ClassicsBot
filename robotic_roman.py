@@ -10,6 +10,7 @@ ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII",
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos"] + ROMAN_NUMERALS
 REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!)"
+BIBLE_DELIMITERS = "[0-9]+"
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
             "List available Latin authors: '>latinauthors'",
@@ -42,6 +43,11 @@ class RoboticRoman():
         return [re.sub(REGEX_SUB, '', t).strip().replace('%','.') + first_pass[i+1] for i,t in
                 enumerate(first_pass) if 'LATIN' not in t.upper() and 'LIBRARY' not in t.upper()
                  and t.strip().replace('\n','') != '' and len(t) > 20 and len(t) < 320 and i < len(first_pass) - 1]
+
+    def _process_holy_text(self, scripture):
+        return [s for s in re.split(BIBLE_DELIMITERS, self._replace_abbreviation_period(scripture))
+                if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
+                and len(s) > 20 and len(s) < 320]
 
     def _replace_abbreviation_period(self, text):
         for abbreviations in ABBREVIATIONS:
@@ -93,13 +99,15 @@ class RoboticRoman():
         if person in self.greek_quotes_dict:
             f = random.choice(self.greek_quotes_dict[person])
             quote = random.choice(self._process_text(f.read()))
-            f.close()
-            self.load_greek_quotes(person)
+            #self.load_greek_quotes(person)
         else:
             f = random.choice(self.quotes_dict[person])
-            quote = random.choice(self._process_text(f.read()))
-            f.close()
-            self.load_quotes(person)
+            if person == 'the bible':
+                quote = random.choice(self._process_holy_text(f.read()))
+            else:
+                quote = random.choice(self._process_text(f.read()))
+            #self.load_quotes(person)
+        f.seek(0)
         return quote
 
     def pick_greek_quote(self):
