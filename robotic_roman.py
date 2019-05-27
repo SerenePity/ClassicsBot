@@ -80,7 +80,7 @@ class RoboticRoman():
         author_path = f"{LATIN_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.quotes_dict[author].append(open(file))
+                self.quotes_dict[author].append(open(f"{author_path}/{file}"))
 
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
@@ -99,15 +99,6 @@ class RoboticRoman():
         return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
 
     def train_model(self, author):
-        if author in self.greek_quotes_dict:
-            author_dir = author.replace(' ', '_')
-            author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
-        else:
-            author_path = f"{LATIN_TEXTS_PATH}/{author}/"
-        for file in os.listdir(author_path):
-            self.markov_dict[author] = file
-        if not os.path.exists(f"markov_models/{author}"):
-            os.mkdir(f"markov_models/{author}")
         markov = MarkovText()
         markov.save(f"markov_models/{author}/{author}_markov.json")
         return markov
