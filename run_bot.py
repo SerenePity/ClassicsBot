@@ -1,6 +1,6 @@
-import sys
+import os
 import scholasticus
 
-token = sys.argv[1]
+token = os.environ['token']
 client = scholasticus.Scholasticus(">")
 client.run(token)
