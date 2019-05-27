@@ -24,7 +24,7 @@ class RoboticRoman():
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
         self.markov_dict = dict()
-        self.authors = [f.path.split('/')[-1] for f in os.scandir(LATIN_TEXTS_PATH) if f.is_dir() and not f.path.split('/')[-1].startswith('.')]
+        self.authors = [f.path.split('\\')[-1] for f in os.scandir(LATIN_TEXTS_PATH) if f.is_dir() and not f.path.split('/')[-1].startswith('.')]
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         for author in self.authors:
             print(author)
@@ -73,14 +73,14 @@ class RoboticRoman():
         author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.greek_quotes_dict[author].append(open(f"{author_path}/{file}"))
+                self.greek_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
     def load_quotes(self, author):
         self.quotes_dict[author] = []
         author_path = f"{LATIN_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.quotes_dict[author].append(open(f"{author_path}/{file}"))
+                self.quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
@@ -91,17 +91,20 @@ class RoboticRoman():
 
     def random_quote(self, person):
         if person in self.greek_quotes_dict:
-            return random.choice(self._process_text(self.greek_quotes_dict[person].read()))
-        return random.choice(self._process_text(self.quotes_dict[person].read()))
+            quote = random.choice(self._process_text(random.choice(self.greek_quotes_dict[person]).read()))
+            self.load_greek_quotes(person)
+        else:
+            quote = random.choice(self._process_text(random.choice(self.quotes_dict[person]).read()))
+            self.load_quotes(person)
+        return quote
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))
         return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
 
     def train_model(self, author):
-        markov = MarkovText()
-        markov.save(f"markov_models/{author}/{author}_markov.json")
-        return markov
+        MarkovText
+        return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
 
     def make_sentence(self, person):
         return self.train_model(person)(max_length=320)

@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 import time
 import robotic_roman
 
@@ -35,36 +36,36 @@ class Scholasticus(commands.Bot):
         if content.strip() in self.markov_commands:
             person = self.markov_commands[content.strip()]
             try:
-                await channel.send(self.robot.make_sentence(person.lower()))
+                await self.send_message(channel, self.robot.make_sentence(person.lower()))
             except Exception as e:
                 print(e)
                 if not person:
-                    await channel.send("No person provided")
+                    await self.send_message(channel, "No person provided")
                 else:
-                    await channel.send("I do not have a Markov model for " + person.capitalize())
+                    await self.send_message(channel, "I do not have a Markov model for " + person.capitalize())
 
         if content.strip() in self.quotes_commands:
             person = self.quotes_commands[content.strip()]
             try:
-                await channel.send(self.robot.random_quote(person.lower()))
+                await self.send_message(channel, self.robot.random_quote(person.lower()))
             except Exception as e:
                 print(e)
                 if not person:
-                    await channel.send("No person provided")
+                    await self.send_message(channel, "No person provided")
                 else:
-                    await channel.send("I do not have quotes for " + person.capitalize())
+                    await self.send_message(channel, "I do not have quotes for " + person.capitalize())
 
         if content.startswith(self.command_prefix + 'latinquote'):
-            await channel.send(self.robot.pick_random_quote())
+            await self.send_message(channel, self.robot.pick_random_quote())
 
         if content.startswith(self.command_prefix + 'greekquote'):
-            await channel.send(self.robot.pick_greek_quote())
+            await self.send_message(channel, self.robot.pick_greek_quote())
 
         if content.startswith(self.command_prefix + 'HELPME'):
-            await channel.send(self.robot.help_command())
+            await self.send_message(channel, self.robot.help_command())
 
         if content.startswith(self.command_prefix + 'latinauthors'):
-            await channel.send('```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
 
         if content.startswith(self.command_prefix + 'greekauthors'):
-            await channel.send('```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
