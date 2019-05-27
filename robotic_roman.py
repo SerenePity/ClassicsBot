@@ -91,10 +91,14 @@ class RoboticRoman():
 
     def random_quote(self, person):
         if person in self.greek_quotes_dict:
-            quote = random.choice(self._process_text(random.choice(self.greek_quotes_dict[person]).read()))
+            f = random.choice(self.greek_quotes_dict[person])
+            quote = random.choice(self._process_text(f.read()))
+            f.close()
             self.load_greek_quotes(person)
         else:
-            quote = random.choice(self._process_text(random.choice(self.quotes_dict[person]).read()))
+            f = random.choice(self.quotes_dict[person])
+            quote = random.choice(self._process_text(f.read()))
+            f.close()
             self.load_quotes(person)
         return quote
 
@@ -103,7 +107,6 @@ class RoboticRoman():
         return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
 
     def train_model(self, author):
-        MarkovText
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
 
     def make_sentence(self, person):
