@@ -1,0 +1,3 @@
+[console_scripts]
+markovchain = markovchain.cli:main
+
