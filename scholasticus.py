@@ -21,8 +21,8 @@ class Scholasticus(commands.Bot):
         self.robot.load_all_models()
         self.authors = [self.robot.format_name(person) for person in list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys())]
         for author in self.authors:
-            self.markov_commands[f"As {author} allegedly said:"] = author
-            self.quotes_commands[f"As {author} said:"] = author
+            self.markov_commands[f"as {author.lower()} allegedly said:"] = author
+            self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
 
     async def on_message(self, message):
@@ -33,7 +33,7 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
-        if content.strip() in self.markov_commands:
+        if content.strip().lower() in self.markov_commands:
             person = self.markov_commands[content.strip()]
             try:
                 await self.send_message(channel, self.robot.make_sentence(person.lower()))
@@ -42,9 +42,9 @@ class Scholasticus(commands.Bot):
                 if not person:
                     await self.send_message(channel, "No person provided")
                 else:
-                    await self.send_message(channel, "I do not have a Markov model for " + person.capitalize())
+                    await self.send_message(channel, "I do not have a Markov model for " + self.robot.format_name(person))
 
-        if content.strip() in self.quotes_commands:
+        if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip()]
             try:
                 await self.send_message(channel, self.robot.random_quote(person.lower()))
@@ -53,19 +53,19 @@ class Scholasticus(commands.Bot):
                 if not person:
                     await self.send_message(channel, "No person provided")
                 else:
-                    await self.send_message(channel, "I do not have quotes for " + person.capitalize())
+                    await self.send_message(channel, "I do not have quotes for " + self.robot.format_name(person))
 
-        if content.startswith(self.command_prefix + 'latinquote'):
+        if content.lower().startswith(self.command_prefix + 'latinquote'):
             await self.send_message(channel, self.robot.pick_random_quote())
 
-        if content.startswith(self.command_prefix + 'greekquote'):
+        if content.lower().startswith(self.command_prefix + 'greekquote'):
             await self.send_message(channel, self.robot.pick_greek_quote())
 
-        if content.startswith(self.command_prefix + 'HELPME'):
+        if content.lower().startswith(self.command_prefix + 'helpme'):
             await self.send_message(channel, self.robot.help_command())
 
-        if content.startswith(self.command_prefix + 'latinauthors'):
+        if content.lower().startswith(self.command_prefix + 'latinauthors'):
             await self.send_message(channel, '```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
 
-        if content.startswith(self.command_prefix + 'greekauthors'):
+        if content.lower().startswith(self.command_prefix + 'greekauthors'):
             await self.send_message(channel, '```'+ '\n'.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')

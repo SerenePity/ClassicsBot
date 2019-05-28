@@ -96,7 +96,7 @@ class RoboticRoman():
                                                                         ' de ')
     def pick_random_quote(self):
         author = random.choice(list(self.quotes_dict.keys()))
-        return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
+        return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
     def random_quote(self, person):
         if person in self.greek_quotes_dict:
@@ -115,7 +115,7 @@ class RoboticRoman():
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))
-        return f"{self.random_quote(author)}\n\t--{self.format_name(author)}"
+        return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
     def train_model(self, author):
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
