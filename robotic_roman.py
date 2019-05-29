@@ -73,7 +73,7 @@ class RoboticRoman():
         try:
             self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
         except:
-            self.train_model(author)
+            self.load_model(author)
             self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
     """
 
@@ -117,8 +117,17 @@ class RoboticRoman():
         author = random.choice(list(self.greek_quotes_dict.keys()))
         return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
-    def train_model(self, author):
+    def load_model(self, author):
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
 
     def make_sentence(self, person):
-        return self.train_model(person)(max_length=MAX_QUOTES_LENGTH)
+        return self.load_model(person)(max_length=MAX_QUOTES_LENGTH)
+
+    def train_model(self, author, author_path):
+        model = MarkovText()
+        for file in os.listdir(author_path):
+            with open(author_path + '/' + file, encoding="utf8") as fp:
+                model.data(fp.read())
+        if not os.path.exists(f"markov_models/{author}"):
+            os.mkdir(f"markov_models/{author}")
+        model.save(f"markov_models/{author}/{author}_markov.json")
