@@ -45,7 +45,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "I do not have a Markov model for " + self.robot.format_name(person))
 
         if content.strip().lower() in self.quotes_commands:
-            person = self.quotes_commands[content.strip()]
+            person = self.quotes_commands[content.strip().lower()]
             try:
                 await self.send_message(channel, self.robot.random_quote(person.lower()))
             except Exception as e:
