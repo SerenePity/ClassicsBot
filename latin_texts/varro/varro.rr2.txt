@@ -1,22 +1,4 @@
-Varro: De Agri Cultura II
-		 
 
-		 
-		 
-	 
-	
- 
-
- M. TERENTI VARRONIS 
- 
-RERUM RUSTICARUM DE AGRI CULTURA
- 
-LIBER SECUNDUS
- 
-
- 
-
- 
 Viri magni nostri maiores non sine causa praeponebant rusticos Romanos urbanis. Ut ruri enim qui in villa vivunt ignaviores, quam qui in agro uersantur in aliquo opere faciendo, sic qui in oppido sederent, quam qui rura colerent, desidiosiores putabant. Itaque annum ita diviserunt, ut nonis modo diebus urbanas res usurparent, reliquis septem ut rura colerent. Quod dum servaverunt institutum, utrumque sunt consecuti, ut et cultura agros fecundissimos haberent et ipsi valetudine firmiores essent, ac ne Graecorum urbana desiderarent gymnasia. Quae nunc vix satis singula sunt, nec putant se habere villam, si non multis vocabulis retinniat Graecis, quom vocent particulatim loca, procoetona, palaestram, apodyterion, peristylon, ornithona, peripteron, oporothecen. Igitur quod nunc intra murum fere patres familiae correpserunt relictis falce et aratro et manus movere maluerunt in theatro ac circo, quam in segetibus ac vinetis, frumentum locamus qui nobis advehat, qui saturi fiamus ex Africa et Sardinia, et navibus vindemiam condimus ex insula Coa et Chia.
  
 
@@ -53,7 +35,7 @@ Vide, inquit Atticus, ne te fallat et novenae istae partes non exeant extra peco
  
 
  
-  II. 
+   
  
 
  
@@ -65,7 +47,7 @@ De alteris quattuor rebus deinceps dicam, de pastione, fetura, nutricatu, sanita
  
 
  
-Quod ad pastiones attinet, haec fere sunt; quod ad feturam, quae dicam. Arietes, quibus sis usurus ad feturam, bimestri tempore ante secernendum et largius pabulo explendum. Cum redierunt ad stabula e pastu, hordeum si est datum, firmiores fiunt ad laborem sustinendum. Tempus optimum ad admittendum ab arcturi occasu ad aquilae occasum, quod quae postea concipiuntur, fiunt vegrandes atque imbecillae. Ovis praegnas est diebus CL. Itaque fit partus exitu autumnali, cum aer est modice temperatus et primitus oritur herba imbribus primoribus evocata. Quam diu admissura fit, eadem aqua uti oportet, quod commutatio et lanam facit variam et corrumpit uterum. Cum omnes conceperunt, rursus arietes secernendi, iam factis praegnatibus quod sunt molesti, obsunt. Neque pati oportet minores quam bimas saliri, quod neque natum ex his idoneum est, neque non ipsae fiunt deteriores; et non meliores quam trimae admissae. Deterrent ab saliendo, et fiscellas e iunco aliave qua re quod alligant ad naturam; commodius servantur, si secretas pascunt.
+Quod ad pastiones attinet, haec fere sunt; quod ad feturam, quae dicam. Arietes, quibus sis usurus ad feturam, bimestri tempore ante secernendum et largius pabulo explendum. Cum redierunt ad stabula e pastu, hordeum si est datum, firmiores fiunt ad laborem sustinendum. Tempus optimum ad admittendum ab arcturi occasu ad aquilae occasum, quod quae postea concipiuntur, fiunt vegrandes atque imbecillae. Ovis praegnas est diebus  Itaque fit partus exitu autumnali, cum aer est modice temperatus et primitus oritur herba imbribus primoribus evocata. Quam diu admissura fit, eadem aqua uti oportet, quod commutatio et lanam facit variam et corrumpit uterum. Cum omnes conceperunt, rursus arietes secernendi, iam factis praegnatibus quod sunt molesti, obsunt. Neque pati oportet minores quam bimas saliri, quod neque natum ex his idoneum est, neque non ipsae fiunt deteriores; et non meliores quam trimae admissae. Deterrent ab saliendo, et fiscellas e iunco aliave qua re quod alligant ad naturam; commodius servantur, si secretas pascunt.
  
 
  
@@ -77,7 +59,7 @@ De sanitate sunt multa; sed ea, ut dixi, in libro scripta magister pecoris habet
  
 
  
-  III. 
+   
  
 
  
@@ -93,7 +75,7 @@ De alteris quattuor quod est de pastu, hoc dico: Stabulatur pecus melius, ad hib
  
 
  
-  IV. 
+   
  
 
  
@@ -116,11 +98,6 @@ Sus graece dicitur hys, olim thys dictus ab illo verbo quod dicunt thyein, quod 
 Sus ad feturam quae sit fecunda, animadvertunt fere ex primo partu, quod non multum in reliquis mutat. In nutricatu, quam porculationem appellant, binis mensibus porcos sinunt cum matribus; secundo, cum iam pasci possunt, secernunt. Porci, qui nati hieme, fiunt propter frigora et quod matres aspernantur propter exiguitatem lactis, quod dentibus sauciantur propterea mammae. Scrofa in sua quaeque hara suos alat oportet porcos, quod alienos non aspernatur et ideo, si conturbati sunt, in fetura fit deterior. Natura divisus earum annus bifariam, quod bis parit in anno: quaternis mensibus fert ventrem, binis nutricat. Haram facere oportet circiter trium pedum altam et latam amplius paulo, ea altitudine abs terra, ne, dum exilire velit praegnas, abortet. Altitudinis modus sit, ut subulcus facile circumspicere possit nequi porcellus a matre opprimatur, et ut facile purigare possit cubile. In haris ostium esse oportet et limen inferius altum palmipedale, ne porci, ex hara cum mater prodit, transilire possint. Quotienscumque haras subulcus purgat, totiens harenam inicere oportet, aut quid item quod exsugat umorem in singulas haras inicere debet; et cum peperit, largiore cibatu sustentare, quo facilius lac suppeditare possit. Quibus hordei circiter binas libras aqua madefactas dare solent, quod quidam duplicant, ut sit mane et vesperi, si alia quae obiciant non habuerint. Cum porci depulsi sunt a mamma, a quibusdam delici appellantur neque iam lactantes dicuntur, qui a partu decimo die habentur puri, et ab eo appellantur ab antiquis sacres, quod tum ad sacrificium idonei dicuntur primum. Itaque aput Plautum in Menaechmis, cum insanum quem putat, ut pietur, in oppido Epidamno interrogat "quanti hic porci sunt sacres?" Si fundus ministrat, dari solent vinacea ac scopi ex uvis. Amisso nomine lactantes dicuntur nefrendes ab eo, quod nondum fabam frendere possunt, id est frangere. Porcus Graecum est nomen antiquum, sed obscuratum, quod nunc eum uocant choeron. In eorum partu scrofae bis die ut bibant curant lactis causa. Parere dicunt oportere porcos, quot mammas habeat; si minus pariat, fructuariam idoneam non esse; si plures pariat, esse portentum. In quo illud antiquissimum fuisse scribitur, quod sus Aeneae Lavini triginta porcos peperit albos. Itaque quod portenderit factum, post tricesimum annum ut Lavinienses condiderint oppidum Albam. Huius suis ac porcorum etiam nunc vestigia apparent, quod et simulacra eorum ahenea etiam nunc in publico posita, et corpus matris ab sacerdotibus, quod in salsura fuerit, demonstratur. Nutricare octonos porcos parvulos primo possunt; incremento facto a peritis dimidia pars removeri solet, quod neque mater potest sufferre lac, neque congenerati alescendo roborari. A partu decem diebus proximis non producunt ex haris matrem, praeterquam potum. Praeteritis decem diebus sinunt exire pastum in propincum locum villae, ut crebro reditu lacte alere possint porcos. Cum creverunt, patiuntur sequi matrem pastum domique secernunt a matribus ac seorsum pascunt, ut desiderium ferre possint parentis nutricis, quod decem diebus assecuntur. Subulcus debet consuefacere, omnia ut faciant ad bucinam. Primo cum incluserunt, cum bucinatum est, aperiunt, ut exire possint in eum locum, ubi hordeum fusum in longitudine. Sic enim minus disperit, quam si in acervo positum, et plures facilius accedunt. Ideo ad bucinam convenire dicuntur, ut silvestri loco dispersi ne dispereant. Castrantur verres commodissime anniculi, utique ne minores quam semestres; quo facto nomen mutant atque e verribus dicuntur maiales. De sanitate suum unum modo exempli causa dicam: porcis lactentibus si scrofa lac non potest suppeditare, triticum frictum dari oportet (crudum enim solvit alvom) vel hordeum obici ex aqua, quoad fiant trimestres. De numero in centum sues decem verres satis esse putant; quidam etiam hinc demunt. Greges inaequabiles habent; sed ego modicum puto centenarium; aliquot maiores faciunt, ita ut ter quinquagenos habeant. Porcorum gregem alii duplicant, alii etiam maiorem faciunt. Minor grex quam maior minus sumptuosus, quod comites subulcus pauciores quaerit. Itaque gregis numerum pastor ab sua utilitate constituit, non ut quot verres habeat; id enim ab natura sumendum.
  
 
- 
-  V. 
- 
-
- 
 Haec hic. At Quintus Lucienus senator, homo quamvis humanus ac iocosus, introiens, familiaris omnium nostrum, Synepirotae, inquit, chairete; Scrofam enim et Varronem nostrum, poimena laon, mane salutavi. Cum alius eum salutasset, alius conviciatus esset, qui tam sero venisset ad constitutum, Videbo iam vos, inquit, balatrones, et hoc adferam meum corium et flagra. Tu vero, Murri, veni mi advocatus, dum asses solvo Laribus, si postea a me repetant, ut testimonium perhibere possis. Atticus Murrio, Narra isti, inquit, eadem, qui sermones sint habiti et quid reliqui sit, ut ad partes paratus veniat; nos interea secundum actum de maioribus adtexamus. In quo quidem, inquit Vaccius, meae partes, quoniam boves ibi. Quare dicam, de bubulo pecore quam acceperim scientiam, ut, siquis quid ignorat, discat; siquis scit, nuncubi labar observet. Vide quid agas, inquam, Vacci. Nam bos in pecuaria maxima debet esse auctoritate, praesertim in Italia, quae a bubus nomen habere sit existimata. Graecia enim antiqua, ut scribit Timaeus, tauros vocabat italos, a quorum multitudine et pulchritudine et fetu uitulorum Italiam dixerunt. Alii scripserunt, quod ex Sicilia Hercules persecutus sit eo nobilem taurum, qui diceretur italus. Hic socius hominum in rustico opere et Cereris minister, ab hoc antiqui manus ita abstineri voluerunt, ut capite sanxerint, siquis occidisset. Qua in re testis Attice, testis Peloponnesos. Nam ab hoc pecore Athenis Buzyges nobilitatus, Argis Bomagiros. Novi, inquit ille, maiestatem boum et ab his dici pleraque magna, ut busycon bupaeda bulimon boopin, uvam quoque bumammam. Praeterea scio hunc esse, in quem potissimum Iuppiter se convertit, cum exportavit per mare e Phoenice amans Europam; hunc esse, qui filios Neptuni a Menalippa servarit, ne in stabulo infantes grex boum obtereret; denique ex hoc putrefacto nasci dulcissimas apes, mellis matres, a quo eas Graeci bugenes appellant; et hunc Plautium locutum esse Latine quam Hirrium praetorem renuntiatum Romam in senatum scriptum habemus. Sed bono animo es, non minus satisfaciam tibi, quam qui Bugoniam scripsit.
  
 
@@ -133,7 +110,7 @@ Pascuntur armenta commodissime in nemoribus, ubi virgulta et frons multa; hieme 
  
 
  
-  VI. 
+   
  
 
  
@@ -141,7 +118,7 @@ Haec ille. At Murrius, qui, dum loquitur Vaccius, cum Lucieno redisset, Ego, inq
  
 
  
-  VII. 
+   
  
 
  
@@ -162,7 +139,7 @@ Equi quod alii sunt ad rem militarem idonei, alii ad vecturam, alii ad admissura
  
 
  
-  VIII. 
+   
  
 
  
@@ -170,7 +147,7 @@ Cum haec loqueremur, venit a Menate libertus, qui dicat liba absoluta esse et re
  
 
  
-  IX. 
+   
  
 
  
@@ -183,11 +160,6 @@ Primum aetate idonea parandi, quod catuli et vetuli neque sibi neque ovibus sunt
 
  
 Cibatus canis propior hominis quam ovis. Pascitur enim eduliis et ossibus, non herbis aut fronde. Diligenter ut habeat cibaria providendum. Fames enim hos ad quaerendum cibum ducet, si non praebebitur, et a pecore abducet; nisi si, ut quidam putant, etiam illuc pervenerint, proverbium ut tollant anticum vel etiam ut mython aperiant de Actaeone atque in dominum adferant dentes. Nec non ita panem hordeaceum dandum, ut non potius eum in lacte des intritum, quod eo consueti cibo uti a pecore non cito desciscunt. Morticinae ovis non patiuntur vesci carne, ne ducti sapore minus se abstineant. Dant etiam ius ex ossibus et ea ipsa ossa contusa. Dentes enim facit firmiores et os magis patulum, propterea quod vehementius diducuntur malae, acrioresque fiunt propter medullarum saporem. Cibum capere consuescunt interdiu, ubi pascuntur, vesperi, ubi stabulantur. Feturae principium admittendi faciunt veris principio; tum enim dicuntur catulire, id est ostendere velle se maritari. Quae tum admissae, pariunt circiter solstitium; praegnantes enim solent esse ternos menses. In fetura dandum potius hordeaceos quam triticeos panes; magis enim eo aluntur et lactis praebent maiorem facultatem. In nutricatu secundum partum, si plures sunt, statim eligere oportet quos habere velis, reliquos abicere. Quam paucissimos reliqueris, tam optimi in alendo fiunt propter copiam lactis. Substernitur eis acus aut quid item aliud, quod molliore cubili facilius educentur. Catuli diebus XX videre incipiunt. Duobus mensibus primis a partu non diiunguntur a matre, sed minutatim desuefiunt. Educunt eos plures in unum locum et inritant ad pugnandum, quo fiunt acriores, neque defatigari patiuntur, quo fiunt segniores. Consue quoque faciunt ut alligari possint primum levibus vinclis; quae si abrodere conantur, ne id consuescant facere, verberibus eos deterrere solent. Pluviis diebus cubilia substernenda fronde aut pabulo duabus de causis: ut ne oblinantur aut perfrigescant. Quidam eos castrant, quod eo minus putant relinquere gregem; quidam non faciunt, quod eos credunt minus acres fieri. Quidam nucibus Graecis in aqua tritis perungunt aures et inter digitos, quod muscae et ricini et pulices soleant, si hoc unguine non sis usus, ea exulcerare. Ne vulnerentur a bestiis, imponuntur his collaria, quae vocantur melium, id est cingulum circum collum ex corio firmo cum clavulis capitatis, quae intra capita insuitur pellis mollis, ne noceat collo duritia ferri; quod, si lupus aliusve quis his vulneratus est, reliquas quoque canes facit, quae id non habent, ut sint in tuto. Numerus canum pro pecoris multitudine solet parari; fere modicum esse putant, ut singuli sequantur singulos opiliones. De quo numero alius alium modum constituit, quod, si sunt regiones, ubi bestiae sint multae, debent esse plures, quod accidit his qui per calles silvestres longinquos solent comitari in aestiva et hiberna. Villatico vero gregi in fundum satis esse duo, et id marem et feminam. Ita enim sunt adsiduiores, quod cum altero item alter fit acrior, et si alteruter aeger est, ne sine cane grex sit.
- 
-
- 
-  X. 
- 
 
  
 Cum circumspiceret, nequid praeterisset, Hoc silentium, inquam, vocat alium ad partes. Relicum enim in hoc actu, quot et quod genus sint habendi pastores. Cossinius: Ad maiores pecudes aetate superiores, ad minores etiam pueros, utrosque horum firmiores qui in callibus versentur, quam eos qui in fundo cotidie ad villam redeant (itaque in saltibus licet videre iuventutem, et eam fere armatam, cum in fundis non modo pueri sed etiam puellae pascant). Qui pascunt, eos cogere oportet in pastione diem totum esse, pascere communiter, contra pernoctare ad suum quemque gregem, esse omnes sub uno magistro pecoris; eum esse maiorem natu potius quam alios et peritiorem quam reliquos, quod ei qui aetate et scientia praestat animo aequiore reliqui parent. Ita tamen oportet aetate praestare, ut ne propter senectutem minus sustinere possit labores. Neque enim senes neque pueri callium difficultatem ac montium arduitatem atque asperitatem facile ferunt, quod patiendum illis, qui greges secuntur, praesertim armenticios ac caprinos, quibus rupes ac silvae ad pabulandum cordi. Formae hominum legendae ut sint firmae ac veloces, mobiles, expeditis membris, qui non solum pecus sequi possint, sed etiam a bestiis ac praedonibus defendere, qui onera extollere in iumenta possint, qui excurrere, qui iaculari. Non omnis apta natio ad pecuariam, quod neque Bastulus neque Turdulus idonei, Galli appositissimi, maxime ad iumenta. In emptionibus dominum legitimum sex fere res perficiunt: si hereditatem iustam adiit; si, ut debuit, mancipio ab eo accepit, a quo iure civili potuit; aut si in iure cessit, qui potuit cedere, et id ubi oportuit; aut si usu cepit; aut si e praeda sub corona emit; tumve cum in bonis sectioneve cuius publice veniit. In horum emptione solet accedere peculium aut excipi et stipulatio intercedere, sanum esse, furtis noxisque solutum; aut, si mancipio non datur, dupla promitti, aut, si ita pacti, simpla. Cibus eorum debet esse interdius separatim unius cuiusque gregis, vespertinus in cena, qui sunt sub uno magistro, communis. Magistrum providere oportet ut omnia sequantur instrumenta, quae pecori et pastoribus opus sunt, maxime ad victum hominum et ad medicinam pecudum. Ad quam rem habent iumenta dossuaria domini, alii equas, alii pro iis quid aliud, quod onus dorso ferre possit.
@@ -198,7 +170,7 @@ Quod ad feturam humanam pertinet pastorum, qui in fundo perpetuo manent, facile 
  
 
  
-  XI. 
+   
  
 
  
@@ -219,11 +191,3 @@ Suscipit Cossinius: Fructum ut ovis e lana ad vestimentum, sic capra e pilis min
 
  
 Illi hoc, neque ab hoc quod mutaret Cossinius. Et simul Vituli libertus in urbem ueniens ex hortis devertitur ad nos et, Ego ad te missus, inquit, ibam domum rogatum ne diem festum faceres breviorem et mature venires. Itaque discedimus ego et Scrofa in hortos ad Vitulum, Niger Turrani noster, illi partim domum, partim ad Menatem.
- 
- 
- 
- 
- 
-	 Varro 
-	 The Latin Library 
-	 The Classics Page

@@ -1,35 +1,9 @@
-Varro: Lingua Latina X
-		 
 
-		 
-		 
-	 
-	
- 
-
- M. TERENTI VARRONIS DE LINGUA LATINA
- 
-LIBER X
-
- 
-
- 
-
- 
-I. 
- 
-
- 
 In verborum declinationibus disciplina loquendi dissimilitudinem an similitudinem sequi deberet, multi quaesierunt. Cum ab his ratio quae ab similitudine oriretur vocaretur analogia, reliqua pars appellaretur anomalia: de qua re primo libro quae dicerentur cur dissimilitudinem ducem haberi oporteret, dixi, secundo contra quae dicerentur, cur potius similitudinem conveniret praeponi: quarum rerum quod nec fundamenta, ut debuit, posita ab ullo neque ordo ac natura, ut res postulat, explicita, ipse eius rei formam exponam.
  
 
  
 Dicam de quattuor rebus, quae continent declinationes verborum: quid sit simile ac dissimile, quid ratio quam appellant logon, quid pro portione quod dicunt ana logon, quid consuetudo; quae explicatae declarabunt analogiam et anomaliam, unde sit, quid sit, cuius modi sit. 
- 
-
- 
-II. 
- 
 
  
 De similitudine et dissimilitudine ideo primum dicendum, quod ea res est fundamentum omnium declinationum ac continet rationem verborum. Simile est quod res plerasque habere videtur easdem quas illud cuiusque simile: dissimile est quod videtur esse contrarium huius. Minimum ex duobus constat omne simile, item dissimile, quod nihil potest esse simile, quin alicuius sit simile, item nihil dicitur dissimile, quin addatur quoius sit dissimile. 
@@ -168,7 +142,7 @@ Quarum una quaeque ratio collata cum altera aut similis aut dissimilis, aut saep
  
 
  
-III. 
+ 
  
 
  
@@ -324,7 +298,7 @@ E quis quae hic nothae fiunt declinationes, de his aliae sunt priscae, ut Bacchi
  
 
  
-IV. 
+ 
  
 
  
@@ -376,7 +350,7 @@ Secundo, si unum solum habent casum in voce, quod non declinentur, ut litterae o
  
 
  
-VI. 
+ 
  
 
  

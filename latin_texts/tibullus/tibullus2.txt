@@ -1,22 +1,4 @@
-Tibullus Book II
-		 
-
-		 
-		 
-	 
-	
- 
-
- A. TIBVLLI ELEGIAE LIBER SECVNDVS 
-
- 
-
- 
- I 
- 
-
- 
-Quisquis adest, faueat: fruges lustramus et agros, 
+Quisquis adest, faueat: fruges lustramus et agros,
  ritus ut a prisco traditus extat auo. 
 Bacche, ueni, dulcisque tuis e cornibus uua 
  pendeat, et spicis tempora cinge, Ceres. 
@@ -107,15 +89,6 @@ ludite: iam Nox iungit equos, currumque sequuntur
 postque uenit tacitus furuis circumdatus alis 
  Somnus et incerto Somnia nigra pede.
  
-
- 
-
- 
-
- II 
- 
-
- 
 Dicamus bona uerba: uenit Natalis ad aras: 
  quisquis ades, lingua, uir mulierque, faue. 
 urantur pia tura focis, urantur odores 
@@ -140,14 +113,6 @@ haec ueniat, Natalis, auis prolemque ministret,
  ludat et ante tuos turba nouella pedes.
  
 
- 
-
- 
-
- III 
- 
-
- 
 Rura meam, Cornute, tenent uillaeque puellam: 
  ferreus est, heu heu, quisquis in urbe manet. 
 ipsa Venus latos iam nunc migrauit in agros, 
@@ -233,16 +198,7 @@ horrida uillosa corpora ueste tegant.
 heu miserum, laxam quid iuuat esse togam? 
  ducite: ad imperium dominae sulcabimus agros: 
 non ego me uinclis uerberibusque nego.
- 
 
- 
-
- 
-
- IV 
- 
-
- 
 Hic mihi seruitium uideo dominamque paratam: 
  iam mihi, libertas illa paterna, uale. 
 seruitium sed triste datur, teneorque catenis, 
@@ -303,16 +259,7 @@ et quod, ubi indomitis gregibus Venus adflat amores,
  hippomanes cupidae stillat ab inguine equae, 
 si modo me placido uideat Nemesis mea uultu, 
  mille alias herbas misceat illa, bibam.
- 
 
- 
-
- 
-
- V 
- 
-
- 
 Phoebe, faue: nouus ingreditur tua templa sacerdos: 
  huc age cum cithara carminibusque ueni. 
 nunc te uocales impellere pollice chordas, 
@@ -435,16 +382,7 @@ tunc Messalla meus pia det spectacula turbae
  et plaudat curru praetereunte pater. 
 adnue: sic tibi sint intonsi, Phoebe, capilli, 
  sic tua perpetuo sit tibi casta soror.
- 
 
- 
-
- 
-
- VI 
- 
-
- 
 Castra Macer sequitur: tenero quid fiet Amori? 
  sit comes et collo fortiter arma gerat? 
 et seu longa uirum terrae uia seu uaga ducent 
@@ -499,13 +437,3 @@ tunc morior curis, tunc mens mihi perdita fingit,
  quisue meam teneat, quot teneatue modis: 
 tunc tibi, lena, precor diras: satis anxia uiuas, 
  mouerit e uotis pars quotacumque deos.
- 
-
- 
-
- 
- 
- 
-	 Tibullus 
-	 The Latin Library 
-	 The Classics Page
