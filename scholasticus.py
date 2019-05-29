@@ -34,7 +34,7 @@ class Scholasticus(commands.Bot):
         content = message.content
 
         if content.strip().lower() in self.markov_commands:
-            person = self.markov_commands[content.strip()]
+            person = self.markov_commands[content.strip().lower()]
             try:
                 await self.send_message(channel, self.robot.make_sentence(person.lower()))
             except Exception as e:
