@@ -10,15 +10,18 @@ nunc rursus eris socer Augusti.
 Quae iam rabies livoris erit?			
 Vel quis dabitur color invidiae?
 Stilicho socer est, pater est Stilicho.
+
 Urbs in conspectu montana cacumina velat
 tranquillo praetenta mari. Ducentia portum
 cornua pacatas removent Aquilonibus undas.
 Hic exarmatum terris cingentibus aequor
 clauditur et placidam discit servare quietem.	
+
 Quidquid Castalio de gurgite Phoebus anhelat,
 quidquid fatidico mugit cortina recessu,
 carmina sunt, sed verba negant communia Musae.
 Carmina sola loquor: sic me meus implet Apollo. 
+
 Non tales quondam species tulit armentorum
 tellus tergemino subdita Geryoni.
 Non tales, Clitumne, lavas in gurgite tauros,
@@ -31,28 +34,34 @@ Ipse et dispariles monstro commissus in artus,
 qui crimen matris condidit ore novo,		
 Cres puer haud talem potuisset reddere formam,
 portassent totum si fera membra patrem.
+
 Est procul ingenti regio summota recessu,
 insula qua resides fluctus mitescere cogit
 in longum producta latus, fractasque per undas
 ardua tranquillo curvantur brachia portu. 
+
 In iaculum quodcumque gerit dementia mutat.
 Omnibus armatur rabies. Pro cuspide ferri
 cuncta volant, dum dextra ferox in vulnera saevit.
 Pro telo geritur quidquid suggesserit ira. 
+
 Quis dedit innumeros uno de marmore vultus?
 Surgit in aurigam currus, paribusque lupatis
 unanimes frenantur equi: quos forma diremit,
 materies cognata tenet discrimine nullo.
+
 Vir redit in currum; ducuntur ab axe iugales;		
 ex alio se quisque facit. Quae tanta potestas?
 Una silex tot membra ligat ductusque per artem
 mons patiens ferri varios mutatur in artus. 
+
 Quid non saevus Amor flammarum numine cogat?
 Sanguinis en fetum mater amare timet
 Pectore dum niveo miserum tenet anxia nutrix
 illicitos ignes iam fovet ipsa parens.
 Ultrices pharetras tandem depone, Cupido.		
 Consule iam Venerem: forsan et ipsa dolet.  
+
 Audieram, memorande, tuas Stymphale, volucres
 spicula vulnifico quondam sparsisse volatu,
 nec mihi credibilis ferratae fabula pinnae
@@ -101,28 +110,36 @@ fluxit ab exemplis, quidquid procul appetit hostem,
 hinc reor inventum, morem hinc traxisse Cydonas
 bellandi Parthosque retro didicisse ferire
 prima sagittiferae pecudis documenta secutos. 
+
 Nominis umbra manet veteris; nam dicere birrum,
 si Castor iuret, castoreum nequeo.
 Sex emptus solidis! Quid sit, iam scire potestis:
 si mihi nulla fides, credite vel pretio.
+
 Pulchris stare diu Parcarum lege negatur.
 Magna repente ruunt; summa cadunt subito.
 Hic formosa iacet, Veneris sortita figuram,
 egregiumque decus invidiam meruit. 
+
 Fontibus in liquidis paulum requiesce, viator,
 atque tuum rursus carpe refectus iter.
 Lympharum dominum nimium miraberis, hospes,
 inter dura viae balnea qui posuit.
+
 Quae tibi cum pedibus ratio? Quid carmina culpas?
 Scandere qui nescis, versiculos laceras!
  Claudicat hic versus, haec  inquis syllaba nutat ,
 atque nihil prorsus stare putat podager.
+
 Dulcia dona mihi semper tu, Maxime, mittis,
 et, quidquid mittis, mella putare decet.
+
 Paupertas me saeva domat dirusque Cupido:
 sed toleranda fames, non tolerandus amor. 
+
 Esuriens pauper telis incendor amoris.
 Inter utrumque malum deligo pauperiem. 
+
 Aspice sudantes venerando pondere fratres,
 divino meritos semper honore coli,
 iusta quibus rapidae cessit reverentia flammae
@@ -171,6 +188,7 @@ nec doleat damnis quae devius intulit ardor,
 nec gemat exustas igne furente domos:
 non potuit pietas flamma cessante probari;
 emptum est ingenti clade perenne decus. 
+
 Aspice morigeras Rhodani torrentis alumnas
 imperio nexas imperioque vagas,
 dissona quam varios flectant ad murmura cursus
@@ -191,6 +209,7 @@ Consensuque pares et fulvis pellibus hirtae
 esseda concordes multisonora trahunt.
 Miraris si voce feras pacaverit Orpheus,
 cum pronas pecudes Gallica verba regant?	
+
 Italiae commune decus, Rubiconis amoeni
 incola, Romani fama secunda fori,
 Graiorum populis et nostro cognite Nilo
@@ -199,6 +218,7 @@ carmina ieiunas poscis solantia fauces?
 Testor amicitiam nulla fuisse domi.			
 Nam mihi mox nidum pennis confisa relinquunt
 et lare contempto non reditura volant.
+
 Felix, qui propriis aevum transegit in arvis,
 ipsa domus puerum quem videt, ipsa senem,
 qui baculo nitens in qua reptavit harena
@@ -221,10 +241,12 @@ Sed tamen indomitae vires firmisque lacertis
 aetas robustum tertia cernit avum.			
 erret et extremos alter scrutetur Hiberos:
 plus habet hic vitae, plus habet ille viae. 
+
 Manlius indulget somno noctesque diesque;
 insomnis Pharius sacra profana rapit.
 Omnibus hoc, Italae gentes, exposcite votis,
 Manlius ut vigilet, dormiat ut Pharius.  
+
 Vsque adeone tuae producitur impetus irae?
 Nullus erit finis lacrimis? Subitisque favorem
 permutas odiis? Quo mens ignara nocendi,
@@ -283,6 +305,7 @@ Inruat in miseros cognata potentia cives;
 audiat haec commune solum longeque carinis 		
 nota Pharos, flentemque attollens gurgite vultum 
 nostra gemat Nilus numerosis funera ripis.  
+
 Sic non Aethiopum campos aestate pererrem 
 nec Scythico brumam sub Iove nudus agam, 
 sic non imbriferam noctem ducentibus Haedis 
@@ -303,10 +326,12 @@ En moveo plausus! En pallidus omnia laudo,
 et clarum repeto terque quaterque 'sophos'! 
 Ignoscat placidus tandem flatusque remittat 
 et tuto recitet quod libet ore: placet. 			
+ 
 Horret apex capitis; medio fera lumina surgunt  
 vertice; cognatus dorso durescit amictus. 
 Armavit natura cutem dumique rubentes 
 cuspidibus parvis multos acuere rubores.   
+
 Carmina per thalamum quamvis festina negare 
 nec volui genero nec potui socero. 
 Hic socius, dux ille mihi, nostrique per aulam 
@@ -315,6 +340,7 @@ Hunc mihi coniungit studiis communibus aetas;
 Hunc mihi praeponit vel senium vel honos. 
 Carmen amor generi, soceri reverentia poscit 
 officio vatis, militis obsequio. 
+ 
 Forte Venus blando quaesitum frigore somnum 
 vitibus intexti gremio successerat antri 
 densaque sidereos per gramina fuderat artus 
@@ -460,6 +486,7 @@ prosiliunt puroque imbutis melle sagittis
 hic numptam petit, ille virum. Sonuere reducta
 cornua; certa notos pariter sulcavit harundo
 et pariter fixis haeserunt tela medullis.			 
+
 Fons, Antenoreae vitam qui porrigis urbi 
 fataque vicinis noxia pellis aquis, 
 cum tua vel mutis tribuant miracula vocem, 
@@ -560,6 +587,7 @@ non venas reserant nec vulnere vulnera sanant
 pocula nec tristi gramine mixta bibunt: 
 amissum lymphis reparant impune vigorem 
 pacaturque aegro luxuriante dolor. 			
+ 
 Oceani summo circumfluus aequore lucus 
 trans Indos Eurumque viret, qui primus anhelis 
 sollicitatur equis vicinaque verbera sentit 
@@ -670,6 +698,7 @@ quis Phaethonteis erroribus arserit annus,
 et clades te nulla rapit solusque superstes 
 edomita tellure manes: non stamina Parcae 
 in te dira legunt nec ius habuere nocendi. 			
+
 Felix qui Pharias proscindit vomere terras: 			
 nubila non sperat tenebris condentia caelum 
 nec graviter flantes pluviali frigore Coros 
@@ -712,6 +741,7 @@ Ionio seseque patentibus explicat arvis.
 fluctuat omnis ager; remis sonuere novales; 			
 saepius, aestivo iaceat cum forte sopore, 
 cernit cum stabulis armenta natantia pastor.  
+	
 Quisquis sollicita mundum ratione secutus 
 semina rimatur rerum, quo luna laborat 
 defectu, quae causa iubet pallescere solem, 
@@ -769,6 +799,7 @@ Iam gelidas rupes vivoque carentia sensu
 membra feris, iam saxa tuis obnoxia telis, 			
 et lapides suus ardor agit, ferrumque tenetur 			
 inlecebris: rigido regnant in marmore flammae. 
+
 Dic, mea Calliope, tanto cur tempore differs 
 Pierio meritam serto redimire Serenam? 
 Vile putas donum, solitam consurgere gemmis 
@@ -1004,6 +1035,7 @@ Rufino meditante nefas, cum quaereret artes
 in ducis exitium coniuratosque foveret 
 contra pila Getas, motus rimata latentes 			
 mandatis tremebunda virum scriptisque monebas. 
+
 Orphea cum primae sociarent numina taedae 
 ruraque compleret Thracia festus Hymen, 
 certavere ferae picturataeque volucres 
@@ -1066,6 +1098,7 @@ Terrarum tu pande vias, tu mitibus Euris
 aequora pacari prosperiora iube, 				
 ut tibi Pierides doctumque fluens Aganippe 			
 debita servato vota cliente canant. 
+ 
 Christe potens rerum, redeuntis conditor aevi, 
 vox summi sensusque dei, quem fudit ab alta 
 mente pater tantique dedit consortia regni, 
@@ -1087,10 +1120,12 @@ morte tua, mox aetherias evectus in auras
 purgata repetens laetum tellure parentem: 
 Augustum foveas, festis ut saepe diebus 			
 annua sinceri celebret ieiunia sacri. 
+
 Possedit glacies naturae signa prioris 
 et sit parte lapis, frigora parte negat. 
 Sollers lusit hiems, imperfectoque rigore 
 nobilior vivis gemma tumescit aquis.  
+
 Lymphae, quae tegitis cognato carcere lymphas, 
 et quae nunc estis quaeque fuistis aquae, 
 quod vos ingenium iunxit? Qua frigoris arte 
@@ -1099,17 +1134,21 @@ Quis tepor inclusus securas vindicat undas?
 Interior glacies quo liquefacta Noto? 
 Gemma quibus causis arcano mobilis aestu 
 vel concreta fuit vel resoluta gelu?  
+
 Solibus indomitum glacies Alpina rigorem 
 sumebat nimio iam pretiosa gelu 
-nec potuit toto mentiri corpore gemmam, <claud. cm. 32.sed medio mansit proditor orbe latex. 
+
+sed medio mansit proditor orbe latex. 
 Auctus honor; liquidi crescunt miracula saxi, 		
 et conservatae plus meruistis aquae.  
+
 Aspice correptam splendenti fragmine venam, 
 qua trahitur limes lucidiore gelu. 
 Hic nullum Borean nec brumam sentit opacus 
 umor, sed varias itque reditque vias. 
 Non illum constrinxit hiems, non Sirius axis, 		
 aetatis spatium non tenuavit edax. 
+
 Clauditur inmunis convexo tegmine rivus 
 duratisque vagus fons operitur aquis. 
 Nonne vides propriis ut spumet gemma lacunis 
@@ -1118,16 +1157,19 @@ udaque pingatur radiis obstantibus Iris,
 secretas hiemes sollicitante die? 
 Mira silex mirusque latex! Et flumina vincit 
 et lapides merito, quod fluit et lapis est.  
+
 Dum crystalla puer contingere lubrica gaudet 
 et gelidum tenero pollice versat onus, 
 vidit perspicuo deprensas marmore lymphas, 
 dura quibus solis parcere novit hiems, 
 et siccum relegens labris sitientibus orbem 			
 irrita quaesitis oscula fixit aquis.  
+
 Marmoreum ne sperne globum: spectacula transit 
 regia nec rubro vilior iste mari. 
 Informis glacies, saxum rude, nulla figurae 
 gratia, sed raras inter habetur opes.  
+
 Quid rear, affatus quod non mihi dirigis ullos  
 nec redit alterno pollice ducta salus?  
 Scribendine labor? Sed quae tam prona facultas, 
@@ -1152,6 +1194,7 @@ crebraque facundo festinet littera cursu
 libris atque animis insinuanda meis.  
 Dignatus tenui Caesar scripsisse Maroni.  
 Nec tibi dedecori Musa futura. Vale.  
+ 
 Quem, precor, inter nos habitura silentia finem?  
 Quando dabit caras littera grata vices?  
 Me timidum vel te potius dixisse superbum  
@@ -1170,10 +1213,12 @@ incipiensque tuis a fascibus omina cepi
 fataque debebo posteriora tibi.  			
 Ergo lacessitus tandem rescribe roganti,  
 et patria florens sorte, Probine, vale. 
+ 
 Torvus aper fulvusque leo coiere superbis 
 viribus, hic saeta saevior, ille iuba. 
 Hunc Mars, hunc laudat Cybele. Dominatur uterque 
 montibus; Herculeus sudor uterque fuit. 
+ 
 Fallaces vitreo stellas conponere mundo 
 et vaga Saturni sidera saepe queri 
 venturumque Iovem paucis promittere nummis 
@@ -1184,6 +1229,7 @@ nam spurcos avidae lambit meretricis hiatus,
 consumens luxu flagitiisque domum, 
 et quas fallacis collegit lingua parentis, 
 has eadem nati lingua refundit opes. 			
+
 Si tua, Cureti, penitus cognoscere quaeris 
 sidera, patre tuo certius ipse loquar. 
 Quod furis, adversi dedit inclementia Martis; 
@@ -1192,10 +1238,12 @@ quod turpem pateris iam cano podice morbum,
 femineis signis Luna Venusque fuit; 
 attrivit Saturnus opes. Hoc prorsus in uno 
 haereo: quae cunnum lambere causa facit? 
+
 Transferat huc liquidos fontes Heliconia Nais 
 et patulo conchae divitis orbe fluat; 
 namque latex doctae qui laverit ora Serenae 
 ultra Pegaseas numen habebit aquas.  
+ 
 Non semper clipei metuendum gentibus orbem 
 dilecto studiosa parens fabricabat Achilli, 
 Lemnia nec semper supplex ardentis adibat 
@@ -1211,6 +1259,7 @@ obsequiis soceri. Stilicho Mavortia confert
 munera, barbaricas strages Rhenique triumphos. 
 Reginae contenta modum servare Serena 
 in tua sollicitas urget velamina telas. 			
+ 
 O felix sonipes, tanti cui frena mereri  
 numinis et sacris licuit servire lupatis,  
 seu tua per campos vento iuba lusit Hiberos,  
@@ -1226,6 +1275,7 @@ floribus et castae manibus sudata Serenae,
 Persarum gentile decus. Sic quippe laborat 
 maternis studiis nec dedignatur equestres 
 moliri phaleras, genero latura decorem. 			
+ 
 Accipe, parva tuae, princeps venerande, sororis  
 munera, quae manibus texuit ipsa suis,  
 dumque auro phalerae, gemmis dum frena renident, 
@@ -1238,6 +1288,7 @@ O quantum formae sibi conscius erigit armos
 spargit et excussis colla superba iubis!  			
 Augescit brevitas doni pietate Serenae,  
 quae volucres etiam fratribus ornat equos.  
+
 Quis non indomitam dirae torpedinis artem 
 audiit et merito signatas nomine vires? 
 Illa quidem mollis segnique obnixa natatu 
@@ -1263,6 +1314,7 @@ transit harundineos arcano frigore nodos
 victricemque ligat concreto sanguine dextram. 
 Damnosum piscator onus praedamque rebellem 
 iactat et amissa redit exarmatus avena. 			
+
 Per cineres Pauli, per cani limina Petri, 
 ne laceres versus, dux Iacobe, meos. 
 Sic tua pro clipeo defendat pectora Thomas 
@@ -1277,6 +1329,7 @@ sic tibi det magnum moriens conviva triumphum
 atque tuam vincant dolia fusa sitim; 
 sic numquam hostili maculetur sanguine dextra: 
 ne laceres versus, dux Iacobe, meos. 
+ 
 Iuppiter in parvo cum cerneret aethera vitro, 
 risit et ad superos talia dicta dedit: 
  Hucine mortalis progressa potentia curae? 
@@ -1291,8 +1344,11 @@ Iamque suum uolvens audax industria mundum
 gaudet et humana sidera mente regit. 
 Quid falso insontem tonitru Salmonea miror? 
 Aemula naturae parva reperta manus.   
+ 
 Sordidus ex umeris nodo dependet amictus 
+
 Exercentur equis et colla comantia pectunt 
+
 Terra parens quondam caelestibus invida regnis 		
 Titanumque simul crebros miserata dolores 
 omnia monstrifero complebat Tartara fetu, 
@@ -1421,6 +1477,7 @@ Implorat Paeana suum conterrita Delos
 auxiliumque rogat: Si te gratissima fudit 
 in nostros Latona sinus, succurre precanti. 
 En iterum convulsa feror.
+
 Dulce malum pelago Sirenae volucresque puellae
 Scyllaeos inter fremitus avidamque Charybdin
 Musica saxa fretis habitabant: dulcia monstra
@@ -1430,6 +1487,7 @@ Implessentque sinus venti de puppe ferentes,
 Figebat vox una ratem. Nec tendere certum
 Delectabat iter reditus, otiumque iuvabat,
 Nec dolor ullus erat: mortem dabat ipsa voluptas.
+
 Pieridum columen, cuius Parnasia magno
 Numine templa sonant, Phoebe, precor, huc age laeto
 Tecum cuncta choro. Penetralia sancta sororum
@@ -1567,13 +1625,16 @@ Duxerat Alciden: cum taurum dira minantem
 Accipit et saevum cornu flammasque vomentem
 Corripit atque artus constringens fortibus ulnis
 Ignifluos flatus animamque in pectore clausit.
+
 Nectareo muro dulces cinguntur harenae.
+
 Stamine resplendens et mira textilis arte
 Balteus alipedis regia terga ligat
 Quem decus Eoo fratri pignusque propinqui
 Sanguinis Hesperio misit ab orbe soror.
 Hoc latus astringi velox optaret Arion,
 Hoc proprium vellet cingere Castor equum.
+
 In primis te, sponse, precor: patiare canentem;
 Teque, puella, magis: tacito mihi carmine parcas.
 Scimus enim, scimus vobis nunc carmina nostra
@@ -1661,11 +1722,13 @@ Turgentesque simul constringat laeva papillas.
 Vivite felices quam longaque carpiet saecla.
 Vivite concordes, donec premat una senectus
 Ambo et vestra habeant natorum vota nepotes.
+
 Lenaee vitisator Bromie Semeleie Bacche
 Thyrsitenens bimater trieterice Nysie Liber,
 Flos Ariadnaee, Corybantice, laete Thyoneu,
 Da reditum nobis: sic totis dulcia rivis
 Musta fluant spumetque cavis vindemia labris.
+
 Mars pater armorum fortissime belligerator,
 Esto volens mitis facilis deus, esto benignus:
 Sic tibi post pugnas et pastos saguine campos
@@ -1678,20 +1741,25 @@ Tu cum pulsatum clipei concusseris orbem,
 Inmugit mundus, tellus tremit, aequora cedunt.
 Da nobis reditum. Patriam repetamus ovantes:
 Sic tibi lascivae celebrentur in urbe kalendae.
+
 Iuno poli domina, cui vincla iugalia curae,
 Supremi caeli regis coniunxque sororque,
 Da reditum nobis: sic regnum transeat orbis.....
+
 Utraque fecundo nutritur belua Nilo,
 Quaeque vorat morsu quaeque sub ore fremit.
+
 Mensa coloratis aquilae sinuatur in alis,
 Quam floris distinguit honos, similisque figura
 Texitur: implumem mentitur gemma volatum.
+
 Isi, o fruge nova quae nunc dignata videri
 Plena nec ad Cereris munera poscis opem
 (Nam tu nostra dea es nec te deus ipse tacendi
 Abnegat expertus, quis tua vela ferat;
 Namque tibi Zephyrus favet ac Cyllenius ales):
 Ne nostra referas de regione pedem.
+
 Qui splendere cupis claro tenuique lavacro,
 Pontica succedas  in balnea nobilis undae,
 Quam nec Alexandri mater sub sole cadenti
@@ -1704,6 +1772,7 @@ Tangit odore levi et grato spiramine nares
 Lenis et externas admittere nescius artes.
 Huc ades o Florens et festa luce relaxa
 Mentis onus nebulasque fuga, quae frontis honorem....
+
 Non tibi vina placent, o insanabilis hospes?
 Nec mens est Thebana tibi, licet aggere celso
 Dircaeae rupis dicas fluxisse parentes?
@@ -1713,6 +1782,7 @@ Musta siti posuit pater, et non tempore ab illo
 Desierant haec sacra coli vatumque sonoro
 Carmine Mincius et strepuit circumsita ripa
 Fluminis Etrusci quem non aequabit Orontes.
+
 Forte erat Aurorae tempus Solisque quadriga
 Fecerat et ventum et sonitum per nobile marmor
 Astantis pueri, cum te, mea bella Cythere,
@@ -1734,6 +1804,7 @@ Cerea materies apibus debetur, apisque
 Floribus atque hortis sit, precor, aequa meis
 Non, ut mel rapiam, cuius non tangor amore,
 Sed cera in talem fiat ut alba diem.
+
 Proles vera dei cunctisque antiquior annis,
 Nunc genitus, qui semper eras, lucisque repertor
 Ante tuae matrisque parens; quem misit ab astris
@@ -1764,6 +1835,7 @@ Tu solus patrisque comes, tu spiritus insons
 Et toties unus triplicique in nomine simplex.
 Quid, nisi pro cunctis, aliud qui credere possit
 Te potuisse mori, poteras qui reddere vitam?
+
 Angelus alloquitur Mariam, quo praescia verbo
 Concipiat salva virginitate deum.
 Dant tibi Chaldaei praenuntia munera reges:
@@ -1782,6 +1854,7 @@ Exanguis Christi contingit femina vestem:
 Stat cruor in venis, fit medicina fides.
 Iussus post multos graditur paralyticus annos
 (Mirandum) lectus portitor ipse sui.
+
 Marcus amans puerum natum mentitur amare
 Vultque pater dici nescius esse pater
 Et pietate nefas et amorem velat amore.
