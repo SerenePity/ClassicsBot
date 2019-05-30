@@ -1,24 +1,8 @@
-Thomas More
-		 
-
-		 
-		 
-	 
-	
- 
-
- THOMAS MORE
- 
-DE OPTIMO STATU REIPUBLICAE DEQUE NOVA INSULA UTOPIA (1516) 
-
- 
-
- 
 De optimo statu reipublicae deque noua insula Utopia sermonis quem Raphael Hythlodaeus uir eximius, de optimo reipublicae statu habuit liber primus, per illustrem uirum Thomam Morum inclitae Britanniarum urbis Londini et ciuem, et uicecomitem.
  
 
  
-[homo peregrinans Raphael Hythlodaeus]
+
  
 
  
@@ -46,7 +30,7 @@ ceterum postquam digresso Vespucio multas regiones cum quinque castellanorum com
  
 
  
-[peregrinationes Raphaelis] 
+
  
 
  
@@ -118,7 +102,7 @@ fui inquit, atque aliquot menses ibi sum uersatus, non multo post eam cladem, qu
  
 
  
-[de Cardinalis Ioannis Mortoni conuiuione] 
+
  
 
  
@@ -311,7 +295,7 @@ Cardinalis, ubi uidit nullum fieri finem, nutu ablegato parasito, ac aliam in re
  
 
  
-[de optimo statu reipublicae] 
+
  
 
  
@@ -460,11 +444,11 @@ sermonis quem Raphael Hythlodaeus de optimo reipublicae statu habuit, liber secu
  
 
  
-[Raphaelis sermo pomeridianus.]
+
  
 
  
- [de Utopiensium insula.] 
+ 
  
 
  
@@ -508,7 +492,7 @@ cum frumentandi dies instat, magistratibus urbanis agricolarum phylarchi denunci
  
 
  
- [de urbibus, ac nominatim de Amauroto.] 
+ 
  
 
  
@@ -552,7 +536,7 @@ nam totam hanc urbis figuram, iam inde ab initio descriptam ab ipso Utopo ferunt
  
 
  
-[de magistratibus.] 
+
  
 
  
@@ -580,7 +564,7 @@ quin id quoque moris habet senatus, ut nihil, quo die primum proponitur, eodem d
  
 
  
- [de artificiis.] 
+ 
  
 
  
@@ -648,7 +632,7 @@ quamobrem cum et omnes utilibus sese artibus exerceant, et ipsarum etiam opera p
  
 
  
- [de commerciis mutuis.] 
+ 
  
 
  
@@ -720,7 +704,7 @@ hoc pacto igitur in urbe conuiuunt, at ruri, qui longius ab sese dissiti sunt, o
  
 
  
- [de peregrinatione Utopiensium.] 
+ 
  
 
  
@@ -736,7 +720,7 @@ iam uidetis quam nulla sit usquam otiandi licentia, nullus inertiae praetextus, 
  
 
  
- [de aequatione ubertatis.] 
+ 
  
 
  
@@ -776,7 +760,7 @@ uerum legati postquam ibi unum, atque alterum diem uersati tantam auri uim in ta
  
 
  
- [de educatione et artibus.] 
+ 
  
 
  
@@ -900,7 +884,7 @@ quisquis eo spectandi gratia uenerit, quem insignis aliqua dos ingenii aut longa
  
 
  
- [de legibus Utopiensium.] 
+ 
  
 
  
@@ -1008,7 +992,7 @@ quamquam illis uidetur ut optime seruentur; male tamen inoleuisse foederis omnin
  
 
  
- [de re militari.] 
+ 
  
 
  
@@ -1101,7 +1085,7 @@ si quis princeps armis aduersus eos sumptis, eorum ditionem paret inuadere, magn
  
 
  
- [de religionibus Utopiensium.] 
+ 
  
 
  
@@ -1217,7 +1201,7 @@ solemnes ad ultimum conceptis uerbis preces, sacerdos pariter populusque percens
  
 
  
- [laus reipublicae Utopiensis.] 
+ 
  
 
  
