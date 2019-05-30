@@ -65,7 +65,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.robot.help_command())
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            await self.send_message(channel, '```'+ ' — '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```'+ ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
 
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
-            await self.send_message(channel, '```'+ ' — '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```'+ ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
