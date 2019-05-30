@@ -7,7 +7,7 @@ import string
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 MAX_QUOTES_LENGTH = 800
-MIN_QUOTES_LENGTH = 20
+MIN_QUOTES_LENGTH = 140
 PARENTHESES = ["\"", "'"]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
@@ -70,11 +70,11 @@ class RoboticRoman():
         for i,c in enumerate(text):
             cur_sentence_len += 1
             if c in DELIMITERS:
-                if cur_sentence_len < 80:
+                if cur_sentence_len < MIN_QUOTES_LENGTH:
                     prev_delimiter_pos = i
                     prev_delimiter = c
                     final_sentence.append(DELIMTERS_MAP[c])
-                elif cur_sentence_len > 800:
+                elif cur_sentence_len > MAX_QUOTES_LENGTH:
                     final_sentence.append(DELIMTERS_MAP[c])
                     final_sentence[prev_delimiter_pos] = prev_delimiter
                     prev_delimiter = c
