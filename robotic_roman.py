@@ -14,9 +14,9 @@ ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII",
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'"]
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
-REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!'}
+REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
-DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!)"
+DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^)"
 BIBLE_DELIMITERS = "[0-9]+"
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
@@ -94,7 +94,7 @@ class RoboticRoman():
         return text
 
     def _process_text(self, text):
-        text = self._replace_abbreviation_period(text)
+        text = self._replace_abbreviation_period(text.replace('...', '^'))
         text = self._passage_deliminator(text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
         return [re.sub(REGEX_SUB, '', t) + first_pass[i+1] for i,t in
