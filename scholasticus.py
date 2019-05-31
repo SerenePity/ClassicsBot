@@ -60,10 +60,10 @@ class Scholasticus(commands.Bot):
         self.players[player].tries += 1
 
         if self.players[player].tries < MAX_TRIES:
-            await self.send_message(channel, f"Wrong answer, you have {MAX_TRIES - self.players[player].tries} guesses left.")
+            await self.send_message(channel, f"Wrong answer, {player.mention}, you have {MAX_TRIES - self.players[player].tries} guesses left.")
         else:
             await self.send_message(channel,
-                                    f"Sorry, you've run out of guesses. The answer was {self.robot.format_name(self.players[player].answer)}. Better luck next time!")
+                                    f"Sorry, {player.mention}, you've run out of guesses. The answer was {self.robot.format_name(self.players[player].answer)}. Better luck next time!")
             self.players[player].end_game()
 
     async def start_game(self, channel, player, text_set):
@@ -132,6 +132,12 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
+            return
+
+        if content.lower().startswith(self.command_prefix + 'giveup'):
+            if author in self.players:
+                self.players[author].end_game()
+                await self.send_message(channel, "Game ended")
             return
 
         if author in self.players and self.players[author].game_on and content.lower().startswith("guess"):

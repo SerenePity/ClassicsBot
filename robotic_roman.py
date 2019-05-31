@@ -28,6 +28,7 @@ COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Start Latin game:             '>latingame'",
             "Start Greek game:             '>greekgame'",
             "Guess answer:                 'guess <answer>'",
+            "End game session:             '>giveup'",
             "Help:                         '>HELPME'"]
 
 class RoboticRoman():
