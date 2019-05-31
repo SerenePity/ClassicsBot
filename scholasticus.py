@@ -60,7 +60,12 @@ class Scholasticus(commands.Bot):
         self.players[player].tries += 1
 
         if self.players[player].tries < MAX_TRIES:
-            await self.send_message(channel, f"Wrong answer, {player.mention}, you have {MAX_TRIES - self.players[player].tries} guesses left.")
+            guesses_remaining = MAX_TRIES - self.players[player].tries
+            if guesses_remaining == 1:
+                await self.send_message(channel,
+                                        f"Wrong answer, {player.mention}, you have 1 guess left.")
+            else:
+                await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} guesses left.")
         else:
             await self.send_message(channel,
                                     f"Sorry, {player.mention}, you've run out of guesses. The answer was {self.robot.format_name(self.players[player].answer)}. Better luck next time!")
