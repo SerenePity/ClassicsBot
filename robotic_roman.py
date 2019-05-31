@@ -8,7 +8,7 @@ LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 MAX_QUOTES_LENGTH = 800
 MIN_QUOTES_LENGTH = 140
-PARENTHESES = ["\"", "'"]
+PARENTHESES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
@@ -18,12 +18,16 @@ REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^)"
 BIBLE_DELIMITERS = "[0-9]+"
+QUOTE_RETRIEVAL_MAX_TRIES = 3
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
             "List available Latin authors: '>latinauthors'",
             "Retrieve random Latin quote:  '>latinquote'",
             "List available Greek authors: '>greekauthors'",
             "Retrieve random Greek quote:  '>greekquote'",
+            "Start Latin game:             '>latingame'",
+            "Start Greek game:             '>greekgame'",
+            "Guess answer:                 'guess <answer>'",
             "Help:                         '>HELPME'"]
 
 class RoboticRoman():
@@ -34,6 +38,7 @@ class RoboticRoman():
         self.markov_dict = dict()
         self.authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
+        self.quote_tries = 0
         for author in self.authors:
             print(author)
             self.quotes_dict[author] = []
@@ -154,19 +159,26 @@ class RoboticRoman():
         return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
     def random_quote(self, person):
+        print(person)
         if person in self.greek_quotes_dict:
             f = random.choice(self.greek_quotes_dict[person])
-            quote = random.choice(self._process_text(f.read()))
-            #self.load_greek_quotes(person)
+            try:
+                quote = random.choice(self._process_text(f.read()))
+            except Exception as error:
+                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
+                    self.quote_tries += 1
+                    return self.random_quote(person)
+                else:
+                    self.quote_tries = 0
+                    raise error
         else:
             f = random.choice(self.quotes_dict[person])
             if person == 'the bible':
                 quote = random.choice(self._process_holy_text(f.read()))
             else:
                 quote = random.choice(self._process_text(f.read()))
-            #self.load_quotes(person)
         f.seek(0)
-        return self._fix_unclosed_quotes(self._replace_plceholders(quote))
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self._fix_unclosed_quotes(self._replace_plceholders(quote)))
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))

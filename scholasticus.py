@@ -1,8 +1,22 @@
 from discord.ext import commands
-import discord
+import random
 import time
 import robotic_roman
+import re
 
+MAX_TRIES = 5
+
+class GameSession():
+    def __init__(self, player, answer):
+        self.player = player
+        self.answer = answer
+        self.tries = 0
+        self.game_on = True
+
+    def end_game(self):
+        self.answer = None
+        self.tries = 0
+        self.game_on = False
 
 class Scholasticus(commands.Bot):
 
@@ -12,6 +26,7 @@ class Scholasticus(commands.Bot):
         self.quotes_commands = dict()
         self.markov_commands = dict()
         self.authors = list()
+        self.players = dict()
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -25,11 +40,52 @@ class Scholasticus(commands.Bot):
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
 
+    async def process_guess(self, channel, player, content):
+        try:
+            guess = content.lower().split('guess')[1].strip()
+        except:
+            await self.send_message(channel, "You forgot to guess an answer.")
+            return
+        if guess.strip() == "":
+            await self.send_message(channel, "You forgot to guess an answer.")
+            return
+        print("Guess: " + guess)
+        game_answer = self.players[player].answer.strip()
+        if guess == game_answer:
+            await self.send_message(channel,
+                                    f"{player.mention}, correct! The answer is {self.robot.format_name(game_answer)}.")
+            self.players[player].end_game()
+            return
+
+        self.players[player].tries += 1
+
+        if self.players[player].tries < MAX_TRIES:
+            await self.send_message(channel, f"Wrong answer, you have {MAX_TRIES - self.players[player].tries} guesses left.")
+        else:
+            await self.send_message(channel,
+                                    f"Sorry, you've run out of guesses. The answer was {self.robot.format_name(self.players[player].answer)}. Better luck next time!")
+            self.players[player].end_game()
+
+    async def start_game(self, channel, player, text_set):
+        repeat_text = ""
+        if player in self.players and self.players[player].game_on:
+            repeat_text = "Okay, restarting game. "
+        if text_set == "greek":
+            answer = random.choice(self.robot.greek_authors)
+        else:
+            answer = random.choice(self.robot.authors)
+        passage = self.robot.random_quote(answer)
+        self.players[player] = GameSession(player, answer)
+        print("Answer: " + answer)
+        await self.send_message(channel,
+                                f"{repeat_text}{player.mention}, name the author or source of the following passage:\n\n_{passage}_")
+
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
             return
 
+        author = message.author
         channel = message.channel
         content = message.content
 
@@ -65,7 +121,20 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.robot.help_command())
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            await self.send_message(channel, '```'+ ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
 
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
-            await self.send_message(channel, '```'+ ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+
+        if content.lower().startswith(self.command_prefix + 'latingame'):
+            await self.start_game(channel, author, "latin")
+            return
+
+        if content.lower().startswith(self.command_prefix + 'greekgame'):
+            await self.start_game(channel, author, "greek")
+            return
+
+        if author in self.players and self.players[author].game_on and content.lower().startswith("guess"):
+            if self.players[author].tries < MAX_TRIES:
+                await self.process_guess(channel, author, content)
+            return
