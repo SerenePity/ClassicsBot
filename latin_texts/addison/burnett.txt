@@ -24,7 +24,7 @@ Terramque concretam, et latentem
 Oceanum gremio capaci: 
 Dum veritatem quaerere pertinax 
 
-Ignota pandis, sollicitus parum    10 
+Ignota pandis, sollicitus parum     
 Utcunque stet commune vulgi 
 Arbitrium et popularis error. 
 Auditur ingens continuo fragor, 
@@ -35,7 +35,7 @@ Impulsus erumpit medius liquor
 Terras aquarum effusa licentia 
 Claudit vicissim; has inter orbis 
 
-Relliquiae fluitant prioris.    20 
+Relliquiae fluitant prioris.     
 Nunc et recluso carcere lucidam 
 Balaena spectat solis imaginem, 
 Stellasque miratur natantes, 
@@ -46,7 +46,7 @@ Ut tollis undas! ut frementem
 Diluvii reprimis tumultum! 
 Quis tam valenti pectore ferreus 
 
-Ut non tremiscns et timido pede    30 
+Ut non tremiscns et timido pede     
 Incedat, orbis dum dolosi 
 Detegis instabiles ruinas? 
 Quin haec cadentum fragmina montium 
@@ -57,7 +57,7 @@ Nimbis rubentem sulphureis Jovem
 Cernas; ut udis saevit atrox hyems 
 Incendiis, commune mundo 
 
-Et populis meditata bustum!    40 
+Et populis meditata bustum!     
 Jamque alta coeli moenia corruunt, 
 Et vestra tandem pagina (proh nefas!) 
 Burnette, vestra augebit ignes, 
@@ -68,7 +68,7 @@ En laeta vernantis Favonî
 Flamina, perpetuosque flores! 
 O pectus ingens! o animum gravem, 
 
-Mundi capacem! si bonus auguror,    50 
+Mundi capacem! si bonus auguror,     
 Te, nostra quo tellus superbit, 
 Accipiet renovata civem.
  

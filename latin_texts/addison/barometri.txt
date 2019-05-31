@@ -23,7 +23,7 @@ Sed fractus sparsim in globulos formam usque rotundam
 Servat, et in teretes lapsans se colligit orbes. 
 Incertum qua sit natura, an negiligat ultra 
 
-Perficier, jubar et maturus inutile temnat;    10 
+Perficier, jubar et maturus inutile temnat;     
 An potius solis vis imperfecta relinquat 
 Argentum male coctum, divitiasque fluentes: 
 Quisquid erit, magno se jactat nobilis usu; 
@@ -34,7 +34,7 @@ Depluit irriguo liquefactum numen in auro.
 Quin age, sume tubum fragilem, cui densior aer 
 Exclusus; fundo vitri subsidat in imo 
 
-Argenti stagnum; ut pluvia impendente metallum    20 
+Argenti stagnum; ut pluvia impendente metallum     
 Mobile descendat, vel contra, ubi postulat aestus, 
 Prodeat hinc liquor emergens, et rursus inane 
 Occupet ascensu, tubulumque excurrat in omnem. 
@@ -45,7 +45,7 @@ Sublatum nequeunt ripae cohibere priores;
 Tum laetos sperare dies licet, arva fatentur 
 aestantem, et large diffuso lumine rident. 
 
-Sin sese immodicum attollens argenteus humor,    30 
+Sin sese immodicum attollens argenteus humor,     
 Et nimium oppressus, contendat ad ardua vitri, 
 Jam sitiunt herbae, jam succos flamma feraces 
 Excoquit, et languent consumto prata virore. 
@@ -56,7 +56,7 @@ Inferiora petit; nec certior ardea caelos
 Indicat humentes, medias quando aetheris oras 
 Tranando, crassa fruitur sublimius aura, 
 
-Discutit et madidis rorantia nubila pennis.    40 
+Discutit et madidis rorantia nubila pennis.     
 Nunc guttae agglomerant, dispersas frigora stipant 
 Particulas, rarusque in nimbum cogitur humor: 
 Prata virent, segetem foecundis imbribus aether 
@@ -67,7 +67,7 @@ Agricolae caveant; non hoc impune colonus
 Aspicit; ostendet mox foeta vaporibus aura 
 Collectas hyemes, tempestatemque sonoram. 
 
-At licet Argentum mole incumbente levatum    50 
+At licet Argentum mole incumbente levatum     
 Subsidat, penitusque imo se condat in alveo, 
 Caetera quaeque tument; eversis flumina ripis 
 Expatiata ruunt, spumantibus aestuat undis 
@@ -78,7 +78,7 @@ Ante refert, quando tenui velamine tutus
 Incedes, quando sperabis frigidus ignem. 
 Augurio hoc fretus, quanquam atri nubila coeli 
 
-Dirumpunt, obscura diem, pluviasque minantur;    60 
+Dirumpunt, obscura diem, pluviasque minantur;     
 Machina si neget, et sudum promittat apertum, 
 Audax carpat iter nimbo pendente viator; 
 Nec metuens imbrem, poscentes messor aristas 
