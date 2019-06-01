@@ -151,7 +151,7 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
             if author in self.players:
-                await self.send_message(channel, f"Game ended. The answer was {self.robot.format_name(self.players[player].answer)}.")
+                await self.send_message(channel, f"Game ended. The answer was {self.robot.format_name(self.players[author].answer)}.")
                 self.players[author].end_game()
             return
 
