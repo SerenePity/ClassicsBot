@@ -69,13 +69,13 @@ ut doctissimus.
  
  comparatiuus gradus cui casui seruit?
  ablatiuo sine praepositione: dicimus enim doctior
-illo .
+illo.
  
 
  
  superlatiuus cui?
  genetiuo tantum plurali: dicimus enim doctissimus
-poetarum .
+poetarum.
  
 
  
@@ -87,9 +87,9 @@ poetarum .
  quae?
  masculinum, ut hic magister , femininum, ut haec
 Musa , neutrum, ut hoc scamnum , commune, ut hic et
- haec sacerdos . est praeterea trium generum, quod omne dicitur,
+ haec sacerdos. est praeterea trium generum, quod omne dicitur,
 ut hic et haec et hoc felix ; est epicoenon,
-id est promiscuum, ut passer aquila .
+id est promiscuum, ut passer aquila.
  
 
  
@@ -100,7 +100,7 @@ id est promiscuum, ut passer aquila .
  
  qui?
  singularis, ut hic magister , pluralis, ut 
-hi magistri .
+hi magistri.
  
 
  
@@ -111,7 +111,7 @@ hi magistri .
  
  quae?
  simplex, ut decens potens , composita, ut 
-indecens impotens .
+indecens impotens.
  
 
  
@@ -119,7 +119,7 @@ indecens impotens .
  quattuor: ex duobus integris, ut suburbanus ; ex
 duobus corruptis, ut efficax municeps ; ex integro et corrupto,
 ut insulsus ; ex corrupto et integro, ut nugigerulus ;
-aliquando ex compluribus, ut inexpugnabilis imperterritus .
+aliquando ex compluribus, ut inexpugnabilis imperterritus.
  
 
  
@@ -138,14 +138,14 @@ nominatiuo hic magister , genetiuo huius magistri , datiuo
  o magister >, ablatiuo ab hoc magistro ; et pluraliter
 nominatiuo hi magistri , genetiuo horum magistrorum ,
 datiuo his magistris , accusatiuo hos magistros , uocatiuo
- o magistri , ablatiuo ab his magistris . Musa 
+ o magistri , ablatiuo ab his magistris. Musa 
 nomen appellatiuum generis feminini numeri singularis figurae simplicis
 casus nominatiui et uocatiui, quod declinabitur sic: nominatiuo 
 haec Musa , genetiuo huius Musae , datiuo huic Musae ,
 accusatiuo hanc Musam , uocatiuo o Musa , ablatiuo 
 ab hac Musa ; et pluraliter nominatiuo hae Musae , genetiuo
  harum Musarum , datiuo his Musis , accusatiuo has
-Musas , uocatiuo o Musae , ablatiuo ab his Musis . 
+Musas , uocatiuo o Musae , ablatiuo ab his Musis. 
 scamnum nomen appellatiuum generis neutri numeri singularis figurae
 simplicis casus nominatiui accusatiui et uocatiui, quod declinabitur sic:
 nominatiuo hoc scamnum , genetiuo huius scamni , datiuo
@@ -153,7 +153,7 @@ nominatiuo hoc scamnum , genetiuo huius scamni , datiuo
 scamnum , ablatiuo ab hoc scamno ; et pluraliter nominatiuo
  haec scamna , genetiuo horum scamnorum , datiuo his
 scamnis , accusatiuo haec scamna , uocatiuo o scamna ,
-ablatiuo ab his scamnis . sacerdos nomen appellatiuum
+ablatiuo ab his scamnis. sacerdos nomen appellatiuum
 generis communis numeri singularis figurae compositae casus nominatiui
 et uocatiui, quod declinabitur sic: nominatiuo hic et 
 haec sacerdos , genetiuo huius sacerdotis , datiuo huic
@@ -162,7 +162,7 @@ sacerdoti , accusatiuo hunc et hanc sacerdotem , uocatiuo
 pluraliter nominatiuo hi et hae sacerdotes , genetiuo 
 horum et harum sacerdotum , datiuo his sacerdotibus ,
 accusatiuo hos et has sacerdotes , uocatiuo o
-sacerdotes , ablatiuo ab his sacerdotibus . felix nomen
+sacerdotes , ablatiuo ab his sacerdotibus. felix nomen
 appellatiuum generis omnis numeri singularis figurae simplicis casus
 nominatiui et uocatiui, quod declinabitur sic: nominatiuo hic et
  haec et hoc felix , genetiuo huius felicis , datiuo
@@ -173,13 +173,13 @@ nominatiuo hi et hae felices et haec felicia ,
 genetiuo horum et harum et horum felicium , datiuo
  his felicibus , accusatiuo hos et has felices et
  haec felicia , uocatiuo o felices et o felicia ,
-ablatiuo ab his felicibus .
+ablatiuo ab his felicibus.
  
 
  
  quaecumque nomina ablatiuo casu singulari a uel o 
 fuerint terminata genetiuum pluralem in quid mittunt?
- in rum , datiuum et ablatiuum in is .
+ in rum , datiuum et ablatiuum in is.
  
 
  
@@ -224,19 +224,19 @@ significat personamque interdum recipit.
 
  
  quae sunt finita?
- quae recipiunt personas, ut ego tu ille .
+ quae recipiunt personas, ut ego tu ille.
  
 
  
  quae sunt infinita?
- quae non recipiunt personas, ut quis quae quod .
+ quae non recipiunt personas, ut quis quae quod.
  
 
  
  genera pronominum quae sunt?
  eadem fere quae et nominum: masculinum, ut quis ,
 femininum, ut quae , neutrum, ut quod , commune, ut 
-qualis talis , trium generum, ut ego tu .
+qualis talis , trium generum, ut ego tu.
  
 
  
@@ -246,7 +246,7 @@ qualis talis , trium generum, ut ego tu .
 
  
  qui?
- singularis, ut hic , pluralis, ut hi .
+ singularis, ut hic , pluralis, ut hi.
  
 
  
@@ -256,7 +256,7 @@ qualis talis , trium generum, ut ego tu .
 
  
  quae?
- simplex, ut quis , composita, ut quisquis .
+ simplex, ut quis , composita, ut quisquis.
  
 
  
@@ -267,7 +267,7 @@ qualis talis , trium generum, ut ego tu .
  
  quae?
  prima, ut ego , secunda, ut tu , tertia,
-ut ille .
+ut ille.
  
 
  
@@ -285,29 +285,29 @@ illum ab illo , et pluraliter illi illorum illis illos ab illis ;
 generis feminini numeri singularis illa illius illi illam ab illa ,
 et pluraliter illae illarum illis illas ab illis ; generis neutri
 numeri singularis illud illius illi illud ab illo , et pluraliter
- illa illorum illis illa ab illis . minus quam finita generis
+ illa illorum illis illa ab illis. minus quam finita generis
 masculini numeri singularis ipse ipsius ipsi ipsum <o ipse> ab
 ipso , et pluraliter ipsi ipsorum ipsis ipsos <o ipsi> ab ipsis ;
 generis feminini numeri singularis ipsa ipsius ipsi ipsam <o ipsa>
 ab ipsa , et pluraliter ipsae ipsarum ipsis ipsas <o ipsae> ab
 ipsis ; generis neutri numeri singularis ipsum ipsius ipsi ipsum
 <o ipsum> ab ipso , et pluraliter ipsa ipsorum ipsis ipsa 
-ab ipsis . item minus quam finita generis masculini numeri singularis
+ab ipsis. item minus quam finita generis masculini numeri singularis
  iste istius isti istum ab isto , et pluraliter isti istorum
 istis istos ab istis ; generis feminini numeri singularis ista
 istius isti istam ab ista , et pluraliter istae istarum istis ista
-ab istis . item articulare praepositiuum uel demonstratiuum generis
+ab istis. item articulare praepositiuum uel demonstratiuum generis
 masculini numeri singularis hic huius huic hunc o <hic> ab hoc ,
 et pluraliter hi horum his hos o <hi> ab his ; generis feminini
 numeri singularis haec huius huic hanc o <haec> ab hac , et
 pluraliter hae harum his has o <hae> ab his ; generis neutri numeri
 singularis hoc huius huic hoc o <hoc> ab hoc , et pluraliter 
-haec horum his haec o <haec> ab his . item subiunctiuum uel relatiuum
+haec horum his haec o <haec> ab his. item subiunctiuum uel relatiuum
 generis masculini numeri singularis is eius ei eum ab eo , et
 pluraliter ei eorum eis eos ab eis ; generis feminini numeri
 singularis ea eius ei eam ab ea , et pluraliter eae earum
 eis eas ab eis ; generis neutri numeri singularis id eius ei id
-ab eo , et pluraliter ea eorum eis ea ab eis . item infinita
+ab eo , et pluraliter ea eorum eis ea ab eis. item infinita
 generis masculini numeri singularis quis cuius cui quem a quo 
 uel a qui , et pluraliter qui quorum quis uel quibus
 quos a quis uel a quibus ; generis feminini numeri singularis
@@ -315,7 +315,7 @@ quos a quis uel a quibus ; generis feminini numeri singularis
 quae quarum quis uel quibus quas a quis uel a quibus ;
 generis neutri numeri singularis quod cuius cui quod a quo uel
  a qui , et pluraliter quae quorum quis uel quibus
-quae a quis uel a quibus . item possessiua finita ad aliquid
+quae a quis uel a quibus. item possessiua finita ad aliquid
 dicta ex utraque parte singularia generis masculini meus mei meo
 meum o <mi> a meo , et pluraliter ex altera parte mei meorum meis
 meos o <mei> a meis ; generis feminini numeri singularis mea meae
@@ -332,7 +332,7 @@ numeri singularis suus sui suo suum a suo , et pluraliter
 sui suorum suis suos a suis ; generis feminini numeri singularis 
 sua suae suae suam a sua , et pluraliter suae suarum suis suas a
 suis ; generis neutri numeri singularis suum sui suo suum a suo ,
-et pluraliter sua suorum suis sua a suis . item possessiua finita
+et pluraliter sua suorum suis sua a suis. item possessiua finita
 ad aliquid dicta ex altera parte pluralia generis masculini noster
 nostri nostro nostrum o <noster> a nostro , et pluraliter ex utraque
 parte nostri nostrorum nostris nostros o <nostri> a nostris ;
@@ -347,7 +347,7 @@ uestris generis feminini numeri singularis uestra uestrae uestrae
 uestram a uestra , et pluraliter uestrae uestrarum uestris uestras
 a uestris ; generis neutri numeri singularis uestrum uestri uestro
 uestrum a uestro , et pluraliter uestra uestrorum uestris uestra
-a uestris .
+a uestris.
  
 
  
@@ -388,7 +388,7 @@ aliquid aut pati aut neutrum significans.
  modi qui sunt?
  indicatiuus, ut lego , imperatiuus, ut lege ,
 optatiuus, ut utinam legerem , coniunctiuus, ut cum legam ,
-infinitiuus, ut legere , impersonalis, ut legitur .
+infinitiuus, ut legere , impersonalis, ut legitur.
  
 
  
@@ -400,7 +400,7 @@ infinitiuus, ut legere , impersonalis, ut legitur .
  quae?
  perfecta, ut lego , meditatiua, ut lecturio ,
 frequentatiua, ut lectito , inchoatiua, ut feruesco
-calesco .
+calesco.
  
 
  
@@ -420,7 +420,7 @@ secunda persona uerbo actiuo et neutrali a productam habet
 ante nouissimam litteram, passiuo communi et deponenti ante nouissimam
 syllabam, ut amo amas, amor amaris ; et futurum tempus eiusdem
 modi in bo et in bor syllabam mittit, ut amo amabo,
-amor amabor .
+amor amabor.
  
 
  
@@ -430,7 +430,7 @@ secunda persona uerbo actiuo et neutrali e productam habet
 ante nouissimam litteram, passiuo communi et deponenti ante nouissimam
 syllabam, ut doceo doces, doceor doceris ; et futurum tempus
 eiusdem modi in bo et in bor syllabam mittit, ut 
-doceo docebo, doceor docebor .
+doceo docebo, doceor docebor.
  
 
  
@@ -442,7 +442,7 @@ pro i littera e correptam uel i productam habet
 ante nouissimam syllabam, ut lego legis, legor legeris, audio
 audis, audior audiris ; et futurum tempus eiusdem modi in am 
 et in ar syllabam mittit, ut lego legam, legor legar, audio
-audiam, audior audiar . haec in imperatiuo et in infinitiuo statim
+audiam, audior audiar. haec in imperatiuo et in infinitiuo statim
 discerni possunt, utrum i littera correpta sit an producta. nam
 correpta i littera in e conuertitur; producta si fuerit,
 non mutatur.
@@ -452,7 +452,7 @@ non mutatur.
  quando tertia coniugatio futurum tempus non in am tantum
 sed etiam in bo mittit?
  interdum, cum i litteram non correptam habuerit sed
-productam, ut eo is ibo, queo quis quibo .
+productam, ut eo is ibo, queo quis quibo.
  
 
  
@@ -468,13 +468,13 @@ productam, ut eo is ibo, queo quis quibo .
  
  actiua quae sunt?
  quae in o desinunt et accepta r littera
-faciunt ex se passiua, ut lego legor .
+faciunt ex se passiua, ut lego legor.
  
 
  
  passiua quae sunt?
  quae in r desinunt et ea dempta redeunt in actiua,
-ut legor lego .
+ut legor lego.
  
 
  
@@ -487,7 +487,7 @@ non dicimus.
  
  deponentia quae sunt?
  quae in r desinunt, ut passiua, sed ea dempta Latina
-non sunt, ut luctor loquor .
+non sunt, ut luctor loquor.
  
 
  
@@ -495,7 +495,7 @@ non sunt, ut luctor loquor .
  quae in r desinunt, ut deponentia, sed in duas formas
 cadunt, patientis et agentis, ut osculor criminor : dicimus enim
  osculor te et osculor a te , criminor te et 
-criminor a te .
+criminor a te.
  
 
  
@@ -505,7 +505,7 @@ criminor a te .
 
  
  qui?
- singularis, ut lego , pluralis, ut legimus .
+ singularis, ut lego , pluralis, ut legimus.
  
 
  
@@ -515,7 +515,7 @@ criminor a te .
 
  
  quae?
- simplex, ut lego , composita, ut neglego .
+ simplex, ut lego , composita, ut neglego.
  
 
  
@@ -526,7 +526,7 @@ criminor a te .
  
  quae?
  praesens, ut lego , praeteritum, ut legi ,
-futurum, ut legam .
+futurum, ut legam.
  
 
  
@@ -538,7 +538,7 @@ futurum, ut legam .
  quae?
  praesens, ut lego , praeteritum imperfectum, ut
  legebam , praeteritum perfectum, ut legi , praeteritum
-plusquamperfectum, ut legeram , futurum, ut legam .
+plusquamperfectum, ut legeram , futurum, ut legam.
  
 
  
@@ -549,7 +549,7 @@ plusquamperfectum, ut legeram , futurum, ut legam .
  
  quae?
  prima, ut lego , secunda, ut legis , tertia,
-ut legit .
+ut legit.
  
 
  
@@ -565,18 +565,18 @@ legimus legistis legerunt uel legere : eodem modo tempore
 praeterito plusquamperfecto legeram legeras legerat , et
 pluraliter legeramus legeratis legerant : eodem modo tempore
 futuro legam leges leget , et pluraliter legemus legetis
-legent . imperatiuo modo tempore praesenti ad secundam et tertiam
+legent. imperatiuo modo tempore praesenti ad secundam et tertiam
 personam lege uel legas legat , et pluraliter legamus
 legite uel legatis legant : eodem modo tempore futuro 
 legito uel legas legito uel legat , et pluraliter
  legamus legitote uel legatis legant uel legunto 
-uel leguntote . optatiuo modo tempore praesenti et praeterito
+uel leguntote. optatiuo modo tempore praesenti et praeterito
 imperfecto utinam legerem legeres legeret et pluraliter 
 utinam legeremus legeretis legerent : eodem modo tempore praeterito
 perfecto et plusquamperfecto utinam legissem legisses legisset ,
 et pluraliter utinam legissemus legissetis legissent : eodem modo
 tempore futuro utinam legam legas legat , et pluraliter utinam
-legamus legatis legant . coniunctiuo modo tempore praesenti cum
+legamus legatis legant. coniunctiuo modo tempore praesenti cum
 legam legas legat , et pluraliter cum legamus legatis legant :
 eodem modo tempore praeterito imperfecto cum legerem legeres
 legeret , et pluraliter cum legeremus legeretis legerent : eodem
@@ -585,16 +585,16 @@ pluraliter cum legerimus legeritis legerint : eodem modo tempore
 praeterito plusquamperfecto cum legissem legisses legisset ,
 et pluraliter cum legissemus legissetis legissent : eodem modo
 tempore futuro cum legero legeris legerit , et pluraliter 
-cum legerimus legeritis legerint . infinitiuo modo numeris et personis
+cum legerimus legeritis legerint. infinitiuo modo numeris et personis
 tempore praesenti et praeterito imperfecto legere , praeterito
 perfecto et plusquamperfecto legisse , futuro lectum ire 
-uel lecturum esse . uerbo impersonali tempore praesenti legitur,
+uel lecturum esse. uerbo impersonali tempore praesenti legitur,
 praeterito imperfecto legebatur , praeterito perfecto lectum
 est uel lectum fuit , praeterito plusquamperfecto lectum
-erat uel lectum fuerat , futuro legetur . gerundia
+erat uel lectum fuerat , futuro legetur. gerundia
 uel participialia uerba sunt haec, legendi legendo legendum
-lectum lectu . participia trahuntur a uerbo actiuo duo, praesentis
-temporis et futuri, praesentis legens , futuri lecturus .
+lectum lectu. participia trahuntur a uerbo actiuo duo, praesentis
+temporis et futuri, praesentis legens , futuri lecturus.
  legor uerbum passiuum indicatiuo modo dictum temporis praesentis
 numeri singularis figurae simplicis personae primae coniugationis tertiae
 correptae, quod declinabitur sic: legor legeris uel legere
@@ -611,10 +611,10 @@ lecti fueramus fueratis fuerant : eodem modo tempore futuro legar
 legeris uel legere legetur , et pluraliter legemur legemini
 legentur , imperatiuo modo tempore praesenti ad secundam et tertiam
 personam legere uel legaris legatur , et pluraliter 
-legamur legimini uel legamini legantur . eodem modo tempore
+legamur legimini uel legamini legantur. eodem modo tempore
 futuro legitor uel legaris legitor uel legatur ,
 et pluraliter legamur legimini uel legiminor legantur uel
- leguntor . optatiuo modo tempore praesenti et praeterito imperfecto
+ leguntor. optatiuo modo tempore praesenti et praeterito imperfecto
  utinam legerer legereris uel legerere legeretur , et
 pluraliter utinam legeremur legeremini legerentur : eodem modo
 tempore praeterito perfecto et plusquamperfecto utinam lectus essem
@@ -622,7 +622,7 @@ esses esset , et pluraliter utinam lecti essemus essetis essent ,
 et ulteriore modo utinam lectus fuissem fuisses fuisset , et
 pluraliter utinam lecti fuissemus fuissetis fuissent : eodem modo
 tempore futuro utinam legar legaris uel legare legatur ,
-et pluraliter utinam legamur legamini legantur . coniunctiuo modo
+et pluraliter utinam legamur legamini legantur. coniunctiuo modo
 tempore praesenti cum legar legaris uel legare legatur ,
 et pluraliter cum legamur legamini legantur : eodem modo tempore
 praeterito imperfecto cum legerer legereris uel legerere
@@ -637,12 +637,12 @@ fuisses fuisset , et pluraliter cum lecti fuissemus fuissetis
 fuissent ; eodem modo tempore futuro cum lectus ero eris erit ,
 et pluraliter cum lecti erimus eritis erint , et ulteriore modo
  cum lectus fuero fueris fuerit , et pluraliter cum lecti
-fuerimus fueritis fuerint . infinitiuo modo numeris et personis
+fuerimus fueritis fuerint. infinitiuo modo numeris et personis
 tempore praesenti et praeterito imperfecto legi , praeterito
 perfecto et plusquamperfecto lectum esse uel fuisse ,
-futuro lectum iri . participia trahuntur a uerbo passiuo duo,
+futuro lectum iri. participia trahuntur a uerbo passiuo duo,
 praeteriti temporis et futuri, praeteriti lectus , futuri 
-legendus . actiui uerbi regulam neutrale uerbum sequitur, passiui
+legendus. actiui uerbi regulam neutrale uerbum sequitur, passiui
 commune et deponens.
  
 
@@ -681,7 +681,7 @@ aut comparandi.
  
  da aduerbia loci.
  ut hic uel ibi , intus uel 
-foris , illic uel inde .
+foris , illic uel inde.
  
 
  
@@ -697,7 +697,7 @@ nobiscum uobiscum ; uocandi, ut heus ; respondendi, ut
 heu ; separandi, ut seorsum ; iurandi, ut edepol, ecastor,
 hercle, medius fidius ; eligendi, ut potius immo ; congregandi,
 ut simul una ; prohibendi, ut ne ; euentus, ut forte
-fortuitu ; comparandi, ut magis uel tam .
+fortuitu ; comparandi, ut magis uel tam.
  
 
  
@@ -709,10 +709,10 @@ superlatiuo.
  
  da aduerbium positiui gradus.
  ut docte ; comparatiui, ut doctius ;
-superlatiui, ut doctissime . magis doctius et tam
+superlatiui, ut doctissime. magis doctius et tam
 doctissime non dicimus, quia magis et tam positiuo
 gradui tantum iungitur, licet ueteres dixerint tam magis et 
-quam magis .
+quam magis.
  
 
  
@@ -723,12 +723,12 @@ quam magis .
  
  quae?
  simplex et composita, simplex, ut docte prudenter ,
-composita, ut indocte imprudenter . aduerbia localia uel in
+composita, ut indocte imprudenter. aduerbia localia uel in
 loco sunt uel de loco uel ad locum. sed in loco et de loco eandem
 significationem habent, ut intus sum, intus exeo, foris sum,
-foris uenio . ad locum aliam significationem habent, ut intro eo,
-foras eo . de intus autem et de foris sic non dicimus,
-quo modo in foras uel ad foras .
+foris uenio. ad locum aliam significationem habent, ut intro eo,
+foras eo. de intus autem et de foris sic non dicimus,
+quo modo in foras uel ad foras.
  
 
  
@@ -763,7 +763,7 @@ et figuram.
  quae?
  masculinum, ut hic lectus , femininum, ut haec
 lecta , neutrum, ut hoc lectum , commune tribus generibus,
-ut hic et haec et hoc legens .
+ut hic et haec et hoc legens.
  
 
  
@@ -776,7 +776,7 @@ ut hic et haec et hoc legens .
  nominatiuus, ut hic legens , genetiuus, ut 
 huius legentis , datiuus, ut huic legenti , accusatiuus,
 ut hunc legentem , uocatiuus, ut o legens , ablatiuus,
-ut ab hoc legente .
+ut ab hoc legente.
  
 
  
@@ -787,7 +787,7 @@ ut ab hoc legente .
  
  quae?
  praesens, ut legens , praeteritum, ut lectus ,
-futurum, ut lecturus et legendus .
+futurum, ut lecturus et legendus.
  
 
  
@@ -798,7 +798,7 @@ futurum, ut lectus legendus ; a neutro duo, sicut ab actiuo,
 praesens et futurum, ut stans staturus , a deponenti tria,
 praesens praeteritum et futurum, ut loquens locutus locuturus ;
 a communi quattuor, praesens praeteritum et duo futura, ut criminans
-criminatus criminaturus criminandus .
+criminatus criminaturus criminandus.
  
 
  
@@ -809,7 +809,7 @@ criminatus criminaturus criminandus .
  
  qui?
  singularis, ut hic legens , pluralis, ut hi
-legentes .
+legentes.
  
 
  
@@ -819,7 +819,7 @@ legentes .
 
  
  quae?
- simplex, ut legens , composita, ut neglegens .
+ simplex, ut legens , composita, ut neglegens.
  
 
  
@@ -836,7 +836,7 @@ legentes et haec legentia , genetiuo horum et
 harum et horum legentium , datiuo his legentibus ,
 accusatiuo hos et has legentes et haec legentia ,
 uocatiuo o legentes et o legentia , ablatiuo ab his
-legentibus . lecturus lectura lecturum participia uenientia
+legentibus. lecturus lectura lecturum participia uenientia
 a uerbo actiuo temporis futuri generis masculini feminini et neutri
 numeri singularis figurae simplicis casus nominatiui et uocatiui,
 quae declinabuntur sic: nominatiuo lecturus lectura lecturum ,
@@ -846,7 +846,7 @@ lecturo , accusatiuo lecturum lecturam lecturum , uocatiuo
 lectura ab hoc lecturo ; et pluraliter nominatiuo lecturi lecturae
 lectura , genetiuo lecturorum lecturarum lecturorum , datiuo 
 lecturis , accusatiuo lecturos lecturas lectura , uocatiuo 
-lecturi lecturae lectura , ablatiuo ab his lecturis . lectus
+lecturi lecturae lectura , ablatiuo ab his lecturis. lectus
 lecta lectum participia uenientia a uerbo passiuo temporis praeteriti
 generis masculini feminini et neutri numeri singularis figurae simplicis
 casus nominatiui et uocatiui, quae declinabuntur sic: nominatiuo 
@@ -856,7 +856,7 @@ lecto lectae lecto , accusatiuo lectum lectam lectum , uocatiuo
 lecto ; et pluraliter nominatiuo lecti lectae lecta , genetiuo
  lectorum lectarum lectorum , datiuo lectis , accusatiuo 
 lectos lectas lecta , uocatiuo lecti lectae lecta , ablatiuo
- ab his lectis . legendus legenda legendum participia
+ ab his lectis. legendus legenda legendum participia
 uenientia a uerbo passiuo temporis futuri generis masculini feminini et
 neutri numeri singularis figurae simplicis casus nominatiui et uocatiui,
 quae declinabuntur sic: nominatiuo legendus legenda legendum ,
@@ -866,7 +866,7 @@ legendo , accusatiuo legendum legendam legendum , uocatiuo
 legenda ab hoc legendo ; et pluraliter nominatiuo legendi legendae
 legenda , genetiuo legendorum legendarum legendorum , datiuo
  legendis , accusatiuo legendos legendas legenda , uocatiuo
- legendi legendae legenda , ablatiuo ab his legendis .
+ legendi legendae legenda , ablatiuo ab his legendis.
  
 
  
@@ -902,18 +902,18 @@ legenda , genetiuo legendorum legendarum legendorum , datiuo
 
  
  da copulatiuas.
- et que at atque ac ast .
+ et que at atque ac ast.
  
 
  
  da disiunctiuas.
- aut ue uel ne nec neque .
+ aut ue uel ne nec neque.
  
 
  
  da expletiuas.
  quidem, equidem, saltim, uidelicet, quamquam, quamuis,
-quoque, autem, porro, porro autem, tamen .
+quoque, autem, porro, porro autem, tamen.
  
 
  
@@ -921,14 +921,14 @@ quoque, autem, porro, porro autem, tamen .
  si, etsi, etiamsi, si quidem, quando, quando quidem;
 quin, quin etiam, quatinus, sin, seu, siue, nam, namque, ni, nisi, nisi
 si, si enim, etenim, ne, sed, interea, licet, quamobrem, praesertim,
-item, itemque, ceterum, alioquin, praeterea .
+item, itemque, ceterum, alioquin, praeterea.
  
 
  
  da rationales.
  ita, itaque, enim, enimuero, quia, quapropter, quoniam,
 quoniam quidem, quippe, ergo, ideo, igitur, scilicet, propterea,
-idcirco .
+idcirco.
  
 
  
@@ -938,14 +938,14 @@ idcirco .
 
  
  quae?
- simplex, ut nam , composita, ut namque .
+ simplex, ut nam , composita, ut namque.
  
 
  
  ordo coniunctionum in quo est?
  quia aut praepositiuae coniunctiones sunt, ut ac ast ,
 aut subiunctiuae, ut que autem , aut communes, ut et igitur
-ergo .
+ergo.
  
 
  
@@ -984,7 +984,7 @@ significationem earum aut complet aut mutat aut minuit.
  da praepositiones casus accusatiui.
  ad apud ante aduersum cis citra circum circa contra
 erga extra inter intra infra iuxta ob pone per prope secundum post trans
-ultra praeter propter supra usque penes .
+ultra praeter propter supra usque penes.
  
 
  
@@ -994,13 +994,13 @@ inimicos, cis renum, citra forum, circum uicinos, circa templum, contra
 hostem, erga propinquos, extra terminos, inter naues, intra moenia infra
 tectum, iuxta macellum, ob augurium, pone tribunal, per parietem, prope
 fenestram, secundum fores, post tergum, trans ripam, ultra fines, praeter
-officium, propter rem, supra caelum, usque Oceanum, penes arbitros .
+officium, propter rem, supra caelum, usque Oceanum, penes arbitros.
  
 
  
  da praepositiones casus ablatiui.
  a ab abs cum coram clam de e ex pro prae palam sine
-absque tenus .
+absque tenus.
  
 
  
@@ -1008,12 +1008,12 @@ absque tenus .
  dicimus enim a domo, ab homine, abs quolibet,
 cum exercitu, coram testibus, clam custodibus, de foro, e iure, ex
 praefectura, pro clientibus, prae timore, palam omnibus, sine labore,
-absque iniuria, tenus pube, quod nos dicimus pube tenus .
+absque iniuria, tenus pube, quod nos dicimus pube tenus.
  
 
  
  da utriusque casus praepositiones.
- in sub super subter .
+ in sub super subter.
  
 
  
@@ -1028,20 +1028,20 @@ significamus.
 significamus. in accusatiui casus, "itur in antiquam siluam" ;
 in ablatiui casus, "stans celsa in puppi" ; sub accusatiui casus,
  "postesque sub ipsos nituntur gradibus" ; sub ablatiui casus,
- "arma sub aduersa posuit radiantia quercu" .
+ "arma sub aduersa posuit radiantia quercu".
  
 
  
  super quam uim habet?
  ubi locum significat, magis accusatiuo casui seruit quam
 ablatiuo; ubi mentionem alicuius facimus, ablatiuo tantum, ut 
-"multa super Priamo rogitans" .
+"multa super Priamo rogitans".
  
 
  
  in quam uim habet?
  etiam tum accusatiuo casui seruit, cum significat contra,
-ut in adulterum, in desertorem .
+ut in adulterum, in desertorem.
  
 
  
@@ -1052,18 +1052,18 @@ ut in adulterum, in desertorem .
  
  quae praepositiones sunt quae dictionibus seruiunt et separari
 non possunt?
- di dis re se am con .
+ di dis re se am con.
  
 
  
  quo modo?
  dicimus enim diduco distraho recipio secubo amplector
-congredior .
+congredior.
  
 
  
  quae sunt quae coniungi non possunt?
- apud et penes .
+ apud et penes.
  
 
  

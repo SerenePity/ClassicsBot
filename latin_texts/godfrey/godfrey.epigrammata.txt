@@ -14,7 +14,7 @@ Godfrey of Winchester: Epigrammata
 
  
  Incipit præfatio Godefridi prioris ecclesiæ sancti Swithyni
-Wintoniensis in sequens opus .
+Wintoniensis in sequens opus.
  
 
  
@@ -36,7 +36,7 @@ Undique susceptum qui miscuit utile dulci,
 
  
 
-I. Dum nescias, esse discendum .
+I. Dum nescias, esse discendum.
  
 
  
@@ -46,7 +46,7 @@ Discendi, Damiane, modum te quærere dicunt;
 
  
 
-II. Ruinam in ascensu timendam .
+II. Ruinam in ascensu timendam.
  
 
  
@@ -56,7 +56,7 @@ Sæpe ruis, dum sæpe petis nimis alta, Corane,
 
  
 
-III. Contemptum stulti non esse curandum .
+III. Contemptum stulti non esse curandum.
  
 
  
@@ -66,7 +66,7 @@ Contemptum stulti contempnere, Didime, laus est,
 
  
 
-IV. Quod doces, esse faciendum .
+IV. Quod doces, esse faciendum.
  
 
  
@@ -76,7 +76,7 @@ Multa, Salo, sed plura, Cato, me verba docetis,
 
  
 
-V. Discendum, esse, ne discas .
+V. Discendum, esse, ne discas.
  
 
  
@@ -86,7 +86,7 @@ Hebale, disce diu, juvenisque puerque labora,
 
  
 
-VI. Quod multorum est ab uno non esse quærendum .
+VI. Quod multorum est ab uno non esse quærendum.
  
 
  
@@ -96,7 +96,7 @@ Soli laus tibi multorum quæris honorem,
 
  
 
-VII. Colendo nequam nequicquam proficere .
+VII. Colendo nequam nequicquam proficere.
  
 
  
@@ -106,7 +106,7 @@ Pecte lavaque canem, curam tibi ponis inanem,
 
  
 
-VIII. Onus quærere, honorem quærendo .
+VIII. Onus quærere, honorem quærendo.
  
 
  
@@ -116,7 +116,7 @@ Quæris onus magnum, magnum dum quæris honorem,
 
  
 
-IX. Pro viribus tuis non omnes esse pensandos .
+IX. Pro viribus tuis non omnes esse pensandos.
  
 
  
@@ -126,7 +126,7 @@ Impos virtutis, alios virtutis inanes
 
  
 
-X. A vitio esse surgendum .
+X. A vitio esse surgendum.
  
 
  
@@ -136,7 +136,7 @@ Alphesib˙o, luto semper versaris eodem,
 
  
 
-XI. Vitiosum deprehendi dolere .
+XI. Vitiosum deprehendi dolere.
  
 
  
@@ -146,7 +146,7 @@ Non culpam peccasse gravem, non crimen inisse,
 
  
 
-XII. Quod irrides, faciendum non esse .
+XII. Quod irrides, faciendum non esse.
  
 
  
@@ -156,7 +156,7 @@ Deridens alios, non inderisus abibis,
 
  
 
-XIII. Qui multa possident multis egere .
+XIII. Qui multa possident multis egere.
  
 
  
@@ -166,7 +166,7 @@ Cum tu possideas, Andronice, plura petitis,
 
  
 
-XIV. Videndum esse cui secreta committas .
+XIV. Videndum esse cui secreta committas.
  
 
  
@@ -176,7 +176,7 @@ Utre merum fracto committere, balsama cribro,
 
  
 
-XV. Libros non pretium eorum habere, non multum proficere .
+XV. Libros non pretium eorum habere, non multum proficere.
  
 
  
@@ -186,7 +186,7 @@ Libros ferre manu, non sensum corde nec ore,
 
  
 
-XVI. Virtuti studere si sapias .
+XVI. Virtuti studere si sapias.
  
 
  
@@ -196,7 +196,7 @@ Propositum sapiens virtutis sedulus urget;
 
  
 
-XVII. Amicum tarde adquiri, sed cito amitti .
+XVII. Amicum tarde adquiri, sed cito amitti.
  
 
  
@@ -206,7 +206,7 @@ Prudenti, Probe, consilio servandus amicus,
 
  
 
-XVIII. Pauca utilia multis inutilibus præponenda .
+XVIII. Pauca utilia multis inutilibus præponenda.
  
 
  
@@ -216,7 +216,7 @@ Pauca Titus pretiosa dabat, sed vilia plura;
 
  
 
-XIX. Miserum hominem nocere dum prodesse contendit .
+XIX. Miserum hominem nocere dum prodesse contendit.
  
 
  
@@ -226,7 +226,7 @@ Te video solum dum prosis, Aule, nocere;
 
  
 
-XX. Loqui sed cum mensura debere .
+XX. Loqui sed cum mensura debere.
  
 
  
@@ -236,7 +236,7 @@ Pauca loqui moneo, sed non omnino silere;
 
  
 
-XXI. Inimicum obsequio torqueri, vel corrigi .
+XXI. Inimicum obsequio torqueri, vel corrigi.
  
 
  
@@ -246,7 +246,7 @@ Hostes, Kare meos dum servio, munera præsto;
 
  
 
-XXII. Amari volentem amare decere .
+XXII. Amari volentem amare decere.
  
 
  
@@ -256,7 +256,7 @@ Miraris quod nullus amat te, Ceciliane,
 
  
 
-XXIII. Vitium antequam petas subolere .
+XXIII. Vitium antequam petas subolere.
  
 
  
@@ -266,7 +266,7 @@ Druse, comedisti quem misit Silvius hircum;
 
  
 
-XXIV. Nec levare premenda, nec premere levanda .
+XXIV. Nec levare premenda, nec premere levanda.
  
 
  
@@ -276,7 +276,7 @@ Dum calcanda levas, premis extollenda, Repande,
 
  
 
-XXV. Datum non repetere .
+XXV. Datum non repetere.
  
 
  
@@ -286,7 +286,7 @@ Multa mihi donas, vereor ne multa requiras,
 
  
 
-XXVI. Neque decipere neque decipi .
+XXVI. Neque decipere neque decipi.
  
 
  
@@ -296,7 +296,7 @@ Nullum decipias, non decipiaris ab ullo,
 
  
 
-XXVII. Petenti quod difficile est negari .
+XXVII. Petenti quod difficile est negari.
  
 
  
@@ -306,7 +306,7 @@ Postulat usque sibi justa ratione negari,
 
  
 
-XXVIII. Cupere quod necesse est .
+XXVIII. Cupere quod necesse est.
  
 
  
@@ -316,7 +316,7 @@ Si mecum, Thaliarche, sapis, quodcunque necesse est,
 
  
 
-XXIX. Stare ubi alii jaceant decorum esse .
+XXIX. Stare ubi alii jaceant decorum esse.
  
 
  
@@ -326,7 +326,7 @@ Candide, ubi jaceant omnes, te stare decorum est;
 
  
 
-XXX. Exitus rerum inspiciendos .
+XXX. Exitus rerum inspiciendos.
  
 
  
@@ -336,7 +336,7 @@ Aut sapit Archesilas, et prospicit ultima rerum,
 
  
 
-XXXI. Cito vel sero decedere nihil ad rem .
+XXXI. Cito vel sero decedere nihil ad rem.
  
 
  
@@ -346,7 +346,7 @@ Tarde vel subito vita decedere, nil est;
 
  
 
-XXXII. Sub onere rectum esse gloriosum .
+XXXII. Sub onere rectum esse gloriosum.
  
 
  
@@ -356,7 +356,7 @@ Sub quocunque onere, strepitu omni, omnive labore,
 
  
 
-XXXIII. Ridere vel rideri, vitium .
+XXXIII. Ridere vel rideri, vitium.
  
 
  
@@ -366,7 +366,7 @@ Si rides alium, vel si rideris, utrumque
 
  
 
-XXXIV. Tempnere tempni debere .
+XXXIV. Tempnere tempni debere.
  
 
  
@@ -376,7 +376,7 @@ Vivere, Prote, velis feliciter atque beate,
 
  
 
-XXXV. Ne contempnamur, bene esse vivendum .
+XXXV. Ne contempnamur, bene esse vivendum.
  
 
  
@@ -386,7 +386,7 @@ Contempnat te nemo velim, sic vive, Trebati;
 
  
 
-XXXVI. Honorandum esse doctorem .
+XXXVI. Honorandum esse doctorem.
  
 
  
@@ -396,7 +396,7 @@ Arguitur furia, medicum dum percutit æger,
 
  
 
-XXXVII. Non obloquendum amico .
+XXXVII. Non obloquendum amico.
  
 
  
@@ -406,7 +406,7 @@ Frangis amicitiam dum, Turdale, rodis amicum;
 
  
 
-XXXVIII. Jurgio pacem non creandam .
+XXXVIII. Jurgio pacem non creandam.
  
 
  
@@ -416,7 +416,7 @@ Scæva, tene, quia siqua paret discordia pacem,
 
  
 
-XXXIX. Verbis picturatis non esse credendum .
+XXXIX. Verbis picturatis non esse credendum.
  
 
  
@@ -426,7 +426,7 @@ Verborum multos mihi, Victorine, colores
 
  
 
-XL. Opinionem malam fugiendam .
+XL. Opinionem malam fugiendam.
  
 
  
@@ -436,7 +436,7 @@ Commissum, Damasippe, tuum quod verba sequantur,
 
  
 
-XLI. Melius probatum amare, quam amatum probare .
+XLI. Melius probatum amare, quam amatum probare.
  
 
  
@@ -446,7 +446,7 @@ Marce, perutilius censemus amare probatum,
 
  
 
-XLII. Pingui ventre tenuem sensum non nutriri .
+XLII. Pingui ventre tenuem sensum non nutriri.
  
 
  
@@ -456,7 +456,7 @@ Vult sensum tenuem, curat dum, Mervie, ventrem,
 
  
 
-XLIII. Difficilia inquirenda, facilia non adeo .
+XLIII. Difficilia inquirenda, facilia non adeo.
  
 
  
@@ -466,7 +466,7 @@ In scirpo nodum quærendo, Viselle, laboras,
 
  
 
-XLIV. Vitium animæ despicabilius quam corporis .
+XLIV. Vitium animæ despicabilius quam corporis.
  
 
  
@@ -476,7 +476,7 @@ Ridemus Calirum dissutis naribus esse,
 
  
 
-XLV. Socium non ascisci omnimodis mobilem .
+XLV. Socium non ascisci omnimodis mobilem.
  
 
  
@@ -486,7 +486,7 @@ Dum vertis habitum, mores, et verba, Levine,
 
  
 
-XLVI. Non semper studendum tristibus .
+XLVI. Non semper studendum tristibus.
  
 
  
@@ -496,7 +496,7 @@ Eutrapelus non blanditias, non gaudia vultu
 
  
 
-XLVII. Naturam assiduitate culturæ novandam .
+XLVII. Naturam assiduitate culturæ novandam.
  
 
  
@@ -506,7 +506,7 @@ Naturam cultura novans, educit ab imo;
 
  
 
-XLVIII. Velle sapere, non vocari sapientem .
+XLVIII. Velle sapere, non vocari sapientem.
  
 
  
@@ -516,7 +516,7 @@ Nil, Beroine, sapis, et dicis te sapientem;
 
  
 
-XLIX. Ut ventri imperes, gulam arcendam .
+XLIX. Ut ventri imperes, gulam arcendam.
  
 
  
@@ -526,7 +526,7 @@ In vilem fumum sorbillans omnia vertis,
 
  
 
-L. Non tamtum grandia, sed et parva, cavenda .
+L. Non tamtum grandia, sed et parva, cavenda.
  
 
  
@@ -536,7 +536,7 @@ Quem leo non tetigit, dum mordet aranea lædit,
 
  
 
-LI. Hominem nequam nullo modo leniendum .
+LI. Hominem nequam nullo modo leniendum.
  
 
  
@@ -546,7 +546,7 @@ Lenio sæpe mihi pastu volucremque feramque,
 
  
 
-LII. Miseris nec quod miseri sint credi .
+LII. Miseris nec quod miseri sint credi.
  
 
  
@@ -556,7 +556,7 @@ Grande doloris onus miseris superadjicitur, dum
 
  
 
-LIII. Consilium senum rejiciendum non esse .
+LIII. Consilium senum rejiciendum non esse.
  
 
  
@@ -566,7 +566,7 @@ Pannorum veterum facile contempnitur usus,
 
  
 
-LIV. Non se ultro ingerendum .
+LIV. Non se ultro ingerendum.
  
 
  
@@ -576,7 +576,7 @@ Jure repellendum Pethosirim dicimus, ultro
 
  
 
-LV. Amare ut amicus sis .
+LV. Amare ut amicus sis.
  
 
  
@@ -586,7 +586,7 @@ Omnis amicus amat, sed non qui amat omnis amicus;
 
  
 
-LVI. Qui amico non parcit, inimico non parcere .
+LVI. Qui amico non parcit, inimico non parcere.
  
 
  
@@ -596,7 +596,7 @@ Innumeras fraudes in amicos tendit Ulixes,
 
  
 
-LVII. Statum mentis esse firmandum .
+LVII. Statum mentis esse firmandum.
  
 
  
@@ -606,7 +606,7 @@ Mobilibus ventis similas ludibria mentis,
 
  
 
-LVIII. Timore mortis delicias comprimendas .
+LVIII. Timore mortis delicias comprimendas.
  
 
  
@@ -616,7 +616,7 @@ Delicias carnis spes funeris ultima solvit;
 
  
 
-LIX. Sermonem inutilem esse spernendum .
+LIX. Sermonem inutilem esse spernendum.
  
 
  
@@ -626,7 +626,7 @@ Sermo, Flacce, tuus currit nimis, accipiendus
 
  
 
-LX. Absque moribus genus non valere .
+LX. Absque moribus genus non valere.
  
 
  
@@ -636,7 +636,7 @@ Stemmata continuas, recitas ex ordine patres,
 
  
 
-LXI. Occultum hostem sævius nocere .
+LXI. Occultum hostem sævius nocere.
  
 
  
@@ -646,7 +646,7 @@ Cautio provisa, formido videtur aperta,
 
  
 
-LXII. Culpam sapienti ostensam cito finiri .
+LXII. Culpam sapienti ostensam cito finiri.
  
 
  
@@ -656,7 +656,7 @@ Ad radios solis siccatur nonius humor,
 
  
 
-LXIII. Eligendum cui placeamus .
+LXIII. Eligendum cui placeamus.
  
 
  
@@ -666,7 +666,7 @@ Prædicat Ermogeras non omnibus esse placendum,
 
  
 
-LXIV. Studium virtutis semper habendum .
+LXIV. Studium virtutis semper habendum.
  
 
  
@@ -676,7 +676,7 @@ Incipit Alchidamas virtuti sæpe studere,
 
  
 
-LXV. Non litigare .
+LXV. Non litigare.
  
 
  
@@ -686,7 +686,7 @@ Exaltas in lite tuam, Germanice, vocem,
 
  
 
-LXVI. Propter fortunam non superbire .
+LXVI. Propter fortunam non superbire.
  
 
  
@@ -696,7 +696,7 @@ Extolli noli, quod te fortuna beavit,
 
  
 
-LXVII. Moribus homines non natura dissentire .
+LXVII. Moribus homines non natura dissentire.
  
 
  
@@ -706,7 +706,7 @@ Ejusdem naturæ homines cognosce, Menacla,
 
  
 
-LXVIII. Ut medicinam, ita et sermonem variandam .
+LXVIII. Ut medicinam, ita et sermonem variandam.
  
 
  
@@ -716,7 +716,7 @@ Infirmis variis medici varianda supellex,
 
  
 
-LXIX. Vitiosi esse ut lateat .
+LXIX. Vitiosi esse ut lateat.
  
 
  
@@ -726,7 +726,7 @@ Indicium culpæ nos, Clinia, dicimus esse
 
  
 
-LXX. Vitium loco non mutari .
+LXX. Vitium loco non mutari.
  
 
  
@@ -736,7 +736,7 @@ Quacunque incedit rostratam vidimus Ybim,
 
  
 
-LXXI. Vitium animi et in corpore apparere .
+LXXI. Vitium animi et in corpore apparere.
  
 
  
@@ -746,7 +746,7 @@ Invidiæ flamma quia, Tigilline, laboras,
 
  
 
-LXXII. Volentem portari et alios portare .
+LXXII. Volentem portari et alios portare.
  
 
  
@@ -756,7 +756,7 @@ Portari semper, nunquam portare, suesti,
 
  
 
-LXXIII. Sapientem non esse ridendum .
+LXXIII. Sapientem non esse ridendum.
  
 
  
@@ -766,7 +766,7 @@ Ridemus claudum, rectum dum ridet, Alesi,
 
  
 
-LXXIV. Spondenti sæpe non multum esse credendum .
+LXXIV. Spondenti sæpe non multum esse credendum.
  
 
  
@@ -776,7 +776,7 @@ Sponsio spes vacua, sponsor versatilis aura;
 
  
 
-LXXV. Non esse variandum sermonem .
+LXXV. Non esse variandum sermonem.
  
 
  
@@ -786,7 +786,7 @@ Bos mugit, sed balat ovis, variatio nulla;
 
  
 
-LXXVI. Virtutem locali mutatione non quærendam .
+LXXVI. Virtutem locali mutatione non quærendam.
  
 
  
@@ -796,7 +796,7 @@ Proficies, Labiene, parum, si climata transis,
 
  
 
-LXXVII. Vitam bestialem non imitandam .
+LXXVII. Vitam bestialem non imitandam.
  
 
  
@@ -806,7 +806,7 @@ More probaris aper, et nomine diceris Aper,
 
  
 
-LXXVIII. Cito laudare vel vituperare vitium esse .
+LXXVIII. Cito laudare vel vituperare vitium esse.
  
 
  
@@ -816,7 +816,7 @@ Vituperat subito subito qui laudat, Aledi;
 
  
 
-LXXIX. Dulcedinem divitiarum sæpe gravare .
+LXXIX. Dulcedinem divitiarum sæpe gravare.
  
 
  
@@ -826,7 +826,7 @@ Mella, cibus dulcis, sunt sæpe nocentia multis;
 
  
 
-LXXX. Virtutem exercendam, vitium fugiendum .
+LXXX. Virtutem exercendam, vitium fugiendum.
  
 
  
@@ -836,7 +836,7 @@ Pro virtute vacat fervens ad turpia Vacca;
 
  
 
-LXXXI. Non cathedram qua doceatur, sed quæ doceantur inquirent .
+LXXXI. Non cathedram qua doceatur, sed quæ doceantur inquirent.
  
 
  
@@ -846,7 +846,7 @@ Qua doceat sedem quærit Plotinus et ædem;
 
  
 
-LXXXII. Viliorem dominari ridiculosum esse .
+LXXXII. Viliorem dominari ridiculosum esse.
  
 
  
@@ -856,7 +856,7 @@ Ridemus murem dominantem muribus, Acci;
 
  
 
-LXXXIII. Superbia pacem everti .
+LXXXIII. Superbia pacem everti.
  
 
  
@@ -866,7 +866,7 @@ Aeriam pacem ventosa superbia tollit,
 
  
 
-LXXXIV. Muneribus justitiam tolli .
+LXXXIV. Muneribus justitiam tolli.
  
 
  
@@ -876,7 +876,7 @@ Missilibus, Datiane, tuis Astræa recessit;
 
  
 
-LXXXV. Laudari a turpibus, vel ob turpia, laudem non esse .
+LXXXV. Laudari a turpibus, vel ob turpia, laudem non esse.
  
 
  
@@ -886,7 +886,7 @@ Nullum credo decus laudari a turpibus, Herme;
 
  
 
-LXXXVI. Senem puerum esse non decere .
+LXXXVI. Senem puerum esse non decere.
  
 
  
@@ -896,7 +896,7 @@ Post annos centum puer Alphesib˙us adhuc est;
 
  
 
-LXXXVII. Displicere ineptum unde placere contendit .
+LXXXVII. Displicere ineptum unde placere contendit.
  
 
  
@@ -906,7 +906,7 @@ Exemplo, Menelae, tuo testaris ineptum,
 
  
 
-LXXXVIII. Hostes diligere, amicos negligere, non decere .
+LXXXVIII. Hostes diligere, amicos negligere, non decere.
  
 
  
@@ -916,7 +916,7 @@ Hostes Glaucus amat, Probus apernatur amicos;
 
  
 
-LXXXIX. Non de omni victoria coronam decere .
+LXXXIX. Non de omni victoria coronam decere.
  
 
  
@@ -926,7 +926,7 @@ Signiferum belli quæsita corona decebit;
 
  
 
-XC. Libros ob sententias diligendos .
+XC. Libros ob sententias diligendos.
  
 
  
@@ -936,7 +936,7 @@ Libros non pretium quæris, Melib˙e, librorum;
 
  
 
-XCI. Amare et amari decere .
+XCI. Amare et amari decere.
  
 
  
@@ -946,7 +946,7 @@ Nulli carus erat Erisicthonus, et sibi nullus
 
  
 
-XCII. De honore dolorem sæpe prodire .
+XCII. De honore dolorem sæpe prodire.
  
 
  
@@ -956,7 +956,7 @@ Nolit in accepto gaudere Seranus honore;
 
  
 
-XCIII. De remissa infortunii dolere qui invidet .
+XCIII. De remissa infortunii dolere qui invidet.
  
 
  
@@ -966,7 +966,7 @@ Galba dolet, Cicero quoniam pede claudicat uno;
 
  
 
-XCIV. Non esse amicum qui amico non relinquit amicum .
+XCIV. Non esse amicum qui amico non relinquit amicum.
  
 
  
@@ -976,7 +976,7 @@ Si nobis nullum, Catia, relinquis amicum,
 
  
 
-XCV. Judicem curis vacuandum .
+XCV. Judicem curis vacuandum.
  
 
  
@@ -986,7 +986,7 @@ Dedita mens curis fit veri nescia juris,
 
  
 
-XCVI. Appetitorem laudis negata laude tristari .
+XCVI. Appetitorem laudis negata laude tristari.
  
 
  
@@ -996,7 +996,7 @@ Sæpe, Vitelle, doles, quia te laudando superfers
 
  
 
-XCVII. Non cui invidet, sed qui invidet, nocere invidiam .
+XCVII. Non cui invidet, sed qui invidet, nocere invidiam.
  
 
  
@@ -1006,7 +1006,7 @@ Torres invidia non Quintum, Candide, sed te;
 
  
 
-XCVIII. Virtuti modum adhibendum .
+XCVIII. Virtuti modum adhibendum.
  
 
  
@@ -1016,7 +1016,7 @@ Virtutis studio nimius, Crysippe, videris,
 
  
 
-XCIX. Virtute non opibus beati .
+XCIX. Virtute non opibus beati.
  
 
  
@@ -1026,7 +1026,7 @@ Credis opes solas te posse, Charine, beare;
 
  
 
-C. Lectionem sine operibus non satis prodesse .
+C. Lectionem sine operibus non satis prodesse.
  
 
  
@@ -1036,7 +1036,7 @@ Frustra multa legis, Hugo, si nil opereris;
 
  
 
-CI. Jus observandum .
+CI. Jus observandum.
  
 
  
@@ -1046,7 +1046,7 @@ Injuste vivis, dum jus effringere vi vis;
 
  
 
-CII. Indignum gloriam quæri ex culpa .
+CII. Indignum gloriam quæri ex culpa.
  
 
  
@@ -1058,7 +1058,7 @@ Miramur Rupilum per quæque nefanda vagari,
 
  
 
-CIII. Non pudere peccare quem peccasse non pudet .
+CIII. Non pudere peccare quem peccasse non pudet.
  
 
  
@@ -1070,7 +1070,7 @@ Quæ puer et juvenis commisit turpia Phorbas,
 
  
 
-CIV. Raritate etiam vilia placere .
+CIV. Raritate etiam vilia placere.
  
 
  
@@ -1082,7 +1082,7 @@ Vilia divitibus notum est plerumque placere,
 
  
 
-CV. Honesta multa vi paupertatis extingui .
+CV. Honesta multa vi paupertatis extingui.
  
 
  
@@ -1094,7 +1094,7 @@ Non sanguis, non oris honor, non gloria sensus,
 
  
 
-CVI. Os ad mores contorquendum .
+CVI. Os ad mores contorquendum.
  
 
  
@@ -1106,7 +1106,7 @@ Hostem, Laude, tuum socium tibi sæpe refingis,
 
  
 
-CVII. Placare mordacem parum proficere .
+CVII. Placare mordacem parum proficere.
  
 
  
@@ -1118,7 +1118,7 @@ Nil tibi proficias pectendo canem atque lavando,
 
  
 
-CVIII. Præposterum ante docere quam discere .
+CVIII. Præposterum ante docere quam discere.
  
 
  
@@ -1130,7 +1130,7 @@ Ante docere cupis quam discere, Pontiovane,
 
  
 
-CIX. Ignotis nota esse pr˙ponenda .
+CIX. Ignotis nota esse pr˙ponenda.
  
 
  
@@ -1142,7 +1142,7 @@ Visceribus peregrina tuis annectere, durum est;
 
  
 
-CX. In subventu aliorum sibi non nocendum .
+CX. In subventu aliorum sibi non nocendum.
  
 
  
@@ -1154,7 +1154,7 @@ Ne noceas tibi, sic aliis prodesse memento;
 
  
 
-CXI. Altiora casu graviore prolabi .
+CXI. Altiora casu graviore prolabi.
  
 
  
@@ -1166,7 +1166,7 @@ Altior ascensus, gravior plerumque ruina est,
 
  
 
-CXII. Invidum raro vel nunquam conciliandum .
+CXII. Invidum raro vel nunquam conciliandum.
  
 
  
@@ -1178,7 +1178,7 @@ Invidus es, Gaius, frustra sibi, Magne, placere
 
  
 
-CXIII. De justitia nasci sæpe injustitiam .
+CXIII. De justitia nasci sæpe injustitiam.
  
 
  
@@ -1190,7 +1190,7 @@ Crimina nulla tibi quoniam sunt, Galle, superbis;
 
  
 
-CXIV. Invitum non posse servari .
+CXIV. Invitum non posse servari.
  
 
  
@@ -1202,7 +1202,7 @@ Invitum servare diu, provincia dura est;
 
  
 
-CXV. Parvis prodesse quod parvi sunt .
+CXV. Parvis prodesse quod parvi sunt.
  
 
  
@@ -1214,7 +1214,7 @@ Qui vidit te, Grosphe, duos deprendit in uno,
 
  
 
-CXVI. Vocem habendam pro corpore .
+CXVI. Vocem habendam pro corpore.
  
 
  
@@ -1226,7 +1226,7 @@ Zoile, dum tussis, dum verbis aera rumpis,
 
  
 
-CXVII. Hominem levem nemini debere placeri .
+CXVII. Hominem levem nemini debere placeri.
  
 
  
@@ -1238,7 +1238,7 @@ Mente levis, sermone duplex, tibi complacet, Albi,
 
  
 
-CXVIII. Non de eodem accusari et accusare debere .
+CXVIII. Non de eodem accusari et accusare debere.
  
 
  
@@ -1250,7 +1250,7 @@ Bella Neoptolemi nigro sale, Phædria, punis,
 
  
 
-CXIX. Operam non bono impensam amitti .
+CXIX. Operam non bono impensam amitti.
  
 
  
@@ -1262,7 +1262,7 @@ Serpentem compone sinu, blandire, foveto,
 
  
 
-CXX. Rebus inutilibus operam non adhibendam .
+CXX. Rebus inutilibus operam non adhibendam.
  
 
  
@@ -1274,7 +1274,7 @@ Arte tua crines reparasti, Leda, marito,
 
  
 
-CXXI. In vitio non permanendum .
+CXXI. In vitio non permanendum.
  
 
  
@@ -1286,7 +1286,7 @@ Unice vive puer, lætus cantabat Adonis,
 
  
 
-CXXII. Agere prius, post exigere .
+CXXII. Agere prius, post exigere.
  
 
  
@@ -1298,7 +1298,7 @@ Exigis a nobis quem nulli solvis amorem,
 
  
 
-CXXIII. Loqui nocere, silere non .
+CXXIII. Loqui nocere, silere non.
  
 
  
@@ -1310,7 +1310,7 @@ Rufe, tui comites servare silentia norunt,
 
  
 
-CXXIV. Datum non recordandum .
+CXXIV. Datum non recordandum.
  
 
  
@@ -1322,7 +1322,7 @@ Splendida dona mihi dum sæpe et sæpe dedisse
 
  
 
-CXXV. Non de alieno sed de suo gloriam quærendam .
+CXXV. Non de alieno sed de suo gloriam quærendam.
  
 
  
@@ -1334,7 +1334,7 @@ Non numeres tibi divitias, non facta priorum,
 
  
 
-CXXVI. Usui vel naturæ commoda expetenda .
+CXXVI. Usui vel naturæ commoda expetenda.
  
 
  
@@ -1346,7 +1346,7 @@ Non indignatur serpente ciconia pasci,
 
  
 
-CXXVII. Paulatim magna decident .
+CXXVII. Paulatim magna decident.
  
 
  
@@ -1358,7 +1358,7 @@ Decidit immensus paulatim montis acervus,
 
  
 
-CXXVIII. Perfidam mentem inscrutabilem esse .
+CXXVIII. Perfidam mentem inscrutabilem esse.
  
 
  
@@ -1370,7 +1370,7 @@ Inscrutabilis est maris exundantis abyssus;
 
  
 
-CXXIX. Non nimis cupiendum .
+CXXIX. Non nimis cupiendum.
  
 
  
@@ -1382,7 +1382,7 @@ In mundo quid, Druse, facis, qui major es ipso?
 
  
 
-CXXX. Laudari stultum et deficere .
+CXXX. Laudari stultum et deficere.
  
 
  
@@ -1394,7 +1394,7 @@ Qui te laudabant jam defecere, Melane;
 
  
 
-CXXXI. Animum videri in facie .
+CXXXI. Animum videri in facie.
  
 
  
@@ -1406,7 +1406,7 @@ Lubricus aspectus, facies incerta, Macrine,
 
  
 
-CXXXII. Nihil pejus optare avaro quam diu vivere .
+CXXXII. Nihil pejus optare avaro quam diu vivere.
  
 
  
@@ -1418,7 +1418,7 @@ Orandum quid vel gravius vel pejus avaro
 
  
 
-CXXXIII. Non de nihilo esse gaudendum .
+CXXXIII. Non de nihilo esse gaudendum.
  
 
  
@@ -1430,7 +1430,7 @@ Tres in fronte pili tibi dant, Tatiane, tumorem,
 
  
 
-CXXXIV. Se senem qui dolet, velle delirare .
+CXXXIV. Se senem qui dolet, velle delirare.
  
 
  
@@ -1442,7 +1442,7 @@ Præproperam tibi canitiem, Tite, plangis adesse,
 
  
 
-CXXXV. Placere opere non gestu .
+CXXXV. Placere opere non gestu.
  
 
  
@@ -1454,7 +1454,7 @@ Versus, Dave, canis, vultuque manuque laborans
 
  
 
-CXXXVI. Avarum in vita nulli, in morte multis prodesse .
+CXXXVI. Avarum in vita nulli, in morte multis prodesse.
  
 
  
@@ -1466,7 +1466,7 @@ Non sibi non aliis prodest dum vivit avarus,
 
  
 
-CXXXVII. Se non posse refringere .
+CXXXVII. Se non posse refringere.
  
 
  
@@ -1478,7 +1478,7 @@ Pigmeis nanisque sodalibus uteris, usque,
 
  
 
-CXXXVIII. Nobis esse placere, aliena non .
+CXXXVIII. Nobis esse placere, aliena non.
  
 
  
@@ -1490,7 +1490,7 @@ Nostra aliis, et plus nobis aliena placere,
 
  
 
-CXXXIX. Potestatem iracundiæ additam esse pro fulmine .
+CXXXIX. Potestatem iracundiæ additam esse pro fulmine.
  
 
  
@@ -1502,7 +1502,7 @@ Tydeu, cum nequeas rabiem compescere cordis,
 
  
 
-CXL. Patres non odire, sed obedire .
+CXL. Patres non odire, sed obedire.
  
 
  
@@ -1514,7 +1514,7 @@ Tu benefacta tui tanquam malefacta parentis
 
  
 
-CXLI. Quæ aliis feceris, ab eis expectare eadem .
+CXLI. Quæ aliis feceris, ab eis expectare eadem.
  
 
  
@@ -1526,7 +1526,7 @@ Jurgia, clamores tibi gloria, gloria lites,
 
  
 
-CXLII. Dominos avaros servos nequam diligere .
+CXLII. Dominos avaros servos nequam diligere.
  
 
  
@@ -1538,7 +1538,7 @@ Dispensator eris per tempora longa, Treboni,
 
  
 
-CXLIII. Servos divites non agnoscere se .
+CXLIII. Servos divites non agnoscere se.
  
 
  
@@ -1550,7 +1550,7 @@ Damma fuit servus, se non agnoscit, honore
 
  
 
-CXLIV. Sæpe unde ridemus et nos rideri .
+CXLIV. Sæpe unde ridemus et nos rideri.
  
 
  
@@ -1562,7 +1562,7 @@ Ridebas ficos aliorum sæpe, Rubelli,
 
  
 
-CXLV. Deceptores aliorum et decipere et decipi .
+CXLV. Deceptores aliorum et decipere et decipi.
  
 
  
@@ -1574,7 +1574,7 @@ Servule, dulce canis volucres ad retia suadens,
 
  
 
-CXLVI. Vinosum vitii proximitate torreri .
+CXLVI. Vinosum vitii proximitate torreri.
  
 
  
@@ -1586,7 +1586,7 @@ Ad dubiam c˙nam me, Nasidiene, vocasti,
 
  
 
-CXLVII. Juvenem largum, senem parcum mirari .
+CXLVII. Juvenem largum, senem parcum mirari.
  
 
  
@@ -1598,7 +1598,7 @@ Miramur juvenes largos, vetulosque tenaces,
 
  
 
-CXLVIII. Os non male mutandum .
+CXLVIII. Os non male mutandum.
  
 
  
@@ -1610,7 +1610,7 @@ Curinomus quando satur est, jejunia laudat;
 
  
 
-CXLIX. Pauperi nec in morte sufficere .
+CXLIX. Pauperi nec in morte sufficere.
  
 
  
@@ -1622,7 +1622,7 @@ Pauper divitibus tumulos, Marcelle, parabas,
 
  
 
-CL. Aliena non tractanda .
+CL. Aliena non tractanda.
  
 
  
@@ -1634,7 +1634,7 @@ Et virtus et de virtutis semine sermo
 
  
 
-CLI. Locum mores non mutare .
+CLI. Locum mores non mutare.
  
 
  
@@ -1646,7 +1646,7 @@ Serpentem innocuum faciunt deserta locorum,
 
  
 
-CLII. Amicum pro ipso habendum .
+CLII. Amicum pro ipso habendum.
  
 
  
@@ -1658,7 +1658,7 @@ Ut bove, sicut equo, sic utitur Aulus amico,
 
  
 
-CLIII. Nomen honoris, non rem, parum valere .
+CLIII. Nomen honoris, non rem, parum valere.
  
 
  
@@ -1670,7 +1670,7 @@ Nomen honoris habere parum est, non pondus honoris,
 
  
 
-CLIV. Consilio juvenum non esse fidendum .
+CLIV. Consilio juvenum non esse fidendum.
  
 
  
@@ -1682,7 +1682,7 @@ Consilio juvenum fidis, Melib˙e, ruinam
 
  
 
-CLV. Magna promittere, parva dare, non decere .
+CLV. Magna promittere, parva dare, non decere.
  
 
  
@@ -1694,7 +1694,7 @@ Murenas nobis spondebas, Albinovane;
 
  
 
-CLVI. Sua communicare .
+CLVI. Sua communicare.
  
 
  
@@ -1706,7 +1706,7 @@ Unde habeas, Line, non curas, curas ut abundes,
 
  
 
-CLVII. Furenti respondendum non esse .
+CLVII. Furenti respondendum non esse.
  
 
  
@@ -1718,7 +1718,7 @@ Respondere tibi dum nolo de mea demens,
 
  
 
-CLVIII. Servos non esse pauperandos .
+CLVIII. Servos non esse pauperandos.
  
 
  
@@ -1730,7 +1730,7 @@ Dum spolias servos, dum diripis omnia eorum,
 
  
 
-CLIX. Sibi in omnibus providendum .
+CLIX. Sibi in omnibus providendum.
  
 
  
@@ -1742,7 +1742,7 @@ Multiplici giro milvus circumvolat escam,
 
  
 
-CLX. Putandum, esse vitium dum recens est .
+CLX. Putandum, esse vitium dum recens est.
  
 
  
@@ -1754,7 +1754,7 @@ Spira recens et parva tibi, Sejane, putanda,
 
  
 
-CLXI. Carpendum, carpere non decere .
+CLXI. Carpendum, carpere non decere.
  
 
  
@@ -1766,7 +1766,7 @@ Cur maculas alios maculosior omnibus, Albi?
 
  
 
-CLXII. Secum morari et consistere, mentis esse compositæ .
+CLXII. Secum morari et consistere, mentis esse compositæ.
  
 
  
@@ -1778,7 +1778,7 @@ Est mentis bene compositæ consistere secum,
 
  
 
-CLXIII. Antequam ames probare, probatum amare .
+CLXIII. Antequam ames probare, probatum amare.
  
 
  
@@ -1790,7 +1790,7 @@ Sæpe diuque suo quem dignum censet amore
 
  
 
-CLXIV. Dare cum hilaritate .
+CLXIV. Dare cum hilaritate.
  
 
  
@@ -1802,7 +1802,7 @@ Attollunt hilares vilissima munera vultus,
 
  
 
-CLXV. De bono vel male non jactare .
+CLXV. De bono vel male non jactare.
  
 
  
@@ -1814,7 +1814,7 @@ Iratis irato animo respondet Alanus,
 
  
 
-CLXVI. Voracem et capere et rapere .
+CLXVI. Voracem et capere et rapere.
  
 
  
@@ -1826,7 +1826,7 @@ Prodigus est Ancon, nec se novit cohibere,
 
  
 
-CLXVII. Famæ non operi confidentem cito decidere .
+CLXVII. Famæ non operi confidentem cito decidere.
  
 
  
@@ -1838,7 +1838,7 @@ Quæ crescit ramis et non radicibus arbor,
 
  
 
-CLXVIII. Neminem sese efferre debere .
+CLXVIII. Neminem sese efferre debere.
  
 
  
@@ -1850,7 +1850,7 @@ Vir bonus et prudens nulli sua facta revelat,
 
  
 
-CLXIX. Imitandum esse quem magis aspectu probaveris quam auditu .
+CLXIX. Imitandum esse quem magis aspectu probaveris quam auditu.
  
 
  
@@ -1862,7 +1862,7 @@ Illum proponas tibi, Cælestine, sequendum,
 
  
 
-CLXX. Inimicos procul removendos .
+CLXX. Inimicos procul removendos.
  
 
  
@@ -1874,7 +1874,7 @@ Audisti quoniam vermes de carne creati
 
  
 
-CLXXI. Velle debere et regi et regere .
+CLXXI. Velle debere et regi et regere.
  
 
  
@@ -1886,7 +1886,7 @@ Non vult vera loqui Titus, ut non audiat ipse;
 
  
 
-CLXXII. Vitam hominis varicam esse .
+CLXXII. Vitam hominis varicam esse.
  
 
  
@@ -1898,7 +1898,7 @@ Alternis vicibus mutantur tempora mundi,
 
  
 
-CLXXIII. Dici vel esse bonum, idem non esse .
+CLXXIII. Dici vel esse bonum, idem non esse.
  
 
  
@@ -1910,7 +1910,7 @@ Dici aut esse bonum non nos reputamus ut unum;
 
  
 
-CLXXIV. Servum eundem et dominum unius non esse .
+CLXXIV. Servum eundem et dominum unius non esse.
  
 
  
@@ -1922,7 +1922,7 @@ Miramur tibi, Naupliades, te nolle præesse,
 
  
 
-CLXXV. Inter nequam bonum apparere, parum esse .
+CLXXV. Inter nequam bonum apparere, parum esse.
  
 
  
@@ -1934,7 +1934,7 @@ Omnes infamas, accusas criminis omnes,
 
  
 
-CLXXVI. Invidum præstare ut noceat .
+CLXXVI. Invidum præstare ut noceat.
  
 
  
@@ -1946,7 +1946,7 @@ Scribam ex quinque viro faciens Nasica Coranum,
 
  
 
-CLXXVII. Hominem factiosum a re pro re movendum .
+CLXXVII. Hominem factiosum a re pro re movendum.
  
 
  
@@ -1958,7 +1958,7 @@ Insidiis cives et amicos sollicitantem,
 
  
 
-CLXXVIII. Vitium non esse iterandum .
+CLXXVIII. Vitium non esse iterandum.
  
 
  
@@ -1970,7 +1970,7 @@ Qui male moratum te dicunt, Æmiliane,
 
  
 
-CLXXIX. Non paria Deo sentire .
+CLXXIX. Non paria Deo sentire.
  
 
  
@@ -1982,7 +1982,7 @@ Subdi velle Deo, servire creata creanti,
 
  
 
-CLXXX. In paupere raram esse facundiam .
+CLXXX. In paupere raram esse facundiam.
  
 
  
@@ -1994,7 +1994,7 @@ In tenui panno nulla est facundia, Peleu,
 
  
 
-CLXXXI. Qui datur vel recipitur ab homine nequam, honorem non esse .
+CLXXXI. Qui datur vel recipitur ab homine nequam, honorem non esse.
  
 
  
@@ -2006,7 +2006,7 @@ Quem Nero dat sumit Catilina nefandus honorem,
 
  
 
-CLXXXII. Bene vivere tantum promittere, parum prodesse .
+CLXXXII. Bene vivere tantum promittere, parum prodesse.
  
 
  
@@ -2018,7 +2018,7 @@ Sæpe sibi servanda diu proponit honesta
 
  
 
-CLXXXIII. Ut desint majorum auxilia, minorum non contempnere .
+CLXXXIII. Ut desint majorum auxilia, minorum non contempnere.
  
 
  
@@ -2030,7 +2030,7 @@ Magnorum cum non retinere juvamina possis,
 
  
 
-CLXXXIV. Non pro parvis corporibus et animos parvos esse .
+CLXXXIV. Non pro parvis corporibus et animos parvos esse.
  
 
  
@@ -2042,7 +2042,7 @@ Parvas sæpe domos reges habitare videmus,
 
  
 
-CLXXXV. Impossibile in omnibus valere æqualiter .
+CLXXXV. Impossibile in omnibus valere æqualiter.
  
 
  
@@ -2054,7 +2054,7 @@ Miror et admiror quod natus Apolline Phæthon
 
  
 
-CLXXXVI. Senem puerilibus intendere non decere .
+CLXXXVI. Senem puerilibus intendere non decere.
  
 
  
@@ -2066,7 +2066,7 @@ De puero prodire senem me præcipis, at tu
 
  
 
-CLXXXVII. Famam ut pereas non amandam .
+CLXXXVII. Famam ut pereas non amandam.
  
 
  
@@ -2078,7 +2078,7 @@ Nominis et famæ per secula longa petitor,
 
  
 
-CLXXXVIII. Non nimiam comestionem exercendam .
+CLXXXVIII. Non nimiam comestionem exercendam.
  
 
  
@@ -2090,7 +2090,7 @@ De dubia surgens c˙na, Getulice, palles,
 
  
 
-CLXXXIX. Pecuniam omnia pertimescere .
+CLXXXIX. Pecuniam omnia pertimescere.
  
 
  
@@ -2102,7 +2102,7 @@ Multimodis, Daciane, dolis evertis amicos,
 
  
 
-CXC. Inter dona naturæ mortem ponendam .
+CXC. Inter dona naturæ mortem ponendam.
  
 
  
@@ -2114,7 +2114,7 @@ Mortis, Paule, timor tibi vitæ commoda tollit,
 
  
 
-CXCI. Amicos amici amandos .
+CXCI. Amicos amici amandos.
  
 
  
@@ -2126,7 +2126,7 @@ Me tanquam socium te dicis amare, Trebati,
 
  
 
-CXCII. Hostem rejiciendum, patrem recipiendum esse .
+CXCII. Hostem rejiciendum, patrem recipiendum esse.
  
 
  
@@ -2138,7 +2138,7 @@ Si tibi blanditur, Nausistrate, respicis hostem,
 
  
 
-CXCIII. De nobilitate non superbiendum .
+CXCIII. De nobilitate non superbiendum.
  
 
  
@@ -2150,7 +2150,7 @@ Multum, Fauste, tua de nobilitate superbis,
 
  
 
-CXCIV. Non nimis studendum vino .
+CXCIV. Non nimis studendum vino.
  
 
  
@@ -2162,7 +2162,7 @@ Carbo, quid est quoniam sæpe mihi vina propinas?
 
  
 
-CXCV. Suis parcendum .
+CXCV. Suis parcendum.
  
 
  
@@ -2174,7 +2174,7 @@ Tollit ovem de fauce lupi persæpe molossus,
 
  
 
-CXCVI. Non de minimo superbiendum .
+CXCVI. Non de minimo superbiendum.
  
 
  
@@ -2186,7 +2186,7 @@ Qui non tyro fecit, nec fecit militis usum,
 
  
 
-CXCVII. Pauperibus deesse quædam, avaris omnia .
+CXCVII. Pauperibus deesse quædam, avaris omnia.
  
 
  
@@ -2198,7 +2198,7 @@ Pauperibus quædam, sed avaris omnia desunt,
 
  
 
-CXCVIII. Deteriora non legenda .
+CXCVIII. Deteriora non legenda.
  
 
  
@@ -2210,7 +2210,7 @@ Bos f˙num, leporem canis, alba ciconia vermem,
 
  
 
-CXCIX. Per immoderantiam male decidere .
+CXCIX. Per immoderantiam male decidere.
  
 
  
@@ -2224,7 +2224,7 @@ Immoderata sitis vivendi deliciose
 
  
 
-CC. Reprehensorem irreprehensibilem esse debere .
+CC. Reprehensorem irreprehensibilem esse debere.
  
 
  
@@ -2238,7 +2238,7 @@ Dum furis et clamas, dum lites, Monice, curas,
 
  
 
-CCI. Rarum transitum esse mali in bonum .
+CCI. Rarum transitum esse mali in bonum.
  
 
  
@@ -2252,7 +2252,7 @@ Spes inerat corvum mutari posse columba,
 
  
 
-CCII. Sibi cupere male, ut alii sit male, invidorum esse .
+CCII. Sibi cupere male, ut alii sit male, invidorum esse.
  
 
  
@@ -2266,7 +2266,7 @@ Regali migrare domo me, Phædime, tecum
 
  
 
-CCIII. Servos sæpe dominos suos male decipere .
+CCIII. Servos sæpe dominos suos male decipere.
  
 
  
@@ -2280,7 +2280,7 @@ Cogitat Ursidius sibi dote jugare puellam,
 
  
 
-CCIV. Cui aliquid oommittas videndum .
+CCIV. Cui aliquid oommittas videndum.
  
 
  
@@ -2294,7 +2294,7 @@ Horti divitias commisit Fulvius uni,
 
  
 
-CCV. Parum retinere qui cito cuncta transmittit .
+CCV. Parum retinere qui cito cuncta transmittit.
  
 
  
@@ -2308,7 +2308,7 @@ Cuncta sapis si cuncta legis, sic, Rufe, probabas;
 
  
 
-CCVI. Morum discordia gratiam distrahi .
+CCVI. Morum discordia gratiam distrahi.
  
 
  
@@ -2322,7 +2322,7 @@ Conventus morum faculam succendit amoris;
 
  
 
-CCVII. Intermittere philosophiam omittere est .
+CCVII. Intermittere philosophiam omittere est.
  
 
  
@@ -2336,7 +2336,7 @@ Intermissa diu tanquam si prorsus emissa,
 
  
 
-CCVIII. Diem præcedentem sequentis magistrum .
+CCVIII. Diem præcedentem sequentis magistrum.
  
 
  
@@ -2350,7 +2350,7 @@ Ad lucrum converte diem tibi, Valeriane,
 
  
 
-CCIX. Non dolere quod multorum est commune .
+CCIX. Non dolere quod multorum est commune.
  
 
  
@@ -2364,7 +2364,7 @@ Quæstibus immensis jacturam, Pontice, defles,
 
  
 
-CCX. Non ridere ne rideamur .
+CCX. Non ridere ne rideamur.
  
 
  
@@ -2378,7 +2378,7 @@ Ridebas facies aliorum, Pallidiane,
 
  
 
-CCXI. Homini aperienti se magis credendum .
+CCXI. Homini aperienti se magis credendum.
  
 
  
@@ -2392,7 +2392,7 @@ Dam Simulus furit, et sese transfundit in iram,
 
  
 
-CCXII. Perfidiam invidiæ in lapsu æqualem .
+CCXII. Perfidiam invidiæ in lapsu æqualem.
  
 
  
@@ -2406,7 +2406,7 @@ Semper Athis ridet, rides tu, Sostrate, nunquam?
 
  
 
-CCXIII. Rationalia irrationabilibus digniora .
+CCXIII. Rationalia irrationabilibus digniora.
  
 
  
@@ -2420,7 +2420,7 @@ Cur non evigilas tandem, rebusque gerendis
 
  
 
-CCXIV. Invidum neminem velle docere .
+CCXIV. Invidum neminem velle docere.
  
 
  
@@ -2434,7 +2434,7 @@ Audieram quia quem doctos contingit adire,
 
  
 
-CCXV. Cui des videndum .
+CCXV. Cui des videndum.
  
 
  
@@ -2448,7 +2448,7 @@ Qui justis sanctisque viris, Tigelle, ministrat,
 
  
 
-CCXVI. Militem, delicatum non bene prcæliari .
+CCXVI. Militem, delicatum non bene prcæliari.
  
 
  
@@ -2462,7 +2462,7 @@ Mollibus assuetus loricam ferre recusat,
 
  
 
-CCXVII. Iniquo honorem non contingere .
+CCXVII. Iniquo honorem non contingere.
  
 
  
@@ -2476,7 +2476,7 @@ Injusto queritur contingere Gaius honorem,
 
  
 
-CCXVIII. Vitiosum non debere velle levari .
+CCXVIII. Vitiosum non debere velle levari.
  
 
  
@@ -2490,7 +2490,7 @@ Est aliquis multo qui quærat honore levari,
 
  
 
-CCXIX. Omnino vitium levitatis occludere .
+CCXIX. Omnino vitium levitatis occludere.
  
 
  
@@ -2506,7 +2506,7 @@ Excusat vitiosa patrum natura tuorum,
 
  
 
-CCXX. Frustra fatigari qui corrigit stultum .
+CCXX. Frustra fatigari qui corrigit stultum.
  
 
  
@@ -2522,7 +2522,7 @@ Errore illectus, non vult errore resolvi,
 
  
 
-CCXXI. Non posse teneri qui mutatur .
+CCXXI. Non posse teneri qui mutatur.
  
 
  
@@ -2538,7 +2538,7 @@ Amnis Acharnaum variabat sæpe figuras,
 
  
 
-CCXXII. In omnibus tempus aptum aspicere .
+CCXXII. In omnibus tempus aptum aspicere.
  
 
  
@@ -2554,7 +2554,7 @@ Diligit Umbritius tenebras, latebrosa requirens;
 
  
 
-CCXXIII. Nulli vel omnibus credere vitium esse .
+CCXXIII. Nulli vel omnibus credere vitium esse.
  
 
  
@@ -2570,7 +2570,7 @@ Rufe, quid est quoniam te nulli credis amico?
 
  
 
-CCXXIV. Horam bene vivendi procrastinandam non esse .
+CCXXIV. Horam bene vivendi procrastinandam non esse.
  
 
  
@@ -2586,7 +2586,7 @@ Vivendi recte fatuus procrastinat horam,
 
  
 
-CCXXV. Iniquum esse inire contraria .
+CCXXV. Iniquum esse inire contraria.
  
 
  
@@ -2602,7 +2602,7 @@ Postume, nummorum cumulabas milibus archam,
 
  
 
-CCXXVI. Motum localem motum mentis ostendere .
+CCXXVI. Motum localem motum mentis ostendere.
  
 
  
@@ -2618,7 +2618,7 @@ Cur adeo gaudes motu, Joviane, locali
 
  
 
-CCXXVII. Pondus et pondus non habendum .
+CCXXVII. Pondus et pondus non habendum.
  
 
  
@@ -2634,7 +2634,7 @@ Heu! quia pondus habes, et pondus, amice Valeri,
 
  
 
-CCXXVIII. Miseriorem miserum non irridere .
+CCXXVIII. Miseriorem miserum non irridere.
  
 
  
@@ -2650,7 +2650,7 @@ Calvitium, Calvine, tibi præbere solebat
 
  
 
-CCXXIX. Amorem cogendo non adquiri .
+CCXXIX. Amorem cogendo non adquiri.
  
 
  
@@ -2666,7 +2666,7 @@ Torvus et ore minans te nos, Tite, poscis amare,
 
  
 
-CCXXX. Peccandi libertatem usu adquiri .
+CCXXX. Peccandi libertatem usu adquiri.
  
 
  
@@ -2682,7 +2682,7 @@ Libertas peccandi emitur peccando, Verane,
 
  
 
-CCXXXI. Mores legendos, non vitam .
+CCXXXI. Mores legendos, non vitam.
  
 
  
@@ -2698,7 +2698,7 @@ Subtractum vitæ Lycidam, Germanice, defles,
 
  
 
-CCXXXII. Auxilia multorum sibi quærenda .
+CCXXXII. Auxilia multorum sibi quærenda.
  
 
  
@@ -2716,7 +2716,7 @@ CCXXXII. Auxilia multorum sibi quærenda .
 
  
 
-CCXXXIII. Cui pro natura bene est pauperem non esse .
+CCXXXIII. Cui pro natura bene est pauperem non esse.
  
 
  
@@ -2734,7 +2734,7 @@ Audio te, Rupili, de paupertate querentem,
 
  
 
-CCXXXIV. Decipere non esse diligere .
+CCXXXIV. Decipere non esse diligere.
  
 
  
@@ -2758,7 +2758,7 @@ Quod sequeris pueros, quod amas et amaris ab illis,
 
  
 
-CCXXXV. Etiam sapientes sapientibus uti debere .
+CCXXXV. Etiam sapientes sapientibus uti debere.
  
 
  
@@ -2782,7 +2782,7 @@ Consilii virtus tibi præstans, docte Valeri,
 
  
 
-CCXXXVI. In apparatu forinseco non omnia esse ponenda .
+CCXXXVI. In apparatu forinseco non omnia esse ponenda.
  
 
  
@@ -2808,7 +2808,7 @@ Pallia Filus habet, digitos circumligat auro,
 
  
 
-CCXXXVII. Locum virtutem non dare .
+CCXXXVII. Locum virtutem non dare.
  
 
  
@@ -2826,7 +2826,7 @@ Non bene viventes, Probe, te fugisse refertur,
 
  
 
-CCXXXVIII. Insolentiam esse reprimendam .
+CCXXXVIII. Insolentiam esse reprimendam.
  
 
  

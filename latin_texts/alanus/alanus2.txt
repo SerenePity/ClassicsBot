@@ -30,7 +30,6 @@ PROLOGUS
  
 
  
-[1-9]
  
 
  
@@ -50,7 +49,6 @@ LIBER PRIMUS
  
 
  
-[1-17]
  
 
  
@@ -74,7 +72,6 @@ Possit et ad libram racionis singula pensat.
  
 
  
-[18-32]
  
 
  
@@ -96,7 +93,6 @@ Gaudet honus, sed uis honeris pensatur honore.
  
 
  
-[33-46]
  
 
  
@@ -117,7 +113,6 @@ Sed mutat uarios tociens peregrina magistros.
  
 
  
-[47-54]
  
 
  
@@ -132,7 +127,6 @@ Nature proprioque domum chorus afflat honore.
  
 
  
-[55-80]
  
 
  
@@ -165,7 +159,6 @@ Parturit et tanta natorum prole superbit.
  
 
  
-[81-91]
  
 
  
@@ -183,7 +176,6 @@ Quelibet et semper de partu cogitat arbor.
  
 
  
-[92-96]
  
 
  
@@ -195,7 +187,6 @@ Auditus, dulces offert sonus auribus escas.
  
 
  
-[97-106]
  
 
  
@@ -711,7 +702,6 @@ LIBER SECUNDUS
  
 
  
-[1-6]
  
 
  
@@ -724,7 +714,6 @@ Eloquium sermoque modum decurrit in istum:
  
 
  
-[7-56]
  
 
  
@@ -781,7 +770,6 @@ Hie noster thalamus, nostrum firmetur asylum.
  
 
  
-[57-89]
  
 
  
@@ -821,7 +809,6 @@ Si tamen a fonte cordis deducta madescat.
  
 
  
-[90-157]
  
 
  
@@ -1326,7 +1313,6 @@ LIBER TERTIUS
  
 
  
-[1-24]
  
 
  
@@ -1357,7 +1343,6 @@ Deuictos et eis sese conferre uerentur.
  
 
  
-[25-105]
  
 
  
@@ -1926,7 +1911,6 @@ LIBER QUARTUS
  
 
  
-[1-69]
  
 
  
@@ -2002,7 +1986,6 @@ Syderibus cedit, cedenti sidera cedunt.
  
 
  
-[70-94]
  
 
  
@@ -2034,7 +2017,6 @@ Quod plene possit speciem cumulare iugalis.
  
 
  
-[95-116]
  
 
  
@@ -2514,7 +2496,6 @@ LIBER QUINTUS
  
 
  
-[1-39]
  
 
  
@@ -2560,7 +2541,6 @@ Materiem tanteque stupet miracula lucis.
  
 
  
-[40-82]
  
 
  
@@ -2610,7 +2590,6 @@ Vel conducat eam, gressum moderatus euntis.
  
 
  
-[83-153]
  
 
  
@@ -3152,7 +3131,6 @@ LIBER SEXTUS
  
 
  
-[1-72]
  
 
  
@@ -3231,7 +3209,6 @@ Cani, cum canis sic uultus gracia certat.
  
 
  
-[73-184]
  
 
  
@@ -3707,7 +3684,6 @@ LIBER SEPTIMUS
  
 
  
-[1-55]
  
 
  
@@ -3769,7 +3745,6 @@ Inuidie laudemque suam mereatur ab hoste.
  
 
  
-[56-116]
  
 
  
@@ -4310,7 +4285,6 @@ LIBER OCTAVUS
  
 
  
-[1-62]
  
 
  
@@ -4379,7 +4353,6 @@ Turbo rapit uariatque uices Fortuna uolutans.
  
 
  
-[63-130]
  
 
  
@@ -4767,7 +4740,6 @@ LIBER NONUS ET VLTIMUS
  
 
  
-[1-52]
  
 
  
@@ -4826,7 +4798,6 @@ Pax Iram, Rabiem Constancia Spesque Timorem.
  
 
  
-[53-107]
  
 
  

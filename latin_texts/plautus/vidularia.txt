@@ -36,24 +36,24 @@ Plautus: Vidularia
 *** g *** estitit 
 potentiam inimi<co>rum s::tisitio 
 laudatus ia::s *** gra<ti>as 
-::ius sc *** g *** f *** nro 5 
+::ius sc *** g *** f *** nro  
 Sc<h>edia *** uo *** g<r>ae::::c *** 
 <p>oeta ha<nc> noster f<ecit> V<idularia>m. 
 isqu::t:r:o:::ciuntm ego fa<x>o s<cibi>tis. 
 prius noscite <alia: sane> scitis, ipsus <e>s<t>; 
-credo argumentum velle vos <pern>os<cer>e; 10 
+credo argumentum velle vos <pern>os<cer>e;  
 int<elle>g<etis poti>us q<uid a>g<an>t quand<o a>gent. 
 a *** uos in loco monitum::petro 
 di::::q *** s:commodiu:::tas: 
 ina *** b meam 
-magis qu *** abeo::::ortis nunciam 15 
+magis qu *** abeo::::ortis nunciam  
 uos ill *** e::nox pro hoc *** 
-*** s::s:us ***  16a 
+*** s::s:us ***  a 
 Hominem, semel quem usurpavit servitus
  
 
  
-* * *   17a
+* * *   a
  
 
  
@@ -61,23 +61,23 @@ Hominem, semel quem usurpavit servitus
  
 
  
- Prisc. GL 2.300K 
- NIC. Eiusdem Bacchae fecerunt nostram navem Pentheum.   17b
+ Prisc. GL .K 
+ NIC. Eiusdem Bacchae fecerunt nostram navem Pentheum.   b
  
 
  
- Prisc. GL 2.235K 
-inopiam, luctum, maerorem, paupertatem, algum, famem.   17c
+ Prisc. GL .K 
+inopiam, luctum, maerorem, paupertatem, algum, famem.   c
  
 
  
- Prisc. GL 2.152K 
- GORG. Paupera haec res est.   17d
+ Prisc. GL .K 
+ GORG. Paupera haec res est.   d
  
 
  
- Porph. in Hor. Carm. 1.38.7 
-haec myrtus Veneris est. 17e
+ Porph. in Hor. Carm. .. 
+haec myrtus Veneris est. e
  
 
  
@@ -88,43 +88,43 @@ haec myrtus Veneris est. 17e
 est quo *** neq:::::us censeo *** 
  NIC. Quid ais? licet<ne? DIN. M>axum<e, si>quid
 est opus. 
-sed quid est negoti? NIC. Te ego audi<vi di>cere, 20 
+sed quid est negoti? NIC. Te ego audi<vi di>cere,  
 operarium te velle ru<s condu>c<ere>. 
  DIN. Re<ct>e audivisti. NIC. Quid vis operis <fie>ri? 
  DIN. Qu<id t>u istuc curas? an mihi tutor additu's? 
  NIC. Dare possum, opinor, satis bonum operarium. 
- DIN. Est tibi in mercede servus quem des quispia<m>?   25 
+ DIN. Est tibi in mercede servus quem des quispia<m>?    
  NIC. Inopia servum i::e::::::o me loc *** 
  DIN. Quid? tu locas te? no<n, ut opinor, serio,> 
 nam equidem te m<ercennarium haud esse arb>itror. 
  NIC. Non sum, siquidem tu n<on vis mercedem dare,> 
-verum, si pretium das, du<ces te>cum simul.  30 
+verum, si pretium das, du<ces te>cum simul.   
  DIN. Laboriosa, adulescens, vita est rustica. 
  NIC. Vrbana egestas edepol aliquanto magis. 
  DIN. Talis iactandis tuae sunt consuetae manus. 
  NIC. At qualis exercendas nunc intellego. 
- DIN. Mollitia urbana atque umbra corpus candidumst. 35 
+ DIN. Mollitia urbana atque umbra corpus candidumst.  
  NIC. Sol est ad eam rem pictor: atrum fecerit. 
  DIN. Heus tu, a me<is> illic estur <satis duru>s c<ibus>. 
  NIC. Misero male esse <fuerit> con<senta>ne<um>. 
 quod abs te:::c p::t quaesso ut m<ih>i impertias. 
-si tibi pudico <homine> est opus et non malo, 40 
+si tibi pudico <homine> est opus et non malo,  
 qui fidei plenior sit quam servi tui 
 cibique minimi maxumaque industria, 
 minime mendace, em me licet conducere. 
  DIN. Non edepol equidem credo, mercennarium 
 te esse. < NIC. An> non credis? non :::: <co>ndu<ci>
-arbit<ror>   45 
+arbit<ror>    
 n *** st dicat simul 
 *** operarium 
 iam *** unde conducam mihi 
 multum labor<et, p>aullum mereat, paullum edi<t>. 
- NIC. Minus operis nihilo faciam quam qui plurumum, 50 
+ NIC. Minus operis nihilo faciam quam qui plurumum,  
 nec mihi nisi unum prandium quicquam duis, 
 praeter mercedem. DIN. Quid merendam? NIC. Ne duis, 
 neque cenam. DIN. Non cenabis? NIC. Immo ibo domum. 
  DIN. Vbi habitas? NIC. Hic apud piscatorem Gorginem. 
- DIN. Vicinus igitur es mihi, ut tu praedicas. ***  55
+ DIN. Vicinus igitur es mihi, ut tu praedicas. ***  
  
 
  
@@ -132,15 +132,15 @@ neque cenam. DIN. Non cenabis? NIC. Immo ibo domum.
  
 
  
- Prisc. GL 2.224K 
- GORG. Animum advortite ambo sultis. vidulum hic apponite;   55a 
-ego servabo, quasi sequestro detis; neutri reddibo, 55b 
-donicum res iudicata erit haec.  55c
+ Prisc. GL .K 
+ GORG. Animum advortite ambo sultis. vidulum hic apponite;   a 
+ego servabo, quasi sequestro detis; neutri reddibo, b 
+donicum res iudicata erit haec.  c
  
 
  
- Prisc. GL 2.224K 
- ASP. Haud fugio sequestrum ***   55d
+ Prisc. GL .K 
+ ASP. Haud fugio sequestrum ***   d
  
 
  
@@ -148,12 +148,12 @@ donicum res iudicata erit haec.  55c
 seu quem norim, qui advocatus adsit. iam hunc novi locum. 
 hicine vos habitatis? GORG. Hisc in aedibus: huc adducito. 
 at ego vidulum intro condam in arcam atque occludam probe. 
-tu si quem vis invenire tibi patronum, quaerita;  60 
+tu si quem vis invenire tibi patronum, quaerita;   
 perfidiose numquam quicquam hic agere decretu<m>st mihi. 
  CAC. Qur, malum, patronum quaeram, postquam litem perdidi? 
 ne <ego> homo miser e<t scelestus dudum at>que infelix fui, 
 vidulum q<ui> ubi v<id>i, non me circumspexi centiens; 
-verbero illic inter mu<rtos> latuit, insidias dedit.   65 
+verbero illic inter mu<rtos> latuit, insidias dedit.    
 tam scio quam med hic stare: captam praedam perdidi, 
 nisi quid ego mei simile aliquid contra consilium paro. 
 hic astabo atque observabo, si quem amicum conspicer.
@@ -165,98 +165,98 @@ hic astabo atque observabo, si quem amicum conspicer.
 
  
  DIN. Ne tu edepol hodie miserias multas tuas 
-mihi narravisti, eoque ab opere maxume  70 
+mihi narravisti, eoque ab opere maxume   
 te abire iussi, quia me miserebat tui. 
  CAC. Illic est adulescens, quem tempe<st>as immin *** 
 ::fic:::t:s atque arg::en::m *** rom *** 
 et iam ego audivi d::m r *** m mut *** 
-in opus ut sese collocavit quam <cit>o;   75 
+in opus ut sese collocavit quam <cit>o;    
 <po>l haut cessavit, postquam t<erra>m attigi<t>. 
 mirum est si a::::: tuam v:::::squa *** 
 nosuos parenti:::dare possu *** tus fu *** 
 rem mihi na<rravit;> ede<po>li simul *** 
-pueri::s hi *** isp *** gis  80 
+pueri::s hi *** isp *** gis   
 egentiorem *** minen:::m neminem *** 
 neque esse c<redo neque fuisse> neque f<o>re. 
  DIN. Cave tu istuc dixis. immo etiam argenti minam, 
 quam med oravisti ut darem tibi faenore, 
-iam ego adferam ad te. faenus mihi nullum duis.   85 
+iam ego adferam ad te. faenus mihi nullum duis.    
  NIC. Di tibi illum faxint filium salvum tuum, 
 qum mihi qui vivam copiam inopi facis. 
 sed quin accedat faenus, id non postulo. 
  DIN. Defaenerare hominem egentem hau decet. 
-quam ad redditurum te mihi dices diem,  90 
+quam ad redditurum te mihi dices diem,   
 cave demutassis. NIC. Vsque donec solvero,
  
 
  
- Non. 123M 
+ Non. M 
  CAC. Ibi ut piscabar, fuscina ici vidulum.
  
 
  
- Prisc. GL 2.123K 
+ Prisc. GL .K 
 Nescio qui servos e myrteta prosilit.
  
 
  
- Non. 468M 
+ Non. M 
 Quid multa verba? plurimum luctavimus.
  
 
  
- Prisc. GL 2.528K 
-Nunc apud sequestrum vidulum posivimus.  95
+ Prisc. GL .K 
+Nunc apud sequestrum vidulum posivimus.  
  
 
  
- Prisc. GL 2.165K 
+ Prisc. GL .K 
 Opposita est calcendix. NIC. At ego signi dicam quid siet.
  
 
  
- Fulg. serm. antiq. 53; 15 
+ Fulg. serm. antiq. ;  
 A. Iuben hunc insui in culleo 
 atque in altum deportari, suis ut annonam bonam 
 piscibus concinnet? B. Malo hunc adligari ad horiam, 
-ut semper piscetur, etsi sit tempestas maxima.   100
+ut semper piscetur, etsi sit tempestas maxima.   
  
 
  
- Non. 258M 
+ Non. M 
 Signum recte comparebat; huius contendi anulum.
  
 
  
- Non. 138M 
+ Non. M 
 Malim moriri meos quam mendicarier: 
 boni miserantur illum, hunc inrident mali.
  
 
  
- Non. 104M 
+ Non. M 
 Nunc servos argentum a patre expalpabitur.
  
 
  
- Prisc. GL 2.317K 
+ Prisc. GL .K 
  (NIC.) *** immo id quod haec nostra est patria et quod hic meus
-pater,   105 
+pater,    
 illic autem Soterinis est pater.
  
 
  
- Philarg. Verg. Ecl. 2.63 
+ Philarg. Verg. Ecl. . 
 Nam audivi feminam ego leonem semel parire ***
  
 
  
- Non. 220M 
+ Non. M 
 Vbi quamque pedem viderat, subfurabatur omnis.
  
 
  
- Non. 332M 
+ Non. M 
 Sed leno egreditur foras; 
 hinc ex occulto sermonem eius sublegam.
  

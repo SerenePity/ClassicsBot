@@ -11,7 +11,7 @@ Tertullian: de Pallio
  
  
  
- I. I. [1] Principes semper Africae, uiri
+ I. I. Principes semper Africae, uiri
 Carthaginienses, uetustate nobiles, nouitate felices, gaudeo uos tam prosperos temporum,
 cum ita uacat ac iuuat habitus denotare. Pacis haec et annonae otia.
  Ab imperio et a caelo bene est. Tamen et uobis habitus aliter olim, tunicae
@@ -23,7 +23,7 @@ utroque laterum regestus et ceruicibus circumstrictus in fibulae morsu, humeris
 acquiescebat.
 
  
- [2] Instar eius hodie Aesculapio iamn uestro sacerdotium est. Sic
+ Instar eius hodie Aesculapio iamn uestro sacerdotium est. Sic
 et in proximo soror ciuitas uestiebat, et sicubi alibi in Africa Tyros. At cum saecularium
 sortium uariauit urna et Romanis deus maluit, soror quidem ciuitas suopte arbitrio mutare
 properauit, ut adpulsum Scipionem ante iam de habitu salutasset, Romanum praecoca.
@@ -34,7 +34,7 @@ concordia iuuat, toga oblata est. Pro, quantum circummeauit, a Pelasgis ad Lydos
 ad Romanos, ut ab humeris sublimioris populi Carthaginienses complecteretur!
 
  
- [3] Exinde tunicam longiorem cinctu arbitrante suspenditis,et pallii
+ Exinde tunicam longiorem cinctu arbitrante suspenditis,et pallii
 iam teretis redundantiam tabulata congregatione fulcitis, et si quid praeterea condicio
 uel dignitas uel temporalitas uestit, pallium tamen generaliter uestrum immemores etiam
 denotatis. Equidem haud miror prae documento superiore. Nam et arietem (non quem Laberius reciprocicornem
@@ -51,7 +51,7 @@ quondam suos audet, stupuere illico Carthaginienses ut nouum extraneum ingenium:
 Sic denique nec pallium agnoscitur.
 
  
-  II. [1] Sit nunc
+  II. Sit nunc
 aliunde res, ne Poenicum inter Romanos aut erubescat aut doleat. Certe habitum uertere
 naturae totius sollemne munus est. Fungitur et ipse mundus interim iste quem incumbimus.
 Viderit Anaximander, si plures putat, uiderit, si quis uspiam alius, ad Meropas, ut
@@ -63,7 +63,7 @@ Denique diuersitatis discordiam uices foederant. Ita mutando erit mundus omnis q
 diuersitatibus corporatus et uicibus temperatus.
 
  
- [2] Nostra certe metatio, quod clausis, uel in totum. Homericis oculis
+ Nostra certe metatio, quod clausis, uel in totum. Homericis oculis
 liquet, totum uersiforme est. Dies et nox inuicem uertunt. Sol stationibus annuis, luna
 modulationibus menstruis uariat. Siderum distincta confusio interdum reicit quid,
 interdum resuscitat. Caeli ambitus nunc subdiuo splendidus, nunc nubilo sordidus; aut
@@ -75,7 +75,7 @@ et canam. Ceteri quoque eius ornatus quid non aliud ex alio mutant, et montium s
 decurrendo, et fontium uenae cauillando et fluminum uiae obhumando?
 
  
- [3] Mutauit et totus orbis aliquando, aquis omnibus obsitus. Adhuc
+ Mutauit et totus orbis aliquando, aquis omnibus obsitus. Adhuc
 maris conchae et buccinae peregrinantur in montibus, cupientes Platoni probare etiam ardua
 fluitasse. Sed et enatando rursus in forma mutauit rursus orbis, alius idem. Mutat et nunc
 localiter habitus, cum situs laeditur, cum inter insulas nulla iam Delos, harenae Samos,
@@ -86,7 +86,7 @@ coitus angustis retorquens nouum uitii maris imbuit, non exspuentis maufragia se
 deuorantis.
 
  
- [4] Patitur et continiens de caelo aut de suo. Aspice ad Palaestinam.
+ Patitur et continiens de caelo aut de suo. Aspice ad Palaestinam.
 Qua Iordanis amnis finium arbiter, uastitas ingens, et orba regio, et frustra ager. At
 urbes retro, et populi frequentes, et solum audiebat. Dehinc, ut deus censor est et
 impietas ignium meruit imbres, hactenus Sodoma, et nulla Gomorrha, et cinis omnia, et
@@ -97,14 +97,14 @@ unicis castris fraudatis expiata! Multa et alia huiusmodi detrimenta habitum. or
 nouauere situsque mouere.
 
  
- [5] Bellis quoque plurimum licuit. Sed piget tristia non minus quara et
+ Bellis quoque plurimum licuit. Sed piget tristia non minus quara et
 regnorum uices recemsere, quotiens et ista mutauerint iam inde a Nino, Beli progenie, si
 tamem Ninus regnare primus, ut autumant superiorum profanitas. Ferme apud uos ultra stilus
 non solet: ab Assyriis, si forte, aeui historiae patescunt. Qui uero diuinas lectitamus,
 ab ipsius mundi natalibus compotes sumus.
 
  
- [6] Sed laeta iam malo, quippe et laeta mutant. Denique si quid mare
+ Sed laeta iam malo, quippe et laeta mutant. Denique si quid mare
 diluit, caelum deussit, terra subduxit, gladius detotondit, alias uersura compensati
 redit. Nam et primitus maiorem ambitum terra cassa et uacans hominum, et sicubi aliqua
 gens occuparat, sibimet soli erat. Itaque colere omnia (si demum intelligis alibi
@@ -117,7 +117,7 @@ Temeno pariter Peloponnesum occupando producunt; sic et Iones, Nelei comites, As
 urbibus instruunt; sic et Corinthii cum Archia muniunt Syracusas.
 
  
- [7] Sed uanum iam antiquitas, quando curricula nostra coram. Quantum
+ Sed uanum iam antiquitas, quando curricula nostra coram. Quantum
 reformauit orbis saeculum istud! Quantum urbium aut produxit aut auxit aut reddidit
 praesentis imperii triplex uirtus! Deo tot Augustis in unum fauente, quot census
 transcripti, quot populi repurgati, quot ordines illustrati, quot barbari exclusi! Reuera
@@ -126,14 +126,14 @@ rubo subdolae familiaritatis conuulso, et amoenus super Alcinoi pometum et Midae
 Laudans igitur orbera mutantem, quid denotas hominem?
 
  
-  III. [1] Mutant et
+  III. Mutant et
 bestiae pro ueste formam; quamquam et pauo pluma uestis, et quidera de cataclistis, immo
 omni conchylio pressior qua colla florent, et omni patagio inauratior qua terga fulgent,
 et omni syrmate solutior qua caudae iacent, multicolor et discolor et uersicolor, nunquam
 ipsa, semper alia, etsi semper ipsa quando alia, totiens denique mutanda quotiens mouenda.
 
  
- [2] Nominandus est et serpens, licet pone pauum; nam et iste quod
+ Nominandus est et serpens, licet pone pauum; nam et iste quod
 sortitus est conuertit, corium et aeuum. Siquidem ut senium persensit, in angustias
 stipat, pariterque specum ingrediens et cutem egrediens ab ipso statim limine erasus
 exuuiis ibidem relictis nouus explicat; cum squamis et anni recusantur. Hyaena, si
@@ -141,7 +141,7 @@ obserues, sexus annalis est, marem et feminam alternat. Taceo cenium, quod et ip
 aetatis suae arbiter, serpente pastus ueneno languescit in iuuentutem.
 
  
- [3] Est et
+ Est et
 
  
   Quadrupes tardigrada, agrestis, humilis, aspera.
@@ -161,14 +161,14 @@ inde suffunditur. Hoc soli chamaeleonti datum, quod uulgo dictum est, de corio s
 ludere. 
 
  
- [4] Multa dicendum fuit, ut ad hominem praestructim perueniretur. Hunc
+ Multa dicendum fuit, ut ad hominem praestructim perueniretur. Hunc
 quoquo primordio accipitis, nudus certe et inuestis figulo suo constitit; post
 demum sapientiam, haud dum licitum, praereptam potitur. Ibidem quod in nouo corpore indebitum
 adhuc pudori erat protegere festinans ficulneis foliis interim circumdat; dehinc cura de
 originis loco exterminat, quippe deliquerat, pellitus orbi ut metallo datur.
 
  
- [5] Sed arcana ista, nec omnium nosse. Cedo iam de uestro quod
+ Sed arcana ista, nec omnium nosse. Cedo iam de uestro quod
 Aegyptii narrant et Alexander digerit et mater legit de tempestate Osiridis, qua ad
 illum ex Libya Ammon facit ouium diues. Denique cura ipsis Mercurium autumant forte
 palpati arietis mollitie delectatum deglubasse ouicullam, dumque pertemptat quod facilitas
@@ -177,7 +177,7 @@ philyrae taeniis iunxerat, texuisse. Sed uos omnem lanitii dispensationem struct
 telarum Mineruae maluistis, cum penes Arachnen diligentior officinia.
 
  
- [6] Exinde materia. Nec de ouibus dico Milesiis et Selgicis et Altinis,
+ Exinde materia. Nec de ouibus dico Milesiis et Selgicis et Altinis,
 aut quis Tarentum uel Baetica cluet natura colorante, sed quoniam et arbusta uestiunt, et
 lini herbida post uirorem lauacro niuescunt. Nec fuit satis tunicam pangere et serere, ni
 etiam piscari uestitum contigisset; nam et de mari uellera, qua muscosae lanositatis
@@ -186,7 +186,7 @@ aerem liquando araneorum horoscopis idonius distendit, dehinc deuorat, mox aluo 
 Proinde, si necaueris, a nemate iam stamina uolues.
 
  
- [7] Tantam igitur paraturam materiarum ingenia quoque uestificinae
+ Tantam igitur paraturam materiarum ingenia quoque uestificinae
 prosecuta, primum tegendo homini, qua necessitas praecessit, dehinc et ornando, immo et
 inflando, qua ambitio successit, uarias indumentorum formas promulgare. Quarum pars
 gentilitus inhabitantur, ceteris incommunes, pars uero passiuitus, omnibus utiles, ut hoc
@@ -196,7 +196,7 @@ eruditus, idem Cato iuridicinae suae in tempore humerum exertus, haud minius pal
 habitu Graecis fauit.
 
  
- IV. [1] Quid nunc,
+ IV. Quid nunc,
 si est Romanitas omni salus, nec honestis tamen modis ad Graios estis? Aut, ni ita est,
 unde gentium, in prouinciis melius exercitis, quas natura agro potius eluctando
 commodauit, studia palaestrae, male senescentia et cassum laborantia et lutea unctio et
@@ -208,7 +208,7 @@ rapax a culo resina, tam furax a mento uolsella? Prodigium est haec sine pallio 
 quas uestire non nosti? Reuera enim quale est Graecatim depilari magis quam amiciri?
 
  
- [2] Habitum transferre ita demum culpae prope est, si non consuetudo,
+ Habitum transferre ita demum culpae prope est, si non consuetudo,
 sed natura mutetur. Sat refert inter honorem temporis et religionem. Det consuetudo fidem
 tempori, natura deo. Naturam itaque concussit Larissaeus heros in uirginiem mutando, ille
 ferarum medullis educatus (unde et nominis concilium, quandoquidem, labiis uacuerat ab
@@ -226,7 +226,7 @@ femina, mox de femina uir, quando neque ueritas negari debuisset neque fallacia 
 Vterque habitus mutandi malus, alter aduersus naturam, alter contra salutem.
 
  
- [3] Turpius adhuc libido uirum cultu transfigurauit quam aliqua materna
+ Turpius adhuc libido uirum cultu transfigurauit quam aliqua materna
 formido. Tametsi adoratur a uobis qui erubescendus est, ille scytalosagittipelliger, qui
 totam epitheti sui sortem cum muliebri cultu compensauit. Tantum Lydiae clanculariae
 licuit, ut Hercules in Omphale et Omphale in Hercule prostitueretur. Vbi Diomedes et
@@ -243,20 +243,20 @@ Qualis ille Hercules in serico Omphales fuerit, iam Omphale in Herculis scorto d
 descripsit.
 
  
- [4] Sed et qui ante Tirynthium accesserat, pugil Cleomachus, post
+ Sed et qui ante Tirynthium accesserat, pugil Cleomachus, post
 Olympiae cum incredibili mutatu de masculo fluxisset, intra cutem caesus et ultra, inter
 Fullonesiam Nouianos coronandus meritoque mimographo Lentulo in Catinensibus commemoratus,
 utique sicut uestigia cestuum uiriis occupauit, ita et endromidis solocem aliqua multicia
 synthesi extrusit.
 
  
- [5] Physconem et Sardanapallum tacendum est, qui nisi insignes
+ Physconem et Sardanapallum tacendum est, qui nisi insignes
 libidinum, alias reges nemo nosset. Tacendum autem, ne quid et illi de Caesaribus
 quibusdam uestris obmussitent pariter propudiosis, ne caninae forte constantiae mandatum
 sit impuriorem Physcone et molliorem Sardanapallo Caesarem designare et quidem Subneronem.
 
  
- [6] Nec tepidior uis uanae quoque gloriae mutandis induuiis, etiam uiro
+ Nec tepidior uis uanae quoque gloriae mutandis induuiis, etiam uiro
 saluo. Calor est omnis affectus; uerum cum in affectationem flabellatur, iam de incendio
 gloriae ardor est. Habes igitur ex isto fomite aestuantem magnum regem, sola gloria
 minorem. Vicerat Medicam gentem, et uictus est Medica ueste. Triumphalem cataphracten
@@ -265,7 +265,7 @@ perlucido tegendo nudauit, anhelum adhuc ab opere belli, et ut mollius uentilant
 extinxit. Non erat satis animi tumens Macedo, ni illum etiam uestis inflatior delectasset; nisi quod et philosophi, puto, ipsi aliquid eiusmodi affectant.
 
  
- [7] Audio enim et in purpura philosophatum. Si philosophus in purpura,
+ Audio enim et in purpura philosophatum. Si philosophus in purpura,
 cur non et in baxa? Tyrium calciari nisi auro minime Graecatum decet. Atquiri alius et
 sericatus et crepidam aeratus incessit. Digne quidem, ut bacchantibus indumentis aliquid
 subtinniret, cymbalo incessit. Quod si iam tunc locorum Diogenes de dolio latraret, non
@@ -274,7 +274,7 @@ Empedoclem in adyta Cloacinarum detulisset, ut qui se caelitem delirarat, sorore
 suas, dehinc homines deus salutaret.
 
  
- [8] Tales igitur habitus, qui de natura et modestia transferunt, et
+ Tales igitur habitus, qui de natura et modestia transferunt, et
 acie figere et digito destiniare et nutu tradere merito sit. Prorsus, si quis
 Menandrico fluxu delicatam uestem humi protrahat, audiat penes se quod et comicus:
 Qualem demens iste chlamydem disperdit? Enimuero iamdudum
@@ -283,7 +283,7 @@ in equestribus, subuerbustos in liberalibus, dediticios in ingenuis, rupices in 
 scurras in forensibus, paganos in militaribus: uespillo, leno, lanista tecum uestiuntur.
 
  
- [9] Conuerte et ad feminas. Habes spectare, quod Caecina Seuerus
+ Conuerte et ad feminas. Habes spectare, quod Caecina Seuerus
 grauiter senatui impressit, matronas sine stola in publico. Denique, Lentuli auguris
 consultis, quae ita sese exauctorasset, pro stupro erat poena; quoniam quidem indices
 custodesque dignitatis habitus, ut lenocinii factitandi impedimenta, sedulo quaedam
@@ -295,7 +295,7 @@ si praestat oculos abducere ab eiusmodi propudiis occisae in publico castitatis,
 tamen uel sublimis, iam matronas uidebis.
 
  
- [10] Et cum latrinarum antistes sericum uentilat et immundiorem loco
+ Et cum latrinarum antistes sericum uentilat et immundiorem loco
 ceruicem monilibus consolatur et armillas, quas ex uirorum fortium donis ipsae quoque
 matronae temere usurpassent, omnium pudendorum conscias manus inserit, impuro cruri purum
 aut mulleolum inducit calceum, cur istos non spectas uel illos item habitus, qui nouitatis
@@ -311,7 +311,7 @@ titulos sacerdos suggestus. Deduc oculos, suadeo, reuerere habitum, unius interi
 tui renuntiatorem.
 
  
- V. [1] Tamen,
+ V. Tamen,
 inquis, ita a toga ad pallium? Quid enim, si et a diademate et a sceptro? An aliter
 mutauit Anacharsis, cum regno Scythiae philosophiam praeuertit? Nulla in melius
 transgressi sinit signa, est habitus iste quod faciat. Prius etiam, ad simplicem
@@ -325,7 +325,7 @@ tabulis retrahat a scapulis et, exclusa dextera, in laeuam adhuc congerat cum al
 tabulato in terga deuoto, atque ita hominem sarcina uestiat.
 
  
- [2] Conscientiam denique tuam perrogabo, quid te prius in toga sentias,
+ Conscientiam denique tuam perrogabo, quid te prius in toga sentias,
 indutumne an onustum? habere uestem an baiulare? Si negabis, domum consequar; uidebo
 quid statim a limine properes. Nullius profecto alterius indumenti expositio quam togae
 gratulatur. Calceos nihil dicimus, proprium togae tormentum, immundissimam pedum tutelam,
@@ -334,7 +334,7 @@ calceo uincipedem? Magnum incessui munimentum sutrinae Venetiae prospexere peron
 effeminatos!
 
  
- [3] At enim pallio nihil expeditius, etiam si duplex, quod Cratetis.
+ At enim pallio nihil expeditius, etiam si duplex, quod Cratetis.
 Mora nusquam uestiendo imponitur; quippe tota molitio eius operire est solutim. Id uno
 circumiectu licet, et quidem nusquam inhumano; ita omnia hominis simul contegit. Humerum
 uolens exponit uel includit, ceteroquin humero adhaeret, nihil circumfulcit, nihil
@@ -344,7 +344,7 @@ uacat zonae tormentum; si quid calceatus inducitur, mundissimum opus est, aut pe
 magis, certe uiriles magis quam in calceis.
 
  
- [4] Haec pro pallio interim, quantum nomine comitiasti. Iam uero et de
+ Haec pro pallio interim, quantum nomine comitiasti. Iam uero et de
 negotio prouocat. Ego, iniquit, nihil foro, nihil campo, nihil curiae debeo; nihil officio
 aduigilo, nulla rostra praeoccupo, nulla praetoria obseruo; canales non odoro, cancellos
 non adoro; subsellia non contundo, iura non conturbo, causas non elatro; non iudico, non
@@ -356,7 +356,7 @@ uocas totum quietis magisterium, qui eam summae atque unicae uoluptatis nomine
 consecrauere.
 
  
- [5] Tamen propemodum mihi quoque licebit in publicum prodesse. Soleo de
+ Tamen propemodum mihi quoque licebit in publicum prodesse. Soleo de
 qualibet margine uel ara medicinas moribus dicere, quae facilius publicis rebus et
 ciuitatibus et imperiis bonas ualetudines conferent quam tuae operae. Quippe si pergam ad
 acuta tecum, plus togae laesere rem publicam quam loricae. Atquin nullis uitiis adulor,
@@ -369,7 +369,7 @@ cum Drusillanus, equidem seruus Claudii, quingenariam promulsidem aedificat, sup
 fortassean mensis necessariam, cui si officina exstructa est, debuit et triclinium.
 
  
- [6] Immergo aeque scalpellum acerbitati ei, qua Vedius Pollio seruos
+ Immergo aeque scalpellum acerbitati ei, qua Vedius Pollio seruos
 muraenis inuadendos obiectabat. Noua scilicet saeuitiae delectatio terrenae bestiae
 exedentulae et exungues et excornes; de piscibus placuit feras cogere, utique statim
 coquendis, ut in uisceribus earum aliquid de seruorum suorum corporibus et ipse gustaret.
@@ -382,12 +382,12 @@ esurire. Margarita namque, uel ipso nomine pretiosa, dehausit, credo ne mendiciu
 coenasset.
 
  
- [7] Taceo Nerones et Apicios, Rufos. Dabo catharticum impuritati Scauri
+ Taceo Nerones et Apicios, Rufos. Dabo catharticum impuritati Scauri
 et aleae Curii et uinolentiae Antonii. Et memento istos interim ex multis togatos fuisse; quales apud pallium haud facile. Has purulentias ciuitatis quis eliciet et exuaporabit,
 ni sermo palliatus?
 
  
- VI. [1] Sermone,
+ VI. Sermone,
 inquit, me suasisti, medicamine sapientissimo. Verum, etsi eloquium quiescat, aut infantia
 subductum aut uerecundia retentum (nam et elingua philosophia uita contenta est), ipse
 habitus sonat. Sic denique auditur philosophus dum uidetur. De occursu meo uitia suffundo.
@@ -396,7 +396,7 @@ non potest? Grande pallii beneficium est, sub cuius recogitatu improbi mores uel
 erubescunt.
 
  
- [2] Viderit nunc philosophia, quid prosit; nec enim sola mecum est.
+ Viderit nunc philosophia, quid prosit; nec enim sola mecum est.
 Habeo et alias artes in publico utiles. De meo uestiuntur et primus informator litterarum
 et primus enodator uocis et primus numerorum harenarius et grammaticus et rhetor et
 sophista et medicus et poeta et qui musicam pulsat et qui stellarem coniectat et qui

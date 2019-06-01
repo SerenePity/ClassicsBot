@@ -13,7 +13,7 @@ Godfrey of Winchester: Epigrammata Historica
  
 
  
-I. De Cnuth rege .
+I. De Cnuth rege.
  
 
  
@@ -32,7 +32,7 @@ Antiquo Cnuth natus erat de sanguine regum,
  
 
  
-II. De regina Emma .
+II. De regina Emma.
  
 
  
@@ -49,7 +49,7 @@ Splendidior gemma meriti splendoribus Emma,
  
 
  
-III. De Eaduardo rege .
+III. De Eaduardo rege.
  
 
  
@@ -66,7 +66,7 @@ Eadwardus, probitate potens, pietate verendus.
  
 
  
-IV. De regina Edida .
+IV. De regina Edida.
  
 
  
@@ -83,7 +83,7 @@ Nobilitas patrum te magnificavit, Edida,
  
 
  
-V. De rege Gilielmo .
+V. De rege Gilielmo.
  
 
  
@@ -102,7 +102,7 @@ Regnum, forma, genus, cor, dextra, facetia, virtus,
  
 
  
-VI. De Mathilda regina .
+VI. De Mathilda regina.
  
 
  
@@ -121,7 +121,7 @@ Consilii virtus, decor oris, gratia verbi,
  
 
  
-VII. De archiepiscopo Lanfranco .
+VII. De archiepiscopo Lanfranco.
  
 
  
@@ -140,7 +140,7 @@ Vixisti, venerande pater, sapienter et æque,
  
 
  
-VIII. De Walchero Dunelmensi episcopo .
+VIII. De Walchero Dunelmensi episcopo.
  
 
  
@@ -159,7 +159,7 @@ Cor sapiens, justique tenax, et gloria morum,
  
 
  
-IX. Invectio in eos qui eum occiderunt .
+IX. Invectio in eos qui eum occiderunt.
  
 
  
@@ -194,7 +194,7 @@ Scote, ubi lex vel fas? facies et forma pudoris?
  
 
  
-X. De Richardo regis Willelmi filio .
+X. De Richardo regis Willelmi filio.
  
 
  
@@ -211,7 +211,7 @@ Magnanimo spes laudis eras, Richarde, parenti,
  
 
  
-XI. De c˙co monacho nomine Aithelrico .
+XI. De c˙co monacho nomine Aithelrico.
  
 
  
@@ -228,7 +228,7 @@ Ecce fatigatus diuturna nocte fuisti,
  
 
  
-XII. De Wulnotho comite .
+XII. De Wulnotho comite.
  
 
  
@@ -245,7 +245,7 @@ Nobilis ordo patrum, morum custodia simplex,
  
 
  
-XIII. De abbate Simeone .
+XIII. De abbate Simeone.
  
 
  
@@ -262,7 +262,7 @@ Vivebas, Simeon, sed et hoc in tempore vivis,
  
 
  
-XIV. De Wulstano Wigornensi episcopo .
+XIV. De Wulstano Wigornensi episcopo.
  
 
  
@@ -279,7 +279,7 @@ Vixisti semper, semper, venerande sacerdos,
  
 
  
-XV. De Rodberto Herefordensi episcopo .
+XV. De Rodberto Herefordensi episcopo.
  
 
  
@@ -296,7 +296,7 @@ Non tua te mathesis, præsul Rodberte, tuetur,
  
 
  
-XVI. De Walchelino episcopo .
+XVI. De Walchelino episcopo.
  
 
  
@@ -315,7 +315,7 @@ Consilium, virtutis amor, facundia comis,
  
 
  
-XVII. De Thoma archiepiscopo .
+XVII. De Thoma archiepiscopo.
  
 
  
@@ -332,7 +332,7 @@ Thomas præsul obit, petit alta, nec ima relinquit,
  
 
  
-XVIII. De abbate Serlone .
+XVIII. De abbate Serlone.
  
 
  
@@ -349,7 +349,7 @@ Ecclesiæ murus cecidit Serlone cadente,
  
 
  
-XIX. De Willelmo Fiscamnensi abbate .
+XIX. De Willelmo Fiscamnensi abbate.
  
 
  
@@ -366,7 +366,7 @@ Et verbo vitaque bona, Willelme, fuisti,
  
 
  
- Explicit libellus domini Godefridi .
+ Explicit libellus domini Godefridi.
  
 
  
