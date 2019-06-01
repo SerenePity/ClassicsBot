@@ -297,10 +297,10 @@ si concedis crastinum.
 
 
 
-«O mi dilectissime,
+'O mi dilectissime,
 quid iam cupis agere?
 secus tibi consule,
-noli me relinquere!»
+noli me relinquere!'
  
 
 
@@ -313,10 +313,10 @@ postquam ero monachus.
 
 
 
-«Ergo mane paululum
+'Ergo mane paululum
 saltim per hoc triduum!
 forsan hoc periculum
-non erit mortiferum.»
+non erit mortiferum.'
  
 
 
@@ -329,10 +329,10 @@ vita quoque crastina.
 
 
 
-«Monachorum regula
+'Monachorum regula
 non est tibi cognita?
 ieiunant cottidie,
-vigilant assidue.»
+vigilant assidue.'
  
 
 
@@ -345,10 +345,10 @@ satiari exigit.
 
 
 
-«Dura donant pabula,
+'Dura donant pabula,
 fabas ac legumina,
 post tale convivium
-potum aque modicum.»
+potum aque modicum.'
  
 
 
@@ -361,10 +361,10 @@ caro datur vermibus?
 
 
 
-«Vel parentum gemitus
+'Vel parentum gemitus
 moveat te penitus,
 qui te plangunt monachum
-veluti iam mortuum!»
+veluti iam mortuum!'
  
 
 
@@ -377,10 +377,10 @@ quando iudex venerit.
 
 
 
-«Numquam magis videris,
+'Numquam magis videris,
 quem tu tantum diligis:
 illum Parme clericum
-Guidonem pulcherrimum.»
+Guidonem pulcherrimum.'
  
 
 
@@ -393,10 +393,10 @@ postponamus omnia.
 
 
 
-«O ars dialectica,
+'O ars dialectica,
 numquam esses cognita,
 que tot facis clericos
-exules ac miseros!»
+exules ac miseros!'
  
 
 
@@ -584,7 +584,7 @@ cum Bulla fulminante?
 
 
 Respondit Caritas:
-«homo, quid dubitas?
+'homo, quid dubitas?
 quid me sollicitas?
 non sum, quo mussitas,
 nec in euro nec in austro,
@@ -594,7 +594,7 @@ nec in bello nec in bulla:
 de Iericho sum veniens,
 ploro cum sauciato,
 quem duplex Levi transiens
-non astitit grabato.»
+non astitit grabato.'
  
 
 
@@ -603,8 +603,8 @@ O vox prophetica,
 o Nathan, predica:
 culpa Davitica
 patet non modica!
-dicit Nathan: «non clamabo»,
-«neque» David «planctum dabo»,
+dicit Nathan: 'non clamabo',
+'neque' David 'planctum dabo',
 cum sit Christi rupta vestis,
 contra Christum Christus testis.
 ve, ve vobis, hypocrite,
@@ -1294,7 +1294,7 @@ si non sanas, morior.
 
 
 
-«Quid tu captas, iuvenis?
+'Quid tu captas, iuvenis?
 queris, que non invenis.
 . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . .
@@ -1305,7 +1305,7 @@ queris, que non invenis.
 Mecum queris ludere –
 nulli me coniungere,
 cum Phenice complice
-vitam volo ducere.»
+vitam volo ducere.'
  
 
 
@@ -1320,12 +1320,12 @@ ultra modum rigidas!
 
 
 
-«Video dictis his,
+'Video dictis his,
 quid tu vis,
 quid tu sis,
 quod amare bene scis;
 et amari valeo,
-et iam intus ardeo.»
+et iam intus ardeo.'
  
 
  
@@ -1362,10 +1362,10 @@ ceteris virginibus    ut hoc referamus!
 
 
 
-«O dilecta domina,    cur sic alienaris?
+'O dilecta domina,    cur sic alienaris?
 an nescis, o carissima,    quod sic adamaris?
 si tu esses Helena,    vellem esse Paris!
-tamen potest fieri    noster amor talis.»
+tamen potest fieri    noster amor talis.'
  
 
  
@@ -1377,7 +1377,7 @@ Ih solde eines morgenes gan
 eine wise breite;
 do sah ih eine maget stan,
 div grůzte mih bereite.
-si sprah: «liebe, war wend ir?
+si sprah: 'liebe, war wend ir?
 durfent ir geleite?
 gegen den fůzen neig ih ir,
 gnade ih ir des seite.
@@ -1439,15 +1439,15 @@ Reimar (MF 203,10)
 
  
 
-«Ze niwen vrovden stat min můt
+'Ze niwen vrovden stat min můt
  
 
-hohe,» sprah ein schone wip.
-«ein ritter minen willen tůt;
+hohe,' sprah ein schone wip.
+'ein ritter minen willen tůt;
 der hat geliebet mir den lip.
 ich wil im iemmer holder sin
 danne deheinem mage min;
-ih erzeige ime wibes triwe schin.»
+ih erzeige ime wibes triwe schin.'
  
 
  
@@ -1670,8 +1670,8 @@ Sage, daz ih dirs iemmer lone:
 hast du den uil lieben man gesehen?
 ist iz war, lebet er so schone,
 als si sagent vnde ih dih hore iehen?
-«vrowe, ih sah in: er ist vro;
-sin herçe stat, ob ir gebietet, iemmer ho.»
+'vrowe, ih sah in: er ist vro;
+sin herçe stat, ob ir gebietet, iemmer ho.'
  
 
  
@@ -1898,7 +1898,7 @@ allez ane haz!
 wie wol du die bovme cleidest
 vnde die heide baz!
 div hat varue me.)
-«du bist churçer, ih pin langer!»
+'du bist churçer, ih pin langer!'
 also stritent si uf dein anger,
 blůmen vnde chle.
  

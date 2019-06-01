@@ -178,10 +178,10 @@ cui sors magis    aut Fortuna faveat!
 a Chaldeo recipitur,
 eius commilitone.
 quassantur mandibole,
-nudus clamat: «ve ve ve!»
+nudus clamat: 've ve ve!'
 currunt dentes in agone.
-«o infelix nimium!    cur venis de calore
-decantans regem martyrum    deferens in ore?»
+'o infelix nimium!    cur venis de calore
+decantans regem martyrum    deferens in ore?'
 hei, hec est regula,
 per quam nobis    cutis erit morbida.
  
@@ -370,7 +370,7 @@ sortes apponite!
 
 Cum ergo salutamus
 vinum, tunc cantamus:
-«te deum laudamus»
+'te deum laudamus'
 et hoc propere.
 Refl.
 
@@ -394,7 +394,7 @@ sortes apponite!
 
 
 
-«Bacchus est suavis,
+'Bacchus est suavis,
 fit tamen sepe gravis
 bibentibus incaute
 ac immoderate.
@@ -410,7 +410,7 @@ sortes apponite!
 Proinde non omittatur,
 sed lautius bibatur!
 dignus iam mittatur
-et hoc propere!»
+et hoc propere!'
 Refl.
 
 Deu sal sit vobiscum, o pecharie!
@@ -497,8 +497,8 @@ Nil, si vertor, ero,    nil sum laico neque clero.
 
 Roch, pedites, regina, senex, eques, insuper et rex,
 Conflictus    vocat edictus    vos Martis ad ictus!
-Vox sonat in Rama:    «Trahe tost, capra, concine, clama!»
-Victus ab hoste gemat,    qui dum fit «Schach roch» † et hie mat.
+Vox sonat in Rama:    'Trahe tost, capra, concine, clama!'
+Victus ab hoste gemat,    qui dum fit 'Schach roch' † et hie mat.
  
 
  
@@ -630,11 +630,11 @@ Et mattum suffert, si via nulla patet.
 
 
 Alte clamat Epicurus:
-«venter satur est securus.
+'venter satur est securus.
 venter deus meus erit.
 talem deum gula querit,
 cuius templum est coquina,
-in qua redolent divina.»
+in qua redolent divina.'
  
 
 
@@ -669,12 +669,12 @@ circa ventrem operosa.
 
 
 
-Venter inquit: «nichil curo
+Venter inquit: 'nichil curo
 preter me. sic me procuro,
 ut in pace in id ipsum
 molliter gerens me ipsum
 super potum, super escam
-dormiam et requiescam.»
+dormiam et requiescam.'
  
 
  
@@ -857,7 +857,7 @@ vicerunt illum.
 
 
 
-Nunc clamat: «O Fortuna,
+Nunc clamat: 'O Fortuna,
 quid fecisti pessima?
 Vestitum cito nudasti
 et divitem egeno coequasti.
@@ -868,7 +868,7 @@ et divitem egeno coequasti.
 Per tres falsos testes
 abstraxisti vestes.
 Ses zinke surgant, spes mea!
-Precedant cito in † tabulea!»
+Precedant cito in † tabulea!'
  
 
 
@@ -891,7 +891,7 @@ ses, miserere!
 
 
 Evangelium:
-Sequentia falsi evangelii secundum marcam argenti. Fraus tibi Decie! Cum sero esset una gens lusorum, venit Decius in medio eorum et dixit: «Fraus vobis! Nolite cessare ludere. Pro dolore enim vestro missus sum ad vos.» Primas autem, qui dicitur Vilissimus, non erat cum eis, quando venit Decius. Dixerunt autem alii discipuli: «Vidimus Decium.» Qui dixit eis: «Nisi mittam os meum in locum peccarii, ut bibam, non credam.» Primas autem, qui dicitur Vilissimus, iactabat decem, alius duodecim, tertius vero quinque. Et qui quinque proiecerat, exhausit bursam et nudus ab aliis se abscondit.
+Sequentia falsi evangelii secundum marcam argenti. Fraus tibi Decie! Cum sero esset una gens lusorum, venit Decius in medio eorum et dixit: 'Fraus vobis! Nolite cessare ludere. Pro dolore enim vestro missus sum ad vos.' Primas autem, qui dicitur Vilissimus, non erat cum eis, quando venit Decius. Dixerunt autem alii discipuli: 'Vidimus Decium.' Qui dixit eis: 'Nisi mittam os meum in locum peccarii, ut bibam, non credam.' Primas autem, qui dicitur Vilissimus, iactabat decem, alius duodecim, tertius vero quinque. Et qui quinque proiecerat, exhausit bursam et nudus ab aliis se abscondit.
  
 
 
@@ -989,12 +989,12 @@ largos laudet nostra contio!
 
 
 
-«Invidos hypocritas
+'Invidos hypocritas
 mortis premat gravitas!
 pereant fallaces
 et viri mendaces,
 munus qui negant promissum,
-puniendi ruant in abyssum!»
+puniendi ruant in abyssum!'
 Refl.
 
 O et o
@@ -1062,7 +1062,7 @@ hin vur, hin vur, hin vur, hin vur!
 
 
 
-Cum «In orbem universum»    decantatur «ite»,
+Cum 'In orbem universum'    decantatur 'ite',
 sacerdotes ambulant,    currunt cenobite
 et ab evangelio    iam surgunt levite,
 sectam nostram subeunt,    que salus est vite.
@@ -1070,7 +1070,7 @@ sectam nostram subeunt,    que salus est vite.
 
 
 
-In secta nostra scriptum est:    «omnia probate!»
+In secta nostra scriptum est:    'omnia probate!'
 vitam nostram optime    vos considerate,
 contra pravos clericos    vos perseverate,
 qui non large tribuunt    vobis in caritate!
@@ -1120,7 +1120,7 @@ in personis humiles    et econtra vanos.
 
 Ordo procul dubio    noster secta vocatur,
 quam diversi generis    populus sectatur;
-ergo «hic» et «hec» et «hoc»    ei preponatur,
+ergo 'hic' et 'hec' et 'hoc'    ei preponatur,
 quod sit omnis generis,    qui tot hospitatur.
  
 
@@ -1184,8 +1184,8 @@ nam post grande malum sors    sequitur gaudentis.
 
 Ad quos perveneritis,    dicatis eis, quare:
 singulorum cupitis    mores exprobrare;
-«reprobare reprobos    et probos probare
-et probos ab improbis    veni segregare!»
+'reprobare reprobos    et probos probare
+et probos ab improbis    veni segregare!'
  
 
  
@@ -1270,7 +1270,7 @@ vel cum a tinctoribus    color coloratur, –
 
 Forma, cum in varias    formas sint formata
 vestimenta divitum    vice variata.
-«in nova fert animus»    dicere mutata
+'in nova fert animus'    dicere mutata
 vetera, vel potius:    in reveterata.
  
 
@@ -1329,7 +1329,7 @@ omnes anathema sint,    donec mutent mores!
 
 
 
-«Cum animadverterem» dicit Cato.
+'Cum animadverterem' dicit Cato.
 quis me redarguit de peccato?
 laudem et honorem canimus
 nostro hospiti, cui bonus est animus.
@@ -1350,8 +1350,8 @@ postea deludat camisiam.
 et si aliquid plus de re sapitis,
 denudetur a planta pedis usque ad verticem capitis.
 tunc eritis comites apostolorum,
-quia «in omnem terram exivit sonus eorum
-et in fines orbis terre verba eorum».
+quia 'in omnem terram exivit sonus eorum
+et in fines orbis terre verba eorum'.
  
 
 
@@ -1377,10 +1377,10 @@ et in secta Decii voluntas mea est,
 et qui mane me quesierit in taberna,
 post vesperam nudus egredietur
 et sic denudatus veste clamabit:
-«wafna, wafna!
+'wafna, wafna!
 quid fecisti, sors turpissima!
 nostre vite gaudia
-abstulisti omnia.»
+abstulisti omnia.'
  
 
  
@@ -1409,7 +1409,7 @@ Pro caris rebus    pigmentis et speciebus.
 Artifex, qui condidit    hominem ex luto
 et linivit oculos    ceci sacro sputo,
 salvet vestras animas    crimine soluto:
-«pax vobis omnibus»    ego vos saluto.
+'pax vobis omnibus'    ego vos saluto.
  
 
 
@@ -1541,8 +1541,8 @@ si cum patientia    me sustineatis.
 
 
 
-Dicet quis: «enuclea!    quid est hoc, quod ais?»
-dicam: «larga munera    vestra sentit Thais,
+Dicet quis: 'enuclea!    quid est hoc, quod ais?'
+dicam: 'larga munera    vestra sentit Thais,
 Thais illa celebris    thermis, Cumis, Bais,
 illa Troie pestilens    et damnosa Grais.
  

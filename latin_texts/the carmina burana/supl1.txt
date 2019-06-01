@@ -299,13 +299,13 @@ modis.
 
 Sitibundi,
 ut pax detur:
-«osculetur
+'osculetur
 osculo me oris sui,
 que de culpa nigra fui
 sponsa pulchra, ut dilecta
 et perfecta,
 simplex, recta
-sim de bonis tuis, que te placent.»
+sim de bonis tuis, que te placent.'
  
 
  
@@ -332,7 +332,7 @@ providus,    prudens, honorabilis.
 
 Cum architriclino
 dicere    possem eius vultibus:
-«tu servasti vino
+'tu servasti vino
 nobili    finem atque dapibus,
 et post primum    non datur deterius:
 verum loquor verius:
@@ -342,7 +342,7 @@ funditur    bonum atque melius.
 
 
 Ad gradus virtutum
-properas    ut sol ad meridiem.»
+properas    ut sol ad meridiem.'
 paupertatis nutum
 sentiens    queres eius faciem.
 cur, Fortuna    vitrea, sic deficis,
@@ -830,7 +830,7 @@ Ubi vis paremus tibi comedere pascha?
  
 
 Et Dominus respondet:
-Ite in civitatem ad quendam et dicite ei: Magister dicit: «Tempus meum prope est; apud te facio pascha cum discipulis meis».
+Ite in civitatem ad quendam et dicite ei: Magister dicit: 'Tempus meum prope est; apud te facio pascha cum discipulis meis'.
  
 
 Et in deputato loco faciant mensam parari cum mensale, cum pane et vino. Et Dominus discumbat cum duodecim apostolis suis, et edentibus illis dicat:
@@ -1214,7 +1214,7 @@ Primum cantent pontifices:
 O domine,    recte meminimus,
 quod a turba    sepe audivimus,
 seductorem    consuetum dicere:
-«post tres dies    volo resurgere.»
+'post tres dies    volo resurgere.'
  
 
 Pilatus:
@@ -1242,7 +1242,7 @@ Assessores:
 Militibus    ergo precipias
 custodire    noctis vigilias,
 ne furentur    illum discipuli
-et dicant plebi:    «surrexit a mortuis».
+et dicant plebi:    'surrexit a mortuis'.
  
 
 Iudei stent ante Pilatum et cantent:
@@ -1265,7 +1265,7 @@ Tunc Iudei se vertant ad milites parum:
 Militibus    damus pecuniam
 ut habeant    semper custodiam
 seductoris,    qui dixit temere:
-«post tres dies    volo resurgere.»
+'post tres dies    volo resurgere.'
  
 
 Milites petant pecuniam:
@@ -1295,7 +1295,7 @@ Tunc milites accepta pecunia evaginent enses et vadant ad sepulchrum et circumea
 Defensores    erimus tumuli,
 ne furentur    illum discipuli
 et fallendo    dicant in populis:
-«resurrexit    Christus a mortuis.»
+'resurrexit    Christus a mortuis.'
  
 
 Primus miles:
@@ -1442,7 +1442,7 @@ Item cantent:
 Nobis autem    custodientibus
 et vigilias    noctis servantibus
 supervenit    celestis nuntius,
-qui et dixit:    surrexit Dominus.»
+qui et dixit:    surrexit Dominus.'
  
 
 Tunc pontifices perterriti corrumpunt milites muneribus, ut taceant:
@@ -1459,8 +1459,8 @@ Versio K(losterneuburg:)
 
 Morem nobis    in turba gerite,
 corpus furtim    sublatum dicite:
-«cum nos gravis    somnus oppresserit,
-fur de nocte    eum abstulerit.»
+'cum nos gravis    somnus oppresserit,
+fur de nocte    eum abstulerit.'
  
 
 Milites accepta pecunia ad populum cantant:
@@ -1550,7 +1550,7 @@ Rabboni!
  
 
 Eaque volente iam tangere pedes eius, dicit ei Iesus:
-Noli me tangere; nondum enim ascendi ad patrem meum. Vade autem ad fratres meos et dic eis: «Ascendo ad patrem meum et patrem vestrum, Deum meum et Deum vestrum.»
+Noli me tangere; nondum enim ascendi ad patrem meum. Vade autem ad fratres meos et dic eis: 'Ascendo ad patrem meum et patrem vestrum, Deum meum et Deum vestrum.'
  
 
 Tunc duo angeli precedentes Iesum ad infernum cantant:

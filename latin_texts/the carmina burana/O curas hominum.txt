@@ -24,7 +24,7 @@ ad commoda
 omnium mens una:
 a quo nil emungitur,
 opus perdit et operam;
-quod «habenti dabitur»,
+quod 'habenti dabitur',
 tenent omnes ad litteram.
  
 
@@ -104,7 +104,7 @@ Philippus Cancellarius
 
 
 
-«Aristippe, quamvis sero,
+'Aristippe, quamvis sero,
 tuo tamen tandem quero
 frui consilio.
 quid Rome faciam?
@@ -116,12 +116,12 @@ Verri numquam carus ero.
 meretur histrio
 virtutis premium,
 dum palpat vitium
-dulci mendacio.»
+dulci mendacio.'
  
 
 
 
-«Diogenes, quid intendas,
+'Diogenes, quid intendas,
 – vis honores? vis prebendas? –
 id prius explices.
 presunt ecclesiis
@@ -133,12 +133,12 @@ in prelatis vite mendas.
 culparum complices,
 ministros sceleris
 amant pre ceteris
-sacri pontifices.»
+sacri pontifices.'
  
 
 
 
-«Nec potentum didici
+'Nec potentum didici
 vitiis applaudire
 nec favorem querere
 corde loquens duplici.
@@ -147,12 +147,12 @@ semper uti soleo,
 dari famam doleo
 cuiquam preter merita
 nec impinguo capita
-peccatoris oleo.»
+peccatoris oleo.'
  
 
 
 
-«Ergo procul exsules,
+'Ergo procul exsules,
 si mentiri dubitas!
 simplex enim veritas
 multos fecit exsules.
@@ -161,12 +161,12 @@ mollibus blanditiis
 nec insultans vitiis
 verbis hos exasperes,
 horum si desideres
-frui beneficiis.»
+frui beneficiis.'
  
 
 
 
-«Ergo, sicut consulis,
+'Ergo, sicut consulis,
 expedit, ut taceam
 blandiensve placeam
 mollibus auriculis
@@ -176,12 +176,12 @@ adulari vel tacere –
 nichil ponis medium,
 sicque, quasi faveam,
 aliene subeam
-culpe participium.»
+culpe participium.'
  
 
 
 
-«Culpe participio
+'Culpe participio
 ne formides pollui.
 si potentum perfrui
 vis favore, vitio
@@ -191,12 +191,12 @@ suos sibi conformari
 Giezi participes,
 in promissis Protei
 et sequaces Orphei
-sacerdotum principes.»
+sacerdotum principes.'
  
 
 
 
-«Vade retro, Satana,
+'Vade retro, Satana,
 tuas tolle fabulas!
 quicquid enim consulas,
 falsitatis organa,
@@ -206,12 +206,12 @@ nulliusque foveo
 blandiendo vitium.
 sed palponis nomen cavi,
 cuius semper declinavi
-fraudis artificium.»
+fraudis artificium.'
  
 
 
 
-«Ergo vivas modicus
+'Ergo vivas modicus
 et contentus modico;
 nil est opus Cynico.
 si vis esse Cynicus,
@@ -221,7 +221,7 @@ et nec te sic habeas,
 ut applaudas vitiis.
 cum perverso perverteris,
 si potentum gratus queris
-esse contuberniis.»
+esse contuberniis.'
  
 
  
@@ -335,7 +335,7 @@ tunc versus et carmina    meliora cudo.
 Teruo capitulo    memoro tabernam:
 illam nullo tempore    sprevi neque spernam,
 donec sanctos angelos    venientes cernam,
-cantantes pro mortuis:    «Requiem eternam.»
+cantantes pro mortuis:    'Requiem eternam.'
  
 
 
@@ -343,7 +343,7 @@ cantantes pro mortuis:    «Requiem eternam.»
 Meum est propositum    in taberna mori,
 ut sint vina proxima    morientis ori;
 tunc cantabunt letius    angelorum chori:
-«Sit Deus propitius    huic potatori.»
+'Sit Deus propitius    huic potatori.'
  
 
 
@@ -543,7 +543,7 @@ melius confusio.
 
 
 Vinum sentit aquam secum.
-dolens inquit: «quis te mecum
+dolens inquit: 'quis te mecum
 ausus est coniungere?
 exi! surge! vade foras!
 non eodem loco moras
@@ -587,13 +587,13 @@ tunc diversos reddit flatus
 ex utroque gutture,
 et cum ita dispensatur
 ventus, aer perturbatur
-a corrupto murmure.»
+a corrupto murmure.'
  
 
 
 
 Aqua contra surgit ita:
-«turpis iacet tua cita
+'turpis iacet tua cita
 cum magna miseria.
 qui sunt tui potatores,
 vitam perdunt atque mores
@@ -637,12 +637,12 @@ et salutem sum querenti
 valde necessaria,
 quia veho peregrinos
 tam remotos quam vicinos
-ad templi palatia.»
+ad templi palatia.'
  
 
 
 
-Vinum hec: «te plenam fraude
+Vinum hec: 'te plenam fraude
 probas esse tali laude.
 verum est, quod suscipis
 naves. post hec intumescis;
@@ -687,12 +687,12 @@ per te ruit et senescit
 iuvenum lascivia.
 per me mundus reparatur,
 per te nunquam generatur
-filius vel filia.»
+filius vel filia.'
  
 
 
 
-Aqua inquit: «tu es deus,
+Aqua inquit: 'tu es deus,
 per quem iustus homo reus
 malus, peior, pessimus.
 verba facis semiplena
@@ -737,12 +737,12 @@ me cedente, perturbatur
 deflens omnis populus;
 pro me Christo Christianus,
 tam Iudeus quam paganus
-preces fundit sedulus.»
+preces fundit sedulus.'
  
 
 
 
-Vinum ait: «de te canis,
+Vinum ait: 'de te canis,
 te collaudas verbis vanis,
 alibi te vidimus.
 universis cum sis nota
@@ -757,7 +757,7 @@ que descendunt de latrina,
 suscipis, quod taceo.
 sordes, feces et venena
 multa rapis ut effrena,
-que narrare nequeo.»
+que narrare nequeo.'
  
 
 
@@ -765,7 +765,7 @@ que narrare nequeo.»
 Aqua surgens se defendit
 atque vinum reprehendit
 de turpi colloquio:
-«quis et qualis sit, non latet,
+'quis et qualis sit, non latet,
 iste deus, immo patet
 tali vaticinio.
  
@@ -777,17 +777,17 @@ tamen turpis male sedet
 ore dei ratio.
 ultra passus novem ferre
 nolo virus nec sufferre,
-sed a me proicio.»
+sed a me proicio.'
  
 
 
 
-Vinum ait: «exornata
+Vinum ait: 'exornata
 verba sunt post terga data;
 non excludis vitium.
 multi ferre te viderunt
 sordes, que non perierunt
-per diei spatium!»
+per diei spatium!'
  
 
 
@@ -795,9 +795,9 @@ per diei spatium!»
 Audiens hec obstupescit
 aqua, deflens obmutescit,
 geminat suspiria.
-vinum clamat: «quare taces?
+vinum clamat: 'quare taces?
 patens est, quod victa iaces
-rationis nescia.»
+rationis nescia.'
  
 
 
@@ -927,7 +927,7 @@ sedens dorso nudo:
 
 
 
-«Ve tuis donis, Decie,
+'Ve tuis donis, Decie,
 tibi fraus et insidie;
 turbam facis lugentium,
 paris stridorem dentium.
@@ -954,12 +954,12 @@ novercatur aversa.
 In vase parapsidis
 stat fronte capillata,
 que nunc aures aspidis
-habet, retro calvata.»
+habet, retro calvata.'
  
 
 
 
-«Schuch!» clamat nudus in frigore,
+'Schuch!' clamat nudus in frigore,
 cui gelu riget in pectore,
 quem tremor angit in corpore:
 – ut sedeat estatis tempore
@@ -1045,7 +1045,7 @@ profertur sermo varius:
 
 
 
-«Deu sal, misir bescher de vin!»
+'Deu sal, misir bescher de vin!'
 Tunc eum osculamur
 Wir enachten niht uf den Rin,
 sed Baccho famulamur.
@@ -1167,8 +1167,8 @@ Dum domus lapidea
 foro sita cernitur,
 et † a fratris rosea
 visus dum allicitur,
-«dulcis» ferunt socii
-«locus hic est hospitii.
+'dulcis' ferunt socii
+'locus hic est hospitii.
 Bacchus tollat,
 Venus molliat
 vi bursarum pectora
@@ -1183,7 +1183,7 @@ Molles cibos edere,
 impinguari,
 dilatari
 studeamus ex adipe,
-alacriter bibere.»
+alacriter bibere.'
  
 
 
@@ -1208,10 +1208,10 @@ in qua iugum inops perdit sue paupertatis.
 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-omnes dicunt: «surgite, eamus!
+omnes dicunt: 'surgite, eamus!
 venter exposcit, ut paululum edamus.
 stomachus recusat potum diu carens cena,
-et simplex erit gaudium, si cutis non sit plena.»
+et simplex erit gaudium, si cutis non sit plena.'
  
 
 
@@ -1220,10 +1220,10 @@ Ex domo strepunt gressu inequali;
 nasturcio procumbunt plateali.
 fratres nudi carent penula;
 ad terram proni flectunt genua.
-in luto strati dicunt: «orate!»
-per posteriore dorsi vox auditur: «levate!
+in luto strati dicunt: 'orate!'
+per posteriore dorsi vox auditur: 'levate!
 exaudite iam vestre sunt orationes,
-quia respexit Bacchus vestras compunctiones.»
+quia respexit Bacchus vestras compunctiones.'
  
 
  

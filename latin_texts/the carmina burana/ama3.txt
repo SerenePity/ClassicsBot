@@ -170,8 +170,8 @@ non in vanum variant    signa nostra polum.
 
 
 
-Obicit «ab alio»    forsitan «amatur,»
-ut, quod «solus» dixerim,    ita refellatur;
+Obicit 'ab alio'    forsitan 'amatur,'
+ut, quod 'solus' dixerim,    ita refellatur;
 sed ut dictum maneat,    sic determinatur.
  
 
@@ -187,12 +187,12 @@ I.
 
 
 
-«Nos duo boni
+'Nos duo boni
 sub aere tetro.
 sint tibi toni
 sub celeri metro!
 tempore solis
-stant pecora retro.»
+stant pecora retro.'
  
 
 
@@ -247,7 +247,7 @@ nos alloquitur:
 
 
 
-«Ecce † pastores
+'Ecce † pastores
 temerarii,
 gregis pastores
 conducticii,
@@ -285,7 +285,7 @@ nec locus in tuto:
 vellera cadunt
 de spinis in luto,
 palam accedunt
-lupi cane muto.»
+lupi cane muto.'
  
 
 
@@ -300,7 +300,7 @@ cessavit rustica.
 
 
 
-«Vellem, ut scires
+'Vellem, ut scires
 pastorum carmina!
 dum viri vires
 non habes femina,
@@ -345,7 +345,7 @@ nos egregii,
 procuratores
 gregis regii,
 solicantores
-soliloquii.»
+soliloquii.'
  
 
  
@@ -373,8 +373,8 @@ caper et capella.
 
 Conspexit in cespite
 scolarem sedere:
-«quid tu facis, domine?
-veni mecum ludere!»
+'quid tu facis, domine?
+veni mecum ludere!'
  
 
  
@@ -396,7 +396,7 @@ ruga caret omnis note.
 Mementote tot et tanti,
 quid ingratum sit Tonanti,
 ad virtutem nos hortanti,
-cum sic ait: «este sancti!
+cum sic ait: 'este sancti!
  
 
 
@@ -404,7 +404,7 @@ cum sic ait: «este sancti!
 Sanctus ego; sancti sitis,
 conformari si velitis
 michi, qui sum vera vitis,
-qui sum pius, qui sum mitis!»
+qui sum pius, qui sum mitis!'
  
 
 
@@ -437,9 +437,9 @@ faciatis, ruitura!
 
 
 Nota vobis est scriptura:
-«cum offertis Deo tura,
+'cum offertis Deo tura,
 si mens vestra non sit pura,
-non sunt illi placitura.»
+non sunt illi placitura.'
  
 
 
@@ -682,10 +682,10 @@ tandem Phyllis incipit    et arridet Flore.
 
 
 
-«Miles», inquit, «inclite,    mea cura, Paris!
+'Miles', inquit, 'inclite,    mea cura, Paris!
 ubi modo militas    et ubi moraris?
 o vita militie,    vita singularis,
-sola digna gaudio    Dionei laris!»
+sola digna gaudio    Dionei laris!'
  
 
 
@@ -693,7 +693,7 @@ sola digna gaudio    Dionei laris!»
 Dum puella militem    recolit amicum,
 Flora ridens oculos    iacit in obliquum
 et in risu loquitur    verbum inimicum:
-«amas,» inquit, «poteras    dicere: mendicum.
+'amas,' inquit, 'poteras    dicere: mendicum.
  
 
 
@@ -701,14 +701,14 @@ et in risu loquitur    verbum inimicum:
 Sed quid Alcibiades    facit, mea cura,
 res creata dignior    omni creatura,
 quem beavit omnibus    gratiis Natura?
-o sola felicia    clericorum iura!»
+o sola felicia    clericorum iura!'
  
 
 
 
 Floram Phyllis arguit    de sermone duro
 et sermone loquitur    Floram commoturo;
-nam «ecce virgunculam»    inquit «corde puro,
+nam 'ecce virgunculam'    inquit 'corde puro,
 cuius pectus nobile    servit Epicuro!
  
 
@@ -741,7 +741,7 @@ cibus, potus militis    amor et iuventus.
 Quis amicos copulet    nostros loro pari?
 lex, natura sineret    illos copulari?
 meus novit ludere,    tuus epulari;
-meo semper proprium    dare, tuo dari.»
+meo semper proprium    dare, tuo dari.'
  
 
 
@@ -754,7 +754,7 @@ quod corde conceperat    artibus fecundo.
 
 
 
-«Satis», inquit, «libere,    Phyllis, es locuta,
+'Satis', inquit, 'libere,    Phyllis, es locuta,
 multum es eloquio    velox et acuta,
 sed non efficaciter    verum prosecuta,
 ut per te prevaleat    lilio cicuta.
@@ -805,12 +805,12 @@ nam cum causa deficit,    deest et effectus.
 Turpis est pauperies    imminens amanti.
 quid prestare poterit    miles postulanti?
 sed dat multa clericus    et ex abundanti;
-tante sunt divitie    redditusque tanti.»
+tante sunt divitie    redditusque tanti.'
  
 
 
 
-Flore Phyllis obicit:    «multum es perita
+Flore Phyllis obicit:    'multum es perita
 in utrisque studiis    et utraque vita,
 satis probabiliter    et pulchre mentita;
 sed hec altercatio    non quiescet ita.
@@ -845,14 +845,14 @@ ille me commemorat    inter ipsas cedes.
 Redit fusis hostibus    et pugna confecta
 et me sepe respicit    galea reiecta.
 ex his et ex aliis    ratione recta
-est vita militie    michi preelecta.»
+est vita militie    michi preelecta.'
  
 
 
 
 Novit iram Phyllidis    et pectus anhelum
 et remittit multiplex    illi Flora telum.
-«frustra», dixit, «loqueris    os ponens in celum,
+'frustra', dixit, 'loqueris    os ponens in celum,
 et per acum niteris    figere camelum.
  
 
@@ -917,7 +917,7 @@ scribit, querit, cogitat    totum de amica.
 Quid Dione valeat    et amoris deus,
 primus novit clericus    et instruxit meus;
 factus est per clericum    miles Cythereus.
-his est et huiusmodi    tuus sermo reus.»
+his est et huiusmodi    tuus sermo reus.'
  
 
 
@@ -1156,7 +1156,7 @@ sed Silenus titubat    nec psallit in chorum.
 
 Somno vergit senior    asino prevectus
 et in risus copiam    solvit dei pectus.
-clamat «vina!» remanet    clamor imperfectus:
+clamat 'vina!' remanet    clamor imperfectus:
 viam vocis impedit    vinum et senectus.
  
 
@@ -1188,8 +1188,8 @@ quas deus considerans    prevenit salute.
 
 Causam vie postulat;    aperitur causa,
 et laudatur utraque    tantum pondus ausa.
-ad utramque loquitur:    «modo parum pausa,
-donec res iudicio    reseretur clausa!»
+ad utramque loquitur:    'modo parum pausa,
+donec res iudicio    reseretur clausa!'
  
 
 
@@ -1436,7 +1436,7 @@ Cum ipsam intueor. . .
 
 
 
-«O Antioche,
+'O Antioche,
 cur decipis me
 atque quasi servum reicis me?
 quid agam?
@@ -1465,7 +1465,7 @@ gaudeo!
 
 
 Post tristitiam fient gaudia,
-post gaudium erit tristitia»:
+post gaudium erit tristitia':
 sunt vera proverbia,
 que fatentur talia.
 dicta veritatis,
@@ -1489,7 +1489,7 @@ nutritur.
 Frugibus fames hinc tollitur.
 Strangolio, Dyniasiadi committitur
 flos floris.
-doleo!»
+doleo!'
  
 
 
@@ -1523,9 +1523,9 @@ Dyniasiadem videt et flentem.
 sepulcrum monstratur,
 mors ut videatur
 nate.
-«quid non flent mei oculi?
+'quid non flent mei oculi?
 Tharsia num vivit
-filia?»
+filia?'
  
 
 
@@ -1586,7 +1586,7 @@ eique clausam mentem reserat:
 
 
 
-«Anna, lux
+'Anna, lux
 mea, dux
 iste quis sit, ambigo;
 quis honor,
@@ -1625,17 +1625,17 @@ fulmine
 de culmine
 deiectam Carthaginis,
 . . . . . . . . . . . . . . .
-Dido committat dominis.»
+Dido committat dominis.'
  
 
 
 
-Anna refert: «Assiste,
+Anna refert: 'Assiste,
 mi soror, nec resiste
 amori blando: si iste
 iungetur tibi suisque
 extollet te virtutibus,
-Carthago crescet opibus.»
+Carthago crescet opibus.'
  
 
 
@@ -1710,7 +1710,7 @@ quod amans audiens    Dido concutitur:
 
 
 
-«Enea domine,    quid est, quod audio?
+'Enea domine,    quid est, quod audio?
 Didonem miseram    dabis exitio?
 quam dura premia    pro beneficio!
  
@@ -1726,7 +1726,7 @@ quid agam, nescio;    mors est consilium.
 
 Anna, quid audio,    soror dulcissima?
 iam volant carbasa    ora finitima.
-abrumpe miseram    lucem asperrima!»
+abrumpe miseram    lucem asperrima!'
  
 
 
@@ -1738,8 +1738,8 @@ et Anna propere    pro maga mittitur.
 
 
 
-«O ensis perfidi,    fortiter ilia
-mea pertransiens    deme suspiria!»
+'O ensis perfidi,    fortiter ilia
+mea pertransiens    deme suspiria!'
 amantes miseri,    timete talia!
  
 
@@ -1846,9 +1846,9 @@ me gravi cingit prelio,
 fratris me terret feritas
 et Numadum crudelitas.
 insultant hoc proverbio:
-«Dido se fecit Helenam:
+'Dido se fecit Helenam:
 regina nostra gremio
-Troianum fovit advenam!»
+Troianum fovit advenam!'
 gravis conditio,
 furiosa ratio,
 si mala perferam

@@ -7,13 +7,15 @@ import re
 MAX_TRIES = 5
 
 class GameSession():
-    def __init__(self, player, answer):
+    def __init__(self, player, answer, language):
         self.player = player
         self.answer = answer
         self.tries = 0
         self.game_on = True
+        self.language = language
 
     def end_game(self):
+        self.language = None
         self.answer = None
         self.tries = 0
         self.game_on = False
@@ -25,7 +27,7 @@ class Scholasticus(commands.Bot):
         self.robot = robotic_roman.RoboticRoman()
         self.quotes_commands = dict()
         self.markov_commands = dict()
-        self.authors = list()
+        self.authors = set()
         self.players = dict()
 
     def sleep_for_n_seconds(self, n):
@@ -34,6 +36,7 @@ class Scholasticus(commands.Bot):
     async def on_ready(self):
         print('Logged on as', self.user)
         self.robot.load_all_models()
+        self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()))
         self.authors = [self.robot.format_name(person) for person in list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys())]
         for author in self.authors:
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
@@ -42,7 +45,7 @@ class Scholasticus(commands.Bot):
 
     async def process_guess(self, channel, player, content):
         try:
-            guess = content.lower().split('guess')[1].strip()
+            guess = content.lower().strip()
         except:
             await self.send_message(channel, "You forgot to guess an answer.")
             return
@@ -55,6 +58,13 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel,
                                     f"{player.mention}, correct! The answer is {self.robot.format_name(game_answer)}.")
             self.players[player].end_game()
+            return
+
+        if self.players[player].language == 'greek' and guess not in self.robot.greek_authors:
+            await self.send_message(channel, "You started a Greek game, but picked a Latin author! Try again.")
+            return
+        if self.players[player].language == 'latin' and guess not in self.robot.authors:
+            await self.send_message(channel, "You started a Latin game, but picked a Greek author! Try again.")
             return
 
         self.players[player].tries += 1
@@ -80,7 +90,7 @@ class Scholasticus(commands.Bot):
         else:
             answer = random.choice(self.robot.authors)
         passage = self.robot.random_quote(answer)
-        self.players[player] = GameSession(player, answer)
+        self.players[player] = GameSession(player, answer, text_set)
         print("Answer: " + answer)
         await self.send_message(channel,
                                 f"{repeat_text}{player.mention}, name the author or source of the following passage:\n\n_{passage}_")
@@ -145,7 +155,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "Game ended")
             return
 
-        if author in self.players and self.players[author].game_on and content.lower().startswith("guess"):
+        if author in self.players and self.players[author].game_on and content.lower().strip() in self.authors_set:
             if self.players[author].tries < MAX_TRIES:
                 await self.process_guess(channel, author, content)
             return

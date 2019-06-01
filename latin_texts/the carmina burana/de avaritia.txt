@@ -58,8 +58,8 @@ chorus angelorum.
 
 
 
-«Date, vobis dabitur:
-talis est auctoritas»
+'Date, vobis dabitur:
+talis est auctoritas'
 danti pie loquitur
 impiorum pietas;
 sed adverse premitur
@@ -85,11 +85,11 @@ movent genitivos.
  
 
 
-«Responde, qui tanta cupis!» modo Copia dicat.
-«Pone modum! que vis dono.» - «Volo plena sit arca.» -
-«Plena sit!» - «Adde duas!» - «Addo.» - «Si quattuor essent,
-Sufficerent.» - «Sic semper agis: cum plurima dono,
-Plus queris, nec plenus eris, donec morieris.»
+'Responde, qui tanta cupis!' modo Copia dicat.
+'Pone modum! que vis dono.' - 'Volo plena sit arca.' -
+'Plena sit!' - 'Adde duas!' - 'Addo.' - 'Si quattuor essent,
+Sufficerent.' - 'Sic semper agis: cum plurima dono,
+Plus queris, nec plenus eris, donec morieris.'
  
 
 Ecce torpet probitas,
@@ -525,7 +525,7 @@ nunc cuncte res a debita
 exorbitantur semita.
 vir prudens hoc consideret,
 cor mundet et exoneret,
-ne frustra dicat «Domine!»
+ne frustra dicat 'Domine!'
 in ultimo examine;
 quem iudex tunc arguerit,
 appellare non poterit.
@@ -808,8 +808,8 @@ Nummus raptores   facit ipsos nobiliores.
 Nummus habet plures   quam celum sidera fures.
 Si Nummus placitat,   cito cuncta pericula vitat.
 Si Nummus vicit,   dominus cum iudice dicit:
-«Nummus ludebat,   agnum niveum capiebat.»
-Nummus, rex magnus,   dixit: «Niger est meus agnus».
+'Nummus ludebat,   agnum niveum capiebat.'
+Nummus, rex magnus,   dixit: 'Niger est meus agnus'.
 Nummus fautores   habet astantes seniores.
 Si Nummus loquitur,   pauper tacet; hoc bene scitur.
 Nummus merores   reprimit relevatque labores.
@@ -834,7 +834,7 @@ Nummus cantabat,   Nummus responsa parabat;
 Vidi, quod flebat,   dum sermonem faciebat,
 Et subridebat,   populum quia decipiebat.
 Nullus honoratur   sine Nummo, nullus amatur.
-Quem genus infamat,   Nummus: «Probus est homo!» clamat.
+Quem genus infamat,   Nummus: 'Probus est homo!' clamat.
 Ecce patet cuique,   quod Nummus regnat ubique.
 Sed quia consumi   poterit cito gloria Nummi,
 Ex hac esse schola   non vult Sapientia sola.
@@ -1260,7 +1260,7 @@ caute contemplari.
 Si legisse memoras
 ethicam Catonis,
 in qua scriptum legitur:
-«ambula cum bonis»,
+'ambula cum bonis',
 cum ad dandi gloriam
 animum disponis,
 supra cetera
@@ -1315,9 +1315,9 @@ omnibus habundas.
 I.
 
 Est modus in verbis, duo sunt contraria verba:
-«Do das» et «teneo» contendunt lite superba.
-Per «do das» largi conantur semper amari,
-Set «teneo tenui» miseri potiuntur avari.
+'Do das' et 'teneo' contendunt lite superba.
+Per 'do das' largi conantur semper amari,
+Set 'teneo tenui' miseri potiuntur avari.
  
 
 II.
@@ -1374,7 +1374,7 @@ o quam mira potentia,
 quam regia
 vox principis,
 cum egrotanti precipis:
-«surge, tolle grabatum!»
+'surge, tolle grabatum!'
  
 
 
@@ -1429,10 +1429,10 @@ a fructibus eorum
 novit eos et tolerat,
 quos extra viam morum
 fert impetus errorum.
-sed «ecce» clamat «venio
+sed 'ecce' clamat 'venio
 cum gladio
 fiagitio
-malorum!»
+malorum!'
 et cum purgabit aream,
 tunc paleam
 abiciet:

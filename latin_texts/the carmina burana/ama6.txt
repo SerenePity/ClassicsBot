@@ -165,18 +165,18 @@ sub arbore frondosa.
 
 Dum procedo paululum,
 lingue solvo vinculum:
-«salve, rege digna!
+'salve, rege digna!
 audi, queso, servulum,
-esto michi benigna!»
+esto michi benigna!'
  
 
 
 
-«Cur salutas virginem,
+'Cur salutas virginem,
 que non novit hominem,
 ex quo fuit nata?
 sciat Deus! neminem
-inveni per hec prata.»
+inveni per hec prata.'
  
 
 
@@ -193,8 +193,8 @@ cupiens saturari.
 Dum puella cerneret,
 quod sic ovem perderet,
 pleno clamat ore:
-«siquis ovem redderet,
-me gaudeat uxore!»
+'siquis ovem redderet,
+me gaudeat uxore!'
  
 
 
@@ -235,7 +235,7 @@ metu dissoluta.
 
 Clamans tendit ad ovile.
 hanc sequendo precor:
-«sile! nichil timeas hostile!»
+'sile! nichil timeas hostile!'
 preces spernit, et monile,
 quod ostendi, tenet vile
 virgo, sic locuta:
@@ -243,8 +243,8 @@ virgo, sic locuta:
 
 
 
-«Munus vestrum», inquit, «nolo,
-quia pleni estis dolo!»
+'Munus vestrum', inquit, 'nolo,
+quia pleni estis dolo!'
 etsi se defendit colo,
 comprehensam ieci solo;
 clarior non est sub polo
@@ -255,7 +255,7 @@ vilibus induta!
 
 Satis illi fuit grave,
 michi gratum et suave.
-«quid fecisti», inquit, «prave!
+'quid fecisti', inquit, 'prave!
 ve ve tibi! tamen ave!
 ne reveles ulli cave,
 ut sim domi tuta!
@@ -268,7 +268,7 @@ vel Martinus maior frater,
 erit michi dies ater;
 vel si sciret mea mater,
 cum sit angue peior quater,
-virgis sum tributa!»
+virgis sum tributa!'
  
 
  
@@ -552,7 +552,7 @@ propter nature iura.
 
 
 
-«Si cupio sanari
+'Si cupio sanari
 aut vitam prolongari,
 festinem gressu pari
 ad Corinne presentiam,
@@ -591,7 +591,7 @@ casum pro casu darem;
 nec presens nec preteritum
 tempus considerarem,
 sed ad laboris meritum
-magis accelerarem!»
+magis accelerarem!'
  
 
  
@@ -1074,7 +1074,7 @@ verbis devicta piis!
 
 
 
-Dicat «ita!» facile,    nil deneget rogata,
+Dicat 'ita!' facile,    nil deneget rogata,
 non viri notitiam    rimetur prenotata!
 faciat, quod petitur;
 quod prece negligitur,
@@ -1366,10 +1366,10 @@ penitentem corripe,    si placet, in conclavi!
 Ich wil den sumer gruzen,    so ih besten chan;
 der winder hat mir hivre    leides vil getan.
 des wil ich růfen    in der vrowen ban:
-«ich sih die heide    in grůner varwe stan!
+'ich sih die heide    in grůner varwe stan!
 dar suln wir alle gahen,
 die sumerzit enphahen!
-des tanzes ich beginnen sol,    wil ez iv niht versmahen!»
+des tanzes ich beginnen sol,    wil ez iv niht versmahen!'
  
 
  
@@ -1518,10 +1518,10 @@ min geselle chovmet niet!
 
 
 
-«Que est hec puellula,»
-dixi, «tam precandida,
+'Que est hec puellula,'
+dixi, 'tam precandida,
 in cuius nitet facie
-candor cum rubedine?»
+candor cum rubedine?'
 
 
 Mandaliet! mandaliet!
@@ -1542,10 +1542,10 @@ min geselle chovmet niet!
 
 
 
-«† Que est puellula
+'† Que est puellula
 dulcis et suavissima?
 eius amore caleo,
-quod vivere vix valeo.»
+quod vivere vix valeo.'
 
 
 Mandaliet! mandaliet!
@@ -1578,10 +1578,10 @@ min geselle chovmet niet!
 
 
 
-«Vellet Deus, vellent di,
+'Vellet Deus, vellent di,
 quod mente proposui:
 ut eius virginea
-reserassem vincula!»
+reserassem vincula!'
 
 
 Mandaliet! mandaliet!
@@ -1938,8 +1938,8 @@ iuxta viam posite!
 
 
 
-Er sprach: «vrowe, gewir baz!
-nemus est remotum.»
+Er sprach: 'vrowe, gewir baz!
+nemus est remotum.'
 dirre wech, der habe haz!
 planxi et hoc totum.
 
@@ -1951,10 +1951,10 @@ iuxta viam posite!
 
 
 
-«Iz stat ein linde wolgetan
+'Iz stat ein linde wolgetan
 non procul a via,
 da hab ich mine herphe lan,
-tympanum cum lyra.»
+tympanum cum lyra.'
 
 
 Hoy et oe!
@@ -1965,9 +1965,9 @@ iuxta viam posite!
 
 
 Do er zu der linden chom,
-dixit «sedeamus»,
+dixit 'sedeamus',
 – div minne twanch sêre den man –
-«ludum faciamus!»
+'ludum faciamus!'
 
 
 Hoy et oe!
@@ -1979,8 +1979,8 @@ iuxta viam posite!
 
 Er graif mir an den wizen lip,
 non absque timore,
-er sprah: «ich mache dich ein wip,
-dulcis es cum ore!»
+er sprah: 'ich mache dich ein wip,
+dulcis es cum ore!'
 
 
 Hoy et oe!
@@ -2006,7 +2006,7 @@ iuxta viam posite!
 Er nam den chocher unde den bogen,
 bene venabatur!
 der selbe hete mich betrogen.
-«ludus compleatur!»
+'ludus compleatur!'
 
 
 Hoy et oe!

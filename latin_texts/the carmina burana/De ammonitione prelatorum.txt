@@ -563,7 +563,7 @@ de corde fermentum;
 sic offer sacramentum:
 invoca Christum,
 psalmum dicas istum:
-«Iudica»,
+'Iudica',
 teque ipsum preiudica,
 israel et Iuda
 cordis mala denuda.
@@ -736,7 +736,7 @@ supinant marsupium.
 Dulci cantu blandiuntur
 ut Sirenes, et loquuntur
 primo quedam dulcia:
-«Frare, ben je te cognosco,
+'Frare, ben je te cognosco,
 certe nichil a te posco,
 nam tu es de Francia.
  
@@ -758,7 +758,7 @@ et laxatos collocamus
 sedibus ethereis.
 nos habemus Petri leges
 ad ligandos omnes reges
-in manicis ferreis.»
+in manicis ferreis.'
  
 
 
@@ -1004,7 +1004,7 @@ et est minus celebris    ara quam sit arca.
 Cum ad papam veneris,    habe pro constanti:
 non est locus pauperi,    soli favet danti,
 vel si munus prestitum    non sit aliquanti,
-respondet: «hec tibia    non est michi tanti.»
+respondet: 'hec tibia    non est michi tanti.'
  
 
 
@@ -1012,7 +1012,7 @@ respondet: «hec tibia    non est michi tanti.»
 Papa, si rem tangimus,    nomen habet a re:
 quicquid habent alii,    solus vult papare,
 vel si verbum gallicum    vis apocopare,
-«paies! paies!»    dist li mot, si vis impetrare.
+'paies! paies!'    dist li mot, si vis impetrare.
  
 
 
@@ -1060,7 +1060,7 @@ tamquam gemma stercori    vel pictura luto.
 Divites divitibus    dant, ut sumant ibi,
 et occurrunt munera    relative sibi.
 lex est ista celebris,    quam fecerunt scribi:
-«Si tu michi dederis,    ego dabo tibi.»
+'Si tu michi dederis,    ego dabo tibi.'
  
 
  
@@ -1155,23 +1155,23 @@ secundum marcas argenti
  
 
 In illo tempore: dixit papa Romanis:
-«Cum venerit filius hominis ad sedem maiestatis nostre, primum dicite:
+'Cum venerit filius hominis ad sedem maiestatis nostre, primum dicite:
 ‹Amice, ad quid venisti?›
-At ille si perseveraverit pulsans nil dans vobis, eicite eum in tenebras exteriores.»
+At ille si perseveraverit pulsans nil dans vobis, eicite eum in tenebras exteriores.'
 Factum est autem, ut quidam pauper clericus veniret ad curiam domini pape, et exclamavit dicens:
-«Miseremini mei saltem vos, hostiarii pape, quia manus paupertatis tetigit me.
-Ego vero egenus et pauper sum, ideo peto, ut subveniatis calamitati et miserie mee.»
+'Miseremini mei saltem vos, hostiarii pape, quia manus paupertatis tetigit me.
+Ego vero egenus et pauper sum, ideo peto, ut subveniatis calamitati et miserie mee.'
  
 
 Illi autem audientes indignati sunt valde et dixerunt:
-«Amice, paupertas tua tecum sit in perditione.
+'Amice, paupertas tua tecum sit in perditione.
 Vade retro, satanas, quia non sapis ea, que sapiunt nummi.
-Amen, amen, dico tibi: non intrabis in gaudium domini tui, donec dederis novissimum quadrantem.»
+Amen, amen, dico tibi: non intrabis in gaudium domini tui, donec dederis novissimum quadrantem.'
 Pauper vero abiit et vendidit pallium et tunicam et universa que habuit et dedit cardinalibus et hostiariis et camerariis.
  
 
 At illi dixerunt:
-«Et hoc quid est inter tantos?»
+'Et hoc quid est inter tantos?'
 Et eiecerunt eum ante fores, et egressus foras flevit amare et non habens consolationem.
 Postea venit ad curiam quidam clericus dives, incrassatus, impinguatus, dilatatus, qui propter seditionem fecerat homicidium.
 Hic primo dedit hostiario, secundo camerario, tertio cardinalibus.
@@ -1181,8 +1181,8 @@ At illi arbitrati sunt inter eos, quod essent plus accepturi.
 Audiens autem dominus papa cardinales et ministros plurima dona a clerico accepisse, infirmatus est usque ad mortem.
 Dives vero misit sibi electuarium aureum et argenteum, et statim sanatus est.
 Tunc dominus papa ad se vocavit cardinales et ministros et dixit eis:
-«Fratres, videte, ne aliquis vos seducat inanibus verbis.
-Exemplum enim do vobis, ut, quemadmodum ego capio, ita et vos capiatis.»
+'Fratres, videte, ne aliquis vos seducat inanibus verbis.
+Exemplum enim do vobis, ut, quemadmodum ego capio, ita et vos capiatis.'
  
 
 
@@ -1191,10 +1191,10 @@ I.
 Roma, tenens morem    nondum satiata priorem
 Donas donanti,    parcis tibi participanti;
 Sed miser immunis    censetur, eum quia punis.
-«Accipe» «sume» «cape»    tria sunt gratissima pape;
+'Accipe' 'sume' 'cape'    tria sunt gratissima pape;
  
 
-«Nil do» «nil presto»    nequeunt succurrere mesto.
+'Nil do' 'nil presto'    nequeunt succurrere mesto.
 Non est Romanis    cure legatus inanis.
 Si dederis marcas    et eis impleveris arcas,
  

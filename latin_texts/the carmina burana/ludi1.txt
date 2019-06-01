@@ -201,7 +201,7 @@ Quando virgo pariet,    Xanthe, retro propera!
 lupus agnum fugiet,    plana fient aspera.
 
 si moderna colligis    et attendis vetera,
-in adiecto ponitur    «est virgo puerpera.»
+in adiecto ponitur    'est virgo puerpera.'
  
 
 Vel si virgo pariet    vel iam forte peperit,
@@ -225,9 +225,9 @@ docet enim ratio    Naturam non reici,
 si quid preter solitum    semel vides obici.
  
 
-Dicas: «‹homo mortuus›    in adiecto ponitur,
+Dicas: '‹homo mortuus›    in adiecto ponitur,
 
-quod in Aristotile    pueris exprimitur»;
+quod in Aristotile    pueris exprimitur';
 sed hec vestra regula    tunc repulsam patitur,
 cum de matre virgine    sermo nobis oritur.
  
@@ -563,10 +563,10 @@ quibus te concilies    diligenti studio,
 et sic eis loquere    sub amoris pillio:
  
 
-«Reges estis, video,    quod prophetat habitus.
+'Reges estis, video,    quod prophetat habitus.
 vester michi gratus est    factus ad nos transitus.
 sed quid vos huc traxerit,    reserate penitus;
-nam vobis ad omnia    rex erit expositus.»
+nam vobis ad omnia    rex erit expositus.'
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
  
 
