@@ -27,7 +27,7 @@ COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Retrieve random Greek quote:  '>greekquote'",
             "Start Latin game:             '>latingame'",
             "Start Greek game:             '>greekgame'",
-            "Guess answer:                 'guess <answer>'",
+            "Guess answer:                 '<answer>'",
             "End game session:             '>giveup'",
             "Help:                         '>HELPME'"]
 

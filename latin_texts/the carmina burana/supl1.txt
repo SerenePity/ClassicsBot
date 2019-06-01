@@ -1,4 +1,4 @@
-Sancte ERASME, martir Domini preciose, qui in die resurreccionis,/ quando (?) per martirium oblatus es, et de eo leticiam susce/pisti, suscipe hanc oracionem meam, quam tibi offero pius(?)/ pro anima mea. Rogo te, clementissime pater, ut des/ michi (?) victum et vestitum secundum tuam voluntatem et(?) m[<eam>/ necessitatem. Memento, quia Deus promisit, ut quisquis invoca/ret nomen tuum, exaudiretur. Itcirco conmitto me ad/ videm (!) tuam, quia te Christus conservavit, ut usque in finem vite / mee conserves me, ne incidam in manus inmimicorum (!) me[<orum>/ visibilium et invisibilium.
+Sancte ERASME, martir Domini preciose, qui in die resurreccionis,/ quando (?) per martirium oblatus es, et de eo leticiam susce/pisti, suscipe hanc oracionem meam, quam tibi offero pius(?)/ pro anima mea. Rogo te, clementissime pater, ut des/ michi (?) victum et vestitum secundum tuam voluntatem et(?) m[eam/ necessitatem. Memento, quia Deus promisit, ut quisquis invoca/ret nomen tuum, exaudiretur. Itcirco conmitto me ad/ videm (!) tuam, quia te Christus conservavit, ut usque in finem vite / mee conserves me, ne incidam in manus inmimicorum (!) me[orum/ visibilium et invisibilium.
  
 
  
@@ -930,7 +930,7 @@ Mundus sum a sanguine huius iusti; vos videritis.
  
 
 Et baiulet sibi crucem, et ducant eum, ubi crucifigatur. Tunc unus ex militibus veniat cum lancea, tangat latus eius. Tunc ipse Dominus in cruce alta voce clamet:
-Ely, Ely, lema sabactani: Deus <meus>, Deus meus, ut <quid dereliquisti me?>
+Ely, Ely, lema sabactani: Deus meus, Deus meus, ut quid dereliquisti me?
  
 
 Tunc Maria mater Domimi veniat et due alie Marie et Iohannes. Et Maria planctum faciat quantum melius potest. Et unus ex Iudeis dicat:
@@ -950,7 +950,7 @@ Consummatum est.
  
 
 Et:
-In manus tuas commendo spiritum m<eum>.
+In manus tuas commendo spiritum meum.
  
 
 Et inclinato capite emittat spiritum. Tunc veniat Ioseph ab Arimathia et
@@ -1203,11 +1203,11 @@ dominice resurrectionis.
 Cantatis matutinis in die pasche omnes persone ad ludum disposite sint parate in loco speciali secundum suum modum et procedant ad locum, ubi sit sepulchrum. Primum veniat Pilatus et uxor sua cum magnis luminibus, militibus precedentibus, assessoribus sequentibus, deinde pontificibus et Iudeis; post hec veniant angeli et Marie et apostoli.
  
 
-Ingressus Pilatus <cum Iesu in pretorium; tunc ait illi: Tu es rex Iudeorum. Respondit: Tu dicis, quia rex sum. Exivit ergo Iesus de pretorio portans coronam et vestem purpuream; et cum indutus fuisset, exclamaverunt omnes: Crucifigatur, quia filium Dei se fecit.
+Ingressus Pilatus cum Iesu in pretorium; tunc ait illi: Tu es rex Iudeorum. Respondit: Tu dicis, quia rex sum. Exivit ergo Iesus de pretorio portans coronam et vestem purpuream; et cum indutus fuisset, exclamaverunt omnes: Crucifigatur, quia filium Dei se fecit.
  
 
 Versus:
-Tunc ait illis Pilatus: Regem vestrum crucifigam? Responderunt pontifices: Regem non habemus nisi Cesarem>.
+Tunc ait illis Pilatus: Regem vestrum crucifigam? Responderunt pontifices: Regem non habemus nisi Cesarem.
  
 
 Primum cantent pontifices:
@@ -1449,7 +1449,7 @@ Tunc pontifices perterriti corrumpunt milites muneribus, ut taceant:
 Que refertis,    verba supprimite!
 hanc mercedem    ob hoc suscipite!
 et ne rumor    in turba prodeat,
-<fides vestra    caute provideat.>
+fides vestra    caute provideat.
  
 
  
@@ -1570,7 +1570,7 @@ Dominus fortis et potens, Dominus potens in prelio.
  
 
 Hoc ter repetito Iesus magno impetu tandem confringit portas inferni. Infernales vero intuentes vultum eius cantant:
-Advenisti, desiderabilis, <quem expectabamus in tenebris, ut educeres hac nocte vinculatos de claustris. Te nostra vocabant suspiria; te larga requirebant tormenta; tu factus es spes desperatis, magna consolatio in tormentis.>
+Advenisti, desiderabilis, quem expectabamus in tenebris, ut educeres hac nocte vinculatos de claustris. Te nostra vocabant suspiria; te larga requirebant tormenta; tu factus es spes desperatis, magna consolatio in tormentis.
  
 
 Postea Maria Magdalena inveniens alias duas Marias cantat:
@@ -1664,13 +1664,13 @@ Cernitis, o socii, ecce linteamina et sudarium, et corpus Iesu in sepulchro non 
  
 
 Illis ostensis chorus totus cantat:
-Post pass<ionem> Do<mini factus est conventus, quia non est inventum corpus in monumento; lapis sustinuit perpetuam vitam, monumentum reddidit celestem margaritam, Alleluia.>
+Post passionem Domini factus est conventus, quia non est inventum corpus in monumento; lapis sustinuit perpetuam vitam, monumentum reddidit celestem margaritam, Alleluia.
 Currebant duo simul, et ille alius discipulus precucurrit citius Petro et prior venit ad monumentum. Alleluia.
  
 
 Et populus universus iam certificatus de Domino, cantor sic imponit:
 Christ, der ist erstanden
-<von der marter alle,
+von der marter alle,
 des sull wir alle fro sein,
 Christ sol unser trost sein.
-Kyrieleyson.>
+Kyrieleyson.

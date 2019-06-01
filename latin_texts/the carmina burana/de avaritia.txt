@@ -1,7 +1,3 @@
-[De avaritia]
-
-
-
 Manus ferens munera
 pium facit impium;
 nummus iungit federa,
@@ -219,7 +215,6 @@ quos mordet atque stimulat.
  
 
 
-ca. 1150
  
 
 
@@ -1348,14 +1343,6 @@ Fallit enim vitium specie virtutis et umbra.
  
 
  
-
-
-Philippus Cancellarius
-
-(ca. 1170 - 1236)
-
- 
-
 
 
 Veritas veritatum,

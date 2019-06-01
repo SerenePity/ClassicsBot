@@ -1,11 +1,3 @@
-Gualterius de Castillione
-
-(ca. 1135 - ca. 1179)
-
- 
-
-
-
 Versa est in luctum
 cithara Waltheri,
 non quia se ductum
@@ -1659,13 +1651,6 @@ sub rivalibus.
 
  
 
-
-Reimar (MF 203,10)
-
-(ca. 1190/1210)
-
- 
-
 Sage, daz ih dirs iemmer lone:
 hast du den uil lieben man gesehen?
 ist iz war, lebet er so schone,
@@ -1886,12 +1871,6 @@ si contigero.
 
  
 
-
-Walter von der Vogelweide (51,29,3)
-
-(ca. 1170 - ca. 1230)
-
- 
 
 So wol dir, meie, wie du scheidest
 allez ane haz!
