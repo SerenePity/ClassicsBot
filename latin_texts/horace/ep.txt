@@ -1,27 +1,4 @@
-Horace: Epodes
-		 
-		 
-		 
-	 
-	
- 
- EPODON Q. HORATII FLACCI LIBER
 
- 
-
- 
-
- 
- I 	 II 	 III 	 IV 	 V 	 VI 	 VII 	 VIII 	 IX 	 X 	 XI 	 XII 	 XIII 	 XIV 	 XV 	 XVI 	 XVII 
- 
-
- 
-
- 
- I 
- 
-
- 
 Ibis Liburnis inter alta navium, 
   amice, propugnacula, 
 paratus omne Caesaris periculum 
@@ -61,8 +38,7 @@ quod aut avarus ut Chremes terra premam,
  
 
  
- II 
- 
+
 
  
 'Beatus ille qui procul negotiis, 
@@ -140,8 +116,7 @@ omnem redegit idibus pecuniam,
  
 
  
- III 
- 
+
 
  
 Parentis olim siquis inpia manu 
@@ -171,8 +146,7 @@ manum puella savio opponat tuo,
  
 
  
- IV 
- 
+
 
  
 Lupis et agnis quanta Sortito obtigit, 
@@ -200,8 +174,7 @@ contra latrones atque servilem manum
  
 
  
- V 
- 
+
 
  
 'At o deorum quidquid in caelo regit 
@@ -311,8 +284,7 @@ neque hoc parentes, heu mihi superstites,
  
 
  
- VI 
- 
+
 
  
 Quid inmerentis hospites vexas, canis 
@@ -336,8 +308,7 @@ an si quis atro dente me petiverit,
  
 
  
- VII 
- 
+
 
  
 Quo, quo scelesti ruitis? aut cur dexteris 
@@ -365,8 +336,7 @@ ut inmerentis fluxit in terram Remi
  
 
  
- VIII 
- 
+
 
  
 Rogare longo putidam te saeculo, 
@@ -394,8 +364,7 @@ quod ut superbo povoces ab inguine,
  
 
  
- IX 
- 
+
 
  
 Quando repositum Caecubum ad festas dapes 
@@ -441,8 +410,7 @@ curam metumque Caesaris rerum iuvat
  
 
  
- X 
- 
+
 
  
 Mala soluta navis exit alite 
@@ -474,8 +442,7 @@ libidinosus immolabitur caper
  
 
  
- XI 
- 
+
 
  
 Petti, nihil me sicut antea iuvat 
@@ -511,8 +478,7 @@ sed alius ardor aut puellae candidae
  
 
  
- XII 
- 
+
 
  
 Quid tibi vis, mulier nigris dignissima barris? 
@@ -546,8 +512,7 @@ o ego non felix, quam tu fugis, ut pavet acris
  
 
  
- XIII 
- 
+
 
  
 Horrida tempestas caelum contraxit et imbres 
@@ -573,8 +538,7 @@ deformis aegrimoniae dulcibus adloquiis.'
  
 
  
- XIV 
- 
+
 
  
 Mollis inertia cur tantam diffuderit imis 
@@ -598,8 +562,7 @@ gaude sorte tua; me libertina, nec uno
  
 
  
- XV 
- 
+
 
  
 Nox erat et caelo fulgebat Luna sereno 
@@ -631,8 +594,7 @@ heu heu, translatos alio maerebis amores,
  
 
  
- XVI 
- 
+
 
  
 Altera iam teritur bellis civilibus aetas, 
@@ -706,8 +668,7 @@ aere, dehinc ferro duravit saecula, quorum
  
 
  
- XVII 
- 
+
 
  
 'Iam iam efficaci do manus scientiae, 
@@ -794,7 +755,3 @@ plorem artis in te nil agentis exitus?'
  
 
  
-	 
-		 Horace 
-		 The Latin Library 
-		 The Classics Page

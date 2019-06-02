@@ -1,19 +1,3 @@
-Horace: Odes II
-		 
-		 
-		 
-	 
-	
- 
- Q. HORATI FLACCI CARMINVM LIBER SECVNDVS
- 
-
- 
- 
-
- 
- I 
- 
 
  
  Motum ex Metello consule ciuicum 
@@ -23,7 +7,7 @@ Horace: Odes II
  
 
  
- nondum expiatis uncta cruoribus,    5 
+ nondum expiatis uncta cruoribus,     
  periculosae plenum opus aleae, 
   tractas et incedis per ignis 
   suppositos cineri doloso.
@@ -31,7 +15,7 @@ Horace: Odes II
 
  
  Paulum seuerae Musa tragoediae 
-desit theatris; mox, ubi publicas    10 
+desit theatris; mox, ubi publicas     
   res ordinaris, grande munus 
   Cecropio repetes coturno,
  
@@ -40,14 +24,14 @@ desit theatris; mox, ubi publicas    10
  insigne maestis praesidium reis 
  et consulenti, Pollio, curiae, 
   cui laurus aeternos honores 
-  Delmatico peperit triumpho.    15 
+  Delmatico peperit triumpho.     
  
 
  
  Iam nunc minaci murmure cornuum 
  perstringis auris, iam litui strepunt, 
   iam fulgor armorum fugacis 
-  terret equos equitumque uoltus.    20 
+  terret equos equitumque uoltus.     
  
 
  
@@ -58,7 +42,7 @@ desit theatris; mox, ubi publicas    10
  
 
  
-Iuno et deorum quisquis amicior    25 
+Iuno et deorum quisquis amicior     
  Afris inulta cesserat impotens 
   tellure, uictorum nepotes 
   rettulit inferias Iugurthae.
@@ -66,7 +50,7 @@ Iuno et deorum quisquis amicior    25
 
  
  Quis non Latino sanguine pinguior 
-campus sepulcris impia proelia    30 
+campus sepulcris impia proelia     
   testatur auditumque Medis 
   Hesperiae sonitum ruinae?
  
@@ -75,21 +59,20 @@ campus sepulcris impia proelia    30
  Qui gurges aut quae flumina lugubris 
  ignara belli? Quod mare Dauniae 
   non decolorauere caedes? 
-  Quae caret ora cruore nostro?    35 
+  Quae caret ora cruore nostro?     
  
 
  
  Sed ne relictis, Musa procax, iocis 
  Ceae retractes munera Neniae, 
   mecum Dionaeo sub antro 
-  quaere modos leuiore plectro.    40 
+  quaere modos leuiore plectro.     
  
 
  
 
  
- II 
- 
+
 
  
  Nullus argento color est auaris 
@@ -99,7 +82,7 @@ campus sepulcris impia proelia    30
  
 
  
- Viuet extento Proculeius aeuo,    5 
+ Viuet extento Proculeius aeuo,     
  notus in fratres animi paterni; 
  illum aget pinna metuente solui 
   Fama superstes.
@@ -107,7 +90,7 @@ campus sepulcris impia proelia    30
 
  
  Latius regnes auidum domando 
-spiritum quam si Libyam remotis    10 
+spiritum quam si Libyam remotis     
  Gadibus iungas et uterque Poenus 
   seruiat uni.
  
@@ -115,7 +98,7 @@ spiritum quam si Libyam remotis    10
  
  Crescit indulgens sibi dirus hydrops 
  nec sitim pellit, nisi causa morbi 
- fugerit uenis et aquosus albo    15 
+ fugerit uenis et aquosus albo     
   corpore languor.
  
 
@@ -123,7 +106,7 @@ spiritum quam si Libyam remotis    10
  Redditum Cyri solio Prahaten 
  dissidens plebi numero beatorum 
  eximit Virtus populumque falsis 
-  dedocet uti    20 
+  dedocet uti     
  
 
  
@@ -136,8 +119,7 @@ spiritum quam si Libyam remotis    10
  
 
  
- III 
- 
+
 
  
  Aequam memento rebus in arduis 
@@ -147,7 +129,7 @@ spiritum quam si Libyam remotis    10
  
 
  
- seu maestus omni tempore uixeris    5 
+ seu maestus omni tempore uixeris     
  seu te in remoto gramine per dies 
   festos reclinatum bearis 
   interiore nota Falerni.
@@ -155,7 +137,7 @@ spiritum quam si Libyam remotis    10
 
  
  Quo pinus ingens albaque populus 
-umbram hospitalem consociare amant    10 
+umbram hospitalem consociare amant     
   ramis? Quid obliquo laborat 
   lympha fugax trepidare riuo?
  
@@ -164,14 +146,14 @@ umbram hospitalem consociare amant    10
  Huc uina et unguenta et nimium breuis 
  flores amoenae ferre iube rosae, 
   dum res et aetas et Sororum 
-  fila trium patiuntur atra.    15 
+  fila trium patiuntur atra.     
  
 
  
  Cedes coemptis saltibus et domo 
  uillaque, flauus quam Tiberis lauit, 
   cedes, et exstructis in altum 
-  diuitiis potietur heres.    20 
+  diuitiis potietur heres.     
  
 
  
@@ -182,7 +164,7 @@ umbram hospitalem consociare amant    10
  
 
  
- omnes eodem cogimur, omnium    25 
+ omnes eodem cogimur, omnium     
  uersatur urna serius ocius 
   sors exitura et nos in aeternum 
   exilium impositura cumbae.
@@ -191,8 +173,7 @@ umbram hospitalem consociare amant    10
  
 
  
- IV 
- 
+
 
  
  Ne sit ancillae tibi amor pudori, 
@@ -202,7 +183,7 @@ umbram hospitalem consociare amant    10
  
 
  
-mouit Aiacem Telamone natum    5 
+mouit Aiacem Telamone natum     
  forma captiuae dominum Tecmessae; 
  arsit Atrides medio in triumpho 
   uirgine rapta,
@@ -210,7 +191,7 @@ mouit Aiacem Telamone natum    5
 
  
  barbarae postquam cecidere turmae 
-Thessalo uictore et ademptus Hector    10 
+Thessalo uictore et ademptus Hector     
  tradidit fessis leuiora tolli 
   Pergama Grais.
  
@@ -218,7 +199,7 @@ Thessalo uictore et ademptus Hector    10
  
  Nescias an te generum beati 
  Phyllidis flauae decorent parentes; 
- regium certe genus et penatis    15 
+ regium certe genus et penatis     
   maeret iniquos.
  
 
@@ -226,7 +207,7 @@ Thessalo uictore et ademptus Hector    10
  Crede non illam tibi de scelesta 
  plebe delectam, neque sic fidelem, 
  sic lucro auersam potuisse nasci 
-  matre pudenda.    20 
+  matre pudenda.     
  
 
  
@@ -239,8 +220,7 @@ Thessalo uictore et ademptus Hector    10
  
 
  
- V 
- 
+
 
  
  Nondum subacta ferre iugum ualet 
@@ -250,7 +230,7 @@ Thessalo uictore et ademptus Hector    10
  
 
  
- Circa uirentis est animus tuae    5 
+ Circa uirentis est animus tuae     
  campos iuuencae, nunc fluuiis grauem 
   solantis aestum, nunc in udo 
   ludere cum uitulis salicto
@@ -258,7 +238,7 @@ Thessalo uictore et ademptus Hector    10
 
  
  praegestientis. Tolle cupidinem 
-immitis uuae: iam tibi liuidos    10 
+immitis uuae: iam tibi liuidos     
   distinguet autumnus racemos 
   purpureo uarius colore;
  
@@ -267,14 +247,14 @@ immitis uuae: iam tibi liuidos    10
  iam te sequetur; currit enim ferox 
  aetas et illi quos tibi dempserit 
   adponet annos; iam proterua 
-  fronte petet Lalage maritum,    15 
+  fronte petet Lalage maritum,     
  
 
  
  dilecta, quantum non Pholoe fugax, 
  non Chloris albo sic umero nitens 
   ut pura nocturno renidet 
-  luna mari Cnidiusue Gyges,    20 
+  luna mari Cnidiusue Gyges,     
  
 
  
@@ -287,8 +267,7 @@ immitis uuae: iam tibi liuidos    10
  
 
  
- VI 
- 
+
 
  
  Septimi, Gadis aditure mecum et 
@@ -298,7 +277,7 @@ immitis uuae: iam tibi liuidos    10
  
 
  
- Tibur Argeo positum colono    5 
+ Tibur Argeo positum colono     
  sit meae sedes utinam senectae, 
  sit modus lasso maris et uiarum 
   militiaeque.
@@ -306,7 +285,7 @@ immitis uuae: iam tibi liuidos    10
 
  
  Vnde si Parcae prohibent iniquae, 
-dulce pellitis ouibus Galaesi    10 
+dulce pellitis ouibus Galaesi     
  flumen et regnata petam Laconi 
   rura Phalantho.
  
@@ -314,7 +293,7 @@ dulce pellitis ouibus Galaesi    10
  
  Ille terrarum mihi praeter omnis 
  angulus ridet, ubi non Hymetto 
- mella decedunt uiridique certat    15 
+ mella decedunt uiridique certat     
   baca Venafro,
  
 
@@ -322,7 +301,7 @@ dulce pellitis ouibus Galaesi    10
  uer ubi longum tepidasque praebet 
  Iuppiter brumas et amicus Aulon 
  fertili Baccho minimum Falernis 
-  inuidet uuis.    20 
+  inuidet uuis.     
  
 
  
@@ -335,8 +314,7 @@ dulce pellitis ouibus Galaesi    10
  
 
  
- VII 
- 
+
 
  
  O saepe mecum tempus in ultimum 
@@ -346,7 +324,7 @@ dulce pellitis ouibus Galaesi    10
  
 
  
- Pompei, meorum prime sodalium,    5 
+ Pompei, meorum prime sodalium,     
  cum quo morantem saepe diem mero 
   fregi, coronatus nitentis 
   malobathro Syrio capillos?
@@ -354,7 +332,7 @@ dulce pellitis ouibus Galaesi    10
 
  
  Tecum Philippos et celerem fugam 
-sensi relicta non bene parmula,    10 
+sensi relicta non bene parmula,     
   cum fracta uirtus et minaces 
   turpe solum tetigere mento;
  
@@ -362,7 +340,7 @@ sensi relicta non bene parmula,    10
  
  sed me per hostis Mercurius celer 
  denso pauentem sustulit aere, 
-  te rursus in bellum resorbens    15 
+  te rursus in bellum resorbens     
   unda fretis tulit aestuosis.
  
 
@@ -370,7 +348,7 @@ sensi relicta non bene parmula,    10
  Ergo obligatam redde Ioui dapem 
  longaque fessum militia latus 
   depone sub lauru mea, nec 
-  parce cadis tibi destinatis.    20 
+  parce cadis tibi destinatis.     
  
 
  
@@ -381,7 +359,7 @@ sensi relicta non bene parmula,    10
  
 
  
- curatue myrto? Quem Venus arbitrum    25 
+ curatue myrto? Quem Venus arbitrum     
  dicet bibendi? Non ego sanius 
   bacchabor Edonis: recepto 
   dulce mihi furere est amico.
@@ -390,8 +368,7 @@ sensi relicta non bene parmula,    10
  
 
  
- VIII 
- 
+
 
  
  Vlla si iuris tibi peierati 
@@ -401,7 +378,7 @@ sensi relicta non bene parmula,    10
  
 
  
- crederem; sed tu simul obligasti    5 
+ crederem; sed tu simul obligasti     
  perfidum uotis caput, enitescis 
  pulchrior multo iuuenumque prodis 
   publica cura.
@@ -409,7 +386,7 @@ sensi relicta non bene parmula,    10
 
  
  Expedit matris cineres opertos 
-fallere et toto taciturna noctis    10 
+fallere et toto taciturna noctis     
  signa cum caelo gelidaque diuos 
   morte carentis.
  
@@ -417,7 +394,7 @@ fallere et toto taciturna noctis    10
  
  Ridet hoc, inquam, Venus ipsa, rident 
  simplices Nymphae, ferus et Cupido 
- semper ardentis acuens sagittas    15 
+ semper ardentis acuens sagittas     
   cote cruenta.
  
 
@@ -425,7 +402,7 @@ fallere et toto taciturna noctis    10
  Adde quod pubes tibi crescit omnis, 
  seruitus crescit noua nec priores 
  impiae tectum dominae relinquont 
-  saepe minati.    20 
+  saepe minati.     
  
 
  
@@ -438,8 +415,7 @@ fallere et toto taciturna noctis    10
  
 
  
- IX 
- 
+
 
  
  Non semper imbres nubibus hispidos 
@@ -449,7 +425,7 @@ fallere et toto taciturna noctis    10
  
 
  
-amice Valgi, stat glacies iners     5 
+amice Valgi, stat glacies iners      
  mensis per omnis aut Aquilonibus 
   querqueta Gargani laborant 
   et foliis uiduantur orni:
@@ -457,7 +433,7 @@ amice Valgi, stat glacies iners     5
 
  
  tu semper urges flebilibus modis 
-Mysten ademptum, nec tibi Vespero    10 
+Mysten ademptum, nec tibi Vespero     
   surgente decedunt amores 
   nec rapidum fugiente solem.
  
@@ -465,7 +441,7 @@ Mysten ademptum, nec tibi Vespero    10
  
  At non ter aeuo functus amabilem 
  plorauit omnis Antilochum senex 
-  annos nec inpubem parentes    15 
+  annos nec inpubem parentes     
   Troilon aut Phrygiae sorores
  
 
@@ -473,7 +449,7 @@ Mysten ademptum, nec tibi Vespero    10
  fleuere semper. Desine mollium 
  tandem querellarum et potius noua 
   cantemus Augusti tropaea 
-  Caesaris et rigidum Niphaten    20 
+  Caesaris et rigidum Niphaten     
  
 
  
@@ -486,8 +462,7 @@ Mysten ademptum, nec tibi Vespero    10
  
 
  
- X 
- 
+
 
  
  Rectius uiues, Licini, neque altum 
@@ -497,7 +472,7 @@ Mysten ademptum, nec tibi Vespero    10
  
 
  
- Auream quisquis mediocritatem    5 
+ Auream quisquis mediocritatem     
  diligit, tutus caret obsoleti 
  sordibus tecti, caret inuidenda 
   sobrius aula.
@@ -505,7 +480,7 @@ Mysten ademptum, nec tibi Vespero    10
 
  
  Saepius uentis agitatur ingens 
-pinus et celsae grauiore casu    10 
+pinus et celsae grauiore casu     
  decidunt turres feriuntque summos 
   fulgura montis.
  
@@ -513,7 +488,7 @@ pinus et celsae grauiore casu    10
  
  Sperat infestis, metuit secundis 
  alteram sortem bene praeparatum 
- pectus. Informis hiemes reducit    15 
+ pectus. Informis hiemes reducit     
   Iuppiter, idem
  
 
@@ -521,7 +496,7 @@ pinus et celsae grauiore casu    10
  summouet. Non, si male nunc, et olim 
  sic erit: quondam cithara tacentem 
  suscitat Musam neque semper arcum 
-  tendit Apollo.    20 
+  tendit Apollo.     
  
 
  
@@ -534,8 +509,7 @@ pinus et celsae grauiore casu    10
  
 
  
- XI 
- 
+
 
  
  Quid bellicosus Cantaber et Scythes, 
@@ -545,7 +519,7 @@ pinus et celsae grauiore casu    10
  
 
  
- poscentis aeui pauca: fugit retro    5 
+ poscentis aeui pauca: fugit retro     
  leuis iuuentas et decor, arida 
   pellente lasciuos amores 
   canitie facilemque somnum.
@@ -553,7 +527,7 @@ pinus et celsae grauiore casu    10
 
  
  Non semper idem floribus est honor 
-uernis neque uno luna rubens nitet    10 
+uernis neque uno luna rubens nitet     
   uoltu: quid aeternis minorem 
   consiliis animum fatigas?
  
@@ -561,7 +535,7 @@ uernis neque uno luna rubens nitet    10
  
  Cur non sub alta uel platano uel hac 
  pinu iacentes sic temere et rosa 
-  canos odorati capillos,    15 
+  canos odorati capillos,     
   dum licet, Assyriaque nardo
  
 
@@ -569,7 +543,7 @@ uernis neque uno luna rubens nitet    10
  potamus uncti? dissipat Euhius 
  curas edacis. Quis puer ocius 
   restinguet ardentis Falerni 
-  pocula praetereunte lympha?    20 
+  pocula praetereunte lympha?     
  
 
  
@@ -582,8 +556,7 @@ uernis neque uno luna rubens nitet    10
  
 
  
- XII 
- 
+
 
  
  Nolis longa ferae bella Numantiae, 
@@ -594,7 +567,7 @@ uernis neque uno luna rubens nitet    10
  
 
  
- nec saeuos Lapithas et nimium mero    5 
+ nec saeuos Lapithas et nimium mero     
  Hylaeum domitosque Herculea manu 
  Telluris iuuenes, unde periculum 
   fulgens contremuit domus
@@ -602,7 +575,7 @@ uernis neque uno luna rubens nitet    10
 
  
  Saturni ueteris; tuque pedestribus 
-dices historiis proelia Caesaris,    10 
+dices historiis proelia Caesaris,     
  Maecenas, melius ductaque per uias 
   regum colla minacium.
  
@@ -610,7 +583,7 @@ dices historiis proelia Caesaris,    10
  
  Me dulcis dominae Musa Licymniae 
  cantus, me uoluit dicere lucidum 
-fulgentis oculos et bene mutuis    15 
+fulgentis oculos et bene mutuis     
   fidum pectus amoribus;
  
 
@@ -618,7 +591,7 @@ fulgentis oculos et bene mutuis    15
  quam nec ferre pedem dedecuit choris 
  nec certare ioco nec dare bracchia 
  ludentem nitidis uirginibus sacro 
-  Dianae celebris die.    20 
+  Dianae celebris die.     
  
 
  
@@ -629,7 +602,7 @@ fulgentis oculos et bene mutuis    15
  
 
  
- cum flagrantia detorquet ad oscula    25 
+ cum flagrantia detorquet ad oscula     
  ceruicem aut facili saeuitia negat 
  quae poscente magis gaudeat eripi, 
   interdum rapere occupet?
@@ -638,8 +611,7 @@ fulgentis oculos et bene mutuis    15
  
 
  
- XIII 
- 
+
 
  
  Ille et nefasto te posuit die, 
@@ -649,7 +621,7 @@ fulgentis oculos et bene mutuis    15
  
 
  
- illum et parentis crediderim sui    5 
+ illum et parentis crediderim sui     
  fregisse ceruicem et penetralia 
   sparsisse nocturno cruore 
   hospitis, ille uenena Colcha
@@ -657,7 +629,7 @@ fulgentis oculos et bene mutuis    15
 
  
  et quidquid usquam concipitur nefas 
-tractauit, agro qui statuit meo    10 
+tractauit, agro qui statuit meo     
   te, triste lignum, te, caducum 
   in domini caput inmerentis.
  
@@ -665,7 +637,7 @@ tractauit, agro qui statuit meo    10
  
  Quid quisque uitet, nunquam homini satis 
  cautum est in horas: nauita Bosphorum 
-  Poenus perhorrescit neque ultra    15 
+  Poenus perhorrescit neque ultra     
   caeca timet aliunde fata,
  
 
@@ -673,7 +645,7 @@ tractauit, agro qui statuit meo    10
  miles sagittas et celerem fugam 
  Parthi, catenas Parthus et Italum 
   robur; sed inprouisa leti 
-  uis rapuit rapietque gentis.    20 
+  uis rapuit rapietque gentis.     
  
 
  
@@ -684,7 +656,7 @@ tractauit, agro qui statuit meo    10
  
 
  
-Sappho puellis de popularibus    25 
+Sappho puellis de popularibus     
  et te sonantem plenius aureo, 
   Alcaee, plectro dura nauis, 
   dura fugae mala, dura belli.
@@ -692,7 +664,7 @@ Sappho puellis de popularibus    25
 
  
  Vtrumque sacro digna silentio 
-mirantur umbrae dicere, sed magis    30 
+mirantur umbrae dicere, sed magis     
   pugnas et exactos tyrannos 
   densum umeris bibit aure uolgus.
  
@@ -700,7 +672,7 @@ mirantur umbrae dicere, sed magis    30
  
  Quid mirum, ubi illis carminibus stupens 
  demittit atras belua centiceps 
-  auris et intorti capillis    35 
+  auris et intorti capillis     
   Eumenidum recreantur angues?
  
 
@@ -708,14 +680,13 @@ mirantur umbrae dicere, sed magis    30
  Quin et Prometheus et Pelopis parens 
  dulci laborum decipitur sono 
   nec curat Orion leones 
-  aut timidos agitare lyncas.    40 
+  aut timidos agitare lyncas.     
  
 
  
 
  
- XIV 
- 
+
 
  
  Eheu fugaces, Postume, Postume, 
@@ -725,7 +696,7 @@ mirantur umbrae dicere, sed magis    30
  
 
  
-non, si trecenis quotquot eunt dies,    5 
+non, si trecenis quotquot eunt dies,     
  amice, places inlacrimabilem 
   Plutona tauris, qui ter amplum 
   Geryonen Tityonque tristi
@@ -733,7 +704,7 @@ non, si trecenis quotquot eunt dies,    5
 
  
  compescit unda, scilicet omnibus 
-quicumque terrae munere uescimur    10 
+quicumque terrae munere uescimur     
   enauiganda, siue reges 
   siue inopes erimus coloni.
  
@@ -741,7 +712,7 @@ quicumque terrae munere uescimur    10
  
  Frustra cruento Marte carebimus 
  fractisque rauci fluctibus Hadriae, 
-  frustra per autumnos nocentem    15 
+  frustra per autumnos nocentem     
   corporibus metuemus Austrum:
  
 
@@ -749,7 +720,7 @@ quicumque terrae munere uescimur    10
  uisendus ater flumine languido 
  Cocytos errans et Danai genus 
   infame damnatusque longi 
-  Sisyphus Aeolides laboris.    20 
+  Sisyphus Aeolides laboris.     
  
 
  
@@ -760,7 +731,7 @@ quicumque terrae munere uescimur    10
  
 
  
-absumet heres Caecuba dignior    25 
+absumet heres Caecuba dignior     
  seruata centum clauibus et mero 
   tinguet pauimentum superbo, 
   pontificum potiore cenis.
@@ -769,8 +740,7 @@ absumet heres Caecuba dignior    25
  
 
  
- XV 
- 
+
 
  
  Iam pauca aratro iugera regiae 
@@ -780,7 +750,7 @@ absumet heres Caecuba dignior    25
  
 
  
-euincet ulmos; tum uiolaria et    5 
+euincet ulmos; tum uiolaria et     
  myrtus et omnis copia narium 
   spargent oliuetis odorem 
   fertilibus domino priori;
@@ -788,7 +758,7 @@ euincet ulmos; tum uiolaria et    5
 
  
  tum spissa ramis laurea feruidos 
-excludet ictus. Non ita Romuli    10 
+excludet ictus. Non ita Romuli     
   praescriptum et intonsi Catonis 
   auspiciis ueterumque norma.
  
@@ -796,7 +766,7 @@ excludet ictus. Non ita Romuli    10
  
  Priuatus illis census erat breuis, 
  commune magnum; nulla decempedis 
-  metata priuatis opacam    15 
+  metata priuatis opacam     
   porticus excipiebat Arcton,
  
 
@@ -804,14 +774,13 @@ excludet ictus. Non ita Romuli    10
  nec fortuitum spernere caespitem 
  leges sinebant, oppida publico 
   sumptu iubentes et deorum 
-  templa nouo decorare saxo.    20 
+  templa nouo decorare saxo.     
  
 
  
 
  
- XVI 
- 
+
 
  
  Otium diuos rogat in patenti 
@@ -821,7 +790,7 @@ excludet ictus. Non ita Romuli    10
  
 
  
- otium bello furiosa Thrace,    5 
+ otium bello furiosa Thrace,     
  otium Medi pharetra decori, 
  Grosphe, non gemmis neque purpura 
   uenale neque auro.
@@ -829,7 +798,7 @@ excludet ictus. Non ita Romuli    10
 
  
  Non enim gazae neque consularis 
-summouet lictor miseros tumultus    10 
+summouet lictor miseros tumultus     
  mentis et curas laqueata circum 
   tecta uolantis.
  
@@ -837,7 +806,7 @@ summouet lictor miseros tumultus    10
  
  Viuitur paruo bene, cui paternum 
  splendet in mensa tenui salinum 
- nec leuis somnos timor aut cupido    15 
+ nec leuis somnos timor aut cupido     
   sordidus aufert.
  
 
@@ -845,7 +814,7 @@ summouet lictor miseros tumultus    10
  Quid breui fortes iaculamur aeuo 
  multa? Quid terras alio calentis 
  sole mutamus? Patriae quis exul 
-  se quoque fugit?    20 
+  se quoque fugit?     
  
 
  
@@ -856,7 +825,7 @@ summouet lictor miseros tumultus    10
  
 
  
- Laetus in praesens animus quod ultra est    25 
+ Laetus in praesens animus quod ultra est     
  oderit curare et amara lento 
  temperet risu: nihil est ab omni 
   parte beatum.
@@ -864,7 +833,7 @@ summouet lictor miseros tumultus    10
 
  
  Abstulit clarum cita mors Achillem, 
-longa Tithonum minuit senectus,    30 
+longa Tithonum minuit senectus,     
  et mihi forsan, tibi quod negarit, 
   porriget hora.
  
@@ -872,7 +841,7 @@ longa Tithonum minuit senectus,    30
  
  Te greges centum Siculaeque circum 
  mugiunt uaccae, tibi tollit hinnitum 
-apta quadrigis equa, te bis Afro    35 
+apta quadrigis equa, te bis Afro     
   murice tinctae
  
 
@@ -880,14 +849,13 @@ apta quadrigis equa, te bis Afro    35
  uestiunt lanae; mihi parua rura et 
  spiritum Graiae tenuem Camenae 
  Parca non mendax dedit et malignum 
-  spernere uolgus.    40 
+  spernere uolgus.     
  
 
  
 
  
- XVII 
- 
+
 
  
  Cur me querellis exanimas tuis? 
@@ -897,7 +865,7 @@ apta quadrigis equa, te bis Afro    35
  
 
  
-A! te meae si partem animae rapit    5 
+A! te meae si partem animae rapit     
  maturior uis, quid moror altera, 
   nec carus aeque nec superstes 
   integer? Ille dies utramque
@@ -905,7 +873,7 @@ A! te meae si partem animae rapit    5
 
  
  ducet ruinam. Non ego perfidum 
-dixit sacramentum: ibimus, ibimus,    10 
+dixit sacramentum: ibimus, ibimus,     
   utcumque praecedes, supremum 
   carpere iter comites parati.
  
@@ -913,7 +881,7 @@ dixit sacramentum: ibimus, ibimus,    10
  
  Me nec Chimaerae spiritus igneae 
  nec, si resurgat centimanus gigas, 
-  diuellet umquam: sic potenti    15 
+  diuellet umquam: sic potenti     
   Iustitiae placitumque Parcis.
  
 
@@ -921,7 +889,7 @@ dixit sacramentum: ibimus, ibimus,    10
  Seu Libra seu me Scorpios aspicit 
  formidolosus, pars uiolentior 
   natalis horae, seu tyrannus 
-  Hesperiae Capricornus undae,    20 
+  Hesperiae Capricornus undae,     
  
 
  
@@ -932,7 +900,7 @@ dixit sacramentum: ibimus, ibimus,    10
  
 
  
- tardauit alas, cum populus frequens    25 
+ tardauit alas, cum populus frequens     
  laetum theatris ter crepuit sonum; 
   me truncus inlapsus cerebro 
   sustulerat, nisi Faunus ictum
@@ -940,7 +908,7 @@ dixit sacramentum: ibimus, ibimus,    10
 
  
  dextra leuasset, Mercurialium 
-custos uirorum. Reddere uictimas    30 
+custos uirorum. Reddere uictimas     
   aedemque uotiuam memento; 
   non humilem feriemus agnam.
  
@@ -948,57 +916,55 @@ custos uirorum. Reddere uictimas    30
  
 
  
- XVIII 
- 
+
 
  
   Non ebur neque aureum 
  mea renidet in domo lacunar; 
   non trabes Hymettiae 
  premunt columnas ultima recisas 
-  Africa, neque Attali    5 
+  Africa, neque Attali     
  ignotus heres regiam occupaui, 
   nec Laconicas mihi 
  trahunt honestae purpuras clientae. 
   At fides et ingeni 
-benigna uena est pauperemque diues    10 
+benigna uena est pauperemque diues     
   me petit; nihil supra 
  deos lacesso nec potentem amicum 
   largiora flagito, 
  satis beatus unicis Sabinis. 
-  Truditur dies die    15 
+  Truditur dies die     
  nouaeque pergunt interire lunae; 
   tu secanda marmora 
  locas sub ipsum funus et sepulcri 
   inmemor struis domos 
-marisque Bais obstrepentis urges    20 
+marisque Bais obstrepentis urges     
   summouere litora, 
  parum locuples continente ripa. 
   Quid quod usque proximos 
  reuellis agri terminos et ultra 
-  limites clientium    25 
+  limites clientium     
  salis auarus? Pellitur paternos 
   in sinu ferens deos 
  et uxor et uir sordidosque natos. 
   Nulla certior tamen 
-rapacis Orci fine destinata    30 
+rapacis Orci fine destinata     
   aula diuitem manet 
  erum. Quid ultra tendis? Aequa tellus 
   pauperi recluditur 
  regumque pueris, nec satelles Orci 
-  callidum Promethea    35 
+  callidum Promethea     
  reuexit auro captus. Hic superbum 
   Tantalum atque Tantali 
  genus coercet, hic leuare functum 
   pauperem laboribus 
-uocatus atque non uocatus audit.    40 
+uocatus atque non uocatus audit.     
  
 
  
 
  
- XIX 
- 
+
 
  
  Bacchum in remotis carmina rupibus 
@@ -1008,7 +974,7 @@ uocatus atque non uocatus audit.    40
  
 
  
- Euhoe, recenti mens trepidat metu    5 
+ Euhoe, recenti mens trepidat metu     
  plenoque Bacchi pectore turbidum 
   laetatur. Euhoe, parce Liber, 
   parce, graui metuende thyrso.
@@ -1016,7 +982,7 @@ uocatus atque non uocatus audit.    40
 
  
  Fas peruicacis est mihi Thyiadas 
-uinique fontem lactis et uberes    10 
+uinique fontem lactis et uberes     
   cantare riuos atque truncis 
   lapsa cauis iterare mella;
  
@@ -1024,7 +990,7 @@ uinique fontem lactis et uberes    10
  
  fas et beatae coniugis additum 
  stellis honorem tectaque Penthei 
-  disiecta non leni ruina,    15 
+  disiecta non leni ruina,     
   Thracis et exitium Lycurgi.
  
 
@@ -1032,7 +998,7 @@ uinique fontem lactis et uberes    10
  Tu flectis amnes, tu mare barbarum, 
  tu separatis uuidus in iugis 
   nodo coerces uiperino 
-  Bistonidum sine fraude crinis.    20 
+  Bistonidum sine fraude crinis.     
  
 
  
@@ -1043,7 +1009,7 @@ uinique fontem lactis et uberes    10
  
 
  
- quamquam, choreis aptior et iocis    25 
+ quamquam, choreis aptior et iocis     
  ludoque dictus, non sat idoneus 
   pugnae ferebaris; sed idem 
   pacis eras mediusque belli.
@@ -1051,7 +1017,7 @@ uinique fontem lactis et uberes    10
 
  
  Te uidit insons Cerberus aureo 
-cornu decorum leniter atterens    30 
+cornu decorum leniter atterens     
   caudam et recedentis trilingui 
   ore pedes tetigitque crura.
  
@@ -1059,8 +1025,7 @@ cornu decorum leniter atterens    30
  
 
  
- XX 
- 
+
 
  
  Non usitata nec tenui ferar 
@@ -1070,7 +1035,7 @@ cornu decorum leniter atterens    30
  
 
  
-urbis relinquam. Non ego pauperum    5 
+urbis relinquam. Non ego pauperum     
  sanguis parentum, non ego quem uocas, 
   dilecte Maecenas, obibo 
   nec Stygia cohibebor unda.
@@ -1078,7 +1043,7 @@ urbis relinquam. Non ego pauperum    5
 
  
  Iam iam residunt cruribus asperae 
-pelles et album mutor in alitem    10 
+pelles et album mutor in alitem     
   superne nascunturque leues 
   per digitos umerosque plumae.
  
@@ -1086,7 +1051,7 @@ pelles et album mutor in alitem    10
  
  Iam Daedaleo ocior Icaro 
  uisam gementis litora Bosphori 
-  Syrtisque Gaetulas canorus    15 
+  Syrtisque Gaetulas canorus     
   ales Hyperboreosque campos.
  
 
@@ -1094,7 +1059,7 @@ pelles et album mutor in alitem    10
  Me Colchus et qui dissimulat metum 
  Marsae cohortis Dacus et ultimi 
   noscent Geloni, me peritus 
-  discet Hiber Rhodanique potor.    20 
+  discet Hiber Rhodanique potor.     
  
 
  
@@ -1106,6 +1071,3 @@ pelles et album mutor in alitem    10
 
  
 	 
-		 Horace 
-		 The Latin Library 
-		 The Classics Page
