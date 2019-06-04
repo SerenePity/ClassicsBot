@@ -226,12 +226,12 @@ class Scholasticus(commands.Bot):
             if author in self.players_to_game_owners:
                 game_owner = self.players_to_game_owners[author]
                 game = self.games[game_owner]
+                game.end_player_sess(author)
                 if game.no_players_left():
                     await self.send_message(channel, f"There are no players left. The answer was {self.robot.format_name(game.answer)}.")
                     self.end_game(game_owner)
                 else:
                     await self.send_message(channel, f"{author.mention} has left the game.")
-                    game.players_dict[author].end_game()
             return
 
         if author in self.players_to_game_owners and self.games[self.players_to_game_owners[author]].game_on \
