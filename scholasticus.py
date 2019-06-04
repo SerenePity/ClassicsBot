@@ -80,8 +80,8 @@ class Scholasticus(commands.Bot):
     async def on_ready(self):
         print('Logged on as', self.user)
         self.robot.load_all_models()
-        self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()))
-        self.authors = [self.robot.format_name(person) for person in list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys())]
+        self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()) + list(self.robot.off_topic_quotes_dict))
+        self.authors = [self.robot.format_name(person) for person in self.authors_set]
         for author in self.authors:
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
             self.quotes_commands[f"as {author.lower()} said:"] = author

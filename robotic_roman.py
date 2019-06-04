@@ -6,6 +6,7 @@ import string
 
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
+OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
 MAX_QUOTES_LENGTH = 800
 MIN_QUOTES_LENGTH = 140
 PARENTHESES = ["\"", "'", "“", "\""]
@@ -37,9 +38,11 @@ class RoboticRoman():
     def __init__(self):
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
+        self.off_topic_quotes_dict = dict()
         self.markov_dict = dict()
         self.authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
+        self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
         self.quote_tries = 0
         for author in self.authors:
             print(author)
@@ -48,6 +51,10 @@ class RoboticRoman():
         for grecian in self.greek_authors:
             print(grecian)
             self.greek_quotes_dict[grecian] = []
+
+        for writer in self.off_topic_authors:
+            print(writer)
+            self.off_topic_quotes_dict[writer] = []
 
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
@@ -128,6 +135,10 @@ class RoboticRoman():
             print(grecian)
             self.load_greek_quotes(grecian)
 
+        for person in self.off_topic_quotes_dict:
+            print(person)
+            self.load_off_topic_quotes(person)
+
         print("Finished loading models")
 
     """
@@ -153,6 +164,13 @@ class RoboticRoman():
             if file.endswith('.txt'):
                 self.quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
+    def load_off_topic_quotes(self, author):
+        self.off_topic_quotes_dict[author] = []
+        author_path = f"{OFF_TOPIC_TEXTS_PATH}/{author}/"
+        for file in os.listdir(author_path):
+            if file.endswith('.txt'):
+                self.off_topic_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
+
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
                                                                         ' de ')
@@ -173,6 +191,9 @@ class RoboticRoman():
                 else:
                     self.quote_tries = 0
                     raise error
+        elif person in self.off_topic_authors:
+            f = random.choice(self.off_topic_quotes_dict[person])
+            quote = random.choice(self._process_text(f.read()))
         else:
             f = random.choice(self.quotes_dict[person])
             if person == 'the bible':
