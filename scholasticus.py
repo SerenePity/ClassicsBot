@@ -29,6 +29,7 @@ class Game():
     def __init__(self, game_owner, answer, language, channel):
         self.game_owner = game_owner
         self.game_on = True
+        self.players_dict = dict()
         self.language = language
         self.channel = channel
         self.answer = answer
