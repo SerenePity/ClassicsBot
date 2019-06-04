@@ -250,7 +250,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "You cannot join your own game!")
                     return
                 if game_owner not in self.games:
-                    self.send_message(channel, f"{player.mention}, that person does not have a running game.")
+                    self.send_message(channel, f"{author.mention}, that person does not have a running game.")
                     return
                 if self.games[game_owner].game_on:
                     if author in self.games[game_owner].exited_players:
@@ -260,7 +260,7 @@ class Scholasticus(commands.Bot):
                     self.games[game_owner].add_player(author)
                     await self.send_message(channel, f"{author.mention} has joined the game started by {game_owner.mention}.")
                 else:
-                    self.send_message(channel, f"{player.mention}, you attempted to join a game that doesn't exist.")
+                    self.send_message(channel, f"{author.mention}, you attempted to join a game that doesn't exist.")
             else:
                 await self.send_message(channel,
                                         f"{author.mention}, please specify the name of the player whose game you want to join.")
