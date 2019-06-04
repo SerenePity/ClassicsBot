@@ -158,7 +158,8 @@ class Scholasticus(commands.Bot):
     def end_game(self, game_owner):
         game = self.games[game_owner]
         for player in game.players_dict:
-            del self.players_to_game_owners[player]
+            if player in self.players_to_game_owners:
+                del self.players_to_game_owners[player]
         del self.games[game_owner]
 
     async def on_message(self, message):
