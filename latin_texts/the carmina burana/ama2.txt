@@ -473,7 +473,6 @@ res est apra senectuti
 seriis intendere,
 . . . . . . . . . . .
 . . . . . . . . . . .
-Refl.
 
 Velox etas preterit
 studio detenta,
@@ -491,7 +490,6 @@ sanguis aret, hebet pectus,
 minuuntur gaudia,
 nos deterret iam senectus
 morborum familia.
-Refl.
 
 Velox etas preterit
 studio detenta,
@@ -509,7 +507,6 @@ voto nostro serviamus!
 mos est iste numinum.
 ad plateas descendamus
 et choreas virginum!
-Refl.
 
 Velox etas preterit
 studio detenta,
@@ -527,7 +524,6 @@ dum puelle se movendo
 gestibus lasciviunt,
 asto videns, et videndo
 me michi subripiunt.
-Refl.
 
 Velox etas preterit
 studio detenta,
@@ -1113,7 +1109,6 @@ Venus excitatur.
 gaudet chorus iuvenum,
 dum turba frequens avium
 garritu modulatur.
-Refl.
 
 Quanta sunt gaudia
 amanti et amato,
@@ -1133,7 +1128,6 @@ causa fit amoris.
 gaudet chorus iuvenum,
 dum turba frequens avium
 garritu modulatur.
-Refl.
 
 Quanta sunt gaudia
 amanti et amato,
@@ -1154,7 +1148,6 @@ tellus ferens gramina
 decoratur floribus,
 et vestiuntur nemora
 frondosis arboribus.
-Refl.
 
 Quanta sunt gaudia
 amanti et amato,
@@ -1175,7 +1168,6 @@ festa colit Veneris
 puellaris curia,
 propinat Amor teneris
 amaris miscens dulcia.
-Refl.
 
 Quanta sunt gaudia
 amanti et amato,
@@ -1201,7 +1193,6 @@ ver, quod nunc apparuit,
 dans solum fecundum,
 salutari meruit
 per carmen iocundum.
-Refl.
 
 Ergo nostra contio
 psallat cum tripudio
@@ -1218,7 +1209,6 @@ discendente celitus
 salutari rore
 fecundatur funditus
 tellus ex humore.
-Refl.
 
 Ergo nostra contio
 psallat cum tripudio
@@ -1235,7 +1225,6 @@ nix, que nos obruerat,
 ex estu liquescit;
 qui prius aruerat,
 campus revirescit.
-Refl.
 
 Ergo nostra contio
 psallat cum tripudio
@@ -1252,7 +1241,6 @@ anus, licet vetula,
 mire petulatur;
 lascivit iuvencula,
 cum sic recreatur.
-Refl.
 
 Ergo nostra contio
 psallat cum tripudio
@@ -1272,7 +1260,6 @@ veris ab instantia
 tellus iam fit gravida;
 in partum inde solvitur,
 dum florere cernitur.
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1288,7 +1275,6 @@ ab aeris temperantia
 rerum fit materia,
 unde muitiplicia
 generantur semina.
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1304,7 +1290,6 @@ in silvis aves concinunt
 dulciterque garriunt;
 nec philomena desinit,
 iacturam suam meminit.
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1320,7 +1305,6 @@ nunc audite, virgines:
 non amant recte milites!
 miles caret viribus
 nature et virtutibus!
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1336,7 +1320,6 @@ inierunt hoc consilium:
 nobis sunt amabiles.'
 'de quibus stulta ratio,
 suspensa est solutio.'
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1352,7 +1335,6 @@ cum serico in palliis,
 colore et in clipeis.'
 'quid prosunt nobis talia,
 cum forma perit propria?
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1368,7 +1350,6 @@ pannorum in velamine,
 deinde et in pyxide.'
 mox de omni clerico
 Amoris fit conclusio.
-Refl.
 
 O o o a i a e !
 amor † insolabile!
@@ -1397,7 +1378,6 @@ fervens amor pecorum;
 semper amans sequi nolo
 novas vices temporum
 bestiali more.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1419,7 +1399,6 @@ Flora supercilio,
 mente satis non capaci
 gaudia concipio,
 glorior labore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1441,7 +1420,6 @@ caro candet tenera,
 virginale lucet pectus,
 parum surgunt ubera
 modico tumore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1463,7 +1441,6 @@ manus it et uberum
 regionem pervagata
 descendit ad uterum
 tactu leviore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1485,7 +1462,6 @@ gracilis sub cingulo
 umbilicum preextendit
 paululum ventriculo
 tumescentiore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1507,7 +1483,6 @@ tenerum pinguedine
 levigatur occultata
 nervorum compagine,
 radians candore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1529,7 +1504,6 @@ imbre dulci mulceat,
 vel Europes intret taurum,
 vel Ledeo candeat
 rursus in olore.
-Refl.
 
 Quam dulcia
 stipendia
@@ -1567,7 +1541,6 @@ me laqueo
 virgineo
 cordis venator oculus
 visa captus virgine.
-Refl.
 
 Ha morior!
 sed quavis dulcedine
@@ -1595,7 +1568,6 @@ ut primula
 discipula
 nondum subducta ferule,
 tremit ad blanditias.
-Refl.
 
 Ha morior!
 sed . . . . . . . . . -ias
@@ -1623,7 +1595,6 @@ nec supero,
 nam aspero
 defendens ungue limina
 obserat introitus.
-Refl.
 
 Ha morior!
 sed hec michi penitus
@@ -1651,7 +1622,6 @@ ut cardinem
 determinem,
 duellum istud refero:
 sic in castris milito.
-Refl.
 
 Ha morior!
 sed . . . . . . . . . -ito
@@ -1673,7 +1643,6 @@ Veris dulcis in tempore
 florenti stat sub arbore
 Iuliana cum sorore.
 Dulcis amor!
-Refl.
 
 Qui te caret hoc tempore,
 fit vilior.
@@ -1685,7 +1654,6 @@ Ecce florescunt arbores,
 lascive canunt volucres;
 inde tepescunt virgines.
 Dulcis amor!
-Refl.
 
 Qui te caret hoc tempore,
 fit vilior.
@@ -1697,7 +1665,6 @@ Ecce florescunt lilia,
 et virginum dant agmina
 summo deorum carmina.
 Dulcis amor!
-Refl.
 
 Qui te caret hoc tempore,
 fit vilior.
@@ -1709,7 +1676,6 @@ Si tenerem, quam cupio,
 in nemore sub folio,
 oscularer cum gaudio.
 Dulcis amor!
-Refl.
 
 Qui te caret hoc tempore,
 fit vilior.
@@ -1729,7 +1695,6 @@ ad te specto
 et annecto
 nec deflecto
 cilia.
-Refl.
 
 Experire, filia,
 virilia:
@@ -1759,7 +1724,6 @@ album florem,
 post candorem
 dant odorem
 lilia.
-Refl.
 
 Experire, filia,
 virilia:
