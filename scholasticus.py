@@ -249,7 +249,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "You cannot join your own game!")
                     return
                 if game_owner not in self.games:
-                    self.send_message(channel, f"{author.mention}, that person does not have a running game.")
+                    await self.send_message(channel, f"{author.mention}, that person does not have a running game.")
                     return
                 if self.games[game_owner].game_on:
                     if author in self.games[game_owner].exited_players:
