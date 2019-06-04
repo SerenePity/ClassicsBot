@@ -33,6 +33,7 @@ class Game():
         self.language = language
         self.channel = channel
         self.answer = answer
+        self.exited_players = set()
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
     def get_game_owner_sess(self):
@@ -45,13 +46,19 @@ class Game():
         return self.players_dict[player]
 
     def end_player_sess(self, player):
+        self.exited_players.add(player)
         self.players_dict[player].end_game()
+        del self.players_dict[player]
+
+    def no_players_left(self):
+        return all(not self.players_dict[player].game_on for player in self.players_dict)
 
     def end_game(self):
         self.language = None
         self.answer = None
         self.game_on = False
         self.channel = None
+        self.exited_players = set()
         for player in self.players_dict:
             self.players_dict[player].end_game()
             del self.players_dict[player]
@@ -118,20 +125,20 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} guesses left.")
         else:
             self.games[game_owner].players_dict[player].end_game()
-            if all(not self.games[game_owner].players_dict[player].game_on for player in self.games[game_owner].players_dict):
+            if self.games[game_owner].no_players_left():
                 if len(self.games[game_owner].players_dict) == 1:
                     await self.send_message(channel,
                                     f"Sorry, {player.mention}, you've run out of guesses. The answer was {self.robot.format_name(game_answer)}. Better luck next time!")
                 else:
                     await self.send_message(channel,
                                       f"Everybody has run out of guesses. The answer was {self.robot.format_name(game_answer)}. Better luck next time!")
-                del self.games[game_owner]
-                del self.players_to_game_owners[player]
+                self.end_game(game_owner)
                 #self.games[game_owner].end_game()
             else:
                 await self.send_message(channel,
                                         f"Sorry, {player.mention}, you've run out of guesses! Better luck next time!")
                 self.games[game_owner].get_player_sess(player).end_game()
+                self.games[game_owner].exited_players.add(player)
                 del self.players_to_game_owners[player]
 
 
@@ -150,6 +157,12 @@ class Scholasticus(commands.Bot):
         await self.send_message(channel,
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
 
+
+    def end_game(self, game_owner):
+        game = self.games[game_owner]
+        for player in game.players_dict:
+            del self.players_to_game_owners[player]
+        del self.games[game_owner]
 
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
@@ -197,14 +210,6 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
             await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
 
-        if content.lower().startswith(self.command_prefix + 'multiplayer latin'):
-            await self.start_game(channel, author, "latin")
-            return
-
-        if content.lower().startswith(self.command_prefix + 'multiplayer greek'):
-            await self.start_game(channel, author, "greek")
-            return
-
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
             return
@@ -219,8 +224,14 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
             if author in self.players_to_game_owners:
-                await self.send_message(channel, f"Game ended for {author.mention}.")
-                self.games[self.players_to_game_owners[author]].players_dict[author].end_game()
+                game_owner = self.players_to_game_owners[author]
+                game = self.games[game_owner]
+                if game.no_players_left():
+                    await self.send_message(channel, f"There are no players left. The answer was {self.robot.format_name(game.answer)}.")
+                    self.end_game(game_owner)
+                else:
+                    await self.send_message(channel, f"{author.mention} has left the game.")
+                    game.players_dict[author].end_game()
             return
 
         if author in self.players_to_game_owners and self.games[self.players_to_game_owners[author]].game_on \
@@ -233,7 +244,13 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'join'):
             if len(message.mentions) > 0 :
                 game_owner = message.mentions[0]
+                if game_owner == author:
+                    await self.send_message(channel, "You cannot join your own game!")
+                    return
                 if game_owner in self.games and self.games[game_owner].game_on:
+                    if author in self.games[game_owner].exited_players:
+                        await self.send_message(channel, "You cannot rejoin a game that you've exited")
+                        return
                     self.players_to_game_owners[author] = game_owner
                     self.games[game_owner].add_player(author)
                     await self.send_message(channel, f"{author.mention} has joined the game started by {game_owner.mention}.")
