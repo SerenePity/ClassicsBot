@@ -54,7 +54,8 @@ class Game():
         self.channel = None
         for player in self.players_dict:
             self.players_dict[player].end_game()
-        self.players_dict = None
+            del self.players_dict[player]
+        self.players_dict = dict()
 
 
 class Scholasticus(commands.Bot):
@@ -125,11 +126,13 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel,
                                       f"Everybody has run out of guesses. The answer was {self.robot.format_name(game_answer)}. Better luck next time!")
                 del self.games[game_owner]
+                del self.players_to_game_owners[player]
                 #self.games[game_owner].end_game()
             else:
                 await self.send_message(channel,
                                         f"Sorry, {player.mention}, you've run out of guesses! Better luck next time!")
                 self.games[game_owner].get_player_sess(player).end_game()
+                del self.players_to_game_owners[player]
 
 
     async def start_game(self, channel, game_owner, text_set):
@@ -223,7 +226,7 @@ class Scholasticus(commands.Bot):
         if author in self.players_to_game_owners and self.games[self.players_to_game_owners[author]].game_on \
                 and content.lower().strip() in self.authors_set and channel == self.games[self.players_to_game_owners[author]].channel:
             owner = self.players_to_game_owners[author]
-            if self.games[owner].players_dict[author].tries < MAX_TRIES:
+            if self.games[owner].players_dict[author].game_on and self.games[owner].players_dict[author].tries < MAX_TRIES:
                 await self.process_guess(channel, author, content)
             return
 
