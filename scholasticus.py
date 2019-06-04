@@ -47,7 +47,8 @@ class Game():
 
     def end_player_sess(self, player):
         self.exited_players.add(player)
-        self.players_dict[player].end_game()
+        if player in self.players_dict:
+            self.players_dict[player].end_game()
         del self.players_dict[player]
 
     def no_players_left(self):
