@@ -59,9 +59,6 @@ class Game():
         self.game_on = False
         self.channel = None
         self.exited_players = set()
-        for player in self.players_dict:
-            self.players_dict[player].end_game()
-            del self.players_dict[player]
         self.players_dict = dict()
 
 
