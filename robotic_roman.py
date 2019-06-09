@@ -9,7 +9,7 @@ GREEK_TEXTS_PATH = "greek_texts"
 OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
 MAX_QUOTES_LENGTH = 800
 MIN_QUOTES_LENGTH = 140
-PARENTHESES = ["\"", "'", "“", "\""]
+QUOTES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
@@ -17,8 +17,9 @@ DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
-DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^)"
+DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
+ABSOLUTE_DELIMITER = "|"
 QUOTE_RETRIEVAL_MAX_TRIES = 3
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
@@ -59,17 +60,18 @@ class RoboticRoman():
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
 
+
     def _fix_unclosed_quotes(self, text):
         opened = False
         closed = False
         quote_type = ""
         for c in text:
-            if not opened and c in PARENTHESES:
+            if not opened and c in QUOTES:
                 quote_type = c
                 opened = True
-            elif opened and c in PARENTHESES:
+            elif opened and c in QUOTES:
                 closed = True
-            elif closed and c in PARENTHESES:
+            elif closed and c in QUOTES:
                 opened = True
                 closed = False
         if not (open and closed):
@@ -81,14 +83,16 @@ class RoboticRoman():
         prev_delimiter_pos = 0
         prev_delimiter = ""
         final_sentence = []
+
+        unclosed_paren = False
         for i,c in enumerate(text):
             cur_sentence_len += 1
             if c in DELIMITERS:
-                if cur_sentence_len < MIN_QUOTES_LENGTH:
+                if cur_sentence_len < MIN_QUOTES_LENGTH or unclosed_paren:
                     prev_delimiter_pos = i
                     prev_delimiter = c
                     final_sentence.append(DELIMTERS_MAP[c])
-                elif cur_sentence_len > MAX_QUOTES_LENGTH:
+                elif cur_sentence_len > MAX_QUOTES_LENGTH and not unclosed_paren:
                     final_sentence.append(DELIMTERS_MAP[c])
                     final_sentence[prev_delimiter_pos] = prev_delimiter
                     prev_delimiter = c
@@ -98,6 +102,12 @@ class RoboticRoman():
                     cur_sentence_len = 0
                     final_sentence.append(c)
             else:
+                if c == '(':
+                    unclosed_paren = True
+                if c == ')' and not unclosed_paren:
+                    c = ''
+                if c == ')' and unclosed_paren:
+                    unclosed_paren = False
                 final_sentence.append(c)
 
         return ''.join(final_sentence)
