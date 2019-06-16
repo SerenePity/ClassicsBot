@@ -6,6 +6,7 @@ import time
 import robotic_roman
 import praw
 from praw import Reddit
+import shlex
 
 MAX_TRIES = 5
 
@@ -179,32 +180,58 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'qt'):
+            qt_args = shlex.split(content)
+            print(qt_args)
+            try:
+                author = qt_args[1].lower().strip()
+                await self.send_message(channel, self.robot.random_quote(author.lower()))
+            except Exception as e:
+                print(e)
+                if not author:
+                    await self.send_message(channel, "No person provided")
+                else:
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+                    
+        if content.strip.lower().startswith(self.command_prefix + "markov"):
+            markov_args = shlex.split(content)
+            print(markov_args)
+            try:
+                author = markov_args[1].strip().lower()
+                await self.send_message(channel, self.robot.make_sentence(author.lower()))
+            except Exception as e:
+                print(e)
+                if not author:
+                    await self.send_message(channel, "No person provided")
+                else:
+                    await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
+            
         if content.strip().lower() == 'as reddit said:':
             post = self.reddit.subreddit('copypasta').random()
-            print(post.selftext)
+            # print(post.selftext)
             body = post.selftext
             if len(body) > 2000:
                 body = body[:1995] + "..."
             await self.send_message(channel, body)
 
         if content.strip().lower() in self.markov_commands:
-            person = self.markov_commands[content.strip().lower()]
+            author = self.markov_commands[content.strip().lower()]
             try:
-                await self.send_message(channel, self.robot.make_sentence(person.lower()))
+                await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
                 print(e)
-                if not person:
+                if not author:
                     await self.send_message(channel, "No person provided")
                 else:
-                    await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(person)}.")
+                    await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
         if content.strip().lower() in self.quotes_commands:
-            person = self.quotes_commands[content.strip().lower()]
+            author = self.quotes_commands[content.strip().lower()]
             try:
-                await self.send_message(channel, self.robot.random_quote(person.lower()))
+                await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
                 print(e)
-                if not person:
+                if not author:
                     await self.send_message(channel, "No person provided.")
                 else:
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
