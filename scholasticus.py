@@ -9,6 +9,8 @@ from praw import Reddit
 import shlex
 import requests
 import json
+from TextToOwO import owo
+
 
 MAX_TRIES = 5
 
@@ -235,6 +237,19 @@ class Scholasticus(commands.Bot):
             try:
                 author = ' '.join(qt_args[1:]).lower().strip()
                 await self.send_message(channel, self.robot.random_quote(author.lower()))
+            except Exception as e:
+                print(e)
+                if not author:
+                    await self.send_message(channel, "No person provided")
+                else:
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+
+        if content.lower().startswith(self.command_prefix + 'owo'):
+            qt_args = shlex.split(content)
+            print(qt_args)
+            try:
+                author = ' '.join(qt_args[1:]).lower().strip()
+                await self.send_message(channel, owo.text_to_owo(self.robot.random_quote(author.lower())))
             except Exception as e:
                 print(e)
                 if not author:
