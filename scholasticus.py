@@ -175,6 +175,7 @@ class Scholasticus(commands.Bot):
 
     def get_bible_verse(self, verse, version='kjv'):
         url = f"https://getbible.net/json?passage={verse}&version={version}"
+        print("URL: " + url)
         chapter = verse.split(':')[1]
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
@@ -212,6 +213,10 @@ class Scholasticus(commands.Bot):
                 else:
                     version = 'kjv'
                 quote = self.robot.random_quote('ulfilas')
+                book = quote.split()[0]
+                while book in ['Sk', 'Sign', 'Cal']:
+                    quote = self.robot.random_quote('ulfilas')
+                    book = quote.split()[0]
                 verse = quote.split(' - ')[0]
                 translation = verse + ' - ' + self.get_bible_verse(verse, version)
                 await self.send_message(channel, quote + '\n' + translation)
