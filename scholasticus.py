@@ -173,12 +173,12 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
         del self.games[game_owner]
 
-    def get_bible_verse(self, verse):
-        url = f"https://getbible.net/json?passage={verse}"
+    def get_bible_verse(self, verse, version='kjv'):
+        url = f"https://getbible.net/json?passage={verse}&version={version}"
         chapter = verse.split(':')[1]
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
-        # print(content)
+        print(content)
         return content['book'][0]['chapter'][chapter]['verse']
 
     async def on_message(self, message):
@@ -203,16 +203,17 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Either invaid verse, or I do not have a translation for this verse.")
 
-        if content.lower().startswith(self.command_prefix + 'parallel'):
+        if content.lower().startswith(self.command_prefix + 'ulfilas'):
             qt_args = shlex.split(content)
             print(qt_args)
             try:
-                author = ' '.join(qt_args[1:]).lower().strip()
-                if (author != 'ulfilas'):
-                    await self.send_message(channel, f"I cannot translate texts from {self.robot.format_name(author)}.")
-                quote = self.robot.random_quote(author.lower())
+                if len(qt_args) > 1:
+                    version = qt_args[1]
+                else:
+                    version = 'kjv'
+                quote = self.robot.random_quote('ulfilas')
                 verse = quote.split(' - ')[0]
-                translation = verse + ' - ' + self.get_bible_verse(verse)
+                translation = verse + ' - ' + self.get_bible_verse(verse, version)
                 await self.send_message(channel, quote + '\n' + translation)
 
 
