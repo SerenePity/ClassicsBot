@@ -1,7 +1,11 @@
+import os
+
 from discord.ext import commands
 import random
 import time
 import robotic_roman
+import praw
+from praw import Reddit
 
 MAX_TRIES = 5
 
@@ -73,6 +77,9 @@ class Scholasticus(commands.Bot):
         self.authors = set()
         self.games = dict()
         self.players_to_game_owners = dict()
+        self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
+                     client_secret=os.environ['reddit_secret'],
+                     user_agent='user agent')
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -171,6 +178,14 @@ class Scholasticus(commands.Bot):
         author = message.author
         channel = message.channel
         content = message.content
+
+        if content.strip().lower() == 'as reddit said:':
+            post = self.reddit.subreddit('copypasta').random()
+            print(post.selftext)
+            body = post.selftext
+            if len(body) > 2000:
+                body = body[:1995] + "..."
+            await self.send_message(channel, body)
 
         if content.strip().lower() in self.markov_commands:
             person = self.markov_commands[content.strip().lower()]
