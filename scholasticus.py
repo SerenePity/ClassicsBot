@@ -193,7 +193,7 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
                     
-        if content.strip.lower().startswith(self.command_prefix + "markov"):
+        if content.strip().lower().startswith(self.command_prefix + "markov"):
             markov_args = shlex.split(content)
             print(markov_args)
             try:
