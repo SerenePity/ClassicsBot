@@ -7,6 +7,8 @@ import robotic_roman
 import praw
 from praw import Reddit
 import shlex
+import requests
+import json
 
 MAX_TRIES = 5
 
@@ -171,6 +173,14 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
         del self.games[game_owner]
 
+    def get_bible_verse(self, verse):
+        url = f"https://getbible.net/json?passage={verse}"
+        chapter = verse.split(':')[1]
+        response = requests.get(url).text.replace(');', '').replace('(', '')
+        content = json.loads(response)
+        # print(content)
+        return content['book'][0]['chapter'][chapter]['verse']
+
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
@@ -180,11 +190,44 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'tr'):
+            tr_args = shlex.split(content)
+            print(tr_args)
+            try:
+                verse = ' '.join(tr_args[1:]).lower().strip()
+                await self.send_message(channel, self.get_bible_verse(verse))
+            except Exception as e:
+                print(e)
+                if not verse:
+                    await self.send_message(channel, "No verse provided")
+                else:
+                    await self.send_message(channel, f"Either invaid verse, or I do not have a translation for this verse.")
+
+        if content.lower().startswith(self.command_prefix + 'parallel'):
+            qt_args = shlex.split(content)
+            print(qt_args)
+            try:
+                author = ' '.join(qt_args[1:]).lower().strip()
+                if (author != 'ulfilas'):
+                    await self.send_message(channel, f"I cannot translate texts from {self.robot.format_name(author)}.")
+                quote = self.robot.random_quote(author.lower())
+                verse = quote.split(' - ')[0]
+                translation = verse + ' - ' + self.get_bible_verse(verse)
+                await self.send_message(channel, quote + '\n' + translation)
+
+
+            except Exception as e:
+                print(e)
+                if not author:
+                    await self.send_message(channel, "No person provided")
+                else:
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content)
             print(qt_args)
             try:
-                author = qt_args[1].lower().strip()
+                author = ' '.join(qt_args[1:]).lower().strip()
                 await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
                 print(e)
