@@ -176,7 +176,8 @@ class RoboticRoman():
         return passage.replace('\n', '')
 
     def get_random_verse(self):
-        return re.findall(r"[0-9]*[\w]+\s[0-9]+:[0-9]+", self.random_quote('ulfilas'))[0]
+        verses = open('bible_verses.txt').read().split('|')
+        return random.choice(verses)
 
     def bible_compare(self, verse, version1, version2):
         if verse == None or len(verse) == 0:
