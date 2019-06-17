@@ -8,7 +8,7 @@ from TextToOwO import owo
 
 
 MAX_TRIES = 5
-
+BOT_OWNER = '285179803819311106'
 
 class PlayerSession():
 
@@ -282,7 +282,7 @@ class Scholasticus(commands.Bot):
 
         if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip().lower()]
-            if person == 'reddit' and message.author.id != '285179803819311106':
+            if person == 'reddit' and message.author.id != BOT_OWNER and message.guild != None:
                 await self.send_message(channel, "Can't do that anymore.")
                 return
             try:
