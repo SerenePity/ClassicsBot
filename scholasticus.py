@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 import traceback
 import random
 import time
@@ -282,7 +283,7 @@ class Scholasticus(commands.Bot):
 
         if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip().lower()]
-            if person == 'reddit' and message.author.id != BOT_OWNER and message.guild != None:
+            if person == 'reddit' and message.author.id != BOT_OWNER and message.channel.type != discord.ChannelType.private:
                 await self.send_message(channel, "Can't do that anymore.")
                 return
             try:
