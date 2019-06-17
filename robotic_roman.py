@@ -145,10 +145,19 @@ class RoboticRoman():
         url = f"https://getbible.net/json?passage={verse}&version={version}"
         print("URL: " + url)
         chapter = verse.split(':')[1]
+        book = verse.split(':')[0].split()[1]
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
         print(content)
-        return content['book'][0]['chapter'][chapter]['verse']
+        try:
+            passage = content['book'][0]['chapter'][chapter]['verse'].replace('\n', '')
+        except:
+            print("Verse: " + verse)
+            print("Book: " + book)
+            passage = content['version']['16']['book'][0]['chapter'][chapter]['verse'].replace('\n', '')
+        if version == 'gothic':
+            passage = re.sub(r"\[\w+\]\s", '', passage)
+        return passage
 
     def get_bible_verse(self, verse, version='kjv'):
         passage = ""
@@ -162,10 +171,10 @@ class RoboticRoman():
             #print(passage.findChildren("p" , recursive=False)[0])
         except:
             passage = self.get_bible_verse_by_api(verse, version)
-        return passage
+        return passage.replace('\n', '')
 
     def get_random_verse(self):
-        return self.random_quote('ulfilas').split(' - ')[0]
+        return re.findall(r"[0-9]*[\w]+\s[0-9]+:[0-9]+", self.random_quote('ulfilas'))[0]
 
     def bible_compare(self, verse, version1, version2):
         if verse == None or len(verse) == 0:
@@ -174,7 +183,7 @@ class RoboticRoman():
         translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
         return '\n'.join([translation1, translation2])
 
-    def _replace_plceholders(self, text):
+    def _replace_placeholders(self, text):
         for key in REVERSE_DELIMITERS_MAP:
             text = text.replace(key, REVERSE_DELIMITERS_MAP[key])
         return text
@@ -280,7 +289,7 @@ class RoboticRoman():
             else:
                 quote = random.choice(self._process_text(f.read()))
         f.seek(0)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self._fix_unclosed_quotes(self._replace_plceholders(quote)))
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self._fix_unclosed_quotes(self._replace_placeholders(quote)))
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))

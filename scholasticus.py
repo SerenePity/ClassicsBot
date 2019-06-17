@@ -212,6 +212,7 @@ class Scholasticus(commands.Bot):
             try:
                 if len(qt_args) >= 5:
                     verse = qt_args[1] + ' ' + qt_args[2]
+                    print("Verse: " + verse)
                     version1 = qt_args[3]
                     version2 = qt_args[4]
                 elif len(qt_args) == 3:
@@ -280,15 +281,18 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
         if content.strip().lower() in self.quotes_commands:
-            author = self.quotes_commands[content.strip().lower()]
+            person = self.quotes_commands[content.strip().lower()]
+            if person == 'reddit' and message.author.id != '285179803819311106':
+                await self.send_message(channel, "Can't do that anymore.")
+                return
             try:
-                await self.send_message(channel, self.robot.random_quote(author.lower()))
+                await self.send_message(channel, self.robot.random_quote(person.lower()))
             except Exception as e:
                 traceback.print_exc()
-                if not author:
+                if not person:
                     await self.send_message(channel, "No person provided.")
                 else:
-                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await self.send_message(channel, self.robot.pick_random_quote())
