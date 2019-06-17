@@ -156,7 +156,7 @@ class RoboticRoman():
             url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
             response = requests.get(url)
             print(url)
-            soup = BeautifulSoup(response.text, features="html.parser")
+            soup = BeautifulSoup(response.text)
             passage = soup.find('div', {'class': 'passage-content passage-class-0'})
             passage = re.findall(r"</sup>(.*?)</span>", str(passage))[0]
             #print(passage.findChildren("p" , recursive=False)[0])

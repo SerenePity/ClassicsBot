@@ -3,4 +3,3 @@ git+git://github.com/dead-beef/markovchain.git
 git+git://github.com/praw-dev/praw.git
 git+git://github.com/Zenrac/TextToOwO.git
 beautifulsoup4
---upgrade beautifulsoup4
