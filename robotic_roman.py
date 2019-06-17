@@ -168,6 +168,8 @@ class RoboticRoman():
             soup = BeautifulSoup(response.text)
             passage = soup.find('div', {'class': 'passage-content passage-class-0'})
             passage = re.findall(r"</sup>(.*?)</span>", str(passage))[0]
+            p = re.compile(r'<.*?>')
+            passage = p.sub('', passage)
             #print(passage.findChildren("p" , recursive=False)[0])
         except:
             passage = self.get_bible_verse_by_api(verse, version)
