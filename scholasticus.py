@@ -1,14 +1,9 @@
-import os
-
 from discord.ext import commands
+import traceback
 import random
 import time
 import robotic_roman
-import praw
-from praw import Reddit
 import shlex
-import requests
-import json
 from TextToOwO import owo
 
 
@@ -82,9 +77,6 @@ class Scholasticus(commands.Bot):
         self.authors = set()
         self.games = dict()
         self.players_to_game_owners = dict()
-        self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
-                     client_secret=os.environ['reddit_secret'],
-                     user_agent='user agent')
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -93,6 +85,7 @@ class Scholasticus(commands.Bot):
         print('Logged on as', self.user)
         self.robot.load_all_models()
         self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()) + list(self.robot.off_topic_quotes_dict))
+        self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
         for author in self.authors:
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
@@ -175,15 +168,6 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
         del self.games[game_owner]
 
-    def get_bible_verse(self, verse, version='kjv'):
-        url = f"https://getbible.net/json?passage={verse}&version={version}"
-        print("URL: " + url)
-        chapter = verse.split(':')[1]
-        response = requests.get(url).text.replace(');', '').replace('(', '')
-        content = json.loads(response)
-        print(content)
-        return content['book'][0]['chapter'][chapter]['verse']
-
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
@@ -198,9 +182,9 @@ class Scholasticus(commands.Bot):
             print(tr_args)
             try:
                 verse = ' '.join(tr_args[1:]).lower().strip()
-                await self.send_message(channel, self.get_bible_verse(verse))
+                await self.send_message(channel, self.robot.get_bible_verse(verse))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not verse:
                     await self.send_message(channel, "No verse provided")
                 else:
@@ -214,22 +198,36 @@ class Scholasticus(commands.Bot):
                     version = qt_args[1]
                 else:
                     version = 'kjv'
-                quote = self.robot.random_quote('ulfilas')
-                book = quote.split()[0]
-                while book in ['Sk', 'Sign', 'Cal']:
-                    quote = self.robot.random_quote('ulfilas')
-                    book = quote.split()[0]
-                verse = quote.split(' - ')[0]
-                translation = verse + ' - ' + self.get_bible_verse(verse, version)
-                await self.send_message(channel, quote + '\n' + translation)
-
+                translation = self.robot.ulfilas_translations(version)
+                await self.send_message(channel ,translation)
 
             except Exception as e:
-                print(e)
-                if not author:
-                    await self.send_message(channel, "No person provided")
+                traceback.print_exc()
+                await self.send_message(channel, "Error retrieving verse")
+
+
+        if content.lower().startswith(self.command_prefix + 'biblecompare'):
+            qt_args = shlex.split(content)
+            print(qt_args)
+            try:
+                if len(qt_args) >= 5:
+                    verse = qt_args[1] + ' ' + qt_args[2]
+                    version1 = qt_args[3]
+                    version2 = qt_args[4]
+                elif len(qt_args) == 3:
+                    verse = None
+                    version1 = qt_args[1]
+                    version2 = qt_args[2]
                 else:
-                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, "Invalid arguments.")
+                    return
+
+                translation = self.robot.bible_compare(verse, version1, version2)
+                await self.send_message(channel ,translation)
+
+            except Exception as e:
+                traceback.print_exc()
+                await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
 
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content)
@@ -238,7 +236,7 @@ class Scholasticus(commands.Bot):
                 author = ' '.join(qt_args[1:]).lower().strip()
                 await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
@@ -251,7 +249,7 @@ class Scholasticus(commands.Bot):
                 author = ' '.join(qt_args[1:]).lower().strip()
                 await self.send_message(channel, owo.text_to_owo(self.robot.random_quote(author.lower())))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
@@ -264,26 +262,18 @@ class Scholasticus(commands.Bot):
                 author = markov_args[1].strip().lower()
                 await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
-            
-        if content.strip().lower() == 'as reddit said:':
-            post = self.reddit.subreddit('copypasta').random()
-            # print(post.selftext)
-            body = post.selftext
-            if len(body) > 2000:
-                body = body[:1995] + "..."
-            await self.send_message(channel, body)
 
         if content.strip().lower() in self.markov_commands:
             author = self.markov_commands[content.strip().lower()]
             try:
                 await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
@@ -294,11 +284,11 @@ class Scholasticus(commands.Bot):
             try:
                 await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided.")
                 else:
-                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await self.send_message(channel, self.robot.pick_random_quote())

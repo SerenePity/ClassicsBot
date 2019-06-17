@@ -1,12 +1,18 @@
 from markovchain.text import MarkovText
+from bs4 import BeautifulSoup
+import traceback
+import requests
+import json
 import random
 import os
 import re
 import string
+import praw
 
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
+SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 800
 MIN_QUOTES_LENGTH = 140
 QUOTES = ["\"", "'", "“", "\""]
@@ -32,6 +38,9 @@ COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Guess answer:                 '<answer>'",
             "End game:                     '>giveup'",
             "Join game:                    '>join <game owner>'",
+            "Owify quote from author:      '>owo <author>",
+            "Parallel Gothic Bible:        '>ulfilas <translation version>",
+            "Bible compare:                '>biblecompare [<verse>] <translation1> <translation2>'",
             "Help:                         '>HELPME'"]
 
 class RoboticRoman():
@@ -41,6 +50,9 @@ class RoboticRoman():
         self.greek_quotes_dict = dict()
         self.off_topic_quotes_dict = dict()
         self.markov_dict = dict()
+        self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
+                                  client_secret=os.environ['reddit_secret'],
+                                  user_agent='user agent')
         self.authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
@@ -111,6 +123,56 @@ class RoboticRoman():
                 final_sentence.append(c)
 
         return ''.join(final_sentence)
+
+    def ulfilas_translations(self, version='kjv'):
+        try:
+            quote = self.random_quote('ulfilas')
+            print(quote)
+            verse = re.findall(r"[0-9]*\w+\s[0-9]+:[0-9]+", quote)[0]
+            book = verse.split()[0]
+            print(book)
+            while book.strip() in ['Sk', 'Sign', 'Cal']:
+                quote = self.random_quote('ulfilas')
+                book = quote.split()[0]
+                verse = re.findall(r"[0-9]*\w+\s[0-9]+:[0-9]+", quote)[0]
+            translation = verse + ' - ' + self.get_bible_verse(verse, version)
+            return quote + '\n' + translation
+        except Exception as e:
+            traceback.print_exc()
+        return "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api."
+
+    def get_bible_verse_by_api(self, verse, version='kjv'):
+        url = f"https://getbible.net/json?passage={verse}&version={version}"
+        print("URL: " + url)
+        chapter = verse.split(':')[1]
+        response = requests.get(url).text.replace(');', '').replace('(', '')
+        content = json.loads(response)
+        print(content)
+        return content['book'][0]['chapter'][chapter]['verse']
+
+    def get_bible_verse(self, verse, version='kjv'):
+        passage = ""
+        try:
+            url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
+            response = requests.get(url)
+            print(url)
+            soup = BeautifulSoup(response.text, features="html.parser")
+            passage = soup.find('div', {'class': 'passage-content passage-class-0'})
+            passage = re.findall(r"</sup>(.*?)</span>", str(passage))[0]
+            #print(passage.findChildren("p" , recursive=False)[0])
+        except:
+            passage = self.get_bible_verse_by_api(verse, version)
+        return passage
+
+    def get_random_verse(self):
+        return self.random_quote('ulfilas').split(' - ')[0]
+
+    def bible_compare(self, verse, version1, version2):
+        if verse == None or len(verse) == 0:
+            verse = self.get_random_verse()
+        translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+        translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+        return '\n'.join([translation1, translation2])
 
     def _replace_plceholders(self, text):
         for key in REVERSE_DELIMITERS_MAP:
@@ -190,6 +252,13 @@ class RoboticRoman():
 
     def random_quote(self, person):
         print(person)
+        if person.strip().lower() == 'reddit':
+            post = self.reddit.subreddit(SUBREDDIT).random()
+            # print(post.selftext)
+            body = post.selftext
+            if len(body) > 2000:
+                body = body[:1995] + "..."
+            return body
         if person in self.greek_quotes_dict:
             f = random.choice(self.greek_quotes_dict[person])
             try:
@@ -221,6 +290,11 @@ class RoboticRoman():
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
 
     def make_sentence(self, author):
+        if author.strip().lower() == 'reddit':
+            return "Just to be clear, I'm not a professional \"quote maker\". I'm just an atheist teenager who greatly " \
+                   "values his intelligence and scientific fact over any silly fiction book written 3,500 years ago. " \
+                   "That being said, I am open to any and all criticism.\n\n\"In this moment, I am euphoric. " \
+                   "Not because of any phony god's blessing. But because, I am englightened by my intelligence.\" - Aalewis"
         if not os.path.isfile(f"markov_models/{author}/{author}_markov.json"):
             path = f"{LATIN_TEXTS_PATH}/{author}" if author in self.authors else f"{GREEK_TEXTS_PATH}/{author}"
             self.train_model(author, path)
