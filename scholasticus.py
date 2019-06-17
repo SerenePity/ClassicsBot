@@ -216,15 +216,14 @@ class Scholasticus(commands.Bot):
                     print("Verse: " + verse)
                     version1 = qt_args[3]
                     version2 = qt_args[4]
+                    translation = self.robot.bible_compare(verse, version1, version2)
                 elif len(qt_args) == 3:
-                    verse = None
                     version1 = qt_args[1]
                     version2 = qt_args[2]
+                    translation = self.robot.bible_compare_random(version1, version2)
                 else:
                     await self.send_message(channel, "Invalid arguments.")
                     return
-
-                translation = self.robot.bible_compare(verse, version1, version2)
                 await self.send_message(channel ,translation)
 
             except Exception as e:

@@ -155,8 +155,10 @@ class RoboticRoman():
             print("Verse: " + verse)
             print("Book: " + book)
             passage = content['version']['16']['book'][0]['chapter'][chapter]['verse'].replace('\n', '')
-        if version == 'gothic':
+        if version.strip().lower() == 'gothic':
             passage = re.sub(r"\[\w+\]\s", '', passage)
+        if not passage or len(passage.strip()) == 0:
+            passage = "Not found"
         return passage
 
     def get_bible_verse(self, verse, version='kjv'):
@@ -175,16 +177,52 @@ class RoboticRoman():
             passage = self.get_bible_verse_by_api(verse, version)
         return passage.replace('\n', '')
 
+    def get_random_verse_by_testament(self, testament):
+        verses = open(f"bible_verses_{testament}.txt").read().split('|')
+        return random.choice(verses)
+
     def get_random_verse(self):
-        verses = open('bible_verses.txt').read().split('|')
+        verses = open(f"bible_verses.txt").read().split('|')
         return random.choice(verses)
 
     def bible_compare(self, verse, version1, version2):
-        if verse == None or len(verse) == 0:
-            verse = self.get_random_verse()
-        translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
-        translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+        try:
+            translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+            translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+        except:
+            verse = self.get_random_verse_by_testament("nt")
+            try:
+                translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+                translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+            except:
+                verse = self.get_random_verse_by_testament("ot")
+                translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+                translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+
         return '\n'.join([translation1, translation2])
+
+    def get_gothic_verse(self):
+        try:
+            quote = self.random_quote('ulfilas')
+            print(quote)
+            verse = re.findall(r"[0-9]*\w+\s[0-9]+:[0-9]+", quote)[0]
+            book = verse.split()[0]
+            print(book)
+            while book.strip() in ['Sk', 'Sign', 'Cal']:
+                quote = self.random_quote('ulfilas')
+                book = quote.split()[0]
+                verse = re.findall(r"[0-9]*\w+\s[0-9]+:[0-9]+", quote)[0]
+            return verse
+        except Exception as e:
+            traceback.print_exc()
+        return None
+
+    def bible_compare_random(self, version1, version2):
+        if 'gothic' in [version1.strip().lower(), version2.strip().lower()]:
+            verse = self.get_gothic_verse()
+        else:
+            verse = self.get_random_verse()
+        return self.bible_compare(verse, version1, version2)
 
     def _replace_placeholders(self, text):
         for key in REVERSE_DELIMITERS_MAP:
