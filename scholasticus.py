@@ -283,7 +283,7 @@ class Scholasticus(commands.Bot):
 
         if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip().lower()]
-            if person == 'reddit' and message.author.id != BOT_OWNER and message.channel.type != discord.ChannelType.private:
+            if person == 'reddit' and message.author.id != BOT_OWNER:
                 await self.send_message(channel, "Can't do that anymore.")
                 return
             try:
