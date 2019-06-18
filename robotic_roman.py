@@ -1,5 +1,6 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
+#import romanize3
 import traceback
 import requests
 import json
@@ -208,15 +209,7 @@ class RoboticRoman():
             translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
             translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
         except:
-            verse = self.get_random_verse_by_testament("nt")
-            try:
-                translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
-                translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
-            except:
-                verse = self.get_random_verse_by_testament("ot")
-                translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
-                translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
-
+            return "Failed to retrieve verse. One of your target versions may not contain the requested verse (for example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail"
         return '\n'.join([translation1, translation2])
 
     def get_gothic_verse(self):
