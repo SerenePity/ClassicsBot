@@ -220,7 +220,7 @@ class RoboticRoman():
                     translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
                     translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
                 except:
-                    return "Failed to retrieve verse. Your target versions may be incompatible (for example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
+                    return "Failed to retrieve verse. Your target versions may be incompatible. For example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
         return '\n'.join([translation1, translation2])
 
     def bible_compare(self, verse, version1, version2):
@@ -228,7 +228,7 @@ class RoboticRoman():
             translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
             translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
         except:
-            return "Failed to retrieve verse. One of your target versions may not contain the requested verse (for example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail"
+            return "Failed to retrieve verse. One of your target versions may not contain the requested verse. For example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail."
         return '\n'.join([translation1, translation2])
 
     def get_gothic_verse(self):
