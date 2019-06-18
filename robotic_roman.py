@@ -26,6 +26,7 @@ REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
 ABSOLUTE_DELIMITER = "|"
+GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'vulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
 QUOTE_RETRIEVAL_MAX_TRIES = 3
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
@@ -161,21 +162,38 @@ class RoboticRoman():
             passage = "Not found"
         return passage
 
-    def get_bible_verse(self, verse, version='kjv'):
-        passage = ""
-        try:
-            url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
-            response = requests.get(url)
-            print(url)
-            soup = BeautifulSoup(response.text)
-            passage = soup.find('div', {'class': 'passage-content passage-class-0'})
-            passage = re.findall(r"</sup>(.*?)</span>", str(passage))[0]
-            p = re.compile(r'<.*?>')
-            passage = p.sub('', passage)
-            #print(passage.findChildren("p" , recursive=False)[0])
-        except:
-            passage = self.get_bible_verse_by_api(verse, version)
+    def get_bible_verse_from_gateway(self, verse, version='kjv'):
+        url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
+        response = requests.get(url)
+        print(url)
+        soup = BeautifulSoup(response.text)
+        passage = soup.find('div', {'class': 'result-text-style-normal'})
+        if passage.h1:
+            passage.h1.extract()
+        if passage.h2:
+            passage.h2.extract()
+        if passage.h3:
+            passage.h3.extract()
+        cross_refs = passage.find('div', {'class': 'crossrefs'})
+        if cross_refs:
+            passage.find('div', {'class': 'crossrefs'}).extract()
+        footnotes = passage.find('div', {'class': 'footnotes'})
+        if footnotes:
+            passage.find('div', {'class': 'footnotes'}).extract()
+        passage = re.sub(r"^\s*[0-9]+\s*", "", passage.get_text())
+        passage = re.sub(r"[\s]{2,}", " ", passage)
+        passage = re.sub(r"[0-9]+(\w)", "\1", passage)
         return passage.replace('\n', '')
+
+    def get_bible_verse(self, verse, version='kjv'):
+        if version.strip().lower() in GETBIBLE_VERSIONS:
+            try:
+                passage = self.get_bible_verse_by_api(verse, version)
+            except:
+                passage = self.get_bible_verse_from_gateway(verse, version)
+        else:
+            passage = self.get_bible_verse_from_gateway(verse, version)
+        return passage
 
     def get_random_verse_by_testament(self, testament):
         verses = open(f"bible_verses_{testament}.txt").read().split('|')
