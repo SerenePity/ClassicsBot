@@ -220,7 +220,7 @@ class Scholasticus(commands.Bot):
                 elif len(qt_args) == 3:
                     version1 = qt_args[1]
                     version2 = qt_args[2]
-                    translation = self.robot.bible_compare_random(version1, version2)
+                    translation = self.robot.bible_compare_random_verses(version1, version2)
                 else:
                     await self.send_message(channel, "Invalid arguments.")
                     return

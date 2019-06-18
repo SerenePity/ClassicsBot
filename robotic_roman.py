@@ -204,6 +204,25 @@ class RoboticRoman():
         verses = open(f"bible_verses.txt").read().split('|')
         return random.choice(verses)
 
+    def bible_compare_random_verses(self, version1, version2):
+        verse = self.get_random_verse()
+        try:
+            translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+            translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+        except:
+            verse = self.get_random_verse_by_testament("nt")
+            try:
+                translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+                translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+            except:
+                try:
+                    verse = self.get_random_verse_by_testament("ot")
+                    translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
+                    translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+                except:
+                    return "Failed to retrieve verse. Your target versions may be incompatible (for example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
+        return '\n'.join([translation1, translation2])
+
     def bible_compare(self, verse, version1, version2):
         try:
             translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
