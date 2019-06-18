@@ -1,6 +1,7 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
-#import romanize3
+import romanize3
+import transliteration.coptic
 import traceback
 import requests
 import json
@@ -28,6 +29,13 @@ DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
 ABSOLUTE_DELIMITER = "|"
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'vulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
+COPTIC = ['bohairic', 'sahidic', 'coptic']
+ARAMAIC = ['peshitta']
+HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
+ARABIC = ['arabicsv']
+GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
+RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
+
 QUOTE_RETRIEVAL_MAX_TRIES = 3
 COMMANDS = ["Get random quote by author:   'As <author> said:'",
             "Generate sentence by author:  'As <author> allegedly said:'",
@@ -184,7 +192,7 @@ class RoboticRoman():
         passage = re.sub(r"^\s*[0-9]+\s*", "", passage.get_text())
         passage = re.sub(r"[\s]{2,}", " ", passage)
         passage = re.sub(r"[0-9]+(\w)", "\1", passage)
-        return passage.replace('\n', '')
+        return passage.replace('\n', '').replace('\t', ' ')
 
     def get_bible_verse(self, verse, version='kjv'):
         if version.strip().lower() in GETBIBLE_VERSIONS:
@@ -204,7 +212,7 @@ class RoboticRoman():
         verses = open(f"bible_verses.txt").read().split('|')
         return random.choice(verses)
 
-    def bible_compare_random_verses(self, version1, version2):
+    def bible_compare_random_verses(self, version1, version2, transliterate=False):
         verse = self.get_random_verse()
         try:
             translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
@@ -221,14 +229,42 @@ class RoboticRoman():
                     translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
                 except:
                     return "Failed to retrieve verse. Your target versions may be incompatible. For example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
+        if transliterate:
+            translation1 = self.transliterate_verse(version1, translation1)
+            translation2 = self.transliterate_verse(version2, translation2)
+
         return '\n'.join([translation1, translation2])
 
-    def bible_compare(self, verse, version1, version2):
+    def transliterate_verse(self, version, text):
+        to_translit = ' - '.join(text.split(' - ')[1:])
+        verse = text.split(' - ')[0] + ' - '
+        if version in COPTIC:
+            return verse + transliteration.coptic.transliterate(to_translit).lower()
+        if version in ARAMAIC:
+            r = romanize3.__dict__['syc']
+            return verse + r.convert(to_translit)
+        if version in HEBREW:
+            r = romanize3.__dict__['heb']
+            return verse + r.convert(to_translit)
+        if version in ARABIC:
+            r = romanize3.__dict__['ara']
+            return verse + r.convert(to_translit)
+        if version in GREEK:
+            r = romanize3.__dict__['grc']
+            return verse + r.convert(to_translit)
+        if version in RUSSIAN:
+            return text
+        return text
+
+    def bible_compare(self, verse, version1, version2, transliterate=False):
         try:
             translation1 = f"{verse} - {self.get_bible_verse(verse, version1)}"
             translation2 = f"{verse} - {self.get_bible_verse(verse, version2)}"
+            if transliterate:
+                translation1 = self.transliterate_verse(version1, translation1)
+                translation2 = self.transliterate_verse(version2, translation2)
         except:
-            return "Failed to retrieve verse. One of your target versions may not contain the requested verse. For example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail."
+            return "Failed to retrieve verse. One of your target versions may not contain the requested verse. For example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail.="
         return '\n'.join([translation1, translation2])
 
     def get_gothic_verse(self):

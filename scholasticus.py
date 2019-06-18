@@ -225,10 +225,36 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "Invalid arguments.")
                     return
                 await self.send_message(channel ,translation)
-
+                return
             except Exception as e:
                 traceback.print_exc()
                 await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
+                return
+
+        if content.lower().startswith(self.command_prefix + 'bibletranslit'):
+            qt_args = shlex.split(content)
+            print(qt_args)
+            try:
+                if len(qt_args) >= 5:
+                    verse = qt_args[1] + ' ' + qt_args[2]
+                    print("Verse: " + verse)
+                    version1 = qt_args[3]
+                    version2 = qt_args[4]
+                    translation = self.robot.bible_compare(verse, version1, version2, True)
+                elif len(qt_args) == 3:
+                    version1 = qt_args[1]
+                    version2 = qt_args[2]
+                    translation = self.robot.bible_compare_random_verses(version1, version2, True)
+                else:
+                    await self.send_message(channel, "Invalid arguments.")
+                    return
+                await self.send_message(channel, translation)
+                return
+            except Exception as e:
+                traceback.print_exc()
+                await self.send_message(channel,
+                                        "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
+                return
 
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content)
