@@ -2,6 +2,7 @@ from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
 import romanize3
 import transliteration.coptic
+import transliteration.greek
 import traceback
 import requests
 import json
@@ -216,7 +217,7 @@ class RoboticRoman():
         if version[0] == '$':
             version = version[1:]
             translit = True
-
+        verse = verse.title()
         if version.strip().lower() in GETBIBLE_VERSIONS:
             try:
                 passage = self.get_bible_verse_by_api(verse, version)
@@ -230,17 +231,17 @@ class RoboticRoman():
 
     def get_random_verse_by_testament(self, testament):
         verses = open(f"bible_verses_{testament}.txt").read().split('|')
-        return random.choice(verses)
+        return random.choice(verses).title()
 
     def get_random_verse(self):
         verses = open(f"bible_verses.txt").read().split('|')
-        return random.choice(verses)
+        return random.choice(verses).title()
 
     def bible_compare_random_verses(self, version1, version2):
         if 'gothic' in version1.lower() or 'gothic' in version2.lower():
-            verse = self.get_gothic_verse()
+            verse = self.get_gothic_verse().title()
         else:
-            verse = self.get_random_verse()
+            verse = self.get_random_verse().title()
         try:
             translation1 = f"**{verse}** - {self.get_bible_verse(verse, version1)}"
             translation2 = f"**{verse}** - {self.get_bible_verse(verse, version2)}"
@@ -272,8 +273,7 @@ class RoboticRoman():
             r = romanize3.__dict__['ara']
             return r.convert(text)
         if version in GREEK:
-            r = romanize3.__dict__['grc']
-            return r.convert(text)
+            return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
             return text
         return text
