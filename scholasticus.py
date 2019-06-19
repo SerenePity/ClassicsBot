@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import re
 import transliteration.greek
 import traceback
 import random
@@ -215,16 +216,15 @@ class Scholasticus(commands.Bot):
             qt_args = shlex.split(content)
             print(qt_args)
             try:
-                if len(qt_args) >= 5:
+
+                if re.match(r"[0-9]+:[0-9]+", qt_args[2]):
                     verse = qt_args[1] + ' ' + qt_args[2]
                     print("Verse: " + verse)
-                    version1 = qt_args[3]
-                    version2 = qt_args[4]
-                    translation = self.robot.bible_compare(verse, version1, version2)
-                elif len(qt_args) == 3:
-                    version1 = qt_args[1]
-                    version2 = qt_args[2]
-                    translation = self.robot.bible_compare_random_verses(version1, version2)
+                    versions = qt_args[3:]
+                    translation = self.robot.bible_compare(verse, versions)
+                elif len(qt_args) > 1:
+                    versions = qt_args[1:]
+                    translation = self.robot.bible_compare_random_verses(versions)
                 else:
                     await self.send_message(channel, "Invalid arguments.")
                     return
