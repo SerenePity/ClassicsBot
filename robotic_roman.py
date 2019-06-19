@@ -38,10 +38,11 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 
 QUOTE_RETRIEVAL_MAX_TRIES = 3
-COMMANDS = ["Get random quote by author:            'As <author> said:'",
-            "Generate sentence by author:           'As <author> allegedly said:'",
+COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to transliterate) | As <author> said:'",
+            "Generate sentence by author:           '>markov [-t] <author> (-t to transliterate) | As <author> allegedly said:'",
             "List available Latin authors:          '>latinauthors'",
             "Retrieve random Latin quote:           '>latinquote'",
+            "Transliterate input:                   '>tr <input>'",
             "List available Greek authors:          '>greekauthors'",
             "Retrieve random Greek quote:           '>greekquote'",
             "Start Latin game:                      '>latingame'",

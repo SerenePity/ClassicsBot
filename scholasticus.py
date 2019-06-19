@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import transliteration.greek
 import traceback
 import random
 import time
@@ -182,14 +183,14 @@ class Scholasticus(commands.Bot):
             tr_args = shlex.split(content)
             print(tr_args)
             try:
-                verse = ' '.join(tr_args[1:]).lower().strip()
-                await self.send_message(channel, self.robot.get_bible_verse(verse))
+                input = ' '.join(tr_args[1:])
+                transliterated = transliteration.greek.transliterate(input)
+                await self.send_message(channel, transliterated)
+                return
             except Exception as e:
                 traceback.print_exc()
-                if not verse:
-                    await self.send_message(channel, "No verse provided")
-                else:
-                    await self.send_message(channel, f"Either invaid verse, or I do not have a translation for this verse.")
+                await self.send_message(channel, f"Error transliterating input.")
+                return
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
             qt_args = shlex.split(content)
@@ -235,8 +236,14 @@ class Scholasticus(commands.Bot):
             qt_args = shlex.split(content)
             print(qt_args)
             try:
-                author = ' '.join(qt_args[1:]).lower().strip()
-                await self.send_message(channel, self.robot.random_quote(author.lower()))
+                if (qt_args[1].strip() == '-t'):
+                    author = ' '.join(qt_args[2:]).lower().strip()
+                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(author.lower()))
+                    await self.send_message(channel, transliterated)
+                    return
+                else:
+                    author = ' '.join(qt_args[1:]).lower().strip()
+                    await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
                 traceback.print_exc()
                 if not author:
@@ -261,8 +268,15 @@ class Scholasticus(commands.Bot):
             markov_args = shlex.split(content)
             print(markov_args)
             try:
-                author = markov_args[1].strip().lower()
-                await self.send_message(channel, self.robot.make_sentence(author.lower()))
+                if (markov_args[1].strip() == '-t'):
+                    author = ' '.join(markov_args[2:]).lower().strip()
+                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower()))
+                    await self.send_message(channel, transliterated)
+                    return
+                else:
+                    author = markov_args[1].strip().lower()
+                    await self.send_message(channel, self.robot.make_sentence(author.lower()))
+                    return
             except Exception as e:
                 traceback.print_exc()
                 if not author:
