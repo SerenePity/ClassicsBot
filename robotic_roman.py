@@ -248,12 +248,14 @@ class RoboticRoman():
             translation2 = f"**{verse}** - {self.get_bible_verse(verse, version2)}"
         except:
             verse = self.get_random_verse_by_testament("nt")
+            print("Failed. Trying New Testament")
             try:
                 translation1 = f"**{verse}** - {self.get_bible_verse(verse, version1)}"
                 translation2 = f"**{verse}** - {self.get_bible_verse(verse, version2)}"
             except:
                 try:
                     verse = self.get_random_verse_by_testament("ot")
+                    print("Failed. Trying Old Testament")
                     translation1 = f"**{verse}** - {self.get_bible_verse(verse, version1)}"
                     translation2 = f"**{verse}** - {self.get_bible_verse(verse, version2)}"
                 except:
@@ -281,8 +283,8 @@ class RoboticRoman():
 
     def bible_compare(self, verse, version1, version2):
         try:
-            translation1 = f"**{verse}** - {self.get_bible_verse(verse, version1)}"
-            translation2 = f"**{verse}** - {self.get_bible_verse(verse, version2)}"
+            translation1 = f"**{verse.title()}** - {self.get_bible_verse(verse, version1)}"
+            translation2 = f"**{verse.title()}** - {self.get_bible_verse(verse, version2)}"
         except:
             return "Failed to retrieve verse. One of your target versions may not contain the requested verse. For example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail."
         return '\n'.join([translation1, translation2])
@@ -416,7 +418,14 @@ class RoboticRoman():
             else:
                 quote = random.choice(self._process_text(f.read()))
         f.seek(0)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self._fix_unclosed_quotes(self._replace_placeholders(quote)))
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
+
+    def fix_crushed_punctuation(self, text):
+        text = re.sub(r"(\w)\.([^\s])", r"\1. \2", text)
+        text = re.sub(r"(\w);([^\s])", r"\1; \2", text)
+        text = re.sub(r"(\w)\?([^\s])", r"\1? \2", text)
+        text = re.sub(r"(\w)!([^\s])", r"\1! \2", text)
+        return text
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))

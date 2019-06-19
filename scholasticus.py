@@ -180,8 +180,11 @@ class Scholasticus(commands.Bot):
         content = message.content
 
         if content.lower().startswith(self.command_prefix + 'tr'):
-            tr_args = shlex.split(content)
-            print(tr_args)
+            try:
+                tr_args = shlex.split(content)
+            except:
+                await self.send_message(channel, "Error, no closing quotation. Please try to enclose the input within quotes.")
+                return
             try:
                 input = ' '.join(tr_args[1:])
                 transliterated = transliteration.greek.transliterate(input)
@@ -205,7 +208,7 @@ class Scholasticus(commands.Bot):
 
             except Exception as e:
                 traceback.print_exc()
-                await self.send_message(channel, "Error retrieving verse")
+                await self.send_message(channel, "Error retrieving verse.")
 
 
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
@@ -297,8 +300,8 @@ class Scholasticus(commands.Bot):
 
         if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip().lower()]
-            if person == 'reddit' and message.author.id != BOT_OWNER:
-                await self.send_message(channel, "Can't do that anymore.")
+            if person.strip().lower() == 'reddit' and message.author.id != BOT_OWNER:
+                await self.send_message(channel, "No.")
                 return
             try:
                 await self.send_message(channel, self.robot.random_quote(person.lower()))
@@ -313,7 +316,12 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.robot.pick_random_quote())
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
-            await self.send_message(channel, self.robot.pick_greek_quote())
+            args = shlex.split(content.lower())
+            transliterate = len(args) > 1 and args[1] == '-t'
+            quote = self.robot.pick_greek_quote()
+            if transliterate:
+                quote = transliteration.greek.transliterate(quote)
+            await self.send_message(channel, quote)
 
         if content.lower().startswith(self.command_prefix + 'helpme'):
             await self.send_message(channel, self.robot.help_command())
