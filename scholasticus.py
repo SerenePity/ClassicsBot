@@ -241,7 +241,7 @@ class Scholasticus(commands.Bot):
             try:
                 if (qt_args[1].strip() == '-t'):
                     author = ' '.join(qt_args[2:]).lower().strip()
-                    if author == "reddit":
+                    if author == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
 
@@ -250,7 +250,7 @@ class Scholasticus(commands.Bot):
                     return
                 else:
                     author = ' '.join(qt_args[1:]).lower().strip()
-                    if author == "reddit":
+                    if author == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
                     await self.send_message(channel, self.robot.random_quote(author.lower()))
