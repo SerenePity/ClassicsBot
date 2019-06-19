@@ -241,11 +241,18 @@ class Scholasticus(commands.Bot):
             try:
                 if (qt_args[1].strip() == '-t'):
                     author = ' '.join(qt_args[2:]).lower().strip()
+                    if author == "reddit":
+                        await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
+                        return
+
                     transliterated = transliteration.greek.transliterate(self.robot.random_quote(author.lower()))
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     author = ' '.join(qt_args[1:]).lower().strip()
+                    if author == "reddit":
+                        await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
+                        return
                     await self.send_message(channel, self.robot.random_quote(author.lower()))
             except Exception as e:
                 traceback.print_exc()
