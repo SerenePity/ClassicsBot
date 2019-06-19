@@ -235,7 +235,7 @@ class RoboticRoman():
         except:
             traceback.print_exc()
             passage = "Not found"
-        return passage
+        return passage.strip()
 
     def get_random_verse_by_testament(self, testament):
         verses = open(f"bible_verses_{testament}.txt").read().split('|')
