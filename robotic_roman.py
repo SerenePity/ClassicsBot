@@ -7,6 +7,7 @@ import old_english_bible.matthew
 import romanize3
 import transliteration.coptic
 import transliteration.greek
+import transliteration.hebrew
 import traceback
 import requests
 import json
@@ -359,8 +360,7 @@ class RoboticRoman():
             r = romanize3.__dict__['syc']
             return r.convert(text)
         if version in HEBREW:
-            r = romanize3.__dict__['heb']
-            return r.convert(text)
+            return transliteration.hebrew.transliterate(text).lower()
         if version in ARABIC:
             r = romanize3.__dict__['ara']
             return r.convert(text)
