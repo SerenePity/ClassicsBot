@@ -8,4 +8,6 @@ def transliterate(text):
                            stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE, universal_newlines=True, encoding='utf8')
     out, err = process.communicate()
+    if err:
+        print(err)
     return out
