@@ -1,5 +1,9 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
+import old_english_bible.john
+import old_english_bible.luke
+import old_english_bible.mark
+import old_english_bible.matthew
 import romanize3
 import transliteration.coptic
 import transliteration.greek
@@ -69,6 +73,7 @@ class RoboticRoman():
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
         self.quote_tries = 0
+        self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.luke.luke, 'mt': old_english_bible.matthew.matthew}
         for author in self.authors:
             print(author)
             self.quotes_dict[author] = []
@@ -153,6 +158,27 @@ class RoboticRoman():
             traceback.print_exc()
         return "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api."
 
+    def get_old_english_verse(self, verse):
+        print("In get_old_english_verse")
+        book = ''.join(verse.split(":")[0].split()[:-1]).lower()
+        chapter = verse.split(':')[0].split()[-1].strip()
+        verse = verse.split(':')[1].strip()
+        print("VERSE: " + verse)
+        print(f"Book: {book}, Chapter: {chapter}, Verse: {verse}")
+        try:
+            if book in ['matthew', 'mt', 'mt.']:
+                return self.old_english_dict['mt'][chapter][verse].strip()
+            if book in ['john', 'jn', 'jn.']:
+                return self.old_english_dict['jn'][chapter][verse].strip()
+            if book in ['luke', 'lk', 'lk.']:
+                return self.old_english_dict['lk'][chapter][verse].strip()
+            if book in ['mark', 'mk', 'mk.']:
+                return self.old_english_dict['mk'][chapter][verse].strip()
+        except:
+            traceback.print_exc()
+            return "Not found"
+        return "Not found"
+
     def get_bible_verse_by_api(self, verse, version='kjv'):
         url = f"https://getbible.net/json?passage={verse}&version={version}"
         print("URL: " + url)
@@ -222,6 +248,21 @@ class RoboticRoman():
             version = version[1:]
             translit = True
         verse = verse.title()
+        passage = "Not found"
+        if version.strip().lower() == 'old_english':
+            print("Getting OE version")
+            try:
+                return self.get_old_english_verse(verse)
+            except:
+                traceback.print_exc()
+                return "Not found"
+        if version.strip().lower() == 'gothic':
+            try:
+                passage = self.get_gothic_passage(verse.title())
+                return passage
+            except:
+                passage = self.get_bible_verse_by_api(verse, version)
+                traceback.print_exc()
         try:
             if version.strip().lower() in GETBIBLE_VERSIONS:
                 try:
@@ -241,13 +282,43 @@ class RoboticRoman():
         verses = open(f"bible_verses_{testament}.txt").read().split('|')
         return random.choice(verses).title()
 
+    def get_gothic_verses_set(self):
+        text = open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8').read()
+        return set([v.lower() for v in re.findall(r"\w+\s[0-9]+:[0-9]+", text)])
+
+    def get_old_english_verses_set(self):
+        final = []
+        for book in self.old_english_dict.keys():
+            chapters = self.old_english_dict[book].keys()
+            for chapter in chapters:
+                verses = self.old_english_dict[book][chapter].keys()
+                for verse in verses:
+                    final.append(f"{book} {chapter}:{verse}")
+        return set(final)
+
     def get_random_verse(self):
         verses = open(f"bible_verses.txt").read().split('|')
         return random.choice(verses).title()
 
     def bible_compare_random_verses(self, versions: list):
-        if 'gothic' in [version.strip().lower() for version in versions]:
+        print(versions)
+        versions = [version.strip().lower() for version in versions]
+        if 'gothic' in versions:
             verse = self.get_gothic_verse()
+        if 'old_english' in versions:
+            book = random.choice(['jn', 'lk', 'mk', 'mt'])
+            oe_dict = self.old_english_dict[book]
+            chapter = random.choice(list(oe_dict.keys()))
+            verse = random.choice(list(oe_dict[chapter].keys()))
+            verse = f"{book} {chapter}:{verse}"
+            print("OE verse: " + verse)
+        if 'gothic' in versions and 'old_english' in versions:
+            gothic_verses = self.get_gothic_verses_set()
+            oe_verses = self.get_old_english_verses_set()
+            print(gothic_verses)
+            print(oe_verses)
+            intersection = gothic_verses.intersection(oe_verses)
+            verse = random.choice(list(intersection))
         else:
             verse = self.get_random_verse()
         try:
@@ -308,6 +379,10 @@ class RoboticRoman():
         except Exception as e:
             traceback.print_exc()
         return None
+
+    def get_gothic_passage(self, verse):
+        text = open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8').read()
+        return re.findall(f"{verse} - (.*?)\|", text)[0]
 
     def bible_compare_random(self, versions: list):
         if 'gothic' in [version.strip().lower() for version in versions]:

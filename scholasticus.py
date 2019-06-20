@@ -217,7 +217,7 @@ class Scholasticus(commands.Bot):
             print(qt_args)
             try:
 
-                if re.match(r"[0-9]+:[0-9]+", qt_args[2]):
+                if len(qt_args) > 2 and re.match(r"[0-9]+:[0-9]+", qt_args[2]):
                     verse = qt_args[1] + ' ' + qt_args[2]
                     print("Verse: " + verse)
                     versions = qt_args[3:]
