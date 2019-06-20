@@ -305,14 +305,14 @@ class RoboticRoman():
         versions = [version.strip().lower() for version in versions]
         if 'gothic' in versions:
             verse = self.get_gothic_verse()
-        if 'old_english' in versions:
+        elif 'old_english' in versions:
             book = random.choice(['jn', 'lk', 'mk', 'mt'])
             oe_dict = self.old_english_dict[book]
             chapter = random.choice(list(oe_dict.keys()))
             verse = random.choice(list(oe_dict[chapter].keys()))
             verse = f"{book} {chapter}:{verse}"
             print("OE verse: " + verse)
-        if 'gothic' in versions and 'old_english' in versions:
+        elif 'gothic' in versions and 'old_english' in versions:
             gothic_verses = self.get_gothic_verses_set()
             oe_verses = self.get_old_english_verses_set()
             print(gothic_verses)
