@@ -11,3 +11,5 @@ def transliterate(text):
     if err:
         print(err)
     return out
+
+#transliterate("אֲדֹנָי שְׂפָתַי תִּפְתָּח וּפִי יַגִּיד תְּהִלָּתֶךָ׃")
