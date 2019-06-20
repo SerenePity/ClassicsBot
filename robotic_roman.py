@@ -277,6 +277,11 @@ class RoboticRoman():
                     passage = self.get_bible_verse_by_api(verse, version)
                 except:
                     passage = self.get_bible_verse_from_gateway(verse, version)
+                if passage == 'Not found':
+                    try:
+                        passage = self.get_bible_verse_from_gateway(verse, version)
+                    except:
+                        passage = "Not found"
             else:
                 passage = self.get_bible_verse_from_gateway(verse, version)
             if translit:
