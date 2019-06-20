@@ -5,7 +5,7 @@ import subprocess
 
 def transliterate(text):
     try:
-        process = subprocess.Popen(['node', '-e', 'console.log(require(\"hebrew-transliteration\").transliterate("' + text + '"))'],
+        process = subprocess.Popen(['node', '-e', 'console.log(require(\"node_modules/hebrew-transliteration\").transliterate("' + text + '"))'],
                            shell=True,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE, universal_newlines=True, encoding='utf8')
