@@ -162,18 +162,26 @@ class RoboticRoman():
         print("In get_old_english_verse")
         book = ''.join(verse.split(":")[0].split()[:-1]).lower()
         chapter = verse.split(':')[0].split()[-1].strip()
-        verse = verse.split(':')[1].strip()
+        verses = verse.split(':')[1].strip()
+        if '-' in verses:
+            begin = int(verses.replace(' ', '').split('-')[0])
+            end = int(verses.replace(' ', '').split('-')[1])
+            verses = [str(i) for i in range(begin, end + 1)]
+            print(verses)
+        else:
+            verses = [verses]
+
         print("VERSE: " + verse)
         print(f"Book: {book}, Chapter: {chapter}, Verse: {verse}")
         try:
             if book in ['matthew', 'mt', 'mt.']:
-                return self.old_english_dict['mt'][chapter][verse].strip()
+                return '\n'.join([self.old_english_dict['mt'][chapter][verse].strip() for verse in verses])
             if book in ['john', 'jn', 'jn.']:
-                return self.old_english_dict['jn'][chapter][verse].strip()
+                return '\n'.join([self.old_english_dict['jn'][chapter][verse].strip() for verse in verses])
             if book in ['luke', 'lk', 'lk.']:
-                return self.old_english_dict['lk'][chapter][verse].strip()
+                return '\n'.join([self.old_english_dict['lk'][chapter][verse].strip() for verse in verses])
             if book in ['mark', 'mk', 'mk.']:
-                return self.old_english_dict['mk'][chapter][verse].strip()
+                return '\n'.join([self.old_english_dict['mk'][chapter][verse].strip() for verse in verses])
         except:
             traceback.print_exc()
             return "Not found"
