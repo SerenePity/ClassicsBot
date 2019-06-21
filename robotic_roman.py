@@ -358,6 +358,15 @@ class RoboticRoman():
             verse = self.get_random_verse()
         try:
             translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in versions]
+            if "Not found" in ' '.join([t.split(' - ')[1].strip() for t in translations]):
+                print("Failed. Trying New Testament")
+                verse = self.get_random_verse_by_testament("nt")
+                translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in versions]
+                if "Not found" in ' '.join([t.split(' - ')[1].strip() for t in translations]):
+                    verse = self.get_random_verse_by_testament("ot")
+                    print("Failed. Trying Old Testament")
+                    translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in
+                                    versions]
         except:
             verse = self.get_random_verse_by_testament("nt")
             print("Failed. Trying New Testament")
