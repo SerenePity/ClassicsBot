@@ -180,6 +180,22 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'bibleversions'):
+            args = shlex.split(content.lower())
+            if len(args) > 1:
+                language = ' '.join(args[1:]).lower()
+                print(language)
+                ret_list = self.robot.get_available_bible_versions_lang(language)
+                try:
+                    for version in ret_list:
+                        await self.send_message(channel, version)
+                except:
+                    traceback.print_exc()
+                    await self.send_message(channel, "Invalid language. Type '>bibleversions' for get available versions for all languages.")
+            else:
+                await self.send_message(channel, self.robot.get_available_bible_versions())
+
+
         if content.lower().startswith(self.command_prefix + 'tr'):
             try:
                 tr_args = shlex.split(content)

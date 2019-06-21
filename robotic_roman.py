@@ -1,5 +1,6 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
+import bible_versions
 import old_english_bible.john
 import old_english_bible.luke
 import old_english_bible.mark
@@ -58,6 +59,7 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
             "Join game:                             '>join <game owner>'",
             "Owify quote from author:               '>owo <author>",
             "Parallel Gothic Bible:                 '>ulfilas <translation version>",
+            "Get available Bible versions:          '>bibleversions [<lang>]'",
             "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
             "Help:                                  '>HELPME'"]
 
@@ -159,6 +161,24 @@ class RoboticRoman():
         except Exception as e:
             traceback.print_exc()
         return "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api."
+
+    def chunks(self, lst, n):
+        """Yield successive n-sized chunks from l."""
+        for i in range(0, len(lst), n):
+            yield lst[i:i + n]
+
+    def get_available_bible_versions(self):
+        return ', '.join([f"{key.title()}" for key in bible_versions.versions])
+
+    def get_available_bible_versions_lang(self, lang):
+        versions = bible_versions.versions[lang.lower()]
+        return_string = f"{lang.title()}: {', '.join(versions)}"
+        if len(return_string) >= 2000:
+            chunks = self.chunks(versions, 10)
+            return [lang.title() + ":"] + [f"{', '.join(chunk)}" for chunk in chunks]
+        else:
+            return [return_string]
+
 
     def get_old_english_verse(self, verse):
         print("In get_old_english_verse")
