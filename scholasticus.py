@@ -180,6 +180,14 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'redditquote'):
+            try:
+                subreddit = shlex.split(content.lower().strip())[1]
+                await self.send_message(channel, self.robot.reddit_quote(subreddit))
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
+
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
             args = shlex.split(content.lower())
             if len(args) > 1:

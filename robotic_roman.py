@@ -180,6 +180,22 @@ class RoboticRoman():
             return [return_string]
 
 
+    def reddit_quote(self, subreddit):
+        subreddit_obj = self.reddit.subreddit(subreddit)
+        if subreddit_obj.over18:
+            return "Cannot retrieve posts from an Over 18 subreddit."
+        post = subreddit_obj.random()
+        if not post:
+            return "This subreddit does not support random post retrieval."
+        # print(post.selftext)
+        if post.is_self:
+            body = post.selftext
+            if len(body) > 2000:
+                body = body[:1995] + "..."
+        else:
+            body = post.url
+        return body
+
     def get_old_english_verse(self, verse):
         print("In get_old_english_verse")
         book = ''.join(verse.split(":")[0].split()[:-1]).lower()
@@ -513,12 +529,7 @@ class RoboticRoman():
     def random_quote(self, person):
         print(person)
         if person.strip().lower() == 'reddit':
-            post = self.reddit.subreddit(SUBREDDIT).random()
-            # print(post.selftext)
-            body = post.selftext
-            if len(body) > 2000:
-                body = body[:1995] + "..."
-            return body
+            return self.reddit_quote(SUBREDDIT)
         if person in self.greek_quotes_dict:
             f = random.choice(self.greek_quotes_dict[person])
             try:
