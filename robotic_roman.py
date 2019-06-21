@@ -188,11 +188,11 @@ class RoboticRoman():
         if not post:
             return "This subreddit does not support random post retrieval."
         # print(post.selftext)
-        if post.is_self:
+        if post.is_self and len(post) > 0:
             body = post.selftext
             if len(body) > 2000:
                 body = body[:1995] + "..."
-        elif post.url:
+        elif post.url and len(post.url) > 0:
             body = post.url
         else:
             body = post.title
