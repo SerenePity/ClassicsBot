@@ -17,6 +17,7 @@ import re
 import string
 import praw
 
+
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
