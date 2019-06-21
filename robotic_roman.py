@@ -192,8 +192,10 @@ class RoboticRoman():
             body = post.selftext
             if len(body) > 2000:
                 body = body[:1995] + "..."
-        else:
+        elif post.url:
             body = post.url
+        else:
+            body = post.title
         return body
 
     def get_old_english_verse(self, verse):
