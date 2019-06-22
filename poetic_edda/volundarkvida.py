@@ -460,11 +460,3 @@ ek vætr hánum vinna kunnak,
 ek vætr hánum vinna máttak.\"""",
 
 }
-
-def get_verse(n):
-    norse_txt = norse[n]
-    english_txt = english[n]
-    formatted = f"{norse_txt}\n\n{english_txt}"
-    return formatted
-
-print(get_verse("25"))

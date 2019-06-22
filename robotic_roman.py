@@ -63,6 +63,7 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
             "Parallel Gothic Bible:                 '>ulfilas <translation version>",
             "Get available Bible versions:          '>bibleversions [<lang>]'",
             "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
+            "Edda quote:                            '>eddaquote <edda> [verse]'",
             "Help:                                  '>HELPME'"]
 
 class RoboticRoman():

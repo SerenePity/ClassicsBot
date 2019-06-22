@@ -674,11 +674,3 @@ naðr fránn, neðan frá Niðafjöllum;
 berr sér í fjöðrum, - flýgr völl yfir, -
 Niðhöggr nái. Nú mun hon sökkvask."""
 }
-
-def get_verse(n):
-    norse_txt = norse[n]
-    english_txt = english[n]
-    formatted = f"{norse_txt}\n\n{english_txt}"
-    return formatted
-
-print(get_verse("25"))
