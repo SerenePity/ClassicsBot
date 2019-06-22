@@ -180,6 +180,30 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'eddaquote'):
+            args = shlex.split(content.lower())
+            try:
+                if len(args) == 3:
+                    edda = args[1]
+                    if edda not in self.robot.poetic_eddas:
+                        await self.send_message(channel, f"Edda not found. The texts currently available are: {', '.join([t.title() for t in self.robot.poetic_eddas.keys()])}")
+                        return
+                    verse = args[2]
+                    passage = self.robot.get_eddic_verse(edda, verse)
+                    await self.send_message(channel, passage)
+                    return
+                elif len(args) == 2:
+                    edda = args[1]
+                    passage = self.robot.get_random_eddic_verse(edda)
+                    await self.send_message(channel, passage)
+                    return
+                else:
+                    await self.send_message(channel, "Not enough arguments.")
+                    return
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "Passage not found. Note that there is a lacuna in the Havamal from verse 76 to 80.")
+
         if content.lower().startswith(self.command_prefix + 'redditquote'):
             try:
                 subreddit = shlex.split(content.lower().strip())[1]

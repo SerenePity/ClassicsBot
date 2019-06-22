@@ -5,6 +5,7 @@ import old_english_bible.john
 import old_english_bible.luke
 import old_english_bible.mark
 import old_english_bible.matthew
+from poetic_edda import havamal, voluspa, volundarkvida
 import romanize3
 import transliteration.coptic
 import transliteration.greek
@@ -44,6 +45,7 @@ ARABIC = ['arabicsv']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 
+
 QUOTE_RETRIEVAL_MAX_TRIES = 3
 COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to transliterate) | As <author> said:'",
             "Generate sentence by author:           '>markov [-t] <author> (-t to transliterate) | As <author> allegedly said:'",
@@ -78,6 +80,7 @@ class RoboticRoman():
         self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
         self.quote_tries = 0
         self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
+        self.poetic_eddas = {"havamal": havamal, "volundar": volundarkvida, "voluspa": voluspa}
         for author in self.authors:
             print(author)
             self.quotes_dict[author] = []
@@ -179,6 +182,15 @@ class RoboticRoman():
         else:
             return [return_string]
 
+    def get_eddic_verse(self, edda, verse):
+        edda_module = self.poetic_eddas[edda]
+        english = edda_module.english[verse]
+        norse =  edda_module.norse[verse]
+        return f"{english}\n\n{norse}"
+
+    def get_random_eddic_verse(self, edda):
+        verse = random.choice(list(self.poetic_eddas[edda].english.keys()))
+        return self.get_eddic_verse(edda, verse)
 
     def reddit_quote(self, subreddit):
         subreddit_obj = self.reddit.subreddit(subreddit)
