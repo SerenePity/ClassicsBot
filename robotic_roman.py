@@ -5,7 +5,7 @@ import old_english_bible.john
 import old_english_bible.luke
 import old_english_bible.mark
 import old_english_bible.matthew
-from poetic_edda import havamal, voluspa, volundarkvida
+from poetic_edda import havamal, voluspa, volundarkvida, guthrunarhvot
 import romanize3
 import transliteration.coptic
 import transliteration.greek
@@ -81,7 +81,7 @@ class RoboticRoman():
         self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
         self.quote_tries = 0
         self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
-        self.poetic_eddas = {"havamal": havamal, "volundar": volundarkvida, "voluspa": voluspa}
+        self.poetic_eddas = {"havamal": havamal, "volundar": volundarkvida, "voluspa": voluspa, "guthrunarhvot": guthrunarhvot}
         for author in self.authors:
             print(author)
             self.quotes_dict[author] = []
