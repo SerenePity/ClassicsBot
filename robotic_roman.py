@@ -23,6 +23,7 @@ import praw
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
+PARALLEL_TEXTS_PATH = "parallel"
 SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 800
 MIN_QUOTES_LENGTH = 140
@@ -31,6 +32,7 @@ PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'"]
+PARALLEL_DELIMITERS = ["."]
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
@@ -64,6 +66,8 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
             "Get available Bible versions:          '>bibleversions [<lang>]'",
             "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
             "Edda quote:                            '>eddaquote <edda> [verse]'",
+            "Quote for parallel Latin/Germanic:     '>parallel <work/author>'",
+            "Texts/authors for parallel command:    '>listparallel'",
             "Help:                                  '>HELPME'"]
 
 class RoboticRoman():
@@ -72,6 +76,7 @@ class RoboticRoman():
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
         self.off_topic_quotes_dict = dict()
+        self.parallel_quotes_dict = dict()
         self.markov_dict = dict()
         self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
                                   client_secret=os.environ['reddit_secret'],
@@ -79,6 +84,7 @@ class RoboticRoman():
         self.authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
+        self.parallel_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(PARALLEL_TEXTS_PATH)]))
         self.quote_tries = 0
         self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
         self.poetic_eddas = {"havamal": havamal, "volundar": volundarkvida, "voluspa": voluspa, "guthrunarhvot": guthrunarhvot}
@@ -94,9 +100,19 @@ class RoboticRoman():
             print(writer)
             self.off_topic_quotes_dict[writer] = []
 
+        for writer in self.parallel_authors:
+            print(writer)
+            self.parallel_quotes_dict[writer] = []
+
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
 
+    def get_parallel_quote(self, author):
+        author = 'parallel_' + author
+        quote = self.random_quote(author)
+        quote = quote.replace('\n', '\n\n')
+        quote = quote.replace(' - ', '\n\n')
+        return quote
 
     def _fix_unclosed_quotes(self, text):
         opened = False
@@ -115,7 +131,34 @@ class RoboticRoman():
             text += quote_type
         return text
 
-    def _passage_deliminator(self, text):
+    def _passage_parallel_deliminator(self, text, delimiters=PARALLEL_DELIMITERS):
+        cur_sentence_len = 0
+        prev_delimiter_pos = 0
+        prev_delimiter = ""
+        final_sentence = []
+
+        for i, c in enumerate(text):
+            cur_sentence_len += 1
+            if c in delimiters:
+                if cur_sentence_len < MIN_QUOTES_LENGTH:
+                    prev_delimiter_pos = i
+                    prev_delimiter = c
+                    final_sentence.append(DELIMTERS_MAP[c])
+                elif cur_sentence_len > MAX_QUOTES_LENGTH:
+                    final_sentence.append(DELIMTERS_MAP[c])
+                    final_sentence[prev_delimiter_pos] = prev_delimiter
+                    prev_delimiter = c
+                    prev_delimiter_pos = i
+                    cur_sentence_len = i - prev_delimiter_pos
+                else:
+                    cur_sentence_len = 0
+                    final_sentence.append(c)
+            else:
+                final_sentence.append(c)
+
+        return ''.join(final_sentence)
+
+    def _passage_deliminator(self, text, delimiters=DELIMITERS):
         cur_sentence_len = 0
         prev_delimiter_pos = 0
         prev_delimiter = ""
@@ -124,7 +167,7 @@ class RoboticRoman():
         unclosed_paren = False
         for i,c in enumerate(text):
             cur_sentence_len += 1
-            if c in DELIMITERS:
+            if c in delimiters:
                 if cur_sentence_len < MIN_QUOTES_LENGTH or unclosed_paren:
                     prev_delimiter_pos = i
                     prev_delimiter = c
@@ -479,6 +522,13 @@ class RoboticRoman():
                 and t.strip().replace('\n','') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
                 i < len(first_pass) - 1]
 
+    def _process_parallel(self, text):
+        text = self._replace_abbreviation_period(text.replace('...', '^'))
+        text = self._passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS)
+        text_list = text.split('\n')
+        return text_list
+
+
     def _process_holy_text(self, scripture):
         return [s for s in re.split(BIBLE_DELIMITERS, self._replace_abbreviation_period(scripture))
                 if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
@@ -501,6 +551,10 @@ class RoboticRoman():
         for person in self.off_topic_quotes_dict:
             print(person)
             self.load_off_topic_quotes(person)
+
+        for person in self.parallel_quotes_dict:
+            print(person)
+            self.load_parallel_quotes(person)
 
         print("Finished loading models")
 
@@ -534,6 +588,13 @@ class RoboticRoman():
             if file.endswith('.txt'):
                 self.off_topic_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
+    def load_parallel_quotes(self, author):
+        self.off_topic_quotes_dict[author] = []
+        author_path = f"{PARALLEL_TEXTS_PATH}/{author}/"
+        for file in os.listdir(author_path):
+            if file.endswith('.txt'):
+                self.parallel_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
+
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
                                                                         ' de ')
@@ -559,6 +620,10 @@ class RoboticRoman():
         elif person in self.off_topic_authors:
             f = random.choice(self.off_topic_quotes_dict[person])
             quote = random.choice(self._process_text(f.read()))
+        elif 'parallel_' in person:
+            f = random.choice(self.parallel_quotes_dict[person.replace('parallel_', '')])
+            quote = random.choice(self._process_parallel(f.read()))
+            print("Parallel quote: " + quote)
         else:
             f = random.choice(self.quotes_dict[person])
             if person == 'the bible':
@@ -591,7 +656,7 @@ class RoboticRoman():
         if not os.path.isfile(f"markov_models/{author}/{author}_markov.json"):
             path = f"{LATIN_TEXTS_PATH}/{author}" if author in self.authors else f"{GREEK_TEXTS_PATH}/{author}"
             self.train_model(author, path)
-        return self.load_model(author)(max_length=MAX_QUOTES_LENGTH)
+        return self.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
 
     def train_model(self, author, author_path):
         model = MarkovText()

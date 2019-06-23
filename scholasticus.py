@@ -180,6 +180,21 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'listparallel'):
+            parallel_list = '\n'.join(self.robot.parallel_authors)
+            await self.send_message(channel, parallel_list)
+            return
+
+        if content.lower().startswith(self.command_prefix + 'parallel'):
+            try:
+                person = ' '.join(shlex.split(content.lower().strip())[1:])
+                await self.send_message(channel, self.robot.get_parallel_quote(person))
+                return
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "Error. I do not have parallel texts for this person.")
+                return
+
         if content.lower().startswith(self.command_prefix + 'eddaquote'):
             args = shlex.split(content.lower())
             try:
