@@ -5,7 +5,6 @@ import old_english_bible.john
 import old_english_bible.luke
 import old_english_bible.mark
 import old_english_bible.matthew
-from poetic_edda import havamal, voluspa, volundarkvida, guthrunarhvot
 import romanize3
 import transliteration.coptic
 import transliteration.greek
@@ -65,8 +64,7 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
             "Parallel Gothic Bible:                 '>ulfilas <translation version>",
             "Get available Bible versions:          '>bibleversions [<lang>]'",
             "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
-            "Edda quote:                            '>eddaquote <edda> [verse]'",
-            "Quote for parallel Latin/Germanic:     '>parallel <work/author>'",
+            "Quote for parallel text:               '>parallel <work/author>'",
             "Texts/authors for parallel command:    '>listparallel'",
             "Help:                                  '>HELPME'"]
 
@@ -87,7 +85,6 @@ class RoboticRoman():
         self.parallel_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(PARALLEL_TEXTS_PATH)]))
         self.quote_tries = 0
         self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
-        self.poetic_eddas = {"havamal": havamal, "volundar": volundarkvida, "voluspa": voluspa, "guthrunarhvot": guthrunarhvot}
         for author in self.authors:
             print(author)
             self.quotes_dict[author] = []
@@ -107,11 +104,20 @@ class RoboticRoman():
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
 
-    def get_parallel_quote(self, author):
+    def get_parallel_quote(self, author, line_num=-1):
         author = 'parallel_' + author
-        quote = self.random_quote(author)
-        quote = quote.replace('\n', '\n\n')
-        quote = quote.replace(' - ', '\n\n')
+        if line_num < 0:
+            quote = self.random_quote(author)
+        else:
+            f = self.parallel_quotes_dict[author.replace('parallel_', '')][0]
+            try:
+                quote = f.readlines()[line_num]
+            except:
+                f.seek(0)
+                return "Line number out of range."
+            f.seek(0)
+        quote = quote.replace('@', '\n')
+        quote = quote.replace(' () ', '\n\n')
         return quote
 
     def _fix_unclosed_quotes(self, text):
@@ -225,16 +231,6 @@ class RoboticRoman():
             return [lang.title() + ":"] + [f"{', '.join(chunk)}" for chunk in chunks]
         else:
             return [return_string]
-
-    def get_eddic_verse(self, edda, verse):
-        edda_module = self.poetic_eddas[edda]
-        english = edda_module.english[verse]
-        norse =  edda_module.norse[verse]
-        return f"{english}\n\n{norse}"
-
-    def get_random_eddic_verse(self, edda):
-        verse = random.choice(list(self.poetic_eddas[edda].english.keys()))
-        return self.get_eddic_verse(edda, verse)
 
     def reddit_quote(self, subreddit):
         subreddit_obj = self.reddit.subreddit(subreddit)
@@ -526,6 +522,7 @@ class RoboticRoman():
         text = self._replace_abbreviation_period(text.replace('...', '^'))
         text = self._passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS)
         text_list = text.split('\n')
+        # text_list = [t.replace('@', '\n') for t in text_list]
         return text_list
 
 
@@ -589,7 +586,7 @@ class RoboticRoman():
                 self.off_topic_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
     def load_parallel_quotes(self, author):
-        self.off_topic_quotes_dict[author] = []
+        self.parallel_quotes_dict[author] = []
         author_path = f"{PARALLEL_TEXTS_PATH}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
