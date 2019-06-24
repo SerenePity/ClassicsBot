@@ -348,7 +348,7 @@ class RoboticRoman():
         soup = BeautifulSoup(body)
         passage = soup.find_all("div", {"class": "passage row Wycliffe"})[0]
         [s.extract() for s in soup('sup')]
-        print(passage.get_text())
+        # print(passage.get_text())
         return re.sub(r"[\s]{2,}", "\n", passage.get_text().replace('Wycliffe', '').strip())
 
     def get_bible_verse(self, verse, version='kjv'):
