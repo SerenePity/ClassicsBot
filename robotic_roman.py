@@ -342,6 +342,15 @@ class RoboticRoman():
             passage = "Not found"
         return passage.replace('\t', ' ')
 
+    def get_wycliffe_verse(self, verse):
+        url = f"https://studybible.info/Wycliffe/{verse}"
+        body = requests.get(url).text
+        soup = BeautifulSoup(body)
+        passage = soup.find_all("div", {"class": "passage row Wycliffe"})[0]
+        [s.extract() for s in soup('sup')]
+        print(passage.get_text())
+        return re.sub(r"[\s]{2,}", "\n", passage.get_text().replace('Wycliffe', '').strip())
+
     def get_bible_verse(self, verse, version='kjv'):
         translit = False
         if version[0] == '$':
@@ -349,6 +358,12 @@ class RoboticRoman():
             translit = True
         verse = verse.title()
         passage = "Not found"
+        if version.strip().lower() == 'wyc':
+            try:
+                return self.get_wycliffe_verse(verse)
+            except:
+                traceback.print_exc()
+                return "Not found"
         if version.strip().lower() == 'old_english':
             print("Getting OE version")
             try:

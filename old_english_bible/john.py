@@ -1,6 +1,6 @@
 john = {"1": {
 
-    "1": "On FRYMÐ WÆ word & þt word wæs mid gode & god wæs þt word.",
+    "1": "On FRYMÐ WÆS word & þt word wæs mid gode & god wæs þt word.",
     "2": "þt wæs on fruman mid gode",
     "3": "ealle þing wæron geworhte ðurh hyne & nan þing næs geworht butan him.",
     "4": "þt wæs líf þe on him geworht wæs. & þt líf wæs manna leoht",
