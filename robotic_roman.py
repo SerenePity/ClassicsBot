@@ -614,35 +614,48 @@ class RoboticRoman():
         author = random.choice(list(self.quotes_dict.keys()))
         return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
-    def random_quote(self, person):
+    def pick_quote(self, files, process_func, word=None, lemma=False):
+        if word:
+            word = word.lower()
+            quotes = []
+            for f in files:
+                quotes += [p for p in process_func(f.read()) if f" {word} " in re.sub(r"[^a-z0-9\s\n]]", "", p.lower())]
+                f.seek(0)
+            quote = random.choice(quotes)
+        else:
+            f = random.choice(files)
+            quote = random.choice(process_func(f.read()))
+            f.seek(0)
+        return quote
+
+    def random_quote(self, person, word=None):
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
         if person in self.greek_quotes_dict:
-            f = random.choice(self.greek_quotes_dict[person])
+            files = self.greek_quotes_dict[person]
             try:
-                quote = random.choice(self._process_text(f.read()))
+               quote = self.pick_quote(files, self._process_text, word)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    return self.random_quote(person)
+                    return self.pick_quote(f, self._process_text, word)
                 else:
                     self.quote_tries = 0
                     raise error
         elif person in self.off_topic_authors:
-            f = random.choice(self.off_topic_quotes_dict[person])
-            quote = random.choice(self._process_text(f.read()))
+            files = self.off_topic_quotes_dict[person]
+            quote = self.pick_quote(files, self._process_text, word)
         elif 'parallel_' in person:
-            f = random.choice(self.parallel_quotes_dict[person.replace('parallel_', '')])
-            quote = random.choice(self._process_parallel(f.read()))
+            files = self.parallel_quotes_dict[person.replace('parallel_', '')]
+            quote = self.pick_quote(files, self._process_parallel, word)
             print("Parallel quote: " + quote)
         else:
-            f = random.choice(self.quotes_dict[person])
+            files = self.quotes_dict[person]
             if person == 'the bible':
-                quote = random.choice(self._process_holy_text(f.read()))
+                quote = self.pick_quote(files, self._process_holy_text, word)
             else:
-                quote = random.choice(self._process_text(f.read()))
-        f.seek(0)
+                quote = self.pick_quote(files, self._process_text, word)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
 
     def fix_crushed_punctuation(self, text):

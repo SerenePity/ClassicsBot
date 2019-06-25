@@ -297,28 +297,44 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content)
             print(qt_args)
+            word = None
+            transliterate = False
             try:
-                if (qt_args[1].strip() == '-t'):
-                    author = ' '.join(qt_args[2:]).lower().strip()
-                    if author == "reddit" and message.author.id != BOT_OWNER:
+                for i, arg in enumerate(qt_args):
+                    if arg.strip().lower() == '-w':
+                        word = qt_args[i + 1]
+                    if arg.strip().lower() == '-t':
+                        transliterate = True
+
+                if word and transliterate:
+                    source = ' '.join(qt_args[4:]).lower().strip()
+                elif word and not transliterate:
+                    source = ' '.join(qt_args[3:]).lower().strip()
+                elif transliterate and not word:
+                    source = ' '.join(qt_args[2:]).lower().strip()
+                elif not word and not transliterate:
+                    source = ' '.join(qt_args[1:]).lower().strip()
+
+
+                if transliterate:
+                    if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
 
-                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(author.lower()))
+                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word))
                     await self.send_message(channel, transliterated)
                     return
                 else:
-                    author = ' '.join(qt_args[1:]).lower().strip()
-                    if author == "reddit" and message.author.id != BOT_OWNER:
+                    if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
-                    await self.send_message(channel, self.robot.random_quote(author.lower()))
+                    await self.send_message(channel, self.robot.random_quote(source.lower(), word))
             except Exception as e:
                 traceback.print_exc()
-                if not author:
+                if not source:
                     await self.send_message(channel, "No person provided")
                 else:
-                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"Could not find quotes matching criteria.")
 
         if content.lower().startswith(self.command_prefix + 'owo'):
             qt_args = shlex.split(content)
