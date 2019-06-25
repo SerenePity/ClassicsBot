@@ -221,10 +221,10 @@ class RoboticRoman():
             yield lst[i:i + n]
 
     def get_available_bible_versions(self):
-        return ', '.join([f"{key.title()}" for key in bible_versions.versions])
+        return ', '.join(sorted([f"{key.title()}" for key in bible_versions.versions], key=str.lower))
 
     def get_available_bible_versions_lang(self, lang):
-        versions = bible_versions.versions[lang.lower()]
+        versions = sorted(bible_versions.versions[lang.lower()], key=str.lower)
         return_string = f"{lang.title()}: {', '.join(versions)}"
         if len(return_string) >= 2000:
             chunks = self.chunks(versions, 10)
