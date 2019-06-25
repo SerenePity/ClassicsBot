@@ -272,7 +272,7 @@ class Scholasticus(commands.Bot):
             qt_args = shlex.split(content)
             print(qt_args)
             try:
-                if len(qt_args) > 4 and re.match(r"[0-9]+", qt_args[1]):
+                if len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
                     versions = qt_args[4:]
                     translation = self.robot.bible_compare(verse, versions)
