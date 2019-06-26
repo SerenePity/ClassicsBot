@@ -299,10 +299,13 @@ class Scholasticus(commands.Bot):
             print(qt_args)
             word = None
             transliterate = False
+            lemmatize = False
             try:
                 for i, arg in enumerate(qt_args):
-                    if arg.strip().lower() == '-w':
+                    if len(arg.strip().lower()) > 1 and '-w' in arg.strip().lower():
                         word = qt_args[i + 1]
+                        if "lemma" in arg:
+                            lemmatize = True
                     if arg.strip().lower() == '-t':
                         transliterate = True
 
@@ -321,14 +324,14 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
 
-                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word))
+                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word, lemmatize))
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
-                    await self.send_message(channel, self.robot.random_quote(source.lower(), word))
+                    await self.send_message(channel, self.robot.random_quote(source.lower(), word, lemmatize))
             except Exception as e:
                 traceback.print_exc()
                 if not source:

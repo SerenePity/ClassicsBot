@@ -1,5 +1,6 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
+from cltk.stem.latin.declension import CollatinusDecliner
 import bible_versions
 import old_english_bible.john
 import old_english_bible.luke
@@ -71,6 +72,7 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
 class RoboticRoman():
 
     def __init__(self):
+        self.decliner = CollatinusDecliner()
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
         self.off_topic_quotes_dict = dict()
@@ -614,12 +616,45 @@ class RoboticRoman():
         author = random.choice(list(self.quotes_dict.keys()))
         return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
 
-    def pick_quote(self, files, process_func, word=None, lemma=False):
+    def flatten(self, array):
+        return [item for sublist in array for item in sublist]
+
+    def find_multi_regex(self, regexes, passage):
+        generic_re = re.compile('|'.join(regexes))
+        matches = re.findall(generic_re, passage)
+        if matches and len(matches) > 0:
+            return matches[0]
+        else:
+            return None
+
+    def pick_quote(self, files, process_func, word=None, lemmatize=False):
+        # print(', '.join([f.name for f in files]))
         if word:
             word = word.lower()
+            regex_list = []
+            if lemmatize:
+                try:
+                    #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
+                    inflected = self.decliner.decline(word, flatten=True)
+                    for form in inflected:
+                        regex_list.append(f"^{form}")
+                        regex_list.append(f" {form} ")
+                        regex_list.append(f" {form}\\.")
+                except:
+                    traceback.print_exc()
+                    return "Unknown lemma."
+            else:
+                #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
+                #words = [f"{word} ", f" {word} ", f" {word}."]
+                regex_list.append(f"^{word}")
+                regex_list.append(f" {word} ")
+                regex_list.append(f" {word}\\.")
+                # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
+            print(regex_list)
             quotes = []
             for f in files:
-                quotes += [p for p in process_func(f.read()) if f" {word} " in re.sub(r"[^a-z0-9\s\n]]", "", p.lower())]
+                # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
+                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^a-z0-9\s\n]", "", p.lower()))]
                 f.seek(0)
             quote = random.choice(quotes)
         else:
@@ -628,34 +663,34 @@ class RoboticRoman():
             f.seek(0)
         return quote
 
-    def random_quote(self, person, word=None):
+    def random_quote(self, person, word=None, lemmatize=False):
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-               quote = self.pick_quote(files, self._process_text, word)
+               quote = self.pick_quote(files, self._process_text, word, lemmatize)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    return self.pick_quote(f, self._process_text, word)
+                    return self.pick_quote(files, self._process_text, word, lemmatize)
                 else:
                     self.quote_tries = 0
                     raise error
         elif person in self.off_topic_authors:
             files = self.off_topic_quotes_dict[person]
-            quote = self.pick_quote(files, self._process_text, word)
+            quote = self.pick_quote(files, self._process_text, word, lemmatize)
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
-            quote = self.pick_quote(files, self._process_parallel, word)
+            quote = self.pick_quote(files, self._process_parallel, word, lemmatize)
             print("Parallel quote: " + quote)
         else:
             files = self.quotes_dict[person]
             if person == 'the bible':
-                quote = self.pick_quote(files, self._process_holy_text, word)
+                quote = self.pick_quote(files, self._process_holy_text, word, lemmatize)
             else:
-                quote = self.pick_quote(files, self._process_text, word)
+                quote = self.pick_quote(files, self._process_text, word, lemmatize)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
 
     def fix_crushed_punctuation(self, text):
