@@ -637,18 +637,14 @@ class RoboticRoman():
                     #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
                     inflected = self.decliner.decline(word, flatten=True)
                     for form in inflected:
-                        regex_list.append(f"^{form}")
-                        regex_list.append(f" {form} ")
-                        regex_list.append(f" {form}\\.")
+                        regex_list.append(f"\\b{form}\\b")
                 except:
                     traceback.print_exc()
                     return "Unknown lemma."
             else:
                 #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
                 #words = [f"{word} ", f" {word} ", f" {word}."]
-                regex_list.append(f"^{word}")
-                regex_list.append(f" {word} ")
-                regex_list.append(f" {word}\\.")
+                regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
             print(regex_list)
             quotes = []
