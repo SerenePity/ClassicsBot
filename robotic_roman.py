@@ -531,7 +531,7 @@ class RoboticRoman():
         text = self._passage_deliminator(text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
         return [re.sub(REGEX_SUB, '', t) + (first_pass[i+1] if first_pass[i+1] != '|' else '') for i,t in
-                enumerate(first_pass) if 'LATIN' not in t.upper() and 'LIBRARY' not in t.upper()
+                enumerate(first_pass) if 'LIBRARY' not in t.upper()
                 and t.strip().replace('\n','') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
                 i < len(first_pass) - 1]
 
