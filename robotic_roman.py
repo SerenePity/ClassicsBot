@@ -650,7 +650,7 @@ class RoboticRoman():
             quotes = []
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^a-z0-9\s\n]", "", p.lower()))]
+                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p.lower()))]
                 f.seek(0)
             quote = random.choice(quotes)
         else:
