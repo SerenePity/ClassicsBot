@@ -246,9 +246,9 @@ class Scholasticus(commands.Bot):
                 return
             try:
                 input = ' '.join(tr_args[1:])
-                if tr_args[0] == 'trh':
+                if tr_args[0] == (self.command_prefix + 'trh'):
                     transliterated = transliteration.hebrew.transliterate(input)
-                elif tr_args[0] == 'trcop':
+                elif tr_args[0] == (self.command_prefix + 'trcop'):
                     transliterated = transliteration.coptic.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
