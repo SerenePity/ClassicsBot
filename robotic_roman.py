@@ -9,6 +9,7 @@ import old_english_bible.mark
 import old_english_bible.matthew
 import romanize3
 import transliteration.coptic
+import transliteration.latin_antique
 import transliteration.greek
 import transliteration.hebrew
 import traceback
@@ -510,6 +511,8 @@ class RoboticRoman():
             return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
             return text
+        if version == "uncial":
+            return transliteration.latin_antique(text)
         return text
 
     def bible_compare(self, verse, versions: list):

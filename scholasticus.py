@@ -288,6 +288,8 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.hebrew.transliterate(input)
                 elif tr_args[0] == (self.command_prefix + 'trcop'):
                     transliterated = transliteration.coptic.transliterate(input)
+                elif tr_args[0] == (self.command_prefix + 'truncial'):
+                    transliterated = transliteration.latin_antique.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
                 await self.send_message(channel, transliterated)
