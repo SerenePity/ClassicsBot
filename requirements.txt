@@ -5,3 +5,4 @@ git+git://github.com/Zenrac/TextToOwO.git
 beautifulsoup4==4.7.1
 romanize3
 cltk
+wiktionaryparser

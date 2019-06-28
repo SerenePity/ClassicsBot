@@ -189,6 +189,44 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        if content.lower().startswith(self.command_prefix + 'def'):
+            args = shlex.split(content.lower().strip())
+            try:
+                if len(args) > 3 and args[1] == '-l':
+                    language = args[2]
+                    word = ' '.join(args[3:])
+                    definition = self.robot.get_and_format_word_defs(word, language)
+                elif len(args) > 1:
+                    word = ' '.join(args[1:])
+                    definition = self.robot.get_and_format_word_defs(word)
+                else:
+                    definition = "Invalid arguments"
+                await self.send_message(channel, definition)
+                return
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
+                return
+
+        if content.lower().startswith(self.command_prefix + 'etymology'):
+            args = shlex.split(content.lower().strip())
+            try:
+                if len(args) > 3 and args[1] == '-l':
+                    language = args[2]
+                    word = ' '.join(args[3:])
+                    etymology = self.robot.get_word_etymology(word, language)
+                elif len(args) > 1:
+                    word = ' '.join(args[1:])
+                    etymology = self.robot.get_word_etymology(word)
+                else:
+                    etymology = "Invalid arguments"
+                await self.send_message(channel, etymology)
+                return
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
+                return
+
         if content.lower().startswith(self.command_prefix + 'listparallel'):
             parallel_list = '\n'.join(self.robot.parallel_authors)
             await self.send_message(channel, parallel_list)

@@ -1,6 +1,7 @@
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
 from cltk.stem.latin.declension import CollatinusDecliner
+from wiktionaryparser import WiktionaryParser
 import bible_versions
 import old_english_bible.john
 import old_english_bible.luke
@@ -49,7 +50,7 @@ RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 
 
 QUOTE_RETRIEVAL_MAX_TRIES = 3
-COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to transliterate) | As <author> said:'",
+COMMANDS = ["Get random quote by author:            '>qt [-t (transliterate)] [-w <regex search>] <author> | As <author> said:'",
             "Generate sentence by author:           '>markov [-t] <author> (-t to transliterate) | As <author> allegedly said:'",
             "List available Latin authors:          '>latinauthors'",
             "Retrieve random Latin quote:           '>latinquote'",
@@ -67,11 +68,15 @@ COMMANDS = ["Get random quote by author:            '>qt [-t] <author> (-t to tr
             "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
             "Quote for parallel text:               '>parallel <work/author>'",
             "Texts/authors for parallel command:    '>listparallel'",
+            "Word definition (defaults to Latin):   '>def [-l <language>] <word>'",
+            "Word etymology (defaults to Latin):    '>etymology [-l <language>] <word>'",
             "Help:                                  '>HELPME'"]
 
 class RoboticRoman():
 
     def __init__(self):
+        self.parser = WiktionaryParser()
+        self.parser.set_default_language('latin')
         self.decliner = CollatinusDecliner()
         self.quotes_dict = dict()
         self.greek_quotes_dict = dict()
@@ -105,6 +110,26 @@ class RoboticRoman():
 
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
+
+    def get_word_defs(self, word, language='latin'):
+        word = self.parser.fetch(word, language)
+        print(word)
+        defs = []
+        for entry in word:
+            defs.append(entry['definitions'][0]['text'])
+        return defs[0]
+
+    def get_word_etymology(self, word, language='latin'):
+        word = self.parser.fetch(word, language)
+        etymology = word[0]['etymology']
+        if etymology.strip() == "" or not etymology:
+            return "No etymology found."
+        else:
+            return etymology.replace(u'\xa0', u' ')
+
+    def get_and_format_word_defs(self, word, language='latin'):
+        word_defs = self.get_word_defs(word, language)
+        return '\n'.join([f"{i}. {e}" if i > 0 else e for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
         author = 'parallel_' + author

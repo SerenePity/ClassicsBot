@@ -78,7 +78,7 @@ def get_index(xs, target):
     else:
         return -1
 
-def testEach(array, qametsQatan=False):
+def test_each(array):
     for index, element in enumerate(array):
         print("element before: " + element)
         # Tests for shin non-ligatures
@@ -125,30 +125,6 @@ def testEach(array, qametsQatan=False):
         elif re.compile("ʿa$").match(element):
             element = changeElementSplit(element, re.compile("ʿa$"), 'aʿ')
 
-        # Tests if a shewa exists in the element
-        """
-        if 'ǝ' in element:
-            print("Element: " + element)
-            pos = get_index(element, 'ǝ')
-            print(pos)
-            while pos != -1:
-                # shewa at the end of a word
-                if element[-1] == 'ǝ':
-                    element = changeElementSubstr(element, len(element)-1, '')
-
-                # if the shewa is preceded by a short vowel
-                if re.compile("(ǝ|a|e|i|u|o)").match(element[pos-2]):
-                    # if it SQeNeM LeVY letters in wayyiqtol forms
-                    if re.compile("(s|ṣ|š|ś|q|n|m|l|w|y)").match(element[pos-1]) and re.compile("w").match(element[pos-3]):
-                        element = changeElementSubstr(element, pos, '')
-                    else:
-                        element = changeElementSubstr(element, pos, '')
-                pos = get_index(''.join(element[pos + 1:]), 'ǝ')
-                #pos = element.indexOf('ǝ', pos +1)
-
-            element = element
-        """
-        # tests for a doubling dagesh
         if "9" in element:
             elArray = element.split()
             for i, e in enumerate(elArray):
@@ -164,7 +140,7 @@ def testEach(array, qametsQatan=False):
 
     return array
 
-def titForTat(text):
+def tit_for_tat(text):
     ret_text = ""
     for i in text:
         if i in hebCharsTrans.mapping:
@@ -172,20 +148,14 @@ def titForTat(text):
         if i == ' ':
             ret_text += ' '
     return ret_text
-    # return re.sub(r"[\u0591-\u05F4\uFB1D-\uFB4F]", lambda i: hebCharsTrans.mapping[i.group(0)], text)
 
-def transliterate(text, isSeqeunced=False, qametsQatan=False):
-    newSeq = ''
-    if isSeqeunced:
-        newSeq = sequence(text)
-    else:
-        newSeq = text
-    print(newSeq)
-    titTat = titForTat(newSeq)
-    print(titTat)
-    array = titTat.split()
+def transliterate(text):
+    print(text)
+    tit_tat = tit_for_tat(text)
+    print(tit_tat)
+    array = tit_tat.split()
     print(array)
-    modArray = testEach(array, qametsQatan)
+    modArray = test_each(array)
     print(modArray)
     transliteration = ' '.join(modArray)
     return transliteration
