@@ -2,6 +2,8 @@ from discord.ext import commands
 import discord
 import re
 import transliteration.greek
+import transliteration.hebrew
+import transliteration.coptic
 import traceback
 import random
 import time
@@ -244,7 +246,12 @@ class Scholasticus(commands.Bot):
                 return
             try:
                 input = ' '.join(tr_args[1:])
-                transliterated = transliteration.greek.transliterate(input)
+                if tr_args[0] == (self.command_prefix + 'trh'):
+                    transliterated = transliteration.hebrew.transliterate(input)
+                elif tr_args[0] == (self.command_prefix + 'trcop'):
+                    transliterated = transliteration.coptic.transliterate(input)
+                else:
+                    transliterated = transliteration.greek.transliterate(input)
                 await self.send_message(channel, transliterated)
                 return
             except Exception as e:
