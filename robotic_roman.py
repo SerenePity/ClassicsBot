@@ -35,7 +35,7 @@ DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "
 PARALLEL_DELIMITERS = ["."]
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
-REGEX_SUB = re.compile(r"\n\n|\[|\]|\(\)")
+REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
 ABSOLUTE_DELIMITER = "|"
@@ -529,6 +529,7 @@ class RoboticRoman():
     def _process_text(self, text):
         text = self._replace_abbreviation_period(text.replace('...', '^'))
         text = self._passage_deliminator(text)
+        text = re.sub(r"[\n]{3,}|(\n+\s+){3,}|(\s+\n+){3,}", "\n\n", text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
         return [re.sub(REGEX_SUB, '', t) + (first_pass[i+1] if first_pass[i+1] != '|' else '') for i,t in
                 enumerate(first_pass) if 'LIBRARY' not in t.upper()

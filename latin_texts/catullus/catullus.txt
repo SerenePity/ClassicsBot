@@ -11,6 +11,7 @@ Quare habe tibi quidquid hoc libelli—
 qualecumque, quod, o patrona virgo,
 plus uno maneat perenne saeclo!
 
+
 fletus passeris Lesbiae
 
 Passer, deliciae meae puellae,
@@ -24,9 +25,11 @@ credo ut tum gravis acquiescat ardor:
 tecum ludere sicut ipsa possem
 et tristis animi levare curas!
 
+
  TAM gratum est mihi quam ferunt puellae
 pernici aureolum fuisse malum,
 quod zonam soluit diu ligatam.
+
 
  LVGETE, o Veneres Cupidinesque,
 et quantum est hominum uenustiorum:
@@ -46,6 +49,7 @@ tam bellum mihi passerem abstulistis
 o factum male! o miselle passer!
 tua nunc opera meae puellae
 flendo turgiduli rubent ocelli.
+
 
  PHASELVS ille, quem uidetis, hospites,
 ait fuisse nauium celerrimus,
@@ -75,6 +79,7 @@ sed haec prius fuere: nunc recondita
 senet quiete seque dedicat tibi,
 gemelle Castor et gemelle Castoris.
 
+
  VIVAMUS mea Lesbia, atque amemus,
 rumoresque senum seueriorum
 omnes unius aestimemus assis!
@@ -88,6 +93,7 @@ dein, cum milia multa fecerimus,
 conturbabimus illa, ne sciamus,
 aut ne quis malus inuidere possit,
 cum tantum sciat esse basiorum.
+
 
  FLAVI, delicias tuas Catullo,
 ni sint illepidae atque inelegantes,
@@ -318,6 +324,7 @@ uos, quod milia multa basiorum
 legistis, male me marem putatis?
 pedicabo ego uos et irrumabo.
 
+
 O Colonia, quae cupis ponte ludere longo,
 et salire paratum habes, sed uereris inepta
 crura ponticuli axulis stantis in rediuiuis,
@@ -472,6 +479,7 @@ farti estis. pete nobiles amicos!
 at uobis mala multa di deaeque
 dent, opprobria Romuli Remique.
 
+
 in Romulum cathamitum
 QVIS hoc potest uidere, quis potest pati,
 nisi impudicus et uorax et aleo,
@@ -550,6 +558,7 @@ cur non exilium malasque in oras
 itis? quandoquidem patris rapinae
 notae sunt populo, et natis pilosas,
 fili, non potes asse uenditare.
+
 
 carmen Dianae
 DIANAE sumus in fide
@@ -860,6 +869,7 @@ otio exsultas nimiumque gestis:
 otium et reges prius et beatas
   perdidit urbes.
 
+
 in Nouium
 QVID est, Catulle? quid moraris emori?
 sella in curuli struma Nonius sedet,
@@ -953,13 +963,16 @@ uidistis ipso rapere de rogo cenam,
 cum deuolutum ex igne prosequens panem
 ab semiraso tunderetur ustore.
 
+
 NVM te leaena montibus Libystinis
 aut Scylla latrans infima inguinum parte
 tam mente dura procreauit ac taetra,
 ut supplicis uocem in nouissimo casu
 contemptam haberes, a nimis fero corde?
 
+
 epythalamius Iunie et Mallii
+
 COLLIS o Heliconii
 cultor, Vraniae genus,
 qui rapis teneram ad uirum
@@ -1240,6 +1253,7 @@ coniuges, bene uiuite et
 munere assiduo ualentem
   exercete iuuentam.
 
+
 exametrum carmen nuptiale
 VESPER adest, iuuenes, consurgite: Vesper Olympo
 exspectata diu uix tandem lumina tollit.
@@ -1310,6 +1324,7 @@ tertia pars patrest, pars est data tertia matri,
 tertia sola tua est: noli pugnare duobus,
 qui genero suo iura simul cum dote dederunt.
 Hymen o Hymenaee, Hymen ades o Hymenaee!
+
 
 de Berecinthia et Athi
 SVPER alta uectus Attis celeri rate maria,
@@ -1405,6 +1420,7 @@ ibi semper omne uitae spatium famula fuit.
 dea, magna dea, Cybebe, dea domina Dindymi,
 procul a mea tuos sit furor omnis, era, domo:
 alios age incitatos, alios age rabidos.
+
 
 Argonautia et epythalamium Thetidis et Pelei
 PELIACO quondam prognatae uertice pinus
@@ -1938,6 +1954,7 @@ unguinis expertem non siris esse tuam me,
 sidera corruerint utinam! coma regia fiam,
   proximus Hydrochoi fulgeret Oarion!
 
+
 de ianua moechae cuiusdam
 O DVLCI iucunda uiro, iucunda parenti,
   salue, teque bona Iuppiter auctet ope,
@@ -2164,10 +2181,12 @@ hunc metuunt omnes, neque mirum: nam mala ualde est
 quare aut crudelem nasorum interfice pestem,
  aut admirari desine cur fugiunt.
 
+
 NVLLI se dicit mulier mea nubere malle
  quam mihi, non si se Iuppiter ipse petat.
 dicit: sed mulier cupido quod dicit amanti,
  in uento et rapida scribere oportet aqua.
+
 
 SI cui iure bono sacer alarum obstitit hircus,
  aut si quem merito tarda podagra secat.
@@ -2186,6 +2205,7 @@ nunc te cognoui: quare etsi impensius uror,
 qui potis est, inquis? quod amantem iniuria talis
  cogit amare magis, sed bene uelle minus.
 
+
 DESINE de quoquam quicquam bene uelle mereri
  aut aliquem fieri posse putare pium.
 omnia sunt ingrata, nihil fecisse benigne
@@ -2193,6 +2213,8 @@ omnia sunt ingrata, nihil fecisse benigne
 ut mihi, quem nemo grauius nec acerbius urget,
  quam modo qui me unum atque unicum amicum habuit.
 ad Gellium
+
+
 GELLIVS audierat patruum obiurgare solere,
  si quis delicias diceret aut faceret.
 hoc ne ipsi accideret, patrui perdepsuit ipsam
