@@ -117,7 +117,7 @@ class Scholasticus(commands.Bot):
         game_owner = self.players_to_game_owners[player]
         game_answer = self.games[game_owner].answer.strip()
         formatted_answer = self.robot.format_name(game_answer) if not word_game else game_answer
-        if guess == game_answer:
+        if guess.lower() == game_answer.lower():
             await self.send_message(channel,
                                     f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
@@ -138,7 +138,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel,
                                         f"Wrong answer, {player.mention}, you have 1 guess left.")
             else:
-                if guess == "hint":
+                if guess.strip().lower() == "hint":
                     definition = '\n'.join(self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language).split('\n')[1:])
                     await self.send_message(channel,
                                             f"{player.mention}, you've sacrificed a guess to get the following definitions of the word:\n\n{definition}\n\nYou now have have {guesses_remaining} guesses left.")
