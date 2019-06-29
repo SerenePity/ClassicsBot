@@ -69,6 +69,7 @@ class Game():
         self.answer = None
         self.game_on = False
         self.channel = None
+        self.is_word_game = False
         self.exited_players = set()
         self.players_dict = dict()
 
@@ -165,7 +166,7 @@ class Scholasticus(commands.Bot):
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "word":
-            answer = self.robot.get_random_word(language).strip()
+            answer = self.robot.get_random_word(language).lower().strip()
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
