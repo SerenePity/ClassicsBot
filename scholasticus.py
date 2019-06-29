@@ -157,7 +157,7 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
 
 
-    async def start_game(self, channel, game_owner, text_set):
+    async def start_game(self, channel, game_owner, text_set, language='latin'):
         repeat_text = ""
         is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
@@ -165,7 +165,7 @@ class Scholasticus(commands.Bot):
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "word":
-            answer = self.robot.get_random_latin_lemma()
+            answer = self.robot.get_random_word(language).strip()
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
@@ -182,7 +182,7 @@ class Scholasticus(commands.Bot):
         else:
 
             await self.send_message(channel,
-                                    f"{repeat_text}{game_owner.mention}, state the Latin word (in lemma form) with the following etymology:\n\n{passage}")
+                                    f"{repeat_text}{game_owner.mention}, state the {language.title()} word (in lemma form) with the following etymology:\n\n{passage}")
 
 
     def end_game(self, game_owner):
@@ -492,7 +492,12 @@ class Scholasticus(commands.Bot):
             return
 
         if content.lower().startswith(self.command_prefix + 'wordgame'):
-            await self.start_game(channel, author, "word")
+            args = shlex.split(content.lower())
+            if len(args) > 1:
+                language = args[1].strip()
+            else:
+                language = 'latin'
+            await self.start_game(channel, author, "word", language=language)
             return
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):

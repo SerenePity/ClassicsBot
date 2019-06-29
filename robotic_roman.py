@@ -133,6 +133,20 @@ class RoboticRoman():
         else:
             return etymology.replace(u'\xa0', u' ')
 
+    def get_random_word(self, language='latin', tries=0):
+        if tries > QUOTE_RETRIEVAL_MAX_TRIES:
+            return "Could not find lemma."
+        url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
+        response = requests.get(url)
+        # print(response.text)
+        word_url = re.search(r'<link rel="canonical" href="(.*?)"/>', response.text).group(1)
+        word = word_url.split('/')[-1].strip()
+        etymology = self.get_word_etymology(word)
+        if not etymology or etymology.strip() == "No etymology found.":
+            return self.get_random_word(language, tries + 1)
+        else:
+            return word
+
     def get_random_latin_lemma(self, tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find Latin lemma."
