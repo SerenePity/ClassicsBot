@@ -117,8 +117,8 @@ class Scholasticus(commands.Bot):
         print("Guess: " + guess)
         game_owner = self.players_to_game_owners[player]
         game_answer = self.games[game_owner].answer.strip()
-        formatted_answer = self.robot.format_name(game_answer) if not word_game else game_answer
-        if guess.lower() == game_answer.lower():
+        formatted_answer = self.robot.format_name(game_answer) if not word_game else game_answer.split('/')[-1]
+        if guess.lower() == game_answer.lower().split('/')[-1]:
             await self.send_message(channel,
                                     f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
@@ -521,7 +521,7 @@ class Scholasticus(commands.Bot):
                 game = self.games[game_owner]
                 game.end_player_sess(author)
                 if game.is_word_game:
-                    formatted = game.answer
+                    formatted = game.answer.split('/')[-1]
                 else:
                     formatted = self.robot.format_name(game.answer)
                 del self.players_to_game_owners[author]

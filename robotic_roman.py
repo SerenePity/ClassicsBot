@@ -2,6 +2,7 @@ from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
 from cltk.stem.latin.declension import CollatinusDecliner
 from wiktionaryparser import WiktionaryParser
+import my_wiktionary_parser
 import bible_versions
 import old_english_bible.john
 import old_english_bible.luke
@@ -120,22 +121,42 @@ class RoboticRoman():
         defs = []
         for entry in word:
             defs.append(entry['definitions'][0]['text'])
+        if len(defs) == 0:
+            url = f"https://en.wiktionary.org/wiki/{word}"
+            soup = my_wiktionary_parser.get_language_entry(url, language.title())
+            defs = my_wiktionary_parser.get_definitions(soup)
         return defs[0]
 
-    def get_word_etymology(self, word, language='latin'):
+    def word_is_in_wiktionary(self, word, language):
+        url = f"https://en.wiktionary.org/wiki/{word}"
+        print(url)
+        print("Language: " + language)
+        soup = my_wiktionary_parser.get_language_entry(url, language.title())
+        return soup and "does not yet have an entry" not in soup
+
+    def get_word_etymology(self, word, language='latin', tries=0):
+        if tries > QUOTE_RETRIEVAL_MAX_TRIES:
+            return "No etymology found."
         print("Word: " + word + ", Language: " + language)
-        word = self.parser.fetch(word, language)
+        word_entry = self.parser.fetch(word, language)
         etymology = ""
         print("Word: " + str(word))
         try:
-            etymology = word[0]['etymology']
+            etymology = word_entry[0]['etymology']
+            if len(etymology.strip()) == 0:
+                url = f"https://en.wiktionary.org/wiki/{word}"
+                print("My Parser URL: " + url)
+                soup = my_wiktionary_parser.get_language_entry(url, language.title())
+                etymology = my_wiktionary_parser.get_etymology(soup)
         except:
             try:
-                etymology = word[0][0]['etymology']
+                url = f"https://en.wiktionary.org/wiki/{word}"
+                soup = my_wiktionary_parser.get_language_entry(url, language.title())
+                etymology = my_wiktionary_parser.get_etymology(soup)
             except:
                 traceback.print_exc()
-                return "No etymology found."
-        if etymology.strip() == "" or not etymology:
+                return self.get_word_etymology(word, language, tries + 1)
+        if not etymology or etymology.strip() == "" or not etymology:
             return "No etymology found."
         else:
             return etymology.replace(u'\xa0', u' ')
@@ -143,6 +164,13 @@ class RoboticRoman():
     def get_random_word(self, language='latin', tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
+
+        if language == 'latin':
+            word = random.choice(self.latin_lemmas).strip()
+            if not self.word_is_in_wiktionary(word, language):
+                return self.get_random_word(language, tries + 1)
+
+
         url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
         print("URL: " + url)
         response = requests.get(url)
@@ -150,7 +178,10 @@ class RoboticRoman():
         word_url = re.search(r'<link rel="canonical" href="(.*?)"/>', response.text).group(1)
         # print(response.text)
         print("######### Word URL: " + word_url)
-        word = urllib.parse.unquote(word_url.split('/')[-1].strip())
+        if "Reconstruction:" in word_url:
+            word = word_url.split('/wiki/')[-1]
+        else:
+            word = urllib.parse.unquote(word_url.split('/')[-1].strip())
         print("Word: " + word)
         print("Language right now: " + language)
         etymology = self.get_word_etymology(word, language=language)
