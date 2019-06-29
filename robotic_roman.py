@@ -123,7 +123,11 @@ class RoboticRoman():
 
     def get_word_etymology(self, word, language='latin'):
         word = self.parser.fetch(word, language)
-        etymology = word[0]['etymology']
+        etymology = ""
+        try:
+            etymology = word[0]['etymology']
+        except:
+            return "No etymology found."
         if etymology.strip() == "" or not etymology:
             return "No etymology found."
         else:
