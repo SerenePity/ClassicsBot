@@ -102,6 +102,7 @@ class Scholasticus(commands.Bot):
         print('Done initializing')
 
     async def process_guess(self, channel, player, content, word_game=False):
+
         try:
             if not word_game:
                 guess = content.lower().strip()
