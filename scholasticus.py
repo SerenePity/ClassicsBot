@@ -164,6 +164,7 @@ class Scholasticus(commands.Bot):
 
 
     async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin'):
+
         repeat_text = ""
         is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
