@@ -50,7 +50,7 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 
 
-QUOTE_RETRIEVAL_MAX_TRIES = 3
+QUOTE_RETRIEVAL_MAX_TRIES = 5
 COMMANDS = ["Get random quote by author:            '>qt [-t (transliterate)] [-w <regex search>] <author> | As <author> said:'",
             "Generate sentence by author:           '>markov [-t] <author> (-t to transliterate) | As <author> allegedly said:'",
             "List available Latin authors:          '>latinauthors'",
@@ -76,6 +76,7 @@ COMMANDS = ["Get random quote by author:            '>qt [-t (transliterate)] [-
 class RoboticRoman():
 
     def __init__(self):
+        self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
         self.decliner = CollatinusDecliner()
@@ -127,6 +128,16 @@ class RoboticRoman():
             return "No etymology found."
         else:
             return etymology.replace(u'\xa0', u' ')
+
+    def get_random_latin_lemma(self, tries=0):
+        if tries > QUOTE_RETRIEVAL_MAX_TRIES:
+            return "Could not find Latin lemma."
+        lemma = random.choice(self.latin_lemmas)
+        etymology = self.get_word_etymology(lemma)
+        if not etymology or etymology.strip() == "No etymology found.":
+            return self.get_random_latin_lemma(tries + 1)
+        else:
+            return lemma
 
     def get_and_format_word_defs(self, word, language='latin'):
         word_defs = self.get_word_defs(word, language)

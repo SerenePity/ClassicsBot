@@ -35,7 +35,7 @@ class PlayerSession():
 
 class Game():
 
-    def __init__(self, game_owner, answer, language, channel):
+    def __init__(self, game_owner, answer, language, channel, is_word_game=False):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -43,6 +43,7 @@ class Game():
         self.channel = channel
         self.answer = answer
         self.exited_players = set()
+        self.is_word_game = is_word_game
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
     def get_game_owner_sess(self):
@@ -97,7 +98,7 @@ class Scholasticus(commands.Bot):
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
 
-    async def process_guess(self, channel, player, content):
+    async def process_guess(self, channel, player, content, word_game=False):
         try:
             guess = content.lower().strip()
         except:
@@ -109,9 +110,10 @@ class Scholasticus(commands.Bot):
         print("Guess: " + guess)
         game_owner = self.players_to_game_owners[player]
         game_answer = self.games[game_owner].answer.strip()
+        formatted_answer = self.robot.format_name(game_answer) if not word_game else game_answer
         if guess == game_answer:
             await self.send_message(channel,
-                                    f"{player.mention}, correct! The answer is {self.robot.format_name(game_answer)}.")
+                                    f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
             return
 
@@ -136,10 +138,10 @@ class Scholasticus(commands.Bot):
             if self.games[game_owner].no_players_left():
                 if len(self.games[game_owner].players_dict) == 1:
                     await self.send_message(channel,
-                                    f"Sorry, {player.mention}, you've run out of guesses. The answer was {self.robot.format_name(game_answer)}. Better luck next time!")
+                                    f"Sorry, {player.mention}, you've run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 else:
                     await self.send_message(channel,
-                                      f"Everybody has run out of guesses. The answer was {self.robot.format_name(game_answer)}. Better luck next time!")
+                                      f"Everybody has run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 self.end_game(game_owner)
                 #self.games[game_owner].end_game()
             else:
@@ -152,18 +154,30 @@ class Scholasticus(commands.Bot):
 
     async def start_game(self, channel, game_owner, text_set):
         repeat_text = ""
+        is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
+        elif text_set == "word":
+            answer = self.robot.get_random_latin_lemma()
+            is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
-        passage = self.robot.random_quote(answer)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel)
+        if text_set != "word":
+            passage = self.robot.random_quote(answer)
+        else:
+            passage = self.robot.get_word_etymology(answer)
+        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        await self.send_message(channel,
+        if text_set != "word":
+            await self.send_message(channel,
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
+        else:
+
+            await self.send_message(channel,
+                                    f"{repeat_text}{game_owner.mention}, state the Latin word (in lemma form) with the following etymology:\n\n{passage}")
 
 
     def end_game(self, game_owner):
@@ -288,7 +302,7 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.hebrew.transliterate(input)
                 elif tr_args[0] == (self.command_prefix + 'trcop'):
                     transliterated = transliteration.coptic.transliterate(input)
-                elif tr_args[0] == (self.command_prefix + 'truncial'):
+                elif tr_args[0] == (self.command_prefix + 'trunc'):
                     transliterated = transliteration.latin_antique.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
@@ -472,6 +486,10 @@ class Scholasticus(commands.Bot):
             await self.start_game(channel, author, "latin")
             return
 
+        if content.lower().startswith(self.command_prefix + 'wordgame'):
+            await self.start_game(channel, author, "word")
+            return
+
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
             return
@@ -481,9 +499,13 @@ class Scholasticus(commands.Bot):
                 game_owner = self.players_to_game_owners[author]
                 game = self.games[game_owner]
                 game.end_player_sess(author)
+                if game.is_word_game:
+                    formatted = game.answer
+                else:
+                    formatted = self.robot.format_name(game.answer)
                 del self.players_to_game_owners[author]
                 if game.no_players_left():
-                    await self.send_message(channel, f"{author.mention} has left the game. There are no players left. The answer was {self.robot.format_name(game.answer)}.")
+                    await self.send_message(channel, f"{author.mention} has left the game. There are no players left. The answer was {formatted}.")
                     self.end_game(game_owner)
                 else:
                     await self.send_message(channel, f"{author.mention} has left the game.")
@@ -492,9 +514,19 @@ class Scholasticus(commands.Bot):
         if author in self.players_to_game_owners :
             game_owner = self.players_to_game_owners[author]
             game = self.games[game_owner]
-            if game.game_on and content.lower().strip() in self.authors_set and channel == game.channel:
+            response_content = content.lower().strip()
+            if game.game_on and response_content in self.authors_set and channel == game.channel:
                 if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
                     await self.process_guess(channel, author, content)
+            elif game.game_on and channel == game.channel and response_content.startswith('guess'):
+                args = shlex.split(response_content)
+                if len(args) < 2:
+                    await self.send_message(channel, "Please guess a word.")
+                    return
+                else:
+                    guess = args[1]
+                    if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
+                        await self.process_guess(channel, author, guess, True)
                 return
 
         if content.lower().startswith(self.command_prefix + 'join'):
