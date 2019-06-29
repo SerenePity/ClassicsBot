@@ -191,7 +191,7 @@ class Scholasticus(commands.Bot):
         else:
 
             await self.send_message(channel,
-                                    f"{repeat_text}{game_owner.mention}, state the {language.title()} word (in lemma form) with the following etymology:\n\n{passage}")
+                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following etymology:\n\n{passage}")
 
 
     def end_game(self, game_owner):
