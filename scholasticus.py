@@ -209,10 +209,10 @@ class Scholasticus(commands.Bot):
         content = message.content
 
         if content.lower().startswith(self.command_prefix + 'def'):
-            args = shlex.split(content.lower().strip())
+            args = shlex.split(content.strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
-                    language = args[2]
+                    language = args[2].lower()
                     word = ' '.join(args[3:])
                     definition = self.robot.get_and_format_word_defs(word, language)
                 elif len(args) > 1:
@@ -228,10 +228,10 @@ class Scholasticus(commands.Bot):
                 return
 
         if content.lower().startswith(self.command_prefix + 'etymology'):
-            args = shlex.split(content.lower().strip())
+            args = shlex.split(content.strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
-                    language = args[2]
+                    language = args[2].lower()
                     word = ' '.join(args[3:])
                     etymology = self.robot.get_word_etymology(word, language)
                 elif len(args) > 1:
