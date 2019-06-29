@@ -20,6 +20,7 @@ import os
 import re
 import string
 import praw
+import urllib.parse
 
 
 LATIN_TEXTS_PATH = "latin_texts"
@@ -122,12 +123,18 @@ class RoboticRoman():
         return defs[0]
 
     def get_word_etymology(self, word, language='latin'):
+        print("Word: " + word + ", Language: " + language)
         word = self.parser.fetch(word, language)
         etymology = ""
+        print("Word: " + str(word))
         try:
             etymology = word[0]['etymology']
         except:
-            return "No etymology found."
+            try:
+                etymology = word[0][0]['etymology']
+            except:
+                traceback.print_exc()
+                return "No etymology found."
         if etymology.strip() == "" or not etymology:
             return "No etymology found."
         else:
@@ -137,15 +144,21 @@ class RoboticRoman():
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
         url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
+        print("URL: " + url)
         response = requests.get(url)
         # print(response.text)
         word_url = re.search(r'<link rel="canonical" href="(.*?)"/>', response.text).group(1)
-        word = word_url.split('/')[-1].strip()
-        etymology = self.get_word_etymology(word)
-        if not etymology or etymology.strip() == "No etymology found.":
+        # print(response.text)
+        print("######### Word URL: " + word_url)
+        word = urllib.parse.unquote(word_url.split('/')[-1].strip())
+        print("Word: " + word)
+        print("Language right now: " + language)
+        etymology = self.get_word_etymology(word, language=language)
+        if not etymology or "No etymology found" in etymology:
+            print("Language at additional try: " + language)
             return self.get_random_word(language, tries + 1)
         else:
-            return word
+            return urllib.parse.unquote(word).replace('_', ' ')
 
     def get_random_latin_lemma(self, tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
@@ -155,7 +168,7 @@ class RoboticRoman():
         if not etymology or etymology.strip() == "No etymology found.":
             return self.get_random_latin_lemma(tries + 1)
         else:
-            return lemma
+            return lemma.replace('_', ' ')
 
     def get_and_format_word_defs(self, word, language='latin'):
         word_defs = self.get_word_defs(word, language)

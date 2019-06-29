@@ -35,7 +35,7 @@ class PlayerSession():
 
 class Game():
 
-    def __init__(self, game_owner, answer, language, channel, is_word_game=False):
+    def __init__(self, game_owner, answer, language, channel, is_word_game=False, word_language='latin'):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -44,6 +44,7 @@ class Game():
         self.answer = answer
         self.exited_players = set()
         self.is_word_game = is_word_game
+        self.word_language = word_language
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
     def get_game_owner_sess(self):
@@ -66,6 +67,7 @@ class Game():
 
     def end_game(self):
         self.language = None
+        self.word_language = None
         self.answer = None
         self.game_on = False
         self.channel = None
@@ -101,7 +103,10 @@ class Scholasticus(commands.Bot):
 
     async def process_guess(self, channel, player, content, word_game=False):
         try:
-            guess = content.lower().strip()
+            if not word_game:
+                guess = content.lower().strip()
+            else:
+                guess = content.strip()
         except:
             await self.send_message(channel, "You forgot to guess an answer.")
             return
@@ -134,7 +139,7 @@ class Scholasticus(commands.Bot):
                                         f"Wrong answer, {player.mention}, you have 1 guess left.")
             else:
                 if guess == "hint":
-                    definition = '\n'.join(self.robot.get_and_format_word_defs(game_answer).split('\n')[1:])
+                    definition = '\n'.join(self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language).split('\n')[1:])
                     await self.send_message(channel,
                                             f"{player.mention}, you've sacrificed a guess to get the following definitions of the word:\n\n{definition}\n\nYou now have have {guesses_remaining} guesses left.")
                 else:
@@ -158,7 +163,7 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
 
 
-    async def start_game(self, channel, game_owner, text_set, language='latin'):
+    async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin'):
         repeat_text = ""
         is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
@@ -166,15 +171,18 @@ class Scholasticus(commands.Bot):
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "word":
-            answer = self.robot.get_random_word(language).lower().strip()
+            answer = self.robot.get_random_word(word_language).strip()
+            if answer == "Could not find lemma.":
+                await self.send_message(channel, "Could not find an entry with an etymology. Please try again.")
+                return
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
         if text_set != "word":
             passage = self.robot.random_quote(answer)
         else:
-            passage = self.robot.get_word_etymology(answer)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game)
+            passage = self.robot.get_word_etymology(answer, word_language)
+        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
         if text_set != "word":
@@ -498,7 +506,7 @@ class Scholasticus(commands.Bot):
                 language = args[1].strip()
             else:
                 language = 'latin'
-            await self.start_game(channel, author, "word", language=language)
+            await self.start_game(channel, author, "word", word_language=language)
             return
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
