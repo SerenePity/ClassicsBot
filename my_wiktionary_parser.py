@@ -77,7 +77,7 @@ def get_definitions(soup, language):
 
     definitions = [li.get_text() for li in definitions if not isinstance(li, NavigableString)]
     print("Definitions " + str(definitions))
-    return definitions
+    return [d for d in definitions if d != None and d.strip() != ""]
 
 def get_soup(word):
     return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text)
