@@ -180,10 +180,14 @@ class Scholasticus(commands.Bot):
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
+        hint_type = "etymology"
         if text_set != "word":
             passage = self.robot.random_quote(answer)
         else:
             passage = self.robot.get_word_etymology(answer, word_language)
+            if passage == "Not found.":
+                hint_type = "definitions"
+                passage = '\n'.join(self.robot.get_word_defs(answer, word_language)[1:])
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
@@ -193,7 +197,7 @@ class Scholasticus(commands.Bot):
         else:
 
             await self.send_message(channel,
-                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following etymology:\n\n{passage}")
+                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following {hint_type}:\n\n{passage}")
 
 
     def end_game(self, game_owner):

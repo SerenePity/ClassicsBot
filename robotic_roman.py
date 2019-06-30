@@ -115,23 +115,43 @@ class RoboticRoman():
     def help_command(self):
         return '```' + '\n'.join(COMMANDS) + '```'
 
-    def get_word_defs(self, word, language='latin'):
-        word = self.parser.fetch(word, language)
-        print(word)
+    def fetch_def_by_other_parser(self, word_input, language):
         defs = []
+        word = self.parser.fetch(word_input, language)
         for entry in word:
-            defs.append(entry['definitions'][0]['text'])
+            try:
+                defs.append(entry['definitions'][0]['text'])
+            except:
+                soup = my_wiktionary_parser.get_soup(word_input)
+                print(f"https://en.wiktionary.org/wiki/{word_input}")
+                defs = my_wiktionary_parser.get_definitions(soup, language)
+                return defs
         if len(defs) == 0:
-            url = f"https://en.wiktionary.org/wiki/{word}"
-            soup = my_wiktionary_parser.get_language_entry(url, language.title())
-            defs = my_wiktionary_parser.get_definitions(soup)
+            # url = f"https://en.wiktionary.org/wiki/{word}"
+            soup = my_wiktionary_parser.get_soup(word_input)
+            defs = my_wiktionary_parser.get_definitions(soup, language)
+            return defs
         return defs[0]
+
+    def get_word_defs(self, word_input, language='latin'):
+        defs = []
+        try:
+            soup = my_wiktionary_parser.get_soup(word_input)
+            print(f"https://en.wiktionary.org/wiki/{word_input}")
+            defs = my_wiktionary_parser.get_definitions(soup, language)
+            if defs[0] == 'Not found':
+                defs = self.fetch_def_by_other_parser(word_input, language)
+            return defs
+        except:
+            defs = self.fetch_def_by_other_parser(word_input, language)
+            return defs[0]
+        return defs
 
     def word_is_in_wiktionary(self, word, language):
         url = f"https://en.wiktionary.org/wiki/{word}"
         print(url)
         print("Language: " + language)
-        soup = my_wiktionary_parser.get_language_entry(url, language.title())
+        soup = my_wiktionary_parser.get_soup(word)
         return soup and "does not yet have an entry" not in soup
 
     def get_word_etymology(self, word, language='latin', tries=0):
@@ -146,18 +166,19 @@ class RoboticRoman():
             if len(etymology.strip()) == 0:
                 url = f"https://en.wiktionary.org/wiki/{word}"
                 print("My Parser URL: " + url)
-                soup = my_wiktionary_parser.get_language_entry(url, language.title())
-                etymology = my_wiktionary_parser.get_etymology(soup)
+                #soup = my_wiktionary_parser.get_language_entry(url, language.title())
+                soup = my_wiktionary_parser.get_soup(word)
+                etymology = my_wiktionary_parser.get_etymology(soup, language)
         except:
             try:
-                url = f"https://en.wiktionary.org/wiki/{word}"
-                soup = my_wiktionary_parser.get_language_entry(url, language.title())
-                etymology = my_wiktionary_parser.get_etymology(soup)
+                #url = f"https://en.wiktionary.org/wiki/{word}"
+                soup = my_wiktionary_parser.get_soup(word)
+                etymology = my_wiktionary_parser.get_etymology(soup, language)
             except:
                 traceback.print_exc()
                 return self.get_word_etymology(word, language, tries + 1)
         if not etymology or etymology.strip() == "" or not etymology:
-            return "No etymology found."
+            return self.get_word_etymology(word, language, tries + 1)
         else:
             return etymology.replace(u'\xa0', u' ')
 
