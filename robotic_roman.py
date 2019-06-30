@@ -79,11 +79,13 @@ COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'
             (format_color("Parallel Gothic Bible: ", "CSS"),                  "'>ulfilas <translation version>"),
             (format_color("Get available Bible versions: ", "CSS"),           "'>bibleversions [<lang>]'"),
             (format_color("Bible compare: ", "CSS"),                          "'>biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                              "\n\tNotes: adding the prefix $ to the translation version to transliterate."),
+                                                                              "\n\tNotes: add the prefix $ to the translation version to transliterate."),
             (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
             (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
             (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
             (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>etymology [-l <language>] <word>'"),
+            (format_color("Word entry (defaults to Latin): ", "CSS"),         "'>word [-l <language>] <word>'"),
+            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]'"),
             (format_color("Help: ", "CSS"),                                   "'>help'")]
 
 class RoboticRoman():
@@ -164,6 +166,14 @@ class RoboticRoman():
         print("Language: " + language)
         soup = my_wiktionary_parser.get_soup(word)
         return soup and "does not yet have an entry" not in soup
+
+    def get_full_entry(self, word=None, language='latin'):
+        if not word:
+            word = self.get_random_word(language)
+        definition = self.get_and_format_word_defs(word, language)
+        etymology = self.get_word_etymology(word, language)
+        return_str = f"{word}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
+        return return_str
 
     def get_word_etymology(self, word, language='latin', tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:

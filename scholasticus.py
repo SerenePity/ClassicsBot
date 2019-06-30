@@ -244,6 +244,16 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
+        if content.lower().startswith(self.command_prefix + 'randword'):
+            args = shlex.split(content.strip())
+            if len(args) == 1:
+                await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))
+                return
+            elif len(args) > 1:
+                language = ' '.join(args[1:])
+                await self.send_message(channel, self.robot.get_full_entry(None, language))
+                return
+
         if content.lower().startswith(self.command_prefix + 'ety'):
             args = shlex.split(content.strip())
             try:
@@ -261,6 +271,25 @@ class Scholasticus(commands.Bot):
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
+                return
+
+        if content.lower().startswith(self.command_prefix + 'word'):
+            args = shlex.split(content.strip())
+            try:
+                if len(args) > 3 and args[1] == '-l':
+                    language = args[2].lower()
+                    word = ' '.join(args[3:])
+                    entry = self.robot.get_full_entry(word, language)
+                elif len(args) > 1:
+                    word = ' '.join(args[1:])
+                    entry = self.robot.get_full_entry(word)
+                else:
+                    entry = "Invalid arguments"
+                await self.send_message(channel, entry)
+                return
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "An error occurred while trying to retrieve the word entry.")
                 return
 
         if content.lower().startswith(self.command_prefix + 'listparallel'):
