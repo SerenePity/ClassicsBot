@@ -242,7 +242,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'etymology'):
+        if content.lower().startswith(self.command_prefix + 'ety'):
             args = shlex.split(content.strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
