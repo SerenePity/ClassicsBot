@@ -244,7 +244,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'randword'):
+        if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.strip())
             if len(args) == 1:
                 await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))

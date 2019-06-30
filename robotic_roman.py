@@ -83,9 +83,9 @@ COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'
             (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
             (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
             (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
-            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>etymology [-l <language>] <word>'"),
+            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>ety [-l <language>] <word>'"),
             (format_color("Word entry (defaults to Latin): ", "CSS"),         "'>word [-l <language>] <word>'"),
-            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]'"),
+            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]' | '>randomword [<language>]'"),
             (format_color("Help: ", "CSS"),                                   "'>help'")]
 
 class RoboticRoman():
