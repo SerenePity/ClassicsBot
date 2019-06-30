@@ -13,6 +13,7 @@ import transliteration.coptic
 import transliteration.latin_antique
 import transliteration.greek
 import transliteration.hebrew
+from transliterate import translit, get_available_language_codes
 import traceback
 import requests
 import json
@@ -50,30 +51,40 @@ HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 
 ARABIC = ['arabicsv']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
+GEORGIAN = ['georgian']
+ARMENIAN = ['westernarmenian', 'easternarmenian']
 
+def format_color(text, color_type="yaml"):
+    # Nothing for now
+    return text + "\n-------"
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
-COMMANDS = ["Get random quote by author:            '>qt [-t (transliterate)] [-w <regex search>] <author> | As <author> said:'",
-            "Generate sentence by author:           '>markov [-t] <author> (-t to transliterate) | As <author> allegedly said:'",
-            "List available Latin authors:          '>latinauthors'",
-            "Retrieve random Latin quote:           '>latinquote'",
-            "Transliterate input:                   '>tr <input>'",
-            "List available Greek authors:          '>greekauthors'",
-            "Retrieve random Greek quote:           '>greekquote'",
-            "Start Latin game:                      '>latingame'",
-            "Start Greek game:                      '>greekgame'",
-            "Guess answer:                          '<answer>'",
-            "End game:                              '>giveup'",
-            "Join game:                             '>join <game owner>'",
-            "Owify quote from author:               '>owo <author>",
-            "Parallel Gothic Bible:                 '>ulfilas <translation version>",
-            "Get available Bible versions:          '>bibleversions [<lang>]'",
-            "Bible compare ($ for romanization):    '>biblecompare [<verse>] [$]<translation1> [$]<translation2>'",
-            "Quote for parallel text:               '>parallel <work/author>'",
-            "Texts/authors for parallel command:    '>listparallel'",
-            "Word definition (defaults to Latin):   '>def [-l <language>] <word>'",
-            "Word etymology (defaults to Latin):    '>etymology [-l <language>] <word>'",
-            "Help:                                  '>HELPME'"]
+COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
+                                                                              "\n\tNotes: adding c to the -w option willl make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
+            (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
+                                                                              "\n\tNotes: -t to transliterate"),
+            (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
+            (format_color("Retrieve random Latin quote: ", "CSS"),            "'>latinquote'"),
+            (format_color("Transliterate input: ", "CSS"),                    "'>tr(language abbreviation) <input>'" +
+                                                                              "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
+                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin"),
+            (format_color("List available Greek authors: ", "CSS"),           "'>greekauthors'"),
+            (format_color("Retrieve random Greek quote: ", "CSS"),            "'>greekquote'"),
+            (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
+            (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
+            (format_color("Guess answer: ", "CSS"),                           "'<answer>'"),
+            (format_color("End game: ", "CSS"),                               "'>giveup'"),
+            (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
+            (format_color("Owify quote from author: ", "CSS"),                "'>owo <author>"),
+            (format_color("Parallel Gothic Bible: ", "CSS"),                  "'>ulfilas <translation version>"),
+            (format_color("Get available Bible versions: ", "CSS"),           "'>bibleversions [<lang>]'"),
+            (format_color("Bible compare: ", "CSS"),                          "'>biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+                                                                              "\n\tNotes: adding the prefix $ to the translation version to transliterate."),
+            (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
+            (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
+            (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
+            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>etymology [-l <language>] <word>'"),
+            (format_color("Help: ", "CSS"),                                   "'>help'")]
 
 class RoboticRoman():
 
@@ -113,7 +124,7 @@ class RoboticRoman():
             self.parallel_quotes_dict[writer] = []
 
     def help_command(self):
-        return '```' + '\n'.join(COMMANDS) + '```'
+        return "```asciidoc\n" + '\n'.join([f"{c[0]}\n\t{c[1]}" for c in COMMANDS]) + "```"
 
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []
@@ -221,6 +232,12 @@ class RoboticRoman():
             return self.get_random_latin_lemma(tries + 1)
         else:
             return lemma.replace('_', ' ')
+
+    def case_transform(self, string, to_lower):
+        if to_lower:
+            return string.lower()
+        else:
+            return string
 
     def get_and_format_word_defs(self, word, language='latin'):
         word_defs = self.get_word_defs(word, language)
@@ -605,6 +622,10 @@ class RoboticRoman():
             return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
             return text
+        if version in ARMENIAN:
+            return translit(input, 'hy', reversed=True).replace('ւ', 'v')
+        if version in GEORGIAN:
+            return translit(input, 'ka', reversed=True).replace('ჲ', 'y')
         if version == "uncial":
             return transliteration.latin_antique(text)
         return text
@@ -742,7 +763,9 @@ class RoboticRoman():
     def flatten(self, array):
         return [item for sublist in array for item in sublist]
 
-    def find_multi_regex(self, regexes, passage):
+    def find_multi_regex(self, regexes, passage, case_sensitive):
+        if not case_sensitive:
+            passage = passage.lower()
         generic_re = re.compile('|'.join(regexes))
         matches = re.findall(generic_re, passage)
         if matches and len(matches) > 0:
@@ -750,10 +773,10 @@ class RoboticRoman():
         else:
             return None
 
-    def pick_quote(self, files, process_func, word=None, lemmatize=False):
+    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False):
         # print(', '.join([f.name for f in files]))
         if word:
-            word = word.lower()
+            word = word.lower() if not case_sensitive else word
             regex_list = []
             if lemmatize:
                 try:
@@ -773,7 +796,7 @@ class RoboticRoman():
             quotes = []
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p.lower()))]
+                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)]
                 f.seek(0)
             quote = random.choice(quotes)
         else:
@@ -782,34 +805,34 @@ class RoboticRoman():
             f.seek(0)
         return quote
 
-    def random_quote(self, person, word=None, lemmatize=False):
+    def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-               quote = self.pick_quote(files, self._process_text, word, lemmatize)
+               quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    return self.pick_quote(files, self._process_text, word, lemmatize)
+                    return self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
                 else:
                     self.quote_tries = 0
                     raise error
         elif person in self.off_topic_authors:
             files = self.off_topic_quotes_dict[person]
-            quote = self.pick_quote(files, self._process_text, word, lemmatize)
+            quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
-            quote = self.pick_quote(files, self._process_parallel, word, lemmatize)
+            quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
             print("Parallel quote: " + quote)
         else:
             files = self.quotes_dict[person]
             if person == 'the bible':
-                quote = self.pick_quote(files, self._process_holy_text, word, lemmatize)
+                quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
             else:
-                quote = self.pick_quote(files, self._process_text, word, lemmatize)
+                quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
 
     def fix_crushed_punctuation(self, text):

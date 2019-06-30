@@ -6,3 +6,4 @@ beautifulsoup4==4.7.1
 romanize3
 cltk
 wiktionaryparser
+transliterate

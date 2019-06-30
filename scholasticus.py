@@ -1,9 +1,11 @@
 from discord.ext import commands
 import discord
+import romanize3
 import re
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
+from transliterate import translit, get_available_language_codes
 import traceback
 import random
 import time
@@ -324,6 +326,21 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.coptic.transliterate(input)
                 elif tr_args[0] == (self.command_prefix + 'trunc'):
                     transliterated = transliteration.latin_antique.transliterate(input)
+                elif tr_args[0] == (self.command_prefix + 'traram'):
+                    r = romanize3.__dict__['arm']
+                    transliterated = r.convert(input)
+                elif tr_args[0] == (self.command_prefix + 'trarab'):
+                    r = romanize3.__dict__['ara']
+                    transliterated = r.convert(input)
+                elif tr_args[0] == (self.command_prefix + 'trsyr'):
+                    r = romanize3.__dict__['syc']
+                    transliterated = r.convert(input)
+                elif tr_args[0] == (self.command_prefix + 'trarm'):
+                    transliterated = translit(input, 'hy', reversed=True).replace('ւ', 'v')
+                elif tr_args[0] == (self.command_prefix + 'trgeo'):
+                    transliterated = translit(input, 'ka', reversed=True).replace('ჲ', 'y')
+                elif tr_args[0] == (self.command_prefix + 'trrus'):
+                    transliterated = translit(input, 'ru', reversed=True)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
                 await self.send_message(channel, transliterated)
@@ -381,12 +398,15 @@ class Scholasticus(commands.Bot):
             word = None
             transliterate = False
             lemmatize = False
+            case_sensitive = False
             try:
                 for i, arg in enumerate(qt_args):
                     if len(arg.strip().lower()) > 1 and '-w' in arg.strip().lower():
                         word = qt_args[i + 1]
                         if "lemma" in arg:
                             lemmatize = True
+                        if "c" in arg:
+                            case_sensitive = True
                     if arg.strip().lower() == '-t':
                         transliterate = True
 
@@ -405,14 +425,14 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
 
-                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word, lemmatize))
+                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive))
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
-                    await self.send_message(channel, self.robot.random_quote(source.lower(), word, lemmatize))
+                    await self.send_message(channel, self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive))
             except Exception as e:
                 traceback.print_exc()
                 if not source:
@@ -425,7 +445,13 @@ class Scholasticus(commands.Bot):
             print(qt_args)
             try:
                 author = ' '.join(qt_args[1:]).lower().strip()
-                await self.send_message(channel, owo.text_to_owo(self.robot.random_quote(author.lower())))
+                to_transliterate = False
+                if author in self.robot.greek_authors:
+                    to_transliterate = True
+                quote = self.robot.random_quote(author.lower())
+                if to_transliterate:
+                    quote = transliteration.greek.transliterate(quote)
+                await self.send_message(channel, owo.text_to_owo(quote))
             except Exception as e:
                 traceback.print_exc()
                 if not author:
@@ -489,7 +515,7 @@ class Scholasticus(commands.Bot):
                 quote = transliteration.greek.transliterate(quote)
             await self.send_message(channel, quote)
 
-        if content.lower().startswith(self.command_prefix + 'helpme'):
+        if content.lower().startswith(self.command_prefix + 'help'):
             await self.send_message(channel, self.robot.help_command())
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
