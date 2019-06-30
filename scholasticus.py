@@ -187,7 +187,7 @@ class Scholasticus(commands.Bot):
             passage = self.robot.get_word_etymology(answer, word_language)
             if passage == "Not found.":
                 hint_type = "definitions"
-                passage = '\n'.join(self.robot.get_word_defs(answer, word_language))
+                passage = '\n'.join([f"{i+1}. {d}" for i,d in enumerate(self.robot.get_word_defs(answer, word_language))])
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
