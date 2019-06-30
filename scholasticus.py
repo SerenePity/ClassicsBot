@@ -231,6 +231,8 @@ class Scholasticus(commands.Bot):
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
                     word = ' '.join(args[3:])
+                    if 'proto-' in language:
+                        word = self.robot.format_reconstructed(language, word)
                     definition = self.robot.get_and_format_word_defs(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -260,6 +262,8 @@ class Scholasticus(commands.Bot):
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
                     word = ' '.join(args[3:])
+                    if 'proto-' in language:
+                        word = self.robot.format_reconstructed(language, word)
                     etymology = self.robot.get_word_etymology(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -279,6 +283,8 @@ class Scholasticus(commands.Bot):
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
                     word = ' '.join(args[3:])
+                    if 'proto-' in language:
+                        word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])

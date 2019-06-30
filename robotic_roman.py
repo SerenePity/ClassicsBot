@@ -146,6 +146,9 @@ class RoboticRoman():
             return defs
         return defs[0]
 
+    def format_reconstructed(self, language, word):
+        return f"Reconstruction:{language.title()}/{word}".replace('*', '')
+
     def get_word_defs(self, word_input, language='latin'):
         defs = []
         try:
