@@ -224,7 +224,7 @@ class RoboticRoman():
 
     def get_and_format_word_defs(self, word, language='latin'):
         word_defs = self.get_word_defs(word, language)
-        return '\n'.join([f"{i}. {e}" if i > 0 else e for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
+        return '\n'.join([f"{i + 1}. {e}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
         author = 'parallel_' + author
