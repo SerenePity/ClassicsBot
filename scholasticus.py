@@ -142,7 +142,7 @@ class Scholasticus(commands.Bot):
                                         f"Wrong answer, {player.mention}, you have 1 guess left.")
             else:
                 if guess.strip().lower() == "hint":
-                    definition = '\n'.join(self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language).split('\n')[1:])
+                    definition = self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language)
                     await self.send_message(channel,
                                             f"{player.mention}, you've sacrificed a guess to get the following definitions of the word:\n\n{definition}\n\nYou now have have {guesses_remaining} guesses left.")
                 else:
@@ -244,7 +244,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'etymology'):
+        if content.lower().startswith(self.command_prefix + 'ety'):
             args = shlex.split(content.strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
