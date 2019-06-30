@@ -140,7 +140,7 @@ class Scholasticus(commands.Bot):
                                         f"Wrong answer, {player.mention}, you have 1 guess left.")
             else:
                 if guess.strip().lower() == "hint":
-                    definition = '\n'.join(self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language).split('\n')[1:])
+                    definition = self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language)
                     await self.send_message(channel,
                                             f"{player.mention}, you've sacrificed a guess to get the following definitions of the word:\n\n{definition}\n\nYou now have have {guesses_remaining} guesses left.")
                 else:
