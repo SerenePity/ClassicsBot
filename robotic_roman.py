@@ -175,8 +175,20 @@ class RoboticRoman():
             word = self.get_random_word(language)
         definition = self.get_and_format_word_defs(word, language)
         etymology = self.get_word_etymology(word, language)
-        return_str = f"{word}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
+        word_header = self.get_word_header(word, language).strip()
+        return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
         return return_str
+
+    def get_word_header(self, word, language):
+        try:
+            soup = my_wiktionary_parser.get_soup(word)
+            found_word = my_wiktionary_parser.get_word(soup, language, word)
+        except:
+            return word
+        if not found_word or found_word.strip() == "":
+            return word
+        else:
+            return found_word
 
     def get_word_etymology(self, word, language='latin', tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:

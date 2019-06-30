@@ -70,7 +70,24 @@ def get_definition(soup, part_of_speech):
     return defs
 """
 
+def get_word(soup, language, word):
+    language_header = None
+    found_word = ""
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and h2.span.get_text() == language.title():
+            language_header = h2
+            break
 
+    for sibling in language_header.next_siblings:
+        if isinstance(sibling, NavigableString):
+            continue
+        if sibling.name == 'h2':
+            break
+        if sibling.name == 'h3' and sibling.span and sibling.span.get_text() in PARTS_OF_SPEECH:
+            word = sibling.findNextSibling('p').get_text()
+
+    return word
 
 def get_definitions(soup, language):
     definitions = get_definition(soup, language)
