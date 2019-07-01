@@ -241,6 +241,10 @@ class Scholasticus(commands.Bot):
                     definition = "Invalid arguments"
                 await self.send_message(channel, definition)
                 return
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
@@ -248,13 +252,23 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.strip())
-            if len(args) == 1:
-                await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))
+            try:
+                if len(args) == 1:
+                    await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))
+                    return
+                elif len(args) > 1:
+                    language = ' '.join(args[1:])
+                    await self.send_message(channel, self.robot.get_full_entry(None, language))
+                    return
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
-            elif len(args) > 1:
-                language = ' '.join(args[1:])
-                await self.send_message(channel, self.robot.get_full_entry(None, language))
-                return
+
 
         if content.lower().startswith(self.command_prefix + 'ety'):
             args = shlex.split(content.strip())
@@ -272,12 +286,16 @@ class Scholasticus(commands.Bot):
                     etymology = "Invalid arguments"
                 await self.send_message(channel, etymology)
                 return
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'word'):
+        if content.lower().startswith(self.command_prefix + 'word '):
             args = shlex.split(content.strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
@@ -293,6 +311,10 @@ class Scholasticus(commands.Bot):
                     entry = "Invalid arguments"
                 await self.send_message(channel, entry)
                 return
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the word entry.")
@@ -570,7 +592,7 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'wordgame'):
             args = shlex.split(content.lower())
             if len(args) > 1:
-                language = args[1].strip()
+                language = ' '.join(args[1:]).strip()
             else:
                 language = 'latin'
             await self.start_game(channel, author, "word", word_language=language)

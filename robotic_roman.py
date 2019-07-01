@@ -56,22 +56,23 @@ ARMENIAN = ['westernarmenian', 'easternarmenian']
 
 def format_color(text, color_type="yaml"):
     # Nothing for now
-    return text + "\n-------"
+    return text + "\n-----"
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
 COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
                                                                               "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
             (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
-                                                                              "\n\tNotes: -t to transliterate"),
+                                                                              "\n\tNotes: -t to transliterate."),
             (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
             (format_color("Retrieve random Latin quote: ", "CSS"),            "'>latinquote'"),
             (format_color("Transliterate input: ", "CSS"),                    "'>tr(language abbreviation) <input>'" +
                                                                               "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
-                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin"),
+                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
             (format_color("List available Greek authors: ", "CSS"),           "'>greekauthors'"),
             (format_color("Retrieve random Greek quote: ", "CSS"),            "'>greekquote'"),
             (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
             (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
+            (format_color("Start word game: ", "CSS"),                        "'>wordgame [-l <language>]'"),
             (format_color("Guess answer: ", "CSS"),                           "'<answer>'"),
             (format_color("End game: ", "CSS"),                               "'>giveup'"),
             (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
