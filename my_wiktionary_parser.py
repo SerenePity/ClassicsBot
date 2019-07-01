@@ -34,7 +34,7 @@ def get_etymology(soup, language):
 
     return etymology
 
-def get_definition(soup, language):
+def get_definition(soup, language, include_examples=True):
     #print("Part of speech: " + part_of_speech.title())
     language_header = None
     definition = "Not found."
@@ -46,12 +46,15 @@ def get_definition(soup, language):
 
     #print(language_header)
     definition = language_header.findNextSibling('ol')
-    #definition = [s for s in language_header.next_siblings if s.name == 'p' ]
-    #print(
-    #'=======================\n'.join(
-    #    [str(i) for i in list(language_header.next_siblings)])
-    #)
+    #print(definition)
+    if not include_examples:
+        print("Removing examples")
+        for ul in definition(["ul"]):
+            ul.extract()
     return definition
+
+def remove_example(li):
+    li.ul.extract() if li.ul else li
 
 """
 def get_definition(soup, part_of_speech):
@@ -89,10 +92,10 @@ def get_word(soup, language, word):
 
     return word
 
-def get_definitions(soup, language):
-    definitions = get_definition(soup, language)
-
+def get_definitions(soup, language, include_examples=True):
+    definitions = get_definition(soup, language, include_examples)
     definitions = [li.get_text() for li in definitions if not isinstance(li, NavigableString)]
+
     print("Definitions " + str(definitions))
     return [d for d in definitions if d != None and d.strip() != ""]
 
@@ -120,4 +123,9 @@ print(get_definitions(soup, "Icelandic"))
 soup = get_soup("sanna")
 print(get_etymology(soup, "Latin"))
 print(get_definitions(soup, "Icelandic"))
+"""
+"""
+print(get_definition(get_soup("ungut"), "English", include_examples=True))
+print("=======================================================")
+print(get_definition(get_soup("ungut"), "English", include_examples=False))
 """

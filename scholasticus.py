@@ -187,7 +187,7 @@ class Scholasticus(commands.Bot):
         if text_set != "word":
             passage = self.robot.random_quote(answer)
         else:
-            passage = self.robot.get_and_format_word_defs(answer, word_language)
+            passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)

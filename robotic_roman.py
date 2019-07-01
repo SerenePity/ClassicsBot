@@ -150,12 +150,12 @@ class RoboticRoman():
     def format_reconstructed(self, language, word):
         return f"Reconstruction:{language.title()}/{word}".replace('*', '')
 
-    def get_word_defs(self, word_input, language='latin'):
+    def get_word_defs(self, word_input, language='latin', include_examples=True):
         defs = []
         try:
             soup = my_wiktionary_parser.get_soup(word_input)
             print(f"https://en.wiktionary.org/wiki/{word_input}")
-            defs = my_wiktionary_parser.get_definitions(soup, language)
+            defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
             if defs[0] == 'Not found':
                 defs = self.fetch_def_by_other_parser(word_input, language)
             return defs
@@ -265,9 +265,9 @@ class RoboticRoman():
         else:
             return string
 
-    def get_and_format_word_defs(self, word, language='latin'):
-        word_defs = self.get_word_defs(word, language)
-        return '\n'.join([f"{i + 1}. {e}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
+    def get_and_format_word_defs(self, word, language='latin', include_examples=True):
+        word_defs = self.get_word_defs(word, language, include_examples)
+        return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
         author = 'parallel_' + author
