@@ -224,7 +224,7 @@ class Scholasticus(commands.Bot):
         content = message.content
 
         if content.lower().startswith(self.command_prefix + 'def'):
-            args = shlex.split(content.strip())
+            args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
@@ -249,7 +249,7 @@ class Scholasticus(commands.Bot):
                 return
 
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
-            args = shlex.split(content.strip())
+            args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) == 1:
                     await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))
@@ -269,7 +269,7 @@ class Scholasticus(commands.Bot):
 
 
         if content.lower().startswith(self.command_prefix + 'ety'):
-            args = shlex.split(content.strip())
+            args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
@@ -294,7 +294,7 @@ class Scholasticus(commands.Bot):
                 return
 
         if content.lower().startswith(self.command_prefix + 'word '):
-            args = shlex.split(content.strip())
+            args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 3 and args[1] == '-l':
                     language = args[2].lower()
@@ -448,7 +448,7 @@ class Scholasticus(commands.Bot):
                 return
 
         if content.lower().startswith(self.command_prefix + 'qt'):
-            qt_args = shlex.split(content)
+            qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(qt_args)
             word = None
             transliterate = False
@@ -496,7 +496,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
         if content.lower().startswith(self.command_prefix + 'owo'):
-            qt_args = shlex.split(content)
+            qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(qt_args)
             try:
                 author = ' '.join(qt_args[1:]).lower().strip()
@@ -515,7 +515,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
                     
         if content.strip().lower().startswith(self.command_prefix + "markov"):
-            markov_args = shlex.split(content)
+            markov_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(markov_args)
             try:
                 if (markov_args[1].strip() == '-t'):
@@ -535,7 +535,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
         if content.strip().lower() in self.markov_commands:
-            author = self.markov_commands[content.strip().lower()]
+            author = self.markov_commands[content.strip().lower().replace('“','"').replace('”','"')]
             try:
                 await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
@@ -588,7 +588,7 @@ class Scholasticus(commands.Bot):
             return
 
         if content.lower().startswith(self.command_prefix + 'wordgame'):
-            args = shlex.split(content.lower())
+            args = shlex.split(content.lower().replace('“','"').replace('”','"'))
             if len(args) > 1:
                 language = ' '.join(args[1:]).strip()
             else:
