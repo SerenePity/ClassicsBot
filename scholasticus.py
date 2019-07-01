@@ -142,9 +142,9 @@ class Scholasticus(commands.Bot):
                                         f"Wrong answer, {player.mention}, you have 1 guess left.")
             else:
                 if guess.strip().lower() == "hint":
-                    definition = self.robot.get_and_format_word_defs(game_answer, self.games[game_owner].word_language)
+                    etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
                     await self.send_message(channel,
-                                            f"{player.mention}, you've sacrificed a guess to get the following definitions of the word:\n\n{definition}\n\nYou now have have {guesses_remaining} guesses left.")
+                                            f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} guesses left.")
                 else:
                     await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} guesses left.")
         else:
@@ -175,6 +175,8 @@ class Scholasticus(commands.Bot):
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "word":
+            if "-l " in word_language:
+                word_language = word_language.replace("-l ", "")
             answer = self.robot.get_random_word(word_language).strip()
             if answer == "Could not find lemma.":
                 await self.send_message(channel, "Could not find an entry with an etymology. Please try again.")
@@ -182,14 +184,10 @@ class Scholasticus(commands.Bot):
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
-        hint_type = "etymology"
         if text_set != "word":
             passage = self.robot.random_quote(answer)
         else:
-            passage = self.robot.get_word_etymology(answer, word_language)
-            if passage == "Not found.":
-                hint_type = "definitions"
-                passage = '\n'.join([f"{i+1}. {d}" for i,d in enumerate(self.robot.get_word_defs(answer, word_language))])
+            passage = self.robot.get_and_format_word_defs(answer, word_language)
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
@@ -199,7 +197,7 @@ class Scholasticus(commands.Bot):
         else:
 
             await self.send_message(channel,
-                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following {hint_type}:\n\n{passage}")
+                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
 
 
     def end_game(self, game_owner):
