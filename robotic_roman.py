@@ -60,7 +60,7 @@ def format_color(text, color_type="yaml"):
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
 COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
-                                                                              "\n\tNotes: adding c to the -w option willl make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
+                                                                              "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
             (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
                                                                               "\n\tNotes: -t to transliterate"),
             (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
@@ -126,7 +126,7 @@ class RoboticRoman():
             self.parallel_quotes_dict[writer] = []
 
     def help_command(self):
-        return "```asciidoc\n" + '\n'.join([f"{c[0]}\n\t{c[1]}" for c in COMMANDS]) + "```"
+        return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in COMMANDS]) + "```"
 
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []

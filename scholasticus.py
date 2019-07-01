@@ -504,7 +504,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, transliterated)
                     return
                 else:
-                    author = markov_args[1].strip().lower()
+                    author = ' '.join(markov_args[1:]).strip().lower()
                     await self.send_message(channel, self.robot.make_sentence(author.lower()))
                     return
             except Exception as e:
