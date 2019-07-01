@@ -51,6 +51,14 @@ def get_definition(soup, language, include_examples=True):
         print("Removing examples")
         for ul in definition(["ul"]):
             ul.extract()
+    else:
+        for ul in definition(["ul", "dl"]):
+            for li in ul(['li', 'dl']):
+                if li.dl:
+                    li.dl.string = '\n'.join(["\t" + s for s in li.dl.get_text().split('\n')])
+                elif li.ul:
+                    li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
+                li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
     return definition
 
 def remove_example(li):
