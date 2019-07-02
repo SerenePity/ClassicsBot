@@ -56,7 +56,7 @@ ARMENIAN = ['westernarmenian', 'easternarmenian']
 
 def format_color(text, color_type="yaml"):
     # Nothing for now
-    return text + "\n-----"
+    return text + "\n----"
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
 COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
@@ -73,7 +73,7 @@ COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'
             (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
             (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
             (format_color("Start word game: ", "CSS"),                        "'>wordgame [-l <language>]'"),
-            (format_color("Guess answer: ", "CSS"),                           "'<answer>'"),
+            (format_color("Guess answer: ", "CSS"),                           "'<answer>' | 'g(uess) <word>'"),
             (format_color("End game: ", "CSS"),                               "'>giveup'"),
             (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
             (format_color("Owify quote from author: ", "CSS"),                "'>owo <author>"),
@@ -224,12 +224,9 @@ class RoboticRoman():
             return "Could not find lemma."
 
         if language == 'latin':
-            word = random.choice(self.latin_lemmas).strip()
-            if not self.word_is_in_wiktionary(word, language):
-                return self.get_random_word(language, tries + 1)
-
-
-        url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
+            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_terms_derived_from_Proto-Indo-European"
+        else:
+            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
         print("URL: " + url)
         response = requests.get(url)
         # print(response.text)
