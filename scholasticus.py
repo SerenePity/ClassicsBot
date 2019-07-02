@@ -137,16 +137,12 @@ class Scholasticus(commands.Bot):
 
         if self.games[game_owner].players_dict[player].tries < MAX_TRIES:
             guesses_remaining = MAX_TRIES - self.games[game_owner].players_dict[player].tries
-            if guesses_remaining == 1:
+            if guess.strip().lower() == "hint":
+                etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
                 await self.send_message(channel,
-                                        f"Wrong answer, {player.mention}, you have 1 guess left.")
+                                        f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             else:
-                if guess.strip().lower() == "hint":
-                    etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
-                    await self.send_message(channel,
-                                            f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} guesses left.")
-                else:
-                    await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} guesses left.")
+                await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
         else:
             self.games[game_owner].players_dict[player].end_game()
             if self.games[game_owner].no_players_left():
