@@ -134,16 +134,20 @@ def parse_table(ul):
     return descendants
 
 
-def dictify(ul):
-    result = {}
+def dictify(ul, level=0):
+    return_str = ""
     for li in ul.find_all("li", recursive=False):
         key = next(li.stripped_strings)
-        ul = li.find("ul")
-        if ul:
-            result[key] = dictify(ul)
-        else:
-            result[key] = li.get_text()
-    return result
+        print("Key: " + key)
+        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span')])
+        return_str +=  key + " :"  + nukes
+
+        #print("Spans: " + str([s.text for s in li.find_all('span')]))
+        ul2 = li.find("ul")
+        if ul2:
+            return_str += '\t' + dictify(ul2, level +  1).strip() + '\n'
+    print(return_str)
+    return return_str
 
 def get_derivations(soup, language):
     language_header = None
@@ -167,8 +171,7 @@ def get_derivations(soup, language):
             if not ul:
                 return "Not found."
             else:
-                print(dictify(ul))
-                return yaml.dump(dictify(ul), allow_unicode=True)
+                return dictify(ul, 0)
     return "Not found."
 
 
