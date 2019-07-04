@@ -177,8 +177,17 @@ class RoboticRoman():
         definition = self.get_and_format_word_defs(word, language)
         etymology = self.get_word_etymology(word, language)
         word_header = self.get_word_header(word, language).strip()
-        return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
+        if 'proto' in language.lower():
+            derives = self.get_derivatives(word, language)
+            return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology.strip()}\n\nDerivatives:\n{derives}"
+        else:
+            return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
         return return_str
+
+    def get_derivatives(self, word, language='latin'):
+        soup = my_wiktionary_parser.get_soup(word)
+        return my_wiktionary_parser.get_derivations(soup, language)
+
 
     def get_word_header(self, word, language):
         try:

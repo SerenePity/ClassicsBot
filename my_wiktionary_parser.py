@@ -1,6 +1,11 @@
+from collections import OrderedDict
+
 import requests
 import re
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup, NavigableString, Tag
+import pprint
+import yaml
+import json
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -10,6 +15,15 @@ PARTS_OF_SPEECH = [
     "Definitions", "Pronoun", "Prefix", "Suffix", "Infix", "Root"
 ]
 
+def format(ul):
+    ret = ""
+    for li in ul.find_all("li", recursive=False):
+        ul2 = li.ul.extract() if li.ul and not isinstance(li, NavigableString) else None
+        ret += li.get_text()
+        if ul2:
+            for li in ul2:
+                ret += '\n' + (li.get_text() if li and isinstance(li, NavigableString) else "") + '\n'
+    return ret
 
 def get_etymology(soup, language):
     language_header = None
@@ -43,7 +57,8 @@ def get_definition(soup, language, include_examples=True):
         if h2.span and h2.span.get_text() == language.title():
             language_header = h2
             break
-
+    if not language_header:
+        return "Could not find definition."
     #print(language_header)
     definition = language_header.findNextSibling('ol')
     #print(definition)
@@ -108,32 +123,67 @@ def get_definitions(soup, language, include_examples=True):
     return [d for d in definitions if d != None and d.strip() != ""]
 
 def get_soup(word):
+    print(f"https://en.wiktionary.org/wiki/{word}")
     return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text)
 
-"""
-soup = get_soup("sanna")
-print(get_etymology(soup, "Icelandic"))
-print(get_definitions(soup, "Icelandic"))
-
-soup = get_soup("vir")
-print(get_etymology(soup, "Latin"))
-print(get_definitions(soup, "Latin"))
+def parse_table(ul):
+    descendants = []
+    for ul in ul:
+        if not isinstance(ul, NavigableString):
+            descendants.append(ul.li)
+    return descendants
 
 
-soup = get_soup("man")
-print(get_etymology(soup, "English"))
-print(get_definitions(soup, "English"))
+def dictify(ul):
+    result = {}
+    for li in ul.find_all("li", recursive=False):
+        key = next(li.stripped_strings)
+        ul = li.find("ul")
+        if ul:
+            result[key] = dictify(ul)
+        else:
+            result[key] = li.get_text()
+    return result
 
-soup = get_soup("sanna")
-print(get_etymology(soup, ""))
-print(get_definitions(soup, "Icelandic"))
+def get_derivations(soup, language):
+    language_header = None
+    derivations = []
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and h2.span.get_text() == language.title():
+            language_header = h2
+            break
+    for sibling in language_header.next_siblings:
+        if isinstance(sibling, NavigableString):
+            continue
+        if sibling.name == 'h2':
+            break
+        if sibling.name == 'h4' and sibling.span and not isinstance(sibling.span, NavigableString) and sibling.span.get_text() in ['Derived terms', 'Descendants']:
+            ul = None
+            for h4 in soup.find_all('h4'):
+                if h4.span and not isinstance(h4.span, NavigableString) and h4.span.get_text() in ['Descendants', 'Derivatives']:
+                    ul = h4.findNextSibling('ul')
+                    break
+            if not ul:
+                return "Not found."
+            else:
+                print(dictify(ul))
+                return yaml.dump(dictify(ul), allow_unicode=True)
+    return "Not found."
 
-soup = get_soup("sanna")
-print(get_etymology(soup, "Latin"))
-print(get_definitions(soup, "Icelandic"))
-"""
-"""
-print(get_definition(get_soup("ungut"), "English", include_examples=True))
-print("=======================================================")
-print(get_definition(get_soup("ungut"), "English", include_examples=False))
-"""
+
+def pretty(d, indent=0):
+   ret = ""
+   for key, value in d.items():
+      ret += ('\t' * indent + str(key))
+      if isinstance(value, dict):
+            n = pretty(value, indent+1)
+            if n:
+                ret += n
+
+      else:
+          ret += '\t' * (indent+1) + str(value)
+
+soup = get_soup("Reconstruction:Proto-Indo-European/lewk-")
+deriv_dict = get_derivations(soup, "Proto-Indo-European")
+print('============================')
