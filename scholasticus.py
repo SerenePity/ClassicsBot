@@ -260,8 +260,7 @@ class Scholasticus(commands.Bot):
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 if 'proto-' in language.lower():
-                    rec_word = self.robot.format_reconstructed(language, word)
-                    url = f"https://en.wiktionary.org/wiki/{rec_word}"
+                    url = f"https://en.wiktionary.org/wiki/{word}"
                 else:
                     url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")

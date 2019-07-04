@@ -170,7 +170,7 @@ def get_derivations(soup, language):
             if not uls:
                 return "Not found."
             else:
-                return '\n-------\n'.join([dictify(ul, 0) for ul in uls if 'References' not in ul.get_text()])
+                return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings('h4')[0].text) + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
     return "Not found."
 
 

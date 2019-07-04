@@ -179,9 +179,9 @@ class RoboticRoman():
         word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language)
-            return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology.strip()}\n\nDerivatives:\n{derives}"
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
         else:
-            return_str = f"{word_header}\n\nLanguage: {language.title()}\n\nDefinition:\n{definition}\n\nEtymology:\n{etymology}"
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology}"
         return return_str
 
     def get_derivatives(self, word, language='latin'):
