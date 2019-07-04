@@ -139,19 +139,18 @@ def dictify(ul, level=0):
     for li in ul.find_all("li", recursive=False):
         key = next(li.stripped_strings)
         print("Key: " + key)
-        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span')])
-        return_str +=  key + " :"  + nukes
+        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span', recursive=False)])
+        return_str +=  level*'\t\t' + key + " " + nukes + '\n'
 
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
         ul2 = li.find("ul")
         if ul2:
-            return_str += '\t' + dictify(ul2, level +  1).strip() + '\n'
+            return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
     print(return_str)
     return return_str
 
 def get_derivations(soup, language):
     language_header = None
-    derivations = []
     for h2 in soup.find_all('h2'):
         # print(h2)
         if h2.span and h2.span.get_text() == language.title():
@@ -165,13 +164,13 @@ def get_derivations(soup, language):
         if sibling.name == 'h4' and sibling.span and not isinstance(sibling.span, NavigableString) and sibling.span.get_text() in ['Derived terms', 'Descendants']:
             ul = None
             for h4 in soup.find_all('h4'):
-                if h4.span and not isinstance(h4.span, NavigableString) and h4.span.get_text() in ['Descendants', 'Derivatives']:
-                    ul = h4.findNextSibling('ul')
+                if h4.span and not isinstance(h4.span, NavigableString) and h4.span.get_text() in ['Descendants', 'Derived terms']:
+                    uls = h4.find_next_siblings('ul')
                     break
-            if not ul:
+            if not uls:
                 return "Not found."
             else:
-                return dictify(ul, 0)
+                return '\n-------\n'.join([dictify(ul, 0) for ul in uls if 'References' not in ul.get_text()])
     return "Not found."
 
 

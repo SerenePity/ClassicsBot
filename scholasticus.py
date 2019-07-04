@@ -247,16 +247,23 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
+
                 if len(args) == 1:
-                    await self.send_message(channel, self.robot.get_full_entry(None, 'latin'))
+                    word = self.robot.get_random_word('latin')
+                    await self.send_message(channel, self.robot.get_full_entry(word, 'latin'))
                     return
                 elif len(args) > 1:
                     language = ' '.join(args[1:])
-                    await self.send_message(channel, self.robot.get_full_entry(None, language))
+                    word = self.robot.get_random_word(language)
+                    await self.send_message(channel, self.robot.get_full_entry(word, language))
                     return
             except discord.errors.HTTPException:
                 traceback.print_exc()
-                url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
+                if 'proto-' in language.lower():
+                    rec_word = self.robot.format_reconstructed(language, word)
+                    url = f"https://en.wiktionary.org/wiki/{rec_word}"
+                else:
+                    url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 traceback.print_exc()
