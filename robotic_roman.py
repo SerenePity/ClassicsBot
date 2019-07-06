@@ -91,7 +91,7 @@ COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'
 
 class RoboticRoman():
 
-    def __init__(self):
+    def __init__(self, prefix):
         self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
@@ -125,9 +125,39 @@ class RoboticRoman():
         for writer in self.parallel_authors:
             print(writer)
             self.parallel_quotes_dict[writer] = []
+         
+        commands = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
+                                                                              "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
+            (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
+                                                                              "\n\tNotes: -t to transliterate."),
+            (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
+            (format_color("Retrieve random Latin quote: ", "CSS"),            "'>latinquote'"),
+            (format_color("Transliterate input: ", "CSS"),                    "'>tr(language abbreviation) <input>'" +
+                                                                              "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
+                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
+            (format_color("List available Greek authors: ", "CSS"),           "'>greekauthors'"),
+            (format_color("Retrieve random Greek quote: ", "CSS"),            "'>greekquote'"),
+            (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
+            (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
+            (format_color("Start word game: ", "CSS"),                        "'>wordgame [-l <language>]'"),
+            (format_color("Guess answer: ", "CSS"),                           "'<answer>' | 'g(uess) <word>'"),
+            (format_color("End game: ", "CSS"),                               "'>giveup'"),
+            (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
+            (format_color("Owify quote from author: ", "CSS"),                "'>owo <author>"),
+            (format_color("Parallel Gothic Bible: ", "CSS"),                  "'>ulfilas <translation version>"),
+            (format_color("Get available Bible versions: ", "CSS"),           "'>bibleversions [<lang>]'"),
+            (format_color("Bible compare: ", "CSS"),                          "'>biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+                                                                              "\n\tNotes: add the prefix $ to the translation version to transliterate."),
+            (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
+            (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
+            (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
+            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>ety [-l <language>] <word>'"),
+            (format_color("Word entry (defaults to Latin): ", "CSS"),         "'>word [-l <language>] <word>'"),
+            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]' | '>randomword [<language>]'"),
+            (format_color("Help: ", "CSS"),                                   "'>help'")]
 
     def help_command(self):
-        return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in COMMANDS]) + "```"
+        return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in self.commands]) + "```"
 
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []
