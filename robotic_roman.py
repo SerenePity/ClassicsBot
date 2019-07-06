@@ -853,14 +853,30 @@ class RoboticRoman():
                 else:
                     self.quote_tries = 0
                     raise error
+        elif "the " + person in self.greek_quotes_dict:
+            files = self.greek_quotes_dict["the " + person]
+            try:
+               quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            except Exception as error:
+                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
+                    self.quote_tries += 1
+                    return self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                else:
+                    self.quote_tries = 0
+                    raise error
         elif person in self.off_topic_authors:
             files = self.off_topic_quotes_dict[person]
+            quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        elif 'the ' + person in self.off_topic_authors:
+            files = self.off_topic_quotes_dict['the ' + person]
             quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
             quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
             print("Parallel quote: " + quote)
         else:
+            if not person in self.quotes_dict:
+                person = "the " + person
             files = self.quotes_dict[person]
             if person == 'the bible':
                 quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
