@@ -278,7 +278,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_-]+)ety", args[0].lower())
+                    language = re.search("([a-z_\-]+)ety", args[0].lower())
                     if not language:
                         language = 'latin'
                     else:
@@ -307,7 +307,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_-]+?)word", args[0].replace(':','').lower())
+                    language = re.search("([a-z_\-]+?)word", args[0].replace(':','').lower())
                     if not language:
                         language = 'latin'
                     else:
