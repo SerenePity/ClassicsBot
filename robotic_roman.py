@@ -59,35 +59,6 @@ def format_color(text, color_type="yaml"):
     return text + "\n----"
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
-COMMANDS = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
-                                                                              "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
-            (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
-                                                                              "\n\tNotes: -t to transliterate."),
-            (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
-            (format_color("Retrieve random Latin quote: ", "CSS"),            "'>latinquote'"),
-            (format_color("Transliterate input: ", "CSS"),                    "'>tr(language abbreviation) <input>'" +
-                                                                              "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
-                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
-            (format_color("List available Greek authors: ", "CSS"),           "'>greekauthors'"),
-            (format_color("Retrieve random Greek quote: ", "CSS"),            "'>greekquote'"),
-            (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
-            (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
-            (format_color("Start word game: ", "CSS"),                        "'>wordgame [-l <language>]'"),
-            (format_color("Guess answer: ", "CSS"),                           "'<answer>' | 'g(uess) <word>'"),
-            (format_color("End game: ", "CSS"),                               "'>giveup'"),
-            (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
-            (format_color("Owify quote from author: ", "CSS"),                "'>owo <author>"),
-            (format_color("Parallel Gothic Bible: ", "CSS"),                  "'>ulfilas <translation version>"),
-            (format_color("Get available Bible versions: ", "CSS"),           "'>bibleversions [<lang>]'"),
-            (format_color("Bible compare: ", "CSS"),                          "'>biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                              "\n\tNotes: add the prefix $ to the translation version to transliterate."),
-            (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
-            (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
-            (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
-            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>ety [-l <language>] <word>'"),
-            (format_color("Word entry (defaults to Latin): ", "CSS"),         "'>word [-l <language>] <word>'"),
-            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]' | '>randomword [<language>]'"),
-            (format_color("Help: ", "CSS"),                                   "'>help'")]
 
 class RoboticRoman():
 
@@ -126,35 +97,35 @@ class RoboticRoman():
             print(writer)
             self.parallel_quotes_dict[writer] = []
          
-        self.commands = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
+        self.commands = [(format_color("Get random quote by author: ", "CSS"),             f"'{prefix}qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
                                                                               "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
-            (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
+            (format_color("Generate sentence by author: ", "CSS"),            f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
                                                                               "\n\tNotes: -t to transliterate."),
-            (format_color("List available Latin authors: ", "CSS"),           "'>latinauthors'"),
-            (format_color("Retrieve random Latin quote: ", "CSS"),            "'>latinquote'"),
-            (format_color("Transliterate input: ", "CSS"),                    "'>tr(language abbreviation) <input>'" +
+            (format_color("List available Latin authors: ", "CSS"),           f"'{prefix}latinauthors'"),
+            (format_color("Retrieve random Latin quote: ", "CSS"),            f"'{prefix}latinquote'"),
+            (format_color("Transliterate input: ", "CSS"),                    f"'{prefix}tr(language abbreviation) <input>'" +
                                                                               "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
                                                                               "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
-            (format_color("List available Greek authors: ", "CSS"),           "'>greekauthors'"),
-            (format_color("Retrieve random Greek quote: ", "CSS"),            "'>greekquote'"),
-            (format_color("Start Latin game: ", "CSS"),                       "'>latingame'"),
-            (format_color("Start Greek game: ", "CSS"),                       "'>greekgame'"),
-            (format_color("Start word game: ", "CSS"),                        "'>wordgame [-l <language>]'"),
+            (format_color("List available Greek authors: ", "CSS"),           f"'{prefix}greekauthors'"),
+            (format_color("Retrieve random Greek quote: ", "CSS"),            f"'{prefix}greekquote'"),
+            (format_color("Start Latin game: ", "CSS"),                       f"'{prefix}latingame'"),
+            (format_color("Start Greek game: ", "CSS"),                       f"'{prefix}greekgame'"),
+            (format_color("Start word game: ", "CSS"),                        f"'{prefix}wordgame [-l <language>]'"),
             (format_color("Guess answer: ", "CSS"),                           "'<answer>' | 'g(uess) <word>'"),
-            (format_color("End game: ", "CSS"),                               "'>giveup'"),
-            (format_color("Join game: ", "CSS"),                              "'>join <game owner>'"),
-            (format_color("Owify quote from author: ", "CSS"),                "'>owo <author>"),
-            (format_color("Parallel Gothic Bible: ", "CSS"),                  "'>ulfilas <translation version>"),
-            (format_color("Get available Bible versions: ", "CSS"),           "'>bibleversions [<lang>]'"),
-            (format_color("Bible compare: ", "CSS"),                          "'>biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+            (format_color("End game: ", "CSS"),                               f"'{prefix}giveup'"),
+            (format_color("Join game: ", "CSS"),                              f"'{prefix}join <game owner>'"),
+            (format_color("Owify quote from author: ", "CSS"),                f"'{prefix}owo <author>"),
+            (format_color("Parallel Gothic Bible: ", "CSS"),                  f"'{prefix}ulfilas <translation version>"),
+            (format_color("Get available Bible versions: ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
+            (format_color("Bible compare: ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
                                                                               "\n\tNotes: add the prefix $ to the translation version to transliterate."),
-            (format_color("Quote for parallel text: ", "CSS"),                "'>parallel <work/author>'"),
-            (format_color("Texts/authors for parallel command: ", "CSS"),     "'>listparallel'"),
-            (format_color("Word definition (defaults to Latin): ", "CSS"),    "'>def [-l <language>] <word>'"),
-            (format_color("Word etymology (defaults to Latin): ", "CSS"),     "'>ety [-l <language>] <word>'"),
-            (format_color("Word entry (defaults to Latin): ", "CSS"),         "'>word [-l <language>] <word>'"),
-            (format_color("Random entry (defaults to Latin): ", "CSS"),       "'>randword [<language>]' | '>randomword [<language>]'"),
-            (format_color("Help: ", "CSS"),                                   "'>help'")]
+            (format_color("Quote for parallel text: ", "CSS"),                f"'{prefix}parallel <work/author>'"),
+            (format_color("Texts/authors for parallel command: ", "CSS"),     f"'{prefix}listparallel'"),
+            (format_color("Word definition (defaults to Latin): ", "CSS"),    f"'{prefix}<language>def (<word>)'"),
+            (format_color("Word etymology (defaults to Latin): ", "CSS"),     f"'{prefix}<language>]ety (<word>)'"),
+            (format_color("Word entry (defaults to Latin): ", "CSS"),         f"'{prefix}<language>word (<word>)'"),
+            (format_color("Random entry (defaults to Latin): ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
+            (format_color("Help: ", "CSS"),                                   f"'{prefix}help'")]
 
     def help_command(self):
         return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in self.commands]) + "```"

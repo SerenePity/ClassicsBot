@@ -219,12 +219,17 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
-        if content.lower().startswith(self.command_prefix + 'def'):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].endswith('def'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
+            print(args)
             try:
-                if len(args) > 3 and args[1] == '-l':
-                    language = args[2].lower()
-                    word = ' '.join(args[3:])
+                if len(args) > 1:
+                    language = re.search("([(a-z_\-)]+)def", args[0].lower())
+                    if not language:
+                        language = 'latin'
+                    else:
+                        language = language.group(1).replace('_', ' ')
+                    word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     definition = self.robot.get_and_format_word_defs(word, language)
@@ -269,13 +274,16 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
 
-
-        if content.lower().startswith(self.command_prefix + 'ety'):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('ety'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
-                if len(args) > 3 and args[1] == '-l':
-                    language = args[2].lower()
-                    word = ' '.join(args[3:])
+                if len(args) > 1:
+                    language = re.search("([a-z_-]+)ety", args[0].lower())
+                    if not language:
+                        language = 'latin'
+                    else:
+                        language = language.group(1).replace('_', ' ')
+                    word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     etymology = self.robot.get_word_etymology(word, language)
@@ -295,12 +303,20 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'word '):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('word'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
-                if len(args) > 3 and args[1] == '-l':
-                    language = args[2].lower()
-                    word = ' '.join(args[3:])
+                if len(args) > 1:
+                    language = re.search("([a-z_-]+?)word", args[0].replace(':','').lower())
+                    if not language:
+                        language = 'latin'
+                    else:
+                        language = language.group(1).replace('_',' ')
+                    if not language:
+                        language ='latin'
+                    word = ' '.join(args[1:])
+                    print("Language: " + language)
+                    print("word: " + word)
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)
