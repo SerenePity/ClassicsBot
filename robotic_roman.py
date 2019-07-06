@@ -126,7 +126,7 @@ class RoboticRoman():
             print(writer)
             self.parallel_quotes_dict[writer] = []
          
-        commands = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
+        self.commands = [(format_color("Get random quote by author: ", "CSS"),             "'>qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
                                                                               "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
             (format_color("Generate sentence by author: ", "CSS"),            "'>markov [-t] <author> | As <author> allegedly said:'" +
                                                                               "\n\tNotes: -t to transliterate."),
