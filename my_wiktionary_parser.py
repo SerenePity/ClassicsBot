@@ -147,7 +147,7 @@ def dictify(ul, level=0):
         if ul2:
             return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
     print(return_str)
-    return return_str
+    return return_str.strip()
 
 def get_derivations(soup, language):
     language_header = None
@@ -170,7 +170,7 @@ def get_derivations(soup, language):
             if not uls:
                 return "Not found."
             else:
-                return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings('h4')[0].text) + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
+                return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
     return "Not found."
 
 
