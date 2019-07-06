@@ -82,7 +82,7 @@ class Scholasticus(commands.Bot):
 
     def __init__(self, prefix):
         super().__init__(command_prefix=prefix)
-        self.robot = robotic_roman.RoboticRoman()
+        self.robot = robotic_roman.RoboticRoman(prefix)
         self.quotes_commands = dict()
         self.markov_commands = dict()
         self.authors = set()
