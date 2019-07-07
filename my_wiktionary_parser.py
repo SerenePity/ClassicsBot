@@ -44,7 +44,7 @@ def get_etymology(soup, language):
         if sibling.name == 'h2':
             break
         if 'Etymology' in sibling.get_text():
-            if 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
+            if not sibling.findNextSibling('div') or 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             #print(sibling)
             #print(sibling.next_siblings)
@@ -180,7 +180,9 @@ def get_derivations(soup, language):
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
 
-def get_latin_grammar_forms():
+def get_latin_grammar_forms(tries=0):
+    if tries > 10:
+        return [None, None]
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
     #print(soup)
     language_header = None
@@ -190,10 +192,6 @@ def get_latin_grammar_forms():
         # print(h2)
         if h2.span and h2.span.get_text() == 'Latin':
             language_header = h2
-            headword = language_header.findNextSibling('p')
-            if headword.span:
-                headword.span.extract()
-            headword = headword.get_text().replace('\xa0f', '').strip()
             print("Language header: " + language_header.get_text())
             break
 
@@ -204,15 +202,24 @@ def get_latin_grammar_forms():
             conjugated = sibling.get_text()
         if sibling.name == 'ol':
             for li in sibling:
-                if isinstance(li, Tag):
+                if isinstance(li, Tag) and is_grammar_def(li.get_text()):
+                    headword = li.find_parent().findPreviousSibling('p')
+                    if headword.span:
+                        headword.span.extract()
+                    headword = headword.get_text().replace('\xa0f', '').strip()
                     headword_forms.append(li.get_text())
         if sibling.name == 'h2':
             break
     if headword_forms == []:
-        headword_forms [get_etymology(soup, 'Latin')]
+        headword_forms = [get_etymology(soup, 'Latin')]
+    if headword == None:
+        return get_latin_grammar_forms(tries + 1)
+
     return [headword, headword_forms]
 
-def get_greek_grammar_forms():
+def get_greek_grammar_forms(tries=0):
+    if tries > 10:
+        return [None, None]
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Ancient_Greek_non-lemma_forms").text)
     #print(soup)
     language_header = None
@@ -222,10 +229,6 @@ def get_greek_grammar_forms():
         # print(h2)
         if h2.span and h2.span.get_text() == 'Ancient Greek':
             language_header = h2
-            headword = language_header.findNextSibling('p')
-            if headword.span:
-                headword.span.extract()
-            headword = headword.get_text().replace('\xa0f', '').strip()
             print("Language header: " + language_header.get_text())
             break
 
