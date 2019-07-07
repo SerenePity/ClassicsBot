@@ -96,6 +96,7 @@ class Scholasticus(commands.Bot):
 
     async def on_ready(self):
         print('Logged on as', self.user)
+        await self.change_presence(game=discord.Game(name=self.command_prefix + "help for help"))
         self.robot.load_all_models()
         self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()) + list(self.robot.off_topic_quotes_dict))
         self.authors_set.add('reddit')
