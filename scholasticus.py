@@ -200,7 +200,8 @@ class Scholasticus(commands.Bot):
             passage = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar']:
             is_grammar_game = True
-            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
+            passage = "name the " + to_lower(random.choice(grammar_game_set[1]).strip())
         else:
             passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)

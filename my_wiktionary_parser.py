@@ -15,6 +15,10 @@ PARTS_OF_SPEECH = [
     "Definitions", "Pronoun", "Prefix", "Suffix", "Infix", "Root"
 ]
 
+GRAMMAR_KEYWORDS = {'first-person', 'second-person', 'third-person', 'singular', 'plural', 'nominative', 'accusative', 'genitive',
+     'ablative', 'dative', 'vocative', 'locative', 'instrumental', 'masculine', 'feminine', 'neuter', 'indicative', 'subjunctive', 'perfect', 'imperfect',
+     'present', 'imperfect', 'aorist', 'mediopassive'}
+
 def format(ul):
     ret = ""
     for li in ul.find_all("li", recursive=False):
@@ -173,6 +177,9 @@ def get_derivations(soup, language):
                 return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
     return "Not found."
 
+def is_grammar_def(word):
+    return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
+
 def get_latin_grammar_forms():
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
     #print(soup)
@@ -201,6 +208,8 @@ def get_latin_grammar_forms():
                     headword_forms.append(li.get_text())
         if sibling.name == 'h2':
             break
+    if headword_forms == []:
+        headword_forms [get_etymology(soup, 'Latin')]
     return [headword, headword_forms]
 
 def get_greek_grammar_forms():
@@ -231,6 +240,8 @@ def get_greek_grammar_forms():
                     headword_forms.append(li.get_text())
         if sibling.name == 'h2':
             break
+    if headword_forms == []:
+        headword_forms [get_etymology(soup, 'Ancient Greek')]
     return [headword.split('•')[0].strip(), headword_forms]
 
 def pretty(d, indent=0):
