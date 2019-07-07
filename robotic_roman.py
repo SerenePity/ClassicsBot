@@ -56,7 +56,7 @@ ARMENIAN = ['westernarmenian', 'easternarmenian']
 
 def format_color(text, color_type="yaml"):
     # Nothing for now
-    return text + "\n----"
+    return text + "\n--"
 
 QUOTE_RETRIEVAL_MAX_TRIES = 5
 
@@ -97,8 +97,8 @@ class RoboticRoman():
             print(writer)
             self.parallel_quotes_dict[writer] = []
          
-        self.commands = [(format_color("Get random quote by author: ", "CSS"),             f"'{prefix}qt [-t (transliterate)] [-w[lemma][c] <regex search>] <author> | As <author> said:'" +
-                                                                              "\n\tNotes: adding c to the -w option will make your search case-sensitive, and adding lemma will search by word lemma rather than regex."),
+        self.commands = [(format_color("Get random quote by author: ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
+                                                                              "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
             (format_color("Generate sentence by author: ", "CSS"),            f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
                                                                               "\n\tNotes: -t to transliterate."),
             (format_color("List available Latin authors: ", "CSS"),           f"'{prefix}latinauthors'"),
@@ -106,19 +106,21 @@ class RoboticRoman():
             (format_color("Transliterate input: ", "CSS"),                    f"'{prefix}tr(language abbreviation) <input>'" +
                                                                               "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
                                                                               "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
-            (format_color("List available Greek authors: ", "CSS"),           f"'{prefix}greekauthors'"),
+            (format_color("List Greek authors: ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote: ", "CSS"),            f"'{prefix}greekquote'"),
             (format_color("Start Latin game: ", "CSS"),                       f"'{prefix}latingame'"),
+            (format_color("Start Greek grammar game: ", "CSS"),               f"'{prefix}latingame'"),
+            (format_color("Start Latin grammar game: ", "CSS"),               f"'{prefix}latingame'"),
             (format_color("Start Greek game: ", "CSS"),                       f"'{prefix}greekgame'"),
             (format_color("Start word game: ", "CSS"),                        f"'{prefix}wordgame [-l <language>]'"),
-            (format_color("Guess answer: ", "CSS"),                           "'<answer>' | 'g(uess) <word>'"),
+            (format_color("Guess answer: ", "CSS"),                           "'<answer>' | {prefix}'g(uess) <word>'"),
             (format_color("End game: ", "CSS"),                               f"'{prefix}giveup'"),
             (format_color("Join game: ", "CSS"),                              f"'{prefix}join <game owner>'"),
             (format_color("Owify quote from author: ", "CSS"),                f"'{prefix}owo <author>"),
             (format_color("Parallel Gothic Bible: ", "CSS"),                  f"'{prefix}ulfilas <translation version>"),
             (format_color("Get available Bible versions: ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
             (format_color("Bible compare: ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                              "\n\tNotes: add the prefix $ to the translation version to transliterate."),
+                                                                              "\n\tNotes: add the prefix $ for transliteration."),
             (format_color("Quote for parallel text: ", "CSS"),                f"'{prefix}parallel <work/author>'"),
             (format_color("Texts/authors for parallel command: ", "CSS"),     f"'{prefix}listparallel'"),
             (format_color("Word definition (defaults to Latin): ", "CSS"),    f"'{prefix}<language>def (<word>)'"),
