@@ -173,6 +173,32 @@ def get_derivations(soup, language):
                 return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
     return "Not found."
 
+def get_random_grammar_forms():
+    soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
+    #print(soup)
+    language_header = None
+    headword = None
+    headword_forms = []
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and h2.span.get_text() == 'Latin':
+            language_header = h2
+            headword = language_header.findNextSibling('p').get_text().replace('\xa0f', '').strip()
+            print("Language header: " + language_header.get_text())
+            break
+
+    for sibling in language_header.next_siblings:
+        if isinstance(sibling, NavigableString):
+            continue
+        if sibling.name == 'p' and sibling.p and sibling.p.get('class') == 'Latn headword':
+            conjugated = sibling.get_text()
+        if sibling.name == 'ol':
+            for li in sibling:
+                if isinstance(li, Tag):
+                    headword_forms.append(li.get_text())
+        if sibling.name == 'h2':
+            break
+    return [headword, headword_forms]
 
 def pretty(d, indent=0):
    ret = ""
@@ -186,6 +212,4 @@ def pretty(d, indent=0):
       else:
           ret += '\t' * (indent+1) + str(value)
 
-soup = get_soup("Reconstruction:Proto-Indo-European/lewk-")
-deriv_dict = get_derivations(soup, "Proto-Indo-European")
-print('============================')
+print(get_random_grammar_forms())

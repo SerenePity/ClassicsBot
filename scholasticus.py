@@ -12,6 +12,7 @@ import time
 import robotic_roman
 import shlex
 from TextToOwO import owo
+import my_wiktionary_parser
 
 
 MAX_TRIES = 5
@@ -37,7 +38,7 @@ class PlayerSession():
 
 class Game():
 
-    def __init__(self, game_owner, answer, language, channel, is_word_game=False, word_language='latin'):
+    def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False, word_language='latin'):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -46,6 +47,7 @@ class Game():
         self.answer = answer
         self.exited_players = set()
         self.is_word_game = is_word_game
+        self.is_grammar_game = is_grammar_game
         self.word_language = word_language
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
@@ -125,13 +127,14 @@ class Scholasticus(commands.Bot):
                                     f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
             return
+        if self.games[game_owner].language in ['greek', 'latin']:
 
-        if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors:
-            await self.send_message(channel, "You're playing a Greek game, but picked a Latin author! Try again.")
-            return
-        if self.games[game_owner].language == 'latin' and guess not in self.robot.authors:
-            await self.send_message(channel, "You're playing a Latin game, but picked a Greek author! Try again.")
-            return
+            if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors:
+                await self.send_message(channel, "You're playing a Greek game, but picked a Latin author! Try again.")
+                return
+            if self.games[game_owner].language == 'latin' and guess not in self.robot.authors:
+                await self.send_message(channel, "You're playing a Latin game, but picked a Greek author! Try again.")
+                return
 
         self.games[game_owner].get_player_sess(player).tries += 1
 
@@ -165,11 +168,18 @@ class Scholasticus(commands.Bot):
     async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin'):
 
         repeat_text = ""
+        is_grammar_game = False
+        grammar_game_set = []
         is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
+            answer = random.choice(self.robot.greek_authors)
+        elif text_set == "grammar":
+            grammar_game_set = my_wiktionary_parser.get_random_grammar_forms()
+            answer = grammar_game_set[0]
+            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
         elif text_set == "word":
             if "-l " in word_language:
                 word_language = word_language.replace("-l ", "")
@@ -180,16 +190,21 @@ class Scholasticus(commands.Bot):
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
-        if text_set != "word":
+        if text_set != "word" and text_set != "grammar":
             passage = self.robot.random_quote(answer)
+        elif text_set == 'grammar':
+            is_grammar_game = True
+            passage = "name the " + random.choice(grammar_game_set[1]).strip()
         else:
             passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, word_language=word_language)
+        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        if text_set != "word":
+        if text_set != "word" and text_set != 'grammar':
             await self.send_message(channel,
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
+        elif text_set == 'grammar':
+            await self.send_message(channel, f"{game_owner.mention}, {passage} (note: macrons needed).")
         else:
 
             await self.send_message(channel,
@@ -339,6 +354,10 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'listparallel'):
             parallel_list = '\n'.join(self.robot.parallel_authors)
             await self.send_message(channel, parallel_list)
+            return
+
+        if content.lower().startswith(self.command_prefix + 'grammargame'):
+            await self.start_game(channel, author, "grammar", "latin", None)
             return
 
         if content.lower().startswith(self.command_prefix + 'parallel'):
@@ -625,6 +644,8 @@ class Scholasticus(commands.Bot):
                 game.end_player_sess(author)
                 if game.is_word_game:
                     formatted = game.answer.split('/')[-1]
+                elif game.is_grammar_game:
+                    formatted = game.answer
                 else:
                     formatted = self.robot.format_name(game.answer)
                 del self.players_to_game_owners[author]
