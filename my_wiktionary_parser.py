@@ -239,12 +239,18 @@ def get_greek_grammar_forms(tries=0):
             conjugated = sibling.get_text()
         if sibling.name == 'ol':
             for li in sibling:
-                if isinstance(li, Tag):
+                if isinstance(li, Tag) and is_grammar_def(li.get_text()):
+                    headword = li.find_parent().findPreviousSibling('p')
+                    if headword.span:
+                        headword.span.extract()
+                    headword = headword.get_text().replace('\xa0f', '').strip()
                     headword_forms.append(li.get_text())
         if sibling.name == 'h2':
             break
     if headword_forms == []:
-        headword_forms [get_etymology(soup, 'Ancient Greek')]
+        headword_forms = [get_etymology(soup, 'Ancient Greek')]
+    if headword == None:
+        return get_greek_grammar_forms(tries + 1)
     return [headword.split('•')[0].strip(), headword_forms]
 
 def pretty(d, indent=0):
