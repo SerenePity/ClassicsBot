@@ -195,7 +195,10 @@ def get_latin_grammar_forms(tries=0):
             print("Language header: " + language_header.get_text())
             break
 
+    conjugated = None
     for sibling in language_header.next_siblings:
+        if conjugated:
+            break
         if isinstance(sibling, NavigableString):
             continue
         if sibling.name == 'p' and sibling.p and sibling.p.get('class') == 'Latn headword':
