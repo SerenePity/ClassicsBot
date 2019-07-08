@@ -212,7 +212,7 @@ class Scholasticus(commands.Bot):
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        if text_set != "word" and text_set != 'grammar' and  text_set != 'greekgrammar':
+        if text_set != "word" and text_set != 'grammar' and  text_set != 'greekgrammar' and text_set != 'nomacrongrammar':
             await self.send_message(channel,
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
         elif text_set == 'grammar':
