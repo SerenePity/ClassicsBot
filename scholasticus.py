@@ -252,7 +252,7 @@ class Scholasticus(commands.Bot):
             print(args)
             try:
                 if len(args) > 1:
-                    language = re.search("([(a-z_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
+                    language = re.search("([(\w_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
@@ -304,7 +304,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
+                    language = re.search("([\w_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
@@ -331,7 +331,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
+                    language = re.search("([\w_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
                     if not language:
                         language ='latin'
                     word = ' '.join(args[1:])
