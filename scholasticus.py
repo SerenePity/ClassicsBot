@@ -247,7 +247,7 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
-        if content.lower().startswith(self.command_prefix) and content.split()[0].endswith('def'):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].endswith('_def'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             print(args)
             try:
@@ -302,7 +302,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
 
-        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('ety'):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_ety'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
@@ -331,7 +331,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
 
-        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('word'):
+        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_word'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
