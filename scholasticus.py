@@ -217,7 +217,7 @@ class Scholasticus(commands.Bot):
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
         elif text_set == 'grammar':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).")
-        elif text_set == 'greekgrammar':
+        elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}.")
         else:
             await self.send_message(channel,
