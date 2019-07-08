@@ -3,9 +3,6 @@ from collections import OrderedDict
 import requests
 import re
 from bs4 import BeautifulSoup, NavigableString, Tag
-import pprint
-import yaml
-import json
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -34,7 +31,7 @@ def get_etymology(soup, language):
     etymology = "Not found."
     for h2 in soup.find_all('h2'):
         #print(h2)
-        if h2.span and h2.span.get_text() == language.title():
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
 
@@ -58,7 +55,7 @@ def get_definition(soup, language, include_examples=True):
     definition = "Not found."
     for h2 in soup.find_all('h2'):
         #print(h2)
-        if h2.span and h2.span.get_text() == language.title():
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
     if not language_header:
@@ -83,29 +80,12 @@ def get_definition(soup, language, include_examples=True):
 def remove_example(li):
     li.ul.extract() if li.ul else li
 
-"""
-def get_definition(soup, part_of_speech):
-    h3s = soup.find_all('h3')
-    defs = []
-    for h3 in h3s:
-        if h3.span and h3.span.has_attr('id') and h3.span['id'] == part_of_speech:
-            ol = h3.next_sibling.next_sibling.next_sibling.next_sibling
-            for li in ol:
-                definition = ""
-                try:
-                    definition = li.get_text()
-                except:
-                    continue
-                defs.append(definition.replace("\"", "").replace("'",""))
-    return defs
-"""
-
 def get_word(soup, language, word):
     language_header = None
     found_word = ""
     for h2 in soup.find_all('h2'):
         # print(h2)
-        if h2.span and h2.span.get_text() == language.title():
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
 
@@ -157,7 +137,7 @@ def get_derivations(soup, language):
     language_header = None
     for h2 in soup.find_all('h2'):
         # print(h2)
-        if h2.span and h2.span.get_text() == language.title():
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
     for sibling in language_header.next_siblings:
@@ -190,7 +170,7 @@ def get_latin_grammar_forms(no_macrons=False, tries=0):
     headword_forms = []
     for h2 in soup.find_all('h2'):
         # print(h2)
-        if h2.span and h2.span.get_text() == 'Latin':
+        if h2.span and 'Latin' in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             print("Language header: " + language_header.get_text())
             break
@@ -232,7 +212,7 @@ def get_greek_grammar_forms(tries=0):
     headword_forms = []
     for h2 in soup.find_all('h2'):
         # print(h2)
-        if h2.span and h2.span.get_text() == 'Ancient Greek':
+        if h2.span and 'Ancient Greek' in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             print("Language header: " + language_header.get_text())
             break
