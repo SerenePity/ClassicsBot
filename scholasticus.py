@@ -676,7 +676,7 @@ class Scholasticus(commands.Bot):
             if game.game_on and response_content in self.authors_set and channel == game.channel:
                 if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
                     await self.process_guess(channel, author, content)
-            elif game.game_on and channel == game.channel and response_content.startswith(self.command_prefix + 'g ') or response_content.startswith(self.command_prefix + 'guess '):
+            elif game.game_on and channel == game.channel and response_content.startswith('g ') or response_content.startswith('guess '):
                 args = shlex.split(response_content)
                 if len(args) < 2:
                     await self.send_message(channel, "Please guess a word.")
