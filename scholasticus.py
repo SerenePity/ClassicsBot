@@ -179,6 +179,10 @@ class Scholasticus(commands.Bot):
         if text_set == "greek":
             answer = random.choice(self.robot.greek_authors)
             answer = random.choice(self.robot.greek_authors)
+        elif text_set == "nomacrongrammar":
+            grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms(no_macrons=True)
+            answer = grammar_game_set[0]
+            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
         elif text_set == "grammar":
             grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms()
             answer = grammar_game_set[0]
@@ -197,9 +201,9 @@ class Scholasticus(commands.Bot):
             is_word_game = True
         else:
             answer = random.choice(self.robot.authors)
-        if text_set not in ['word', 'grammar', 'greekgrammar']:
+        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar']:
             passage = self.robot.random_quote(answer)
-        elif text_set in ['grammar', 'greekgrammar']:
+        elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar']:
             is_grammar_game = True
             to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
             passage = "name the " + to_lower(random.choice(grammar_game_set[1]).strip())
@@ -365,11 +369,15 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, parallel_list)
             return
 
-        if content.lower().startswith(self.command_prefix + 'grammargame'):
+        if content.lower().startswith(self.command_prefix + 'latingrammar -n'):
+            await self.start_game(channel, author, "nomacrongrammar", "latin", None)
+            return
+
+        if content.lower().startswith(self.command_prefix + 'latingrammar'):
             await self.start_game(channel, author, "grammar", "latin", None)
             return
 
-        if content.lower().startswith(self.command_prefix + 'greekgrammargame'):
+        if content.lower().startswith(self.command_prefix + 'greekgrammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
             return
 

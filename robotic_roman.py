@@ -99,7 +99,7 @@ class RoboticRoman():
          
         self.commands = [(format_color("Get random quote by author: ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
                                                                               "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
-            (format_color("Generate sentence by author: ", "CSS"),            f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
+            (format_color("Generate markov sentence: ", "CSS"),                f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
                                                                               "\n\tNotes: -t to transliterate."),
             (format_color("List available Latin authors: ", "CSS"),           f"'{prefix}latinauthors'"),
             (format_color("Retrieve random Latin quote: ", "CSS"),            f"'{prefix}latinquote'"),
@@ -109,20 +109,19 @@ class RoboticRoman():
             (format_color("List Greek authors: ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote: ", "CSS"),            f"'{prefix}greekquote'"),
             (format_color("Start Latin game: ", "CSS"),                       f"'{prefix}latingame'"),
-            (format_color("Start Greek grammar game: ", "CSS"),               f"'{prefix}latingame'"),
-            (format_color("Start Latin grammar game: ", "CSS"),               f"'{prefix}latingame'"),
             (format_color("Start Greek game: ", "CSS"),                       f"'{prefix}greekgame'"),
             (format_color("Start word game: ", "CSS"),                        f"'{prefix}wordgame [-l <language>]'"),
+            (format_color("Start Greek grammar game: ", "CSS"),               f"'{prefix}greekgrammar'"),
+            (format_color("Start Latin grammar game: ", "CSS"),               f"'{prefix}latingrammar [-n] (no macrons)'"),
             (format_color("Guess answer: ", "CSS"),                           "'<answer>' | {prefix}'g(uess) <word>'"),
             (format_color("End game: ", "CSS"),                               f"'{prefix}giveup'"),
             (format_color("Join game: ", "CSS"),                              f"'{prefix}join <game owner>'"),
             (format_color("Owify quote from author: ", "CSS"),                f"'{prefix}owo <author>"),
-            (format_color("Parallel Gothic Bible: ", "CSS"),                  f"'{prefix}ulfilas <translation version>"),
             (format_color("Get available Bible versions: ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
             (format_color("Bible compare: ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
                                                                               "\n\tNotes: add the prefix $ for transliteration."),
             (format_color("Quote for parallel text: ", "CSS"),                f"'{prefix}parallel <work/author>'"),
-            (format_color("Texts/authors for parallel command: ", "CSS"),     f"'{prefix}listparallel'"),
+            (format_color("Sources for parallel command: ", "CSS"),           f"'{prefix}listparallel'"),
             (format_color("Word definition (defaults to Latin): ", "CSS"),    f"'{prefix}<language>def (<word>)'"),
             (format_color("Word etymology (defaults to Latin): ", "CSS"),     f"'{prefix}<language>]ety (<word>)'"),
             (format_color("Word entry (defaults to Latin): ", "CSS"),         f"'{prefix}<language>word (<word>)'"),

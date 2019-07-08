@@ -180,7 +180,7 @@ def get_derivations(soup, language):
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
 
-def get_latin_grammar_forms(tries=0):
+def get_latin_grammar_forms(no_macrons=False, tries=0):
     if tries > 10:
         return [None, None]
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
@@ -217,8 +217,10 @@ def get_latin_grammar_forms(tries=0):
         headword_forms = [get_etymology(soup, 'Latin')]
     if headword == None:
         return get_latin_grammar_forms(tries + 1)
-
-    return [headword, headword_forms]
+    if no_macrons:
+        return [remove_macrons(headword), [remove_macrons(s) for s in headword_forms]]
+    else:
+        return [headword, headword_forms]
 
 def get_greek_grammar_forms(tries=0):
     if tries > 10:
@@ -267,5 +269,26 @@ def pretty(d, indent=0):
 
       else:
           ret += '\t' * (indent+1) + str(value)
+
+mapping = {
+    'Ā': 'A',
+    'Ē': 'E',
+    'Ī': 'I',
+    'Ō': 'O',
+    'Ū': 'U',
+    'ā': 'a',
+    'ē': 'e',
+    'ī': 'i',
+    'ō': 'o',
+    'ū': 'u',
+}
+
+def remove_macrons(text):
+    for key in mapping.keys():
+        text = text.replace(key, mapping[key])
+    return text
+
+
+
 
 print(get_greek_grammar_forms())
