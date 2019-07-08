@@ -425,34 +425,38 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, self.robot.get_available_bible_versions())
 
 
-        if content.lower().startswith(self.command_prefix + 'tr'):
+        if content.lower().startswith(self.command_prefix + 'tr '):
             try:
-                tr_args = shlex.split(content)
+                tr_args = shlex.split(content.lower())
             except:
                 await self.send_message(channel, "Error, no closing quotation. Please try to enclose the input within quotes.")
                 return
+            if len(tr_args) > 2:
+                language = tr_args[1]
+            else:
+                await self.send_message(channel, "Invalid arguments.")
             try:
-                input = ' '.join(tr_args[1:])
-                if tr_args[0] == (self.command_prefix + 'trh'):
+                input = ' '.join(tr_args[2:])
+                if language == '-heb':
                     transliterated = transliteration.hebrew.transliterate(input)
-                elif tr_args[0] == (self.command_prefix + 'trcop'):
+                elif language == '-cop':
                     transliterated = transliteration.coptic.transliterate(input)
-                elif tr_args[0] == (self.command_prefix + 'trunc'):
+                elif language == '-unc':
                     transliterated = transliteration.latin_antique.transliterate(input)
-                elif tr_args[0] == (self.command_prefix + 'traram'):
+                elif language == '-aram':
                     r = romanize3.__dict__['arm']
                     transliterated = r.convert(input)
-                elif tr_args[0] == (self.command_prefix + 'trarab'):
+                elif language == '-arab':
                     r = romanize3.__dict__['ara']
                     transliterated = r.convert(input)
-                elif tr_args[0] == (self.command_prefix + 'trsyr'):
+                elif language == '-syr':
                     r = romanize3.__dict__['syc']
                     transliterated = r.convert(input)
-                elif tr_args[0] == (self.command_prefix + 'trarm'):
+                elif language == '-arm':
                     transliterated = translit(input, 'hy', reversed=True).replace('ւ', 'v')
-                elif tr_args[0] == (self.command_prefix + 'trgeo'):
+                elif language == '-geo':
                     transliterated = translit(input, 'ka', reversed=True).replace('ჲ', 'y')
-                elif tr_args[0] == (self.command_prefix + 'trrus'):
+                elif language == '-rus':
                     transliterated = translit(input, 'ru', reversed=True)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
@@ -628,7 +632,7 @@ class Scholasticus(commands.Bot):
                 quote = transliteration.greek.transliterate(quote)
             await self.send_message(channel, quote)
 
-        if content.lower().startswith(self.command_prefix + 'help'):
+        if content.lower().startswith(self.command_prefix + 'helpme'):
             await self.send_message(channel, self.robot.help_command())
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):

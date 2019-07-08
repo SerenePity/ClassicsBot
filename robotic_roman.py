@@ -103,9 +103,8 @@ class RoboticRoman():
                                                                               "\n\tNotes: -t to transliterate."),
             (format_color("List available Latin authors: ", "CSS"),           f"'{prefix}latinauthors'"),
             (format_color("Retrieve random Latin quote: ", "CSS"),            f"'{prefix}latinquote'"),
-            (format_color("Transliterate input: ", "CSS"),                    f"'{prefix}tr(language abbreviation) <input>'" +
-                                                                              "\n\tNotes: Greek by default, h -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian" +
-                                                                              "\n\tE.g. '>trh <input>' will transliterate the input text from Hebrew characters to Latin."),
+            (format_color("Transliterate input: ", "CSS"),                    f"'{prefix}tr [-(language abbreviation)] <input>'" +
+                                                                              "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian"),
             (format_color("List Greek authors: ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote: ", "CSS"),            f"'{prefix}greekquote'"),
             (format_color("Start Latin game: ", "CSS"),                       f"'{prefix}latingame'"),
@@ -126,7 +125,7 @@ class RoboticRoman():
             (format_color("Word etymology (defaults to Latin): ", "CSS"),     f"'{prefix}<language>]ety (<word>)'"),
             (format_color("Word entry (defaults to Latin): ", "CSS"),         f"'{prefix}<language>word (<word>)'"),
             (format_color("Random entry (defaults to Latin): ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
-            (format_color("Help: ", "CSS"),                                   f"'{prefix}help'")]
+            (format_color("Help: ", "CSS"),                                   f"'{prefix}helpme'")]
 
     def help_command(self):
         return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in self.commands]) + "```"
