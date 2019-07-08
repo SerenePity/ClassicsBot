@@ -252,14 +252,12 @@ class Scholasticus(commands.Bot):
             print(args)
             try:
                 if len(args) > 1:
-                    language = re.search("([(a-z_\-)]+)def", args[0].lower())
-                    if not language:
-                        language = 'latin'
-                    else:
-                        language = language.group(1).replace('_', ' ')
+                    language = re.search("([(a-z_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
+                    if not language:
+                        language = 'latin'
                     definition = self.robot.get_and_format_word_defs(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -306,14 +304,12 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_\-]+)ety", args[0].lower())
-                    if not language:
-                        language = 'latin'
-                    else:
-                        language = language.group(1).replace('_', ' ')
+                    language = re.search("([a-z_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
+                    if not language:
+                        language = 'latin'
                     etymology = self.robot.get_word_etymology(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -335,11 +331,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
                 if len(args) > 1:
-                    language = re.search("([a-z_\-]+?)word", args[0].replace(':','').lower())
-                    if not language:
-                        language = 'latin'
-                    else:
-                        language = language.group(1).replace('_',' ')
+                    language = re.search("([a-z_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
                     if not language:
                         language ='latin'
                     word = ' '.join(args[1:])

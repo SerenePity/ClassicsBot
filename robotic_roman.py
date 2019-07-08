@@ -121,9 +121,9 @@ class RoboticRoman():
                                                                               "\n\tNotes: add the prefix $ for transliteration."),
             (format_color("Quote for parallel text: ", "CSS"),                f"'{prefix}parallel <work/author>'"),
             (format_color("Sources for parallel command: ", "CSS"),           f"'{prefix}listparallel'"),
-            (format_color("Word definition (defaults to Latin): ", "CSS"),    f"'{prefix}<language>def (<word>)'"),
-            (format_color("Word etymology (defaults to Latin): ", "CSS"),     f"'{prefix}<language>]ety (<word>)'"),
-            (format_color("Word entry (defaults to Latin): ", "CSS"),         f"'{prefix}<language>word (<word>)'"),
+            (format_color("Word definition (defaults to Latin): ", "CSS"),    f"'{prefix}<language>_def (<word>)'"),
+            (format_color("Word etymology (defaults to Latin): ", "CSS"),     f"'{prefix}<language>_ety (<word>)'"),
+            (format_color("Word entry (defaults to Latin): ", "CSS"),         f"'{prefix}<language>_word (<word>)'"),
             (format_color("Random entry (defaults to Latin): ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
             (format_color("Help: ", "CSS"),                                   f"'{prefix}helpme'")]
 
