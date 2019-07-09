@@ -176,7 +176,7 @@ class Scholasticus(commands.Bot):
         is_word_game = False
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
-        if text_set == "greek":
+        if text_set == "ancientgreek":
             answer = random.choice(self.robot.greek_authors)
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "nomacrongrammar":
@@ -368,15 +368,15 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, parallel_list)
             return
 
-        if content.lower().startswith(self.command_prefix + 'latingrammar -n'):
+        if content.lower().startswith(self.command_prefix + 'latin_grammar -n'):
             await self.start_game(channel, author, "nomacrongrammar", "latin", None)
             return
 
-        if content.lower().startswith(self.command_prefix + 'latingrammar'):
+        if content.lower().startswith(self.command_prefix + 'latin_grammar'):
             await self.start_game(channel, author, "grammar", "latin", None)
             return
 
-        if content.lower().startswith(self.command_prefix + 'greekgrammar'):
+        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
             return
 
@@ -651,7 +651,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
-            await self.start_game(channel, author, "greek")
+            await self.start_game(channel, author, "ancientgreek")
             return
 
         if content.lower().startswith(self.command_prefix + 'latingame'):
