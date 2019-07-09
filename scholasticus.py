@@ -175,6 +175,7 @@ class Scholasticus(commands.Bot):
         grammar_game_set = []
         is_word_game = False
         print(text_set)
+        text_set = text_set.split('[')[0].strip()
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
         if text_set == "ancientgreek":
@@ -203,7 +204,7 @@ class Scholasticus(commands.Bot):
         elif text_set == 'latin':
             answer = random.choice(self.robot.authors)
         else:
-            print("In ohter lang")
+            print("In other lang")
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
             answer = grammar_game_set[0]
             passage = "Name the " + random.choice(grammar_game_set[1]).strip()
