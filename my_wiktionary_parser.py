@@ -322,6 +322,43 @@ def pretty(d, indent=0):
       else:
           ret += '\t' * (indent+1) + str(value)
 
+def get_grammar_question(language, tries=0):
+    if tries > 5:
+        return [None, None]
+    soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms").text)
+    #print(soup)
+    language_header = None
+    headword = None
+    headword_forms = []
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
+            language_header = h2
+            print("Language header: " + language_header.get_text())
+            break
+
+    for sibling in language_header.next_siblings:
+        if isinstance(sibling, NavigableString):
+            continue
+        if sibling.name == 'p' and sibling.p and sibling.p.get('class') == 'Latn headword':
+            conjugated = sibling.get_text()
+        if sibling.name == 'ol':
+            for li in sibling:
+                if isinstance(li, Tag) and is_grammar_def(li.get_text()):
+                    headword = li.find_parent().findPreviousSibling('p')
+                    if headword.span:
+                        headword.span.extract()
+                    headword = headword.get_text().replace('\xa0f', '').strip()
+                    headword_forms.append(li.get_text())
+        if sibling.name == 'h2':
+            break
+    if headword_forms == []:
+        headword_forms = [get_etymology(soup, language.title())]
+    if headword == None:
+        return get_grammar_question(tries + 1)
+    return [headword.split('•')[0].strip(), headword_forms]
+
+
 mapping = {
     'Ā': 'A',
     'Ē': 'E',

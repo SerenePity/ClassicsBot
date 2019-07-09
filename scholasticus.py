@@ -199,11 +199,17 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "Could not find an entry with an etymology. Please try again.")
                 return
             is_word_game = True
-        else:
+        elif text_set == 'latin':
             answer = random.choice(self.robot.authors)
-        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar']:
+        else:
+            grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
+            answer = grammar_game_set[0]
+            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            text_set = "otherlang"
+
+        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             passage = self.robot.random_quote(answer)
-        elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar']:
+        elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
             to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
             passage = "name the " + to_lower(random.choice(grammar_game_set[1]).strip())
@@ -653,6 +659,12 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
+            return
+
+        if content.lower().endswith('grammar'):
+            args = shlex.split(content.lower())
+            language = content.lower().split('grammar')[0]
+            await self.start_game(channel, author, language)
             return
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
