@@ -325,15 +325,23 @@ def pretty(d, indent=0):
 def get_grammar_question(language, tries=0):
     if tries > 5:
         return [None, None]
+    print(language)
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms").text)
     #print(soup)
+    print(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms")
     language_header = None
     headword = None
     headword_forms = []
+    if "proto" in language.lower():
+        for h1 in soup.find_all('h1'):
+            if language.lower() in h1:
+                language_header = h1
+
     for h2 in soup.find_all('h2'):
         # print(h2)
         if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
-            language_header = h2
+            if not language_header:
+                language_header = h2
             print("Language header: " + language_header.get_text())
             break
 
@@ -355,7 +363,7 @@ def get_grammar_question(language, tries=0):
     if headword_forms == []:
         headword_forms = [get_etymology(soup, language.title())]
     if headword == None:
-        return get_grammar_question(tries + 1)
+        return get_grammar_question(language, tries + 1)
     return [headword.split('•')[0].strip(), headword_forms]
 
 
