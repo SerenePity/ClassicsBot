@@ -277,6 +277,7 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
+            language = ""
             try:
 
                 if len(args) == 1:

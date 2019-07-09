@@ -58,7 +58,7 @@ def format_color(text, color_type="yaml"):
     # Nothing for now
     return text + "\n--"
 
-QUOTE_RETRIEVAL_MAX_TRIES = 5
+QUOTE_RETRIEVAL_MAX_TRIES = 2
 
 class RoboticRoman():
 
@@ -179,15 +179,20 @@ class RoboticRoman():
         etymology = self.get_word_etymology(word, language)
         word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
-            derives = self.get_derivatives(word, language)
+            derives = self.get_derivatives(word, language, misc=False)
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
         else:
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology}"
+            derives = self.get_derivatives(word, language, misc=True)
+            if derives == 'Not found.':
+                derives = ""
+            else:
+                derives = '\n\n' + derives
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
         return return_str
 
-    def get_derivatives(self, word, language='latin'):
+    def get_derivatives(self, word, language='latin', misc=False):
         soup = my_wiktionary_parser.get_soup(word)
-        return my_wiktionary_parser.get_derivations(soup, language)
+        return my_wiktionary_parser.get_derivations(soup, language, misc)
 
 
     def get_word_header(self, word, language):

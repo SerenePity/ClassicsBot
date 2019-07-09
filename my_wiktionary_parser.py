@@ -117,8 +117,7 @@ def parse_table(ul):
             descendants.append(ul.li)
     return descendants
 
-
-def dictify(ul, level=0):
+def old_dictify(ul, level=0):
     return_str = ""
     for li in ul.find_all("li", recursive=False):
         key = next(li.stripped_strings)
@@ -133,7 +132,54 @@ def dictify(ul, level=0):
     print(return_str)
     return return_str.strip()
 
-def get_derivations(soup, language):
+def dictify(ul, level=0):
+    return_str = ""
+    for li in ul.find_all("li", recursive=False):
+        stripped = iter([s for s in li.stripped_strings if s not in ['⇒', '→']])
+        print(list(li.stripped_strings))
+        key = next(stripped)
+        print("Key: " + key)
+        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a'], recursive=False)])
+        print("Nukes: " + nukes)
+        if not nukes:
+            continue
+        if key.strip().lower() == nukes.split()[0].lower().strip():
+            key = nukes.strip()
+            nukes = ""
+        return_str += level*'\t\t' + key + " " + nukes + '\n'
+
+        #print("Spans: " + str([s.text for s in li.find_all('span')]))
+        ul2 = li.find("ul")
+        if ul2:
+            return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
+    #print(return_str)
+    return return_str.strip()
+
+def has_unwanted_headers(header):
+    unwanted_list = ['References', 'See also', 'Further reading']
+    for unwanted in unwanted_list:
+        if unwanted in header:
+            return True
+    return False
+
+def has_wanted_text(text):
+    wanted_list = ['Derived terms', 'Descendants', 'Pronunciation', 'Synonyms', 'Antonyms']
+    for wanted in wanted_list:
+        if text.strip() in wanted:
+            return True
+    return False
+
+def get_derivations(soup, language, misc=False):
+
+    greek_tables = soup.find_all('div', {'class': 'NavFrame grc-decl grc-adecl'})
+    for table in greek_tables:
+        table.extract()
+    latin_tables = soup.find_all('table')
+    for table in latin_tables:
+        table.extract()
+    latin_tables = soup.find_all('table')
+    for table in latin_tables:
+        table.extract()
     language_header = None
     for h2 in soup.find_all('h2'):
         # print(h2)
@@ -145,17 +191,43 @@ def get_derivations(soup, language):
             continue
         if sibling.name == 'h2':
             break
-        if sibling.name == 'h4' and sibling.span and not isinstance(sibling.span, NavigableString) and sibling.span.get_text() in ['Derived terms', 'Descendants']:
+        if sibling.name == 'h4' and sibling.span and not isinstance(sibling.span, NavigableString) and any(has_wanted_text(s) if isinstance(s, NavigableString) else has_wanted_text(s.get_text().strip()) for s in sibling.span.contents):
             ul = None
-            for h4 in soup.find_all('h4'):
-                if h4.span and not isinstance(h4.span, NavigableString) and h4.span.get_text() in ['Descendants', 'Derived terms']:
-                    uls = h4.find_next_siblings('ul')
+            uls = []
+            for e in sibling.next_siblings:
+                if e.name == 'h2':
                     break
+                if e.name == 'ul':
+                    uls.append(e)
+                    """
+                    for li in e.find_all('li'):
+                        
+                        for s in e.span.contents:
+                            if not isinstance(e.span, NavigableString) and e.span.get_text() in ['Descendants', 'Derived terms']:
+                                for ele in e.find_next_siblings():
+                                    if ele.name == 'ul':
+                                        uls.append(ele)"""
             if not uls:
                 return "Not found."
             else:
-                return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
+                if misc:
+                    misc = get_misc(uls)
+                    return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls] + misc)
+                else:
+                    return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + old_dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
     return "Not found."
+
+def get_misc(uls):
+    novel_headers = ['Descendants']
+    for ul in uls:
+        header_dict = dict()
+        misc = dictify(ul)
+        print("MISC:")
+        print(misc)
+        header = ul.find_previous_siblings(['h4', 'h3'])[0].text.strip()
+        if not has_unwanted_headers(header) and header in novel_headers:
+            header_dict["**" + re.sub(r"\[(.*?)\]" + "", "", header) + "**"] += misc
+    return [key.strip() + '\n' + header_dict[key].strip() for key in header_dict]
 
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
@@ -267,8 +339,3 @@ def remove_macrons(text):
     for key in mapping.keys():
         text = text.replace(key, mapping[key])
     return text
-
-
-
-
-print(get_greek_grammar_forms())
