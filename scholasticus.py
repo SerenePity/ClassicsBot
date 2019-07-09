@@ -174,6 +174,7 @@ class Scholasticus(commands.Bot):
         is_grammar_game = False
         grammar_game_set = []
         is_word_game = False
+        print(text_set)
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
         if text_set == "ancientgreek":
@@ -202,6 +203,7 @@ class Scholasticus(commands.Bot):
         elif text_set == 'latin':
             answer = random.choice(self.robot.authors)
         else:
+            print("In ohter lang")
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
             answer = grammar_game_set[0]
             passage = "Name the " + random.choice(grammar_game_set[1]).strip()
@@ -218,13 +220,13 @@ class Scholasticus(commands.Bot):
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        if text_set != "word" and text_set != 'grammar' and  text_set != 'greekgrammar' and text_set != 'nomacrongrammar':
+        if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang"]:
             await self.send_message(channel,
                                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
         elif text_set == 'grammar':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).")
-        elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar':
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}.")
+        elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage.capitalize()}.")
         else:
             await self.send_message(channel,
                                     f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
