@@ -168,7 +168,7 @@ class Scholasticus(commands.Bot):
                 del self.players_to_game_owners[player]
 
 
-    async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin'):
+    async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin', macrons=True):
 
         repeat_text = ""
         is_grammar_game = False
@@ -208,6 +208,8 @@ class Scholasticus(commands.Bot):
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
             answer = grammar_game_set[0]
             passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            if not macrons:
+                answer = my_wiktionary_parser.remove_macrons(answer)
             text_set = "otherlang"
 
         if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
@@ -369,7 +371,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, parallel_list)
             return
 
-        if content.lower().startswith(self.command_prefix + 'latin_grammar -n'):
+        if content.lower().startswith(self.command_prefix + 'latin_grammar'):
             await self.start_game(channel, author, "nomacrongrammar", "latin", None)
             return
 
@@ -672,10 +674,10 @@ class Scholasticus(commands.Bot):
             await self.start_game(channel, author, "greek")
             return
 
-        if content.lower().endswith('_grammar'):
+        if content.lower().endswith('_grammar') or content.lower().endswith('_grammar -n'):
             args = shlex.split(content.lower())
             language = content.lower().split('_grammar')[0].replace('_', ' ')
-            await self.start_game(channel, author, language)
+            await self.start_game(channel, author, language, macrons=False)
             return
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
