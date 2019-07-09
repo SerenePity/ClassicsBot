@@ -532,7 +532,7 @@ class Scholasticus(commands.Bot):
                 for i, arg in enumerate(qt_args):
                     if len(arg.strip().lower()) > 1 and '-w' in arg.strip().lower():
                         word = qt_args[i + 1]
-                        if "lemma" in arg:
+                        if "l" in arg:
                             lemmatize = True
                         if "c" in arg:
                             case_sensitive = True
