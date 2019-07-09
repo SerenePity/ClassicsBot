@@ -221,15 +221,13 @@ class Scholasticus(commands.Bot):
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
         if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang"]:
-            await self.send_message(channel,
-                                f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
         elif text_set == 'grammar':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).")
         elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage.capitalize()}.")
         else:
-            await self.send_message(channel,
-                                    f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
 
 
     def end_game(self, game_owner):
