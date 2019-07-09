@@ -417,11 +417,18 @@ class Scholasticus(commands.Bot):
                 try:
                     for version in ret_list:
                         await self.send_message(channel, version)
+                except discord.errors.HTTPException:
+                    traceback.print_exc()
+                    await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
                 except:
                     traceback.print_exc()
                     await self.send_message(channel, "Invalid language. Type '>bibleversions' for get available versions for all languages.")
             else:
-                await self.send_message(channel, self.robot.get_available_bible_versions())
+                try:
+                    await self.send_message(channel, self.robot.get_available_bible_versions())
+                except discord.errors.HTTPException:
+                    traceback.print_exc()
+                    await self.send_message(channel, f"Text is too long.")
 
 
         if content.lower().startswith(self.command_prefix + 'tr '):
@@ -503,6 +510,9 @@ class Scholasticus(commands.Bot):
                     return
                 await self.send_message(channel ,translation)
                 return
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await self.send_message(channel, f"Text is too long.")
             except Exception as e:
                 traceback.print_exc()
                 await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
@@ -661,9 +671,9 @@ class Scholasticus(commands.Bot):
             await self.start_game(channel, author, "greek")
             return
 
-        if content.lower().endswith('grammar'):
+        if content.lower().endswith('_grammar'):
             args = shlex.split(content.lower())
-            language = content.lower().split('grammar')[0]
+            language = content.lower().split('_grammar')[0].replace('_', ' ')
             await self.start_game(channel, author, language)
             return
 
