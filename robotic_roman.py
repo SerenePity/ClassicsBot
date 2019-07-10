@@ -173,9 +173,13 @@ class RoboticRoman():
     def get_full_entry(self, word=None, language='latin'):
         if not word:
             word = self.get_random_word(language)
+        soup = my_wiktionary_parser.get_soup(word)
         definition = self.get_and_format_word_defs(word, language)
         etymology = self.get_word_etymology(word, language)
-        word_header = self.get_word_header(word, language).strip()
+        if language.lower() == 'chinese':
+            word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_middle_chinese(soup, word)
+        else:
+            word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
@@ -208,17 +212,15 @@ class RoboticRoman():
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "No etymology found."
         print("Word: " + word + ", Language: " + language)
-        word_entry = self.parser.fetch(word, language)
+        #word_entry = self.parser.fetch(word, language)
         etymology = ""
         print("Word: " + str(word))
         try:
-            etymology = word_entry[0]['etymology']
-            if len(etymology.strip()) == 0:
-                url = f"https://en.wiktionary.org/wiki/{word}"
-                print("My Parser URL: " + url)
-                #soup = my_wiktionary_parser.get_language_entry(url, language.title())
-                soup = my_wiktionary_parser.get_soup(word)
-                etymology = my_wiktionary_parser.get_etymology(soup, language)
+            url = f"https://en.wiktionary.org/wiki/{word}"
+            print("My Parser URL: " + url)
+            #soup = my_wiktionary_parser.get_language_entry(url, language.title())
+            soup = my_wiktionary_parser.get_soup(word)
+            etymology = my_wiktionary_parser.get_etymology(soup, language)
         except:
             try:
                 #url = f"https://en.wiktionary.org/wiki/{word}"
@@ -236,8 +238,10 @@ class RoboticRoman():
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
 
-        if language == 'latin':
+        if language.lower().strip() == 'latin':
             url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_terms_derived_from_Proto-Indo-European"
+        elif language.lower().strip() == 'chinese':
+            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas"
         else:
             url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"
         print("URL: " + url)

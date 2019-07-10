@@ -101,7 +101,7 @@ def get_word(soup, language, word):
 
 def get_definitions(soup, language, include_examples=True):
     definitions = get_definition(soup, language, include_examples)
-    definitions = [li.get_text() for li in definitions if not isinstance(li, NavigableString)]
+    definitions = [li.get_text() if not isinstance(li, NavigableString) else li for li in definitions]
 
     print("Definitions " + str(definitions))
     return [d for d in definitions if d != None and d.strip() != ""]
@@ -367,6 +367,48 @@ def get_grammar_question(language, tries=0):
         return get_grammar_question(language, tries + 1)
     return [headword.split('•')[0].strip(), headword_forms]
 
+def get_middle_chinese_only(c):
+    print("Middle Chinese only char: " + c)
+    soup = get_soup(c)
+    #print(soup)
+    matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
+    try:
+        pronunciation = re.findall(matcher, str(soup))[0]
+    except:
+        return "Not found."
+    pronunciation = re.sub(r"<.*?/*>", "", pronunciation)
+    return pronunciation
+
+def get_middle_chinese(soup, word):
+    print("Chinese char: " + word)
+    language_header = None
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and 'Chinese' in [s.get_text().strip() for s in h2.find_all('span')]:
+            language_header = h2
+            break
+
+    pronunciation = "Not found."
+    for sibling in language_header.next_siblings:
+        siblings = '|'.join((list([s.get_text() if isinstance(s, Tag) else s for s in language_header.next_siblings])))
+        #print(siblings)
+        mc = '-'.join(' '.join(re.findall(r"Middle Chinese:\s/(.*?)/", siblings)).split())
+
+        mc_list = []
+        if not mc:
+            mc_list = []
+            for c in list(word):
+                mc_list.append(get_middle_chinese_only(c))
+            mc = '-'.join(mc_list)
+
+        if not mc:
+            mc_pronunciation = "Middle Chinese: Not found"
+        else:
+            mc_pronunciation = "Middle Chinese: " + mc
+        mandarin_pronunciation = "Mandarin: " + ', '.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\s", siblings))
+        pronunciation = '\n'.join([mc_pronunciation, mandarin_pronunciation])
+        return pronunciation
+    return pronunciation
 
 mapping = {
     'Ā': 'A',
