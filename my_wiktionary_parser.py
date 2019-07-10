@@ -128,7 +128,7 @@ def old_dictify(ul, level=0):
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
         ul2 = li.find("ul")
         if ul2:
-            return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
+            return_str += '\t\t'*(level + 1) + old_dictify(ul2, level +  1).strip() + '\n'
     print(return_str)
     return return_str.strip()
 
