@@ -133,13 +133,14 @@ def old_dictify(ul, level=0):
     return return_str.strip()
 
 def dictify(ul, level=0):
+    print("In Dictify")
     return_str = ""
     for li in ul.find_all("li", recursive=False):
         stripped = iter([s for s in li.stripped_strings if s not in ['⇒', '→']])
         print(list(li.stripped_strings))
         key = next(stripped)
         print("Key: " + key)
-        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a'], recursive=False)])
+        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
         print("Nukes: " + nukes)
         if not nukes:
             continue
