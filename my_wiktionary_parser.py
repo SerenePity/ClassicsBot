@@ -122,7 +122,7 @@ def old_dictify(ul, level=0):
     for li in ul.find_all("li", recursive=False):
         key = next(li.stripped_strings)
         print("Key: " + key)
-        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span', recursive=False)])
+        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span', recursive=False)]).replace(key, "")
         return_str +=  level*'\t\t' + key + " " + nukes + '\n'
 
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
