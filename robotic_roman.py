@@ -186,6 +186,16 @@ class RoboticRoman():
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
+        elif language.lower() == 'chinese':
+            derives = self.get_derivatives(word, language, misc=True)
+            if derives == 'Not found.':
+                derives = ""
+            else:
+                derives = '\n\n' + derives
+            glyph_origin = my_wiktionary_parser.get_glyph_origin(soup)
+            if not glyph_origin:
+                glyph_origin = "Not found."
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n**Glyph Origin**\n{glyph_origin}{derives}"
         else:
             derives = self.get_derivatives(word, language, misc=True)
             if derives == 'Not found.':
@@ -193,6 +203,7 @@ class RoboticRoman():
             else:
                 derives = '\n\n' + derives
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
+            #print(return_str)
         return return_str
 
     def get_derivatives(self, word, language='latin', misc=False):

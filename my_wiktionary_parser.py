@@ -427,6 +427,25 @@ def get_middle_chinese(soup, word):
         return pronunciation
     return pronunciation
 
+def get_glyph_origin(soup):
+    origin = []
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and 'Chinese' in [s.get_text().strip() for s in h2.find_all('span')]:
+            language_header = h2
+            break
+
+    for h3 in soup.find_all('h3'):
+        #print("H3: " + str(h3))
+        if h3.span and 'Glyph origin' in h3.span.get_text():
+            #print("In glyph origin")
+            for sibling in h3.next_siblings:
+                if sibling.name == 'p':
+                    origin.append(sibling.get_text())
+                if sibling.name == 'h3':
+                    break
+    return '\n'.join(origin).strip()
+
 mapping = {
     'Ā': 'A',
     'Ē': 'E',
@@ -444,3 +463,7 @@ def remove_macrons(text):
     for key in mapping.keys():
         text = text.replace(key, mapping[key])
     return text
+
+soup = get_soup('奴')
+#print(soup)
+print(get_glyph_origin(soup))
