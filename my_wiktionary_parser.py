@@ -427,6 +427,14 @@ def get_middle_chinese(soup, word):
         return pronunciation
     return pronunciation
 
+def get_glyph_origin_multiple(words):
+    final = []
+    for c in words:
+        print("Charlist mem: " + c)
+        soup = get_soup(c)
+        final.append(f"**{c}**: {get_glyph_origin(soup)}")
+    return '\n'.join(final)
+
 def get_glyph_origin(soup):
     origin = []
     for h2 in soup.find_all('h2'):

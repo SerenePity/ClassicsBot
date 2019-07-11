@@ -172,6 +172,7 @@ class RoboticRoman():
         return soup and "does not yet have an entry" not in soup
 
     def get_full_entry(self, word=None, language='latin'):
+        print("Language: " + language   )
         if not word:
             word = self.get_random_word(language)
         if language.lower() == 'chinese':
@@ -192,7 +193,12 @@ class RoboticRoman():
                 derives = ""
             else:
                 derives = '\n\n' + derives
-            glyph_origin = my_wiktionary_parser.get_glyph_origin(soup)
+            #print("WORD: " + word)
+            if len(list(word)) > 1:
+                print("In Muliple")
+                glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(list(word))
+            else:
+                glyph_origin = my_wiktionary_parser.get_glyph_origin(soup)
             if not glyph_origin:
                 glyph_origin = "Not found."
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n**Glyph Origin**\n{glyph_origin}{derives}"
