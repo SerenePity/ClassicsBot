@@ -43,7 +43,7 @@ def get_etymology(soup, language):
         if sibling.name == 'h2':
             break
         if 'Etymology' in sibling.get_text():
-            if not sibling.findNextSibling('div') or 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
+            if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             try:
                 dl = sibling.findNextSibling('dl')
