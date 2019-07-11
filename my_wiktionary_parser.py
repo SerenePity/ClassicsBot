@@ -423,7 +423,7 @@ def get_middle_chinese(soup, word):
         oc = []
         for c in list(word):
             oc.append(get_old_chinese_only(c))
-        oc_pronunciation = "Old Chinese: " + '-'.join(oc)
+        oc_pronunciation = "Old Chinese: " + '-'.join(oc).replace("*", "")
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
         pronunciation = '\n'.join([oc_pronunciation, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
