@@ -102,7 +102,7 @@ def get_word(soup, language, word):
 
 def get_definitions(soup, language, include_examples=True):
     definitions = get_definition(soup, language, include_examples)
-    definitions = [li.get_text() if not isinstance(li, NavigableString) else li for li in definitions]
+    definitions = [li.get_text() if not (isinstance(li, NavigableString) or isinstance(li, str)) else li for li in definitions]
 
     print("Definitions " + str(definitions))
     return [d for d in definitions if d != None and d.strip() != ""]
@@ -383,10 +383,12 @@ def get_middle_chinese_only(c):
 def get_old_chinese_only(c):
     print("Old Chinese only char: " + c)
     soup = get_soup(c)
-    #print(soup)
-    matcher = re.cpmpile(r"<a href=\"https://en.wikipedia.org/wiki/Zhengzhang_Shangfang\".*\"IPAchar\">(.*?)</span")
+    print(str(soup))
+    pronunciation = ""
     try:
-        pronunciation = matcher.search(str(soup).replace(' ', '')).group(0)
+        pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
+        print("RESULTS:")
+        print(list(pronunciation))
     except:
         traceback.print_exc()
         return "Not found."
@@ -418,8 +420,12 @@ def get_middle_chinese(soup, word):
             mc_pronunciation = "Middle Chinese: Not found"
         else:
             mc_pronunciation = "Middle Chinese: " + mc
+        oc = []
+        for c in list(word):
+            oc.append(get_old_chinese_only(c))
+        oc_pronunciation = "Old Chinese: " + '-'.join(oc)
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
-        pronunciation = '\n'.join([mc_pronunciation, mandarin_pronunciation])
+        pronunciation = '\n'.join([oc_pronunciation, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
     return pronunciation
 
