@@ -405,8 +405,11 @@ def get_middle_chinese(soup, word):
         if not mc:
             mc_list = []
             for c in list(word):
-                mc_list.append(get_middle_chinese_only(c).split('|')[0])
-            mc = '-'.join(mc_list).replace('/', '')
+                if c == '，':
+                    mc_list.append(", ")
+                else:
+                    mc_list.append(get_middle_chinese_only(c).split('|')[0])
+            mc = ' '.join(mc_list).replace('/', '')
 
         if not mc:
             mc_pronunciation = "Middle Chinese: Not found"
@@ -414,8 +417,11 @@ def get_middle_chinese(soup, word):
             mc_pronunciation = "Middle Chinese: " + mc
         oc = []
         for c in list(word):
-            oc.append(get_old_chinese_only(c))
-        oc_pronunciation = "Old Chinese: " + '-'.join(oc).replace("*", "")
+            if c == '，':
+                oc.append(", ")
+            else:
+                oc.append(get_old_chinese_only(c))
+        oc_pronunciation = "Old Chinese: " + ' '.join(oc).replace("*", "")
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
         pronunciation = '\n'.join([oc_pronunciation, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
