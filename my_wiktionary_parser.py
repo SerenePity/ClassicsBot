@@ -3,6 +3,7 @@ from collections import OrderedDict
 import requests
 import re
 from bs4 import BeautifulSoup, NavigableString, Tag
+import traceback
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -379,6 +380,18 @@ def get_middle_chinese_only(c):
     pronunciation = re.sub(r"<.*?/*>", "", pronunciation)
     return pronunciation
 
+def get_old_chinese_only(c):
+    print("Old Chinese only char: " + c)
+    soup = get_soup(c)
+    #print(soup)
+    matcher = re.cpmpile(r"<a href=\"https://en.wikipedia.org/wiki/Zhengzhang_Shangfang\".*\"IPAchar\">(.*?)</span")
+    try:
+        pronunciation = matcher.search(str(soup).replace(' ', '')).group(0)
+    except:
+        traceback.print_exc()
+        return "Not found."
+    return pronunciation
+
 def get_middle_chinese(soup, word):
     print("Chinese char: " + word)
     language_header = None
@@ -390,7 +403,7 @@ def get_middle_chinese(soup, word):
 
     pronunciation = "Not found."
     for sibling in language_header.next_siblings:
-        siblings = '|'.join((list([s.get_text() if isinstance(s, Tag) else s for s in language_header.next_siblings])))
+        siblings = '|'.join((list([s.get_text() if (isinstance(s, Tag) and not isinstance(s, str)) else s for s in language_header.next_siblings])))
         #print(siblings)
         mc = '-'.join(' '.join([s.split('|')[0] for s in re.findall(r"Middle Chinese:\s/(.*?)", siblings)]).split()).replace('/', '')
 
