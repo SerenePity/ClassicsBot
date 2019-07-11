@@ -7,3 +7,4 @@ romanize3
 cltk
 wiktionaryparser
 transliterate
+mafan

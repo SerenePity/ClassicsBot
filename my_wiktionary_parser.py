@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 import requests
 import re
+from mafan import simplify, tradify
 from bs4 import BeautifulSoup, NavigableString, Tag
 import traceback
 
@@ -104,7 +105,6 @@ def get_definitions(soup, language, include_examples=True):
     definitions = get_definition(soup, language, include_examples)
     definitions = [li.get_text() if not (isinstance(li, NavigableString) or isinstance(li, str)) else li for li in definitions]
 
-    print("Definitions " + str(definitions))
     return [d for d in definitions if d != None and d.strip() != ""]
 
 def get_soup(word):
@@ -130,7 +130,6 @@ def old_dictify(ul, level=0):
         ul2 = li.find("ul")
         if ul2:
             return_str += '\t\t'*(level + 1) + old_dictify(ul2, level +  1).strip() + '\n'
-    print(return_str)
     return return_str.strip()
 
 def dictify(ul, level=0):
@@ -138,11 +137,8 @@ def dictify(ul, level=0):
     return_str = ""
     for li in ul.find_all("li", recursive=False):
         stripped = iter([s for s in li.stripped_strings if s not in ['⇒', '→']])
-        print(list(li.stripped_strings))
         key = next(stripped)
-        print("Key: " + key)
         nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
-        print("Nukes: " + nukes)
         if not nukes:
             continue
         if key.strip().lower() == nukes.split()[0].lower().strip():
@@ -224,8 +220,6 @@ def get_misc(uls):
     for ul in uls:
         header_dict = dict()
         misc = dictify(ul)
-        print("MISC:")
-        print(misc)
         header = ul.find_previous_siblings(['h4', 'h3'])[0].text.strip()
         if not has_unwanted_headers(header) and header in novel_headers:
             header_dict["**" + re.sub(r"\[(.*?)\]" + "", "", header) + "**"] += misc
@@ -246,7 +240,6 @@ def get_latin_grammar_forms(no_macrons=False, tries=0):
         # print(h2)
         if h2.span and 'Latin' in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
-            print("Language header: " + language_header.get_text())
             break
 
     conjugated = None
@@ -383,7 +376,6 @@ def get_middle_chinese_only(c):
 def get_old_chinese_only(c):
     print("Old Chinese only char: " + c)
     soup = get_soup(c)
-    print(str(soup))
     pronunciation = ""
     try:
         pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
