@@ -810,8 +810,10 @@ class RoboticRoman():
         else:
             return None
 
-    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False):
+    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
+        if tries > 3:
+            return "Not found."
         if word:
             word = word.lower() if not case_sensitive else word
             regex_list = []
@@ -837,8 +839,8 @@ class RoboticRoman():
                 f.seek(0)
             if len(quotes) == 0:
                 j = JVReplacer()
-                quote = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive)
-                if not quote:
+                quote = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
+                if not quote or len(quotes) == 0:
                     return "Not found."
             else:
                 quote = random.choice(quotes)
