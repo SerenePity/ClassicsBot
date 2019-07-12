@@ -832,10 +832,11 @@ class RoboticRoman():
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
                 quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)]
                 f.seek(0)
-            quote = random.choice(quotes)
-            if not quote:
+            if len(quotes) == 0:
                 j = JVReplacer()
-                quote = self.pick_quote(self, files, process_func, j.replace(word), lemmatize, case_sensitive)
+                quote = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive)
+            else:
+                quote = random.choice(quotes)
                 if not quote:
                     return "Not found."
         else:
