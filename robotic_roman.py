@@ -45,7 +45,7 @@ REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
-ABSOLUTE_DELIMITER = "|"
+ABSOLUTE_DELIMITER = "&%"
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
@@ -704,6 +704,9 @@ class RoboticRoman():
     def _process_basic(self, text):
         return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), random.randint(2,4)))]
 
+    def _process_absolute(self, text):
+        return text.split(ABSOLUTE_DELIMITER)
+
     def _process_text(self, text):
         text = self._replace_abbreviation_period(text.replace('...', '^'))
         text = self._passage_deliminator(text)
@@ -841,6 +844,8 @@ class RoboticRoman():
                     return "Not found."
         else:
             f = random.choice(files)
+            #print(files)
+            #print(process_func(f.read()))
             quote = random.choice(process_func(f.read()))
             f.seek(0)
         return quote
@@ -875,6 +880,9 @@ class RoboticRoman():
             files = self.off_topic_quotes_dict[person]
             if person.lower() == "joyce":
                 quote = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
+            elif person.lower() == "bush" or person.lower() == "yogi berra":
+                quote = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+                print(quote)
             else:
                 quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'the ' + person in self.off_topic_authors:
