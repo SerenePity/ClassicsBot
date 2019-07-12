@@ -700,6 +700,9 @@ class RoboticRoman():
             text = text.replace(key, REVERSE_DELIMITERS_MAP[key])
         return text
 
+    def _process_basic(self, text):
+        return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), random.randint(2,4)))]
+
     def _process_text(self, text):
         text = self._replace_abbreviation_period(text.replace('...', '^'))
         text = self._passage_deliminator(text)
@@ -863,7 +866,10 @@ class RoboticRoman():
                     raise error
         elif person in self.off_topic_authors:
             files = self.off_topic_quotes_dict[person]
-            quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            if person.lower() == "joyce":
+                quote = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
+            else:
+                quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'the ' + person in self.off_topic_authors:
             files = self.off_topic_quotes_dict['the ' + person]
             quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)

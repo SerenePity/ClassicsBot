@@ -564,6 +564,9 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
                     await self.send_message(channel, self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive))
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await self.send_message(channel, f"The passage is too long.")
             except Exception as e:
                 traceback.print_exc()
                 if not source:
