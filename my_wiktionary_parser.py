@@ -46,10 +46,12 @@ def get_etymology(soup, language):
             if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             try:
-                dl = sibling.findNextSibling('dl')
-                etymology = dl.get_text()
+                dls = sibling.find_next_siblings('dl')
+                etymology = '\n'.join([dl.get_text() for dl in dls])
+                return etymology
             except:
                 etymology = sibling.findNextSibling('p').get_text()
+                return etymology
 
     return etymology
 

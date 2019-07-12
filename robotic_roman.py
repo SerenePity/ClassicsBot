@@ -241,6 +241,7 @@ class RoboticRoman():
             #soup = my_wiktionary_parser.get_language_entry(url, language.title())
             soup = my_wiktionary_parser.get_soup(word)
             etymology = my_wiktionary_parser.get_etymology(soup, language)
+            print("ETYMOLOGY: " + etymology)
         except:
             try:
                 #url = f"https://en.wiktionary.org/wiki/{word}"
