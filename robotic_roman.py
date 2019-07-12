@@ -812,7 +812,7 @@ class RoboticRoman():
 
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
-        if tries > 3:
+        if tries > 2:
             return "Not found."
         if word:
             word = word.lower() if not case_sensitive else word
