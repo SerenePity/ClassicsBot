@@ -838,15 +838,14 @@ class RoboticRoman():
             if len(quotes) == 0:
                 j = JVReplacer()
                 quote = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive)
-                if not quote: return "Not found."
+                if not quote:
+                    return "Not found."
             else:
                 quote = random.choice(quotes)
                 if not quote:
                     return "Not found."
         else:
             f = random.choice(files)
-            #print(files)
-            #print(process_func(f.read()))
             quote = random.choice(process_func(f.read()))
             f.seek(0)
         return quote
