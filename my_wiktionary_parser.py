@@ -431,7 +431,7 @@ def get_middle_chinese(soup, word):
                     mc_list.append(", ")
                 else:
                     mc_list.append(get_middle_chinese_only(c).split('|')[0])
-            mc = ' '.join(mc_list).replace('/', '')
+            mc = ' '.join([s.split(', ')[0] for s in mc_list]).replace('/', '')
 
         if not mc:
             mc_pronunciation = "Middle Chinese: Not found"
@@ -449,8 +449,8 @@ def get_middle_chinese(soup, word):
                 oc_sg.append(", ")
             else:
                 oc_sg.append(get_old_chinese_only_sagart(c))
-        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc).replace("*", "")
-        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg).replace("*", "")
+        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc).replace("*", "\*")
+        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg).replace("*", "\*")
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
         pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_sg, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
