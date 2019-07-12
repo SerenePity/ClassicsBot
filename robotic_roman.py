@@ -1,3 +1,4 @@
+from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
 from cltk.stem.latin.declension import CollatinusDecliner
@@ -832,6 +833,11 @@ class RoboticRoman():
                 quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)]
                 f.seek(0)
             quote = random.choice(quotes)
+            if not quote:
+                j = JVReplacer()
+                quote = self.pick_quote(self, files, process_func, j.replace(word), lemmatize, case_sensitive)
+                if not quote:
+                    return "Not found."
         else:
             f = random.choice(files)
             quote = random.choice(process_func(f.read()))
