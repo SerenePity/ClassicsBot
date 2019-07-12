@@ -386,14 +386,23 @@ def get_middle_chinese_only(c):
     pronunciation = re.sub(r"<.*?/*>", "", pronunciation)
     return pronunciation
 
-def get_old_chinese_only(c):
+def get_old_chinese_only_zhengchang(c):
     print("Old Chinese only char: " + c)
     soup = get_soup(c)
     pronunciation = ""
     try:
         pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
-        print("RESULTS:")
-        print(list(pronunciation))
+    except:
+        traceback.print_exc()
+        return "Not found."
+    return pronunciation
+
+def get_old_chinese_only_sagart(c):
+    print("Old Chinese only char: " + c)
+    soup = get_soup(c)
+    pronunciation = ""
+    try:
+        pronunciation = re.findall(r"Sagart\".*\"IPAchar\">/(.*?)/", str(soup))[0]
     except:
         traceback.print_exc()
         return "Not found."
@@ -428,15 +437,22 @@ def get_middle_chinese(soup, word):
             mc_pronunciation = "Middle Chinese: Not found"
         else:
             mc_pronunciation = "Middle Chinese: " + mc
-        oc = []
+        oc_zc = []
         for c in list(word):
             if c == '，':
-                oc.append(", ")
+                oc_zc.append(", ")
             else:
-                oc.append(get_old_chinese_only(c))
-        oc_pronunciation = "Old Chinese: " + ' '.join(oc).replace("*", "")
+                oc_zc.append(get_old_chinese_only_zhengchang(c))
+        oc_sg = []
+        for c in list(word):
+            if c == '，':
+                oc_sg.append(", ")
+            else:
+                oc_sg.append(get_old_chinese_only_sagart(c))
+        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc).replace("*", "")
+        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg).replace("*", "")
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
-        pronunciation = '\n'.join([oc_pronunciation, mc_pronunciation, mandarin_pronunciation])
+        pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_sg, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
     return pronunciation
 
