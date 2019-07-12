@@ -296,6 +296,8 @@ class Scholasticus(commands.Bot):
                 elif len(args) > 1:
                     language = ' '.join(args[1:])
                     word = self.robot.get_random_word(language)
+                    print("SCHOLASTICUS WORD: " + word)
+                    print("SCHOLASTICUS WORD: " + language)
                     await self.send_message(channel, self.robot.get_full_entry(word, language))
                     return
             except discord.errors.HTTPException:

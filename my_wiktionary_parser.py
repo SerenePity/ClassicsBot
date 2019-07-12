@@ -37,6 +37,9 @@ def get_etymology(soup, language):
             language_header = h2
             break
 
+    if not language_header:
+        return "Not found."
+
     for sibling in language_header.next_siblings:
         if isinstance(sibling, NavigableString):
             continue
@@ -47,12 +50,16 @@ def get_etymology(soup, language):
                 return "Not found."
             try:
                 dls = sibling.find_next_siblings('dl')
-                etymology = '\n'.join([dl.get_text() for dl in dls])
-                return etymology
+                if not dls or len(list(dls)) == 0:
+                    etymology = sibling.findNextSibling('p').get_text()
+                    if etymology and etymology.strip() != "":
+                        break
+                else:
+                    etymology = sibling.findNextSibling('p').get_text()
+                    if etymology and etymology.strip() != "":
+                        break
             except:
-                etymology = sibling.findNextSibling('p').get_text()
-                return etymology
-
+                return "Not found."
     return etymology
 
 def get_definition(soup, language, include_examples=True):
@@ -188,6 +195,8 @@ def get_derivations(soup, language, misc=False):
         if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
+    if not language_header:
+        return '\n\n'.join(["**Derivarives**" + '\n' + "None found."])
     for sibling in language_header.next_siblings:
         if isinstance(sibling, NavigableString):
             continue

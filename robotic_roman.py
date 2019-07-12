@@ -241,6 +241,7 @@ class RoboticRoman():
             #soup = my_wiktionary_parser.get_language_entry(url, language.title())
             soup = my_wiktionary_parser.get_soup(word)
             etymology = my_wiktionary_parser.get_etymology(soup, language)
+            return etymology
             print("ETYMOLOGY: " + etymology)
         except:
             try:
@@ -276,10 +277,8 @@ class RoboticRoman():
             if language.lower() == 'chinese':
                 word = tradify(word)
         etymology = self.get_word_etymology(word, language=language)
-        if not etymology or "No etymology found" in etymology:
-            return self.get_random_word(language, tries + 1)
-        else:
-            return urllib.parse.unquote(word).replace('_', ' ')
+        print("Etymology in random: " + etymology)
+        return urllib.parse.unquote(word).replace('_', ' ')
 
     def get_random_latin_lemma(self, tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
