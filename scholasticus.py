@@ -99,7 +99,7 @@ class Quote():
         elif after:
             quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
-        return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "")
+        return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("ENDFILE")[0]
 
 class Scholasticus(commands.Bot):
 
