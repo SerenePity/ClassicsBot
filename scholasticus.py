@@ -89,6 +89,7 @@ class Quote():
         self.robot = robot
 
     def get_surrounding(self, before=None, after=None):
+        print("Index: " + str(self.index))
         quotes_list = []
         max_len = len(self.quotes)
         if before and after:
@@ -112,7 +113,7 @@ class Quote():
             else:
                 quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
-        ret_str = self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("ENDFILE")[0]
+        ret_str = self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0]
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
         return ret_str
@@ -517,6 +518,18 @@ class Scholasticus(commands.Bot):
             except Exception as e:
                 traceback.print_exc()
                 await self.send_message(channel, f"Error transliterating input.")
+                return
+
+        if content.lower().startswith(self.command_prefix + 'textseq'):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                await self.send_message(channel, "You must provide an author or work.")
+            else:
+                source = ' '.join(args[1:])
+                quotes = self.robot.get_text_list_for_person(source)
+                qt_obj = Quote(source, quotes, 0)
+                self.quote_requestors[author] = qt_obj
+                await self.send_message(channel, qt_obj.get_surrounding(after=2))
                 return
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):

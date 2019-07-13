@@ -747,6 +747,7 @@ class RoboticRoman():
 
         for person in self.off_topic_quotes_dict:
             print(person)
+            print(person)
             self.load_off_topic_quotes(person)
 
         for person in self.parallel_quotes_dict:
@@ -855,6 +856,7 @@ class RoboticRoman():
                         quotes_list.append(p + "_found")
                     else:
                         quotes_list.append(p)
+                quotes_list.append("--------------------------EOF--------------------------")
                 f.seek(0)
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
@@ -877,6 +879,26 @@ class RoboticRoman():
             quote = quotes_list[index]
             f.seek(0)
         return index, quote, quotes_list
+
+    def get_text_list_for_person(self, person):
+        if person in self.greek_quotes_dict:
+            files = self.greek_quotes_dict[person]
+        elif "the " + person in self.greek_quotes_dict:
+            files = self.greek_quotes_dict["the " + person]
+        elif person in self.off_topic_authors:
+            files = self.off_topic_quotes_dict[person]
+        elif 'the ' + person in self.off_topic_authors:
+            files = self.off_topic_quotes_dict['the ' + person]
+        elif 'parallel_' in person:
+            files = self.parallel_quotes_dict[person.replace('parallel_', '')]
+        else:
+            if not person in self.quotes_dict:
+                person = "the " + person
+            files = self.quotes_dict[person]
+        file = random.choice(files).read()
+        if person == 'the bible':
+            return re.split(BIBLE_DELIMITERS, file)
+        return file.split('.')
 
     def get_quote_list(self, person, word, lemmatize=False, case_sensitive=False):
         print(person)
