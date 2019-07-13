@@ -579,7 +579,7 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
-            if qt_args[0] != 'qt':
+            if qt_args[0].lower() != 'qt':
                 return
             print(qt_args)
             word = None
@@ -635,9 +635,9 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
-        if content.lower().startswith(self.command_prefix + 'nxt'):
+        if content.lower().startswith(self.command_prefix + 'next'):
             args = shlex.split(content.lower())
-            if args[0] != 'nxt':
+            if args[0].lower() != 'next':
                 return
             if len(args) < 2:
                 after = 1
@@ -652,7 +652,7 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'bef'):
             args = shlex.split(content.lower())
-            if args[0] != 'bef':
+            if args[0].lower() != 'bef':
                 return
             if len(args) < 2:
                 before = 1
