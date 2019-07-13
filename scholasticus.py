@@ -86,6 +86,8 @@ class Quote():
         self.author = author
         self.quotes = quotes
         self.index = index
+        self.before_index = None
+        self.after_index = None
         self.robot = robot
 
     def get_surrounding(self, before=None, after=None):
@@ -96,23 +98,31 @@ class Quote():
             before_index = self.index - before
             if before_index < 0:
                 before_index = 0
+            self.before_index = before_index
             after_index = self.index + after + 1
             if after_index > max_len:
                 after_index = max_len
+            self.after_index = after_index
             quotes_list = self.quotes[before_index:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:after_index]
         elif before:
+            if self.before_index:
+                self.index = self.before_index
             old_index = self.index
             if self.index - before < 0:
                 self.index = 0
             else:
                 self.index = self.index - before
             quotes_list = self.quotes[self.index:old_index + 1]
+            self.before_index = None
         elif after:
+            if self.after_index:
+                self.index = self.after_index
             if self.index + after > max_len:
                 quotes_list = self.quotes[self.index:max_len]
             else:
                 quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
+            self.after_index = None
         ret_str = self.robot.sanitize('.'.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '.')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
