@@ -601,7 +601,7 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
-        if content.lower().startswith(self.command_prefix + 'qtafter '):
+        if content.lower().startswith(self.command_prefix + 'aft '):
             args = shlex.split(content.lower())
             if len(args) < 2:
                 after = 1
@@ -610,7 +610,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
             return
 
-        if content.lower().startswith(self.command_prefix + 'qtbefore '):
+        if content.lower().startswith(self.command_prefix + 'bef '):
             args = shlex.split(content.lower())
             if len(args) < 2:
                 before = 1
@@ -619,7 +619,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
             return
 
-        if content.lower().startswith(self.command_prefix + 'qtsurround '):
+        if content.lower().startswith(self.command_prefix + 'surr '):
             args = shlex.split(content.lower())
             if len(args) < 3:
                 before = 1
