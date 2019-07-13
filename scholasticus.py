@@ -90,16 +90,32 @@ class Quote():
 
     def get_surrounding(self, before=None, after=None):
         quotes_list = []
+        max_len = len(self.quotes)
         if before and after:
-            quotes_list = self.quotes[self.index - before:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+            before_index = self.index - before
+            if before_index < 0:
+                before_index = 0
+            after_index = self.index + after + 1
+            if after_index > max_len:
+                after_index = max_len
+            quotes_list = self.quotes[before_index:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:after_index]
         elif before:
-            self.index = self.index - before
-            quotes_list = self.quotes[self.index - before:self.index + 1]
-            self.index = self.index - before
+            old_index = self.index
+            if self.index - before < 0:
+                self.index = 0
+            else:
+                self.index = self.index - before
+            quotes_list = self.quotes[self.index:old_index + 1]
         elif after:
-            quotes_list = self.quotes[self.index:self.index + after]
+            if self.index + after > max_len:
+                quotes_list = self.quotes[self.index:max_len]
+            else:
+                quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
-        return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("ENDFILE")[0]
+        ret_str = self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("ENDFILE")[0]
+        if len(ret_str) >= 2000:
+            ret_str = ret_str[:1998] + "..."
+        return ret_str
 
 class Scholasticus(commands.Bot):
 
@@ -614,7 +630,11 @@ class Scholasticus(commands.Bot):
                 after = 1
             else:
                 after = int(args[1])
-            await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
+            try:
+                await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await self.send_message(channel, f"Text is too long.")
             return
 
         if content.lower().startswith(self.command_prefix + 'bef'):
@@ -625,7 +645,11 @@ class Scholasticus(commands.Bot):
                 before = 1
             else:
                 before = int(args[1])
-            await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
+            try:
+                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await self.send_message(channel, f"Text is too long.")
             return
 
         if content.lower().startswith(self.command_prefix + 'surr '):
