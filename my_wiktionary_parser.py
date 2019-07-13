@@ -120,8 +120,9 @@ def get_word(soup, language, word):
 
 def get_definitions(soup, language, include_examples=True):
     definitions = get_definition(soup, language, include_examples)
+    if definitions == "Could not find definition.":
+        return [definitions]
     definitions = [li.get_text() if not (isinstance(li, NavigableString) or isinstance(li, str)) else li for li in definitions]
-
     return [d for d in definitions if d != None and d.strip() != ""]
 
 def get_soup(word):

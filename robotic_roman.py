@@ -303,6 +303,8 @@ class RoboticRoman():
         if language.lower() == 'chinese':
             word = tradify(word)
         word_defs = self.get_word_defs(word, language, include_examples)
+        if isinstance(word_defs, str):
+            word_defs = [word_defs]
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
