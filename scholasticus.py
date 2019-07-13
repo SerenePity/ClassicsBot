@@ -94,8 +94,10 @@ class Quote():
             quotes_list = self.quotes[self.index - before:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
         elif before:
             quotes_list = self.quotes[self.index - before:self.index + 1]
+            self.index = self.index - before
         elif after:
             quotes_list = [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+            self.index = self.index + after
         return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "")
 
 class Scholasticus(commands.Bot):
@@ -601,8 +603,10 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
-        if content.lower().startswith(self.command_prefix + 'aft '):
+        if content.lower().startswith(self.command_prefix + 'aft'):
             args = shlex.split(content.lower())
+            if args[0] != 'aft':
+                return
             if len(args) < 2:
                 after = 1
             else:
@@ -610,8 +614,10 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
             return
 
-        if content.lower().startswith(self.command_prefix + 'bef '):
+        if content.lower().startswith(self.command_prefix + 'bef'):
             args = shlex.split(content.lower())
+            if args[0] != 'bef':
+                return
             if len(args) < 2:
                 before = 1
             else:
