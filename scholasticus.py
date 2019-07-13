@@ -88,7 +88,7 @@ class Quote():
         self.index = index
         self.robot = robot
 
-    def get_surrounding(self, before=0, after=0):
+    def get_surrounding(self, before=None, after=None):
         quotes_list = []
         if before and after:
             quotes_list = self.quotes[self.index - before:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
@@ -97,7 +97,7 @@ class Quote():
             quotes_list = self.quotes[self.index - before:self.index + 1]
             self.index = self.index - before
         elif after:
-            quotes_list = [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+            quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
         return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "")
 
