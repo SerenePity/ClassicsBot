@@ -872,7 +872,7 @@ class RoboticRoman():
                     if quote.endswith("_found"):
                         return_values.append((i, quote.replace("_found", ""),  quotes_list))
                 ret = random.choice(return_values)
-                print("Return: " + str(ret))
+                #print("Return: " + str(ret))
                 return ret[0], ret[1], ret[2]
         else:
             f = random.choice(files)

@@ -113,7 +113,7 @@ class Quote():
             else:
                 quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
-        ret_str = self.robot.sanitize(' '.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0]
+        ret_str = self.robot.sanitize('.'.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '.')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
         return ret_str
