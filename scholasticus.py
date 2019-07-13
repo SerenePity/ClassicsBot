@@ -93,6 +93,7 @@ class Quote():
         if before and after:
             quotes_list = self.quotes[self.index - before:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
         elif before:
+            self.index = self.index - before
             quotes_list = self.quotes[self.index - before:self.index + 1]
             self.index = self.index - before
         elif after:

@@ -704,7 +704,7 @@ class RoboticRoman():
         return text
 
     def _process_basic(self, text):
-        return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), random.randint(2,4)))]
+        return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), 3))]
 
     def _process_absolute(self, text):
         return text.split(ABSOLUTE_DELIMITER)
