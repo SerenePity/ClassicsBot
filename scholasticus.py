@@ -606,9 +606,9 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
-        if content.lower().startswith(self.command_prefix + 'aft'):
+        if content.lower().startswith(self.command_prefix + 'nxt'):
             args = shlex.split(content.lower())
-            if args[0] != 'aft':
+            if args[0] != 'nxt':
                 return
             if len(args) < 2:
                 after = 1
