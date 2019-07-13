@@ -810,10 +810,19 @@ class RoboticRoman():
         else:
             return None
 
+    def matching_quote(self, file, regex, case_sensitive, proces_func):
+        quotes = []
+        for i, quote in enumerate(file.read()):
+            quotes.append(quote)
+            return i, quotes, self.find_multi_regex(regex, re.sub(r"[^\w0-9\s\n]", "", proces_func(quote), case_sensitive))
+
+    def unpack(self, *lst):
+        return lst
+
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
         if tries > 2:
-            return "Not found."
+            return -1, "Not found.", []
         if word:
             word = word.lower() if not case_sensitive else word
             regex_list = []
@@ -825,56 +834,67 @@ class RoboticRoman():
                         regex_list.append(f"\\b{form}\\b")
                 except:
                     traceback.print_exc()
-                    return "Unknown lemma."
+                    return -1, "Unknown lemma.", []
             else:
                 #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
                 #words = [f"{word} ", f" {word} ", f" {word}."]
                 regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
             print(regex_list)
-            quotes = []
+            search_quotes = []
+            quotes_list = []
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                quotes += [p for p in process_func(f.read()) if self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)]
+                for i,p in enumerate(process_func(f.read())):
+                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)
+                    if search_target:
+                        search_quotes.append(p)
+                        quotes_list.append(p + "_found")
                 f.seek(0)
-            if len(quotes) == 0:
+            if len(search_quotes) == 0:
                 j = JVReplacer()
-                quote = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
-                if not quote or len(quotes) == 0:
-                    return "Not found."
+                index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
+                if not search_quotes or len(search_quotes) == 0:
+                    return -1, "Not found.", []
             else:
-                quote = random.choice(quotes)
-                if not quote:
-                    return "Not found."
+                return_values = []
+                for i, quote in enumerate(quotes_list):
+                    if quote.endswith(""):
+                        return_values.append([i, quote.replace("_found", ""),  quotes_list])
+                return tuple(random.choice(return_values))
         else:
             f = random.choice(files)
-            quote = random.choice(process_func(f.read()))
+            quotes_list = process_func(f.read())
+            index = random.randint(0, len(quotes_list))
+            quote = quotes_list[index]
             f.seek(0)
-        return quote
+        return index, quote, quotes_list
 
-    def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
+    def get_quote_list(self, person, word, lemmatize=False, case_sensitive=False):
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-               quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    return self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    return quote
                 else:
                     self.quote_tries = 0
                     raise error
         elif "the " + person in self.greek_quotes_dict:
             files = self.greek_quotes_dict["the " + person]
             try:
-               quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    return self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    return i, quote
                 else:
                     self.quote_tries = 0
                     raise error
@@ -883,26 +903,83 @@ class RoboticRoman():
             if person.lower() == "joyce":
                 quote = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
             elif person.lower() == "bush" or person.lower() == "yogi berra":
-                quote = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
                 print(quote)
             else:
-                quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'the ' + person in self.off_topic_authors:
             files = self.off_topic_quotes_dict['the ' + person]
-            quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
-            quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
+            i, quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
             print("Parallel quote: " + quote)
         else:
             if not person in self.quotes_dict:
                 person = "the " + person
             files = self.quotes_dict[person]
             if person == 'the bible':
-                quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
             else:
-                quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
+
+    def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
+        print(person)
+        if person.strip().lower() == 'reddit':
+            return self.reddit_quote(SUBREDDIT)
+        if person in self.greek_quotes_dict:
+            files = self.greek_quotes_dict[person]
+            try:
+               i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            except Exception as error:
+                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
+                    self.quote_tries += 1
+                    i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    return i, quote, quotes_list
+                else:
+                    self.quote_tries = 0
+                    raise error
+        elif "the " + person in self.greek_quotes_dict:
+            files = self.greek_quotes_dict["the " + person]
+            try:
+                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            except Exception as error:
+                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
+                    self.quote_tries += 1
+                    i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    return i, quote
+                else:
+                    self.quote_tries = 0
+                    raise error
+        elif person in self.off_topic_authors:
+            files = self.off_topic_quotes_dict[person]
+            if person.lower() == "joyce":
+                i, quote, quotes_list = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
+            elif person.lower() == "bush" or person.lower() == "yogi berra":
+                i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+                print(quote)
+            else:
+                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        elif 'the ' + person in self.off_topic_authors:
+            files = self.off_topic_quotes_dict['the ' + person]
+            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        elif 'parallel_' in person:
+            files = self.parallel_quotes_dict[person.replace('parallel_', '')]
+            i, quote, quotes_list = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
+            print("Parallel quote: " + quote)
+        else:
+            if not person in self.quotes_dict:
+                person = "the " + person
+            files = self.quotes_dict[person]
+            if person == 'the bible':
+                i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+            else:
+                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
+
+    def sanitize(self, quote):
+        return self.fix_crushed_punctuation(self._replace_placeholders(quote))
 
     def fix_crushed_punctuation(self, text):
         text = re.sub(r"(\w)\.([^\s])", r"\1. \2", text)

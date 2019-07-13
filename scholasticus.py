@@ -79,6 +79,23 @@ class Game():
         self.exited_players = set()
         self.players_dict = dict()
 
+class Quote():
+
+    def __init__(self, author, quotes, index):
+        self.author = author
+        self.quotes = quotes
+        self.index = index
+        self.robot = robotic_roman.RoboticRoman("")
+
+    def get_surrounding(self, before=0, after=0):
+        quotes_list = []
+        if before and after:
+            quotes_list = self.quotes[self.index - before:self.index + 1] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+        elif before:
+            quotes_list = self.quotes[self.index - before:self.index + 1]
+        elif after:
+            quotes_list = [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+        return self.robot.sanitize(' '.join(quotes_list)).replace("_found", "")
 
 class Scholasticus(commands.Bot):
 
@@ -90,6 +107,7 @@ class Scholasticus(commands.Bot):
         self.authors = set()
         self.games = dict()
         self.players_to_game_owners = dict()
+        self.quote_requestors = dict()
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -213,7 +231,7 @@ class Scholasticus(commands.Bot):
             text_set = "otherlang"
 
         if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
-            passage = self.robot.random_quote(answer)
+            i, passage = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
             to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
@@ -523,7 +541,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'qt'):
+        if content.lower().startswith(self.command_prefix + 'qt '):
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(qt_args)
             word = None
@@ -555,15 +573,20 @@ class Scholasticus(commands.Bot):
                     if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
-
-                    transliterated = transliteration.greek.transliterate(self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive))
+                    index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                    qt_obj = Quote(source.lower(), quotes_list, index)
+                    self.quote_requestors[author] = qt_obj
+                    transliterated = transliteration.greek.transliterate(quote)
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     if source == "reddit" and message.author.id != BOT_OWNER:
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
-                    await self.send_message(channel, self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive))
+                    index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                    qt_obj = Quote(source.lower(), quotes_list, index)
+                    self.quote_requestors[author] = qt_obj
+                    await self.send_message(channel, quote)
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"The passage is too long.")
@@ -574,6 +597,35 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
 
+        if content.lower().startswith(self.command_prefix + 'qtafter '):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                after = 1
+            else:
+                after = int(args[1])
+            await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
+            return
+
+        if content.lower().startswith(self.command_prefix + 'qtbefore'):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                before = 1
+            else:
+                before = int(args[1])
+            await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
+            return
+
+        if content.lower().startswith(self.command_prefix + 'surround '):
+            args = shlex.split(content.lower())
+            if len(args) < 3:
+                before = 1
+                after = 1
+            else:
+                before = int(args[1])
+                after = int(args[2])
+            await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
+            return
+
         if content.lower().startswith(self.command_prefix + 'owo'):
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(qt_args)
@@ -582,7 +634,7 @@ class Scholasticus(commands.Bot):
                 to_transliterate = False
                 if author in self.robot.greek_authors:
                     to_transliterate = True
-                quote = self.robot.random_quote(author.lower())
+                quote = self.robot.random_quote(author.lower())[1]
                 if to_transliterate:
                     quote = transliteration.greek.transliterate(quote)
                 await self.send_message(channel, owo.text_to_owo(quote))
@@ -630,7 +682,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "No.")
                 return
             try:
-                await self.send_message(channel, self.robot.random_quote(person.lower()))
+                await self.send_message(channel, self.robot.random_quote(person.lower()))[1]
             except Exception as e:
                 traceback.print_exc()
                 if not person:
