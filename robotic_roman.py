@@ -155,6 +155,8 @@ class RoboticRoman():
         defs = []
         try:
             soup = my_wiktionary_parser.get_soup(word_input)
+            if "Wiktionary does not yet have an entry for " in str(soup):
+                return ["Not found."]
             print(f"https://en.wiktionary.org/wiki/{word_input}")
             defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
             if defs[0] == 'Not found':
@@ -843,15 +845,19 @@ class RoboticRoman():
             print(regex_list)
             search_quotes = []
             quotes_list = []
+            all_quotes = []
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                for i,p in enumerate(process_func(f.read())):
+                for p in process_func(f.read()):
                     search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)
                     if search_target:
                         search_quotes.append(p)
                         quotes_list.append(p + "_found")
+                    else:
+                        quotes_list.append(p)
                 f.seek(0)
             if len(search_quotes) == 0:
+                print("Search_quotes is 0")
                 j = JVReplacer()
                 index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
                 if not search_quotes or len(search_quotes) == 0:
@@ -859,9 +865,11 @@ class RoboticRoman():
             else:
                 return_values = []
                 for i, quote in enumerate(quotes_list):
-                    if quote.endswith(""):
-                        return_values.append([i, quote.replace("_found", ""),  quotes_list])
-                return tuple(random.choice(return_values))
+                    if quote.endswith("_found"):
+                        return_values.append((i, quote.replace("_found", ""),  quotes_list))
+                ret = random.choice(return_values)
+                print("Return: " + str(ret))
+                return ret[0], ret[1], ret[2]
         else:
             f = random.choice(files)
             quotes_list = process_func(f.read())

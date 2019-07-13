@@ -29,6 +29,8 @@ def format(ul):
     return ret
 
 def get_etymology(soup, language):
+    if "Wiktionary does not yet have an entry for " in str(soup):
+        return "Not found."
     language_header = None
     etymology = "Not found."
     for h2 in soup.find_all('h2'):
@@ -64,6 +66,8 @@ def get_etymology(soup, language):
 
 def get_definition(soup, language, include_examples=True):
     #print("Part of speech: " + part_of_speech.title())
+    if "Wiktionary does not yet have an entry for " in str(soup):
+        return "Not found."
     language_header = None
     definition = "Not found."
     for h2 in soup.find_all('h2'):
@@ -94,6 +98,8 @@ def remove_example(li):
     li.ul.extract() if li.ul else li
 
 def get_word(soup, language, word):
+    if "Wiktionary does not yet have an entry for " in str(soup):
+        return "Not found."
     language_header = None
     found_word = ""
     for h2 in soup.find_all('h2'):
@@ -179,7 +185,8 @@ def has_wanted_text(text):
     return False
 
 def get_derivations(soup, language, misc=False):
-
+    if "Wiktionary does not yet have an entry for " in str(soup):
+        return "Not found."
     greek_tables = soup.find_all('div', {'class': 'NavFrame grc-decl grc-adecl'})
     for table in greek_tables:
         table.extract()

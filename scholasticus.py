@@ -17,6 +17,7 @@ import my_wiktionary_parser
 
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
+robot = robotic_roman.RoboticRoman("")
 
 class PlayerSession():
 
@@ -85,12 +86,12 @@ class Quote():
         self.author = author
         self.quotes = quotes
         self.index = index
-        self.robot = robotic_roman.RoboticRoman("")
+        self.robot = robot
 
     def get_surrounding(self, before=0, after=0):
         quotes_list = []
         if before and after:
-            quotes_list = self.quotes[self.index - before:self.index + 1] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
+            quotes_list = self.quotes[self.index - before:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:self.index + after + 1]
         elif before:
             quotes_list = self.quotes[self.index - before:self.index + 1]
         elif after:
@@ -101,7 +102,7 @@ class Scholasticus(commands.Bot):
 
     def __init__(self, prefix):
         super().__init__(command_prefix=prefix)
-        self.robot = robotic_roman.RoboticRoman(prefix)
+        self.robot = robot
         self.quotes_commands = dict()
         self.markov_commands = dict()
         self.authors = set()
@@ -231,7 +232,7 @@ class Scholasticus(commands.Bot):
             text_set = "otherlang"
 
         if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
-            i, passage = self.robot.random_quote(answer)
+            i, passage, _ = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
             to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
@@ -392,11 +393,14 @@ class Scholasticus(commands.Bot):
             return
 
         if content.lower().startswith(self.command_prefix + 'latin_grammar'):
-            await self.start_game(channel, author, "nomacrongrammar", "latin", None)
-            return
-
-        if content.lower().startswith(self.command_prefix + 'latin_grammar'):
-            await self.start_game(channel, author, "grammar", "latin", None)
+            if "-m" in content.lower():
+                macrons = True
+            else:
+                macrons = False
+            if not macrons:
+                await self.start_game(channel, author, "nomacrongrammar", "latin", None)
+            else:
+                await self.start_game(channel, author, "grammar", "latin", None)
             return
 
         if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar'):
@@ -606,7 +610,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
             return
 
-        if content.lower().startswith(self.command_prefix + 'qtbefore'):
+        if content.lower().startswith(self.command_prefix + 'qtbefore '):
             args = shlex.split(content.lower())
             if len(args) < 2:
                 before = 1
@@ -615,7 +619,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
             return
 
-        if content.lower().startswith(self.command_prefix + 'surround '):
+        if content.lower().startswith(self.command_prefix + 'qtsurround '):
             args = shlex.split(content.lower())
             if len(args) < 3:
                 before = 1
@@ -634,7 +638,7 @@ class Scholasticus(commands.Bot):
                 to_transliterate = False
                 if author in self.robot.greek_authors:
                     to_transliterate = True
-                quote = self.robot.random_quote(author.lower())[1]
+                _ , quote, _ = self.robot.random_quote(author.lower())[1]
                 if to_transliterate:
                     quote = transliteration.greek.transliterate(quote)
                 await self.send_message(channel, owo.text_to_owo(quote))
@@ -651,12 +655,12 @@ class Scholasticus(commands.Bot):
             try:
                 if (markov_args[1].strip() == '-t'):
                     author = ' '.join(markov_args[2:]).lower().strip()
-                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower()))
+                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower())).replace("&%", "")
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     author = ' '.join(markov_args[1:]).strip().lower()
-                    await self.send_message(channel, self.robot.make_sentence(author.lower()))
+                    await self.send_message(channel, self.robot.make_sentence(author.lower()).replace("&%", ""))
                     return
             except Exception as e:
                 traceback.print_exc()
@@ -691,7 +695,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
-            await self.send_message(channel, self.robot.pick_random_quote())
+            await self.send_message(channel, self.robot.pick_random_quote()[1])
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
             args = shlex.split(content.lower())
@@ -731,10 +735,11 @@ class Scholasticus(commands.Bot):
             await self.start_game(channel, author, "greek")
             return
 
-        if content.lower().endswith('_grammar') or content.lower().endswith('_grammar -n'):
+        if content.lower().endswith('_grammar') or content.lower().endswith('_grammar -m'):
             args = shlex.split(content.lower())
+            macrons = '-m' in content.lower()
             language = content.lower().split('_grammar')[0].replace('_', ' ')
-            await self.start_game(channel, author, language, macrons=False)
+            await self.start_game(channel, author, language, macrons=macrons)
             return
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
