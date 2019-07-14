@@ -487,6 +487,8 @@ def get_glyph_origin(soup):
             for sibling in h3.next_siblings:
                 if sibling.name == 'p':
                     origin.append(sibling.get_text())
+                if sibling.name == 'ul':
+                    origin.append(dictify(sibling))
                 if sibling.name == 'h3':
                     break
     return '\n'.join(origin).strip()
