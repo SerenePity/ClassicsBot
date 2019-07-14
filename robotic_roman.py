@@ -175,7 +175,7 @@ class RoboticRoman():
         return soup and "does not yet have an entry" not in soup
 
     def get_full_entry(self, word=None, language='latin'):
-        print("Language: " + language   )
+        print("Language: " + language)
         if not word:
             word = self.get_random_word(language)
         if language.lower() == 'chinese':
@@ -237,27 +237,15 @@ class RoboticRoman():
         if language.lower() == 'chinese':
             word = tradify(word)
         #word_entry = self.parser.fetch(word, language)
-        etymology = ""
+        etymology = None
         print("Word: " + str(word))
         try:
-            url = f"https://en.wiktionary.org/wiki/{word}"
-            #soup = my_wiktionary_parser.get_language_entry(url, language.title())
             soup = my_wiktionary_parser.get_soup(word)
-            etymology = my_wiktionary_parser.get_etymology(soup, language)
+            etymology = my_wiktionary_parser.get_etymology(soup, language).replace(u'\xa0', u' ')
             return etymology
-            print("ETYMOLOGY: " + etymology)
         except:
-            try:
-                #url = f"https://en.wiktionary.org/wiki/{word}"
-                soup = my_wiktionary_parser.get_soup(word)
-                etymology = my_wiktionary_parser.get_etymology(soup, language)
-            except:
-                traceback.print_exc()
-                return self.get_word_etymology(word, language, tries + 1)
-        if not etymology or etymology.strip() == "" or not etymology:
-            return self.get_word_etymology(word, language, tries + 1)
-        else:
-            return etymology.replace(u'\xa0', u' ')
+            traceback.print_exc()
+            return "Not found."
 
     def get_random_word(self, language='latin', tries=0, category=None):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:

@@ -405,16 +405,23 @@ def get_old_chinese_only_zhengchang(c):
         return "Not found."
     return pronunciation
 
-def get_old_chinese_only_sagart(c):
+def get_old_chinese_only(c):
     print("Old Chinese only char: " + c)
     soup = get_soup(c)
-    pronunciation = ""
+    pronunciation_zc = ""
+    pronunciation_sg = ""
     try:
-        pronunciation = re.findall(r"Sagart\".*\"IPAchar\">/(.*?)/", str(soup))[0]
+        pronunciation_zc = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
     except:
         traceback.print_exc()
-        return "Not found."
-    return pronunciation
+        pronunciation_zc = "Not found"
+
+    try:
+        pronunciation_sg = re.findall(r"Sagart\".*\"IPAchar\">/(.*?)/", str(soup))[0]
+    except:
+        traceback.print_exc()
+        pronunciation_sg = "Not found"
+    return pronunciation_zc, pronunciation_sg
 
 def get_middle_chinese(soup, word):
     print("Chinese char: " + word)
@@ -445,20 +452,19 @@ def get_middle_chinese(soup, word):
             mc_pronunciation = "Middle Chinese: Not found"
         else:
             mc_pronunciation = "Middle Chinese: " + mc
-        oc_zc = []
+        oc_zs_list = []
+        oc_sg_list = []
         for c in list(word):
             if c == '，':
-                oc_zc.append(", ")
+                oc_zs_list.append(", ")
+                oc_sg_list.append(", ")
             else:
-                oc_zc.append(get_old_chinese_only_zhengchang(c))
-        oc_sg = []
-        for c in list(word):
-            if c == '，':
-                oc_sg.append(", ")
-            else:
-                oc_sg.append(get_old_chinese_only_sagart(c))
-        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc).replace("*", "\*")
-        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg).replace("*", "\*")
+                oc_zs, oc_sg = get_old_chinese_only(c)
+                oc_zs_list.append(oc_zs)
+                oc_sg_list.append(oc_sg)
+
+        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zs_list).replace("*", "\*")
+        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg_list).replace("*", "\*")
         mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
         pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_sg, mc_pronunciation, mandarin_pronunciation])
         return pronunciation
@@ -466,10 +472,10 @@ def get_middle_chinese(soup, word):
 
 def get_glyph_origin_multiple(words):
     final = []
-    for c in words:
+    for i, c in enumerate(words):
         print("Charlist mem: " + c)
         soup = get_soup(c)
-        final.append(f"**{c}**: {get_glyph_origin(soup)}")
+        final.append(f"{i+1}. {c}: {get_glyph_origin(soup)}")
     return '\n'.join(final)
 
 def get_glyph_origin(soup):
