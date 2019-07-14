@@ -792,7 +792,7 @@ class RoboticRoman():
                                                                         ' de ')
     def pick_random_quote(self):
         author = random.choice(list(self.quotes_dict.keys()))
-        return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
     def flatten(self, array):
         return [item for sublist in array for item in sublist]
@@ -1014,7 +1014,7 @@ class RoboticRoman():
 
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))
-        return f"{self.random_quote(author)}\n\t―{self.format_name(author)}"
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
     def load_model(self, author):
         return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")

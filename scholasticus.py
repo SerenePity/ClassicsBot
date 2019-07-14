@@ -754,7 +754,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
-            await self.send_message(channel, self.robot.pick_random_quote()[1])
+            await self.send_message(channel, self.robot.pick_random_quote())
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
             args = shlex.split(content.lower())
