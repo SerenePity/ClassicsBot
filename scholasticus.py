@@ -154,7 +154,9 @@ class Scholasticus(commands.Bot):
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
-
+    def sanitize_user_input(self, text):
+        return text.replace(',', '').replace('!', '').replace(':','').replace(';', ''
+                                                                              )
     async def process_guess(self, channel, player, content, word_game=False):
 
         try:
@@ -616,6 +618,7 @@ class Scholasticus(commands.Bot):
                 elif not word and not transliterate:
                     source = ' '.join(qt_args[1:]).lower().strip()
 
+                word = self.sanitize_user_input(word)
 
                 if transliterate:
                     if source == "reddit" and message.author.id != BOT_OWNER:
