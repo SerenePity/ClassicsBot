@@ -600,7 +600,7 @@ class Scholasticus(commands.Bot):
             lemmatize = False
             case_sensitive = False
             try:
-                for i, arg in enumerate(qt_args[1:]):
+                for i, arg in enumerate(qt_args):
                     if '-w' in arg.strip().lower():
                         word = qt_args[i + 1]
                         if "l" in arg:
