@@ -154,6 +154,7 @@ class Scholasticus(commands.Bot):
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
+
     def sanitize_user_input(self, text):
         return text.replace(',', '').replace('!', '').replace(':','').replace(';', ''
                                                                               )
@@ -599,8 +600,8 @@ class Scholasticus(commands.Bot):
             lemmatize = False
             case_sensitive = False
             try:
-                for i, arg in enumerate(qt_args):
-                    if len(arg.strip().lower()) > 1 and '-w' in arg.strip().lower():
+                for i, arg in enumerate(qt_args[1:]):
+                    if '-w' in arg.strip().lower():
                         word = qt_args[i + 1]
                         if "l" in arg:
                             lemmatize = True
@@ -617,8 +618,8 @@ class Scholasticus(commands.Bot):
                     source = ' '.join(qt_args[2:]).lower().strip()
                 elif not word and not transliterate:
                     source = ' '.join(qt_args[1:]).lower().strip()
-
-                word = self.sanitize_user_input(word)
+                if word:
+                    word = self.sanitize_user_input(word).lower()
 
                 if transliterate:
                     if source == "reddit" and message.author.id != BOT_OWNER:
