@@ -259,10 +259,12 @@ class RoboticRoman():
         else:
             return etymology.replace(u'\xa0', u' ')
 
-    def get_random_word(self, language='latin', tries=0):
+    def get_random_word(self, language='latin', tries=0, category=None):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
-        if language.lower().strip() == 'latin':
+        if category:
+            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{word}"
+        elif language.lower().strip() == 'latin':
             url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_terms_derived_from_Proto-Indo-European"
         elif language.lower().strip() == 'chinese':
             url = random.choice([f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
@@ -279,6 +281,8 @@ class RoboticRoman():
             word = urllib.parse.unquote(word_url.split('/')[-1].strip())
             if language.lower() == 'chinese':
                 word = tradify(word)
+        if "category:" in word.lower():
+            return self.get_random_word(language, tries=tries + 1, category=word)
         etymology = self.get_word_etymology(word, language=language)
         print("Etymology in random: " + etymology)
         return urllib.parse.unquote(word).replace('_', ' ')
