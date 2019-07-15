@@ -82,13 +82,14 @@ class Game():
 
 class Quote():
 
-    def __init__(self, author, quotes, index):
+    def __init__(self, author, quotes, index, works_list):
         self.author = author
         self.quotes = quotes
         self.index = index
         self.before_index = None
         self.after_index = None
         self.robot = robot
+        self.works_list = works_list
 
     def get_surrounding(self, before=None, after=None):
         print("Index: " + str(self.index))
@@ -533,17 +534,40 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"Error transliterating input.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'textseq'):
+        if content.lower().startswith(self.command_prefix + 'textend'):
+            qt_obj = self.quote_requestors[author]
+            del qt_obj
+            self.quote_requestors[author] = None
+
+        if content.lower().startswith(self.command_prefix + 'pick '):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                await self.send_message(channel, "You need to pick an index.")
+                return
+            index = 0
+            qt_obj = self.quote_requestors[author]
+            source = qt_obj.author
+            try:
+                index = int(args[1])
+            except:
+                self.send_message(channel, "Index must be an integer.")
+            file = qt_obj.works_list[index-1]
+            quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
+            qt_obj = Quote(source, quotes, 0, works_list=qt_obj.works_list)
+            self.quote_requestors[author] = qt_obj
+            await self.send_message(channel, qt_obj.get_surrounding(after=2))
+            return
+
+        if content.lower().startswith(self.command_prefix + 'textstart'):
             args = shlex.split(content.lower())
             if len(args) < 2:
                 await self.send_message(channel, "You must provide an author or work.")
             else:
                 source = ' '.join(args[1:])
-                quotes = self.robot.get_text_list_for_person(source)
-                qt_obj = Quote(source, quotes, 0)
+                display, workslist = self.robot.show_author_works(source)
+                qt_obj = Quote(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
-                await self.send_message(channel, qt_obj.get_surrounding(after=2))
-                return
+                await self.send_message(channel, display)
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
             qt_args = shlex.split(content)

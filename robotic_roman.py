@@ -132,6 +132,29 @@ class RoboticRoman():
     def help_command(self):
         return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in self.commands]) + "```"
 
+    def sort_files(self, file):
+        return int(''.join([s for s in file.split('/')[-1] if s.isdigit()]))
+
+    def show_author_works(self, author):
+        works_list = []
+        file_list = []
+        if author in self.greek_authors:
+            for i, file in enumerate(sorted(os.listdir(f"greek_texts/{author}"), key=self.sort_files)):
+                if file.endswith(".txt"):
+                    works_list.append(f"**{i + 1}.** {file}")
+                    file_list.append(open(f"greek_texts/{author}/{file}", encoding='utf8'))
+        elif author in self.authors:
+            for i, file in enumerate(sorted(os.listdir(f"latin_texts/{author}"))):
+                if file.endswith(".txt"):
+                    works_list.append(f"**{i + 1}.** {file}")
+                    file_list.append(open(f"latin_texts/{author}/{file}", encoding='utf8'))
+        elif author in self.off_topic_authors:
+            for i, file in enumerate(sorted(os.listdir(f"off_topic_texts/{author}"))):
+                if file.endswith(".txt"):
+                    works_list.append(f"**{i + 1}.** {file}")
+                    file_list.append(open(f"off_topic_texts/{author}/{file}", encoding='utf8'))
+        return '\n'.join(works_list), file_list
+
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []
         word = self.parser.fetch(word_input, language)
@@ -881,6 +904,9 @@ class RoboticRoman():
             quote = quotes_list[index]
             f.seek(0)
         return index, quote, quotes_list
+
+    def get_passage_list_for_file(self, file, process_func):
+        return process_func(file.read())
 
     def get_text_list_for_person(self, person):
         if person in self.greek_quotes_dict:
