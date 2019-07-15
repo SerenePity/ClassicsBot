@@ -133,27 +133,35 @@ class RoboticRoman():
         return "```asciidoc\n" + '\n\n\n'.join([f"{c[0]}\n\t{c[1]}" for c in self.commands]) + "```"
 
     def sort_files(self, file):
-        return int(''.join([s for s in file.split('/')[-1] if s.isdigit()]))
+        try:
+            return int(''.join([s.strip() for s in file if s.isdigit()]))
+        except:
+            return hash(file)
 
-    def show_author_works(self, author):
+    def show_author_works(self, author, tries=0):
+        if tries > 1:
+            return "None found", []
         works_list = []
         file_list = []
+        author = author.lower()
         if author in self.greek_authors:
-            for i, file in enumerate(sorted(os.listdir(f"greek_texts/{author}"), key=self.sort_files)):
+            for i, file in enumerate(sorted(os.listdir(f"greek_texts/{author.replace(' ', '_')}"), key=self.sort_files)):
                 if file.endswith(".txt"):
                     works_list.append(f"**{i + 1}.** {file}")
                     file_list.append(open(f"greek_texts/{author}/{file}", encoding='utf8'))
         elif author in self.authors:
-            for i, file in enumerate(sorted(os.listdir(f"latin_texts/{author}"))):
+            for i, file in enumerate(sorted(os.listdir(f"latin_texts/{author}"), key=self.sort_files)):
                 if file.endswith(".txt"):
                     works_list.append(f"**{i + 1}.** {file}")
                     file_list.append(open(f"latin_texts/{author}/{file}", encoding='utf8'))
         elif author in self.off_topic_authors:
-            for i, file in enumerate(sorted(os.listdir(f"off_topic_texts/{author}"))):
+            for i, file in enumerate(sorted(os.listdir(f"off_topic_texts/{author}"), key=self.sort_files)):
                 if file.endswith(".txt"):
                     works_list.append(f"**{i + 1}.** {file}")
                     file_list.append(open(f"off_topic_texts/{author}/{file}", encoding='utf8'))
-        return '\n'.join(works_list), file_list
+        if len(file_list) == 0:
+            return self.show_author_works('the ' + author, tries + 1)
+        return '\n'.join([w.replace('.txt', '').replace('_', ' ').replace('formatted', '') for w in works_list]), file_list
 
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []

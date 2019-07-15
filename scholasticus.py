@@ -552,7 +552,14 @@ class Scholasticus(commands.Bot):
             except:
                 self.send_message(channel, "Index must be an integer.")
             file = qt_obj.works_list[index-1]
-            quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
+            if source == 'the bible':
+                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_holy_text)
+            elif source.lower() == "joyce":
+                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
+            elif source.lower() == "bush" or source.lower() == "yogi berra":
+                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
+            else:
+                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
             qt_obj = Quote(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             await self.send_message(channel, qt_obj.get_surrounding(after=2))
@@ -660,7 +667,8 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
-                    qt_obj = Quote(source.lower(), quotes_list, index + 1)
+                    _, works_list = self.robot.show_author_works(source)
+                    qt_obj = Quote(source.lower(), quotes_list, index + 1, works_list=works_list)
                     self.quote_requestors[author] = qt_obj
                     await self.send_message(channel, quote)
             except discord.errors.HTTPException:
