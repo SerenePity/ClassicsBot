@@ -1,3 +1,5 @@
+import unicodedata
+
 from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
@@ -816,12 +818,18 @@ class RoboticRoman():
     def unpack(self, *lst):
         return lst
 
+    def remove_accents(self, input_str):
+        if isinstance(input_str, bytes) or isinstance(input_str, bytearray):
+            input_str = input_str.decode('utf8')
+        nfkd_form = unicodedata.normalize('NFKD', input_str)
+        return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
         if tries > 2:
             return -1, "Not found.", []
         if word:
-            word = word.lower() if not case_sensitive else word
+            word = self.remove_accents(word).lower() if not case_sensitive else word
             regex_list = []
             if lemmatize:
                 try:
@@ -844,7 +852,7 @@ class RoboticRoman():
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
                 for p in process_func(f.read()):
-                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", p), case_sensitive)
+                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
                     if search_target:
                         search_quotes.append(p)
                         quotes_list.append(p + "_found")
