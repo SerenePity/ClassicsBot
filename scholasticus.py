@@ -140,6 +140,7 @@ class Scholasticus(commands.Bot):
         self.games = dict()
         self.players_to_game_owners = dict()
         self.quote_requestors = dict()
+        self.command_dict = dict()
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -802,8 +803,28 @@ class Scholasticus(commands.Bot):
                 quote = transliteration.greek.transliterate(quote)
             await self.send_message(channel, quote)
 
-        if content.lower().startswith(self.command_prefix + 'helpme'):
-            await self.send_message(channel, self.robot.help_command())
+        if content.lower().startswith(self.command_prefix + 'comm '):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                await self.send_message(channel, "No argument provided")
+                return
+            else:
+                try:
+                    i = int(args[1])
+                except:
+                    await self.send_message(channel, "Argument must be an integer.")
+                await self.send_message(channel, self.command_dict[i])
+
+
+        if content.lower().startswith(self.command_prefix + 'help'):
+            help = self.robot.commands
+            ret = []
+            for i in range(len(help)):
+                desc = help[i][0].strip()
+                self.command_dict[i+1] = command = help[i][1]
+                ret.append(f"{i+1}. {desc}")
+            print('Pick the number to see the command:\n' + '\n'.join(ret))
+            await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(ret))
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
             await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
