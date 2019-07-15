@@ -574,7 +574,12 @@ class Scholasticus(commands.Bot):
                 display, workslist = self.robot.show_author_works(source)
                 qt_obj = Quote(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
-                await self.send_message(channel, display)
+                if len(display) > 2000:
+                    parts = list(self.robot.chunks(display.split('\n'), 10))
+                    for part in parts:
+                        await self.send_message(channel, ' '.join(part))
+                else:
+                    await self.send_message(channel, display)
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
             qt_args = shlex.split(content)

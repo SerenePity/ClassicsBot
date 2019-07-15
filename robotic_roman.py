@@ -1068,7 +1068,12 @@ class RoboticRoman():
                    "That being said, I am open to any and all criticism.\n\n\"In this moment, I am euphoric. " \
                    "Not because of any phony god's blessing. But because, I am englightened by my intelligence.\" - Aalewis"
         if not os.path.isfile(f"markov_models/{author}/{author}_markov.json"):
-            path = f"{LATIN_TEXTS_PATH}/{author}" if author in self.authors else f"{GREEK_TEXTS_PATH}/{author}"
+            if author in self.authors:
+                path = f"{LATIN_TEXTS_PATH}/{author}"
+            elif author in self.greek_authors:
+                path = f"{GREEK_TEXTS_PATH}/{author}"
+            else:
+                path = f"{OFF_TOPIC_TEXTS_PATH}/{author}"
             self.train_model(author, path)
         return self.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
 
