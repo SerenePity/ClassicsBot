@@ -113,20 +113,19 @@ class Quote():
                 self.before_index = self.before_index - before - 1
             quotes_list = self.quotes[self.before_index:old_before]
         elif after:
-            if self.after_index:
-                self.index = self.after_index
-            if self.index + after > max_len:
-                quotes_list = self.quotes[self.index:max_len]
+            print("After: " + str(after))
+            old_after = self.after_index
+            if self.after_index + after > len(self.quotes) - 1:
+                self.after_index = len(quotes_list) - 1
             else:
-                quotes_list = self.quotes[self.index:self.index + after]
-            self.index = self.index + after
-        ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '.').replace('..', '.')
+                self.after_index = self.after_index + after
+                print("After index: " + str(self.after_index))
+            quotes_list = self.quotes[old_after:self.after_index]
+            print(quotes_list)
+        ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
-        if ret_str[-1] != '.':
-            return ret_str + '.'
-        else:
-            return ret_str
+        return ret_str
 
 class Scholasticus(commands.Bot):
 
