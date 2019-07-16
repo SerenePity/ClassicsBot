@@ -760,7 +760,7 @@ class Scholasticus(commands.Bot):
                 to_transliterate = False
                 if author in self.robot.greek_authors:
                     to_transliterate = True
-                _ , quote, _ = self.robot.random_quote(author.lower())[1]
+                quote = self.robot.random_quote(author.lower())[1]
                 if to_transliterate:
                     quote = transliteration.greek.transliterate(quote)
                 await self.send_message(channel, owo.text_to_owo(quote))
