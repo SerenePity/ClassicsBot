@@ -86,12 +86,12 @@ class Quote():
         self.author = author
         self.quotes = quotes
         self.index = index
-        self.before_index = None
-        self.after_index = None
+        self.before_index = index
+        self.after_index = index
         self.robot = robot
         self.works_list = works_list
 
-    def get_surrounding(self, before=None, after=None):
+    def get_surrounding(self, before=None, after=None, joiner='.'):
         print("Index: " + str(self.index))
         quotes_list = []
         max_len = len(self.quotes)
@@ -106,15 +106,12 @@ class Quote():
             self.after_index = after_index
             quotes_list = self.quotes[before_index:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:after_index]
         elif before:
-            if self.before_index:
-                self.index = self.before_index
-            old_index = self.index
-            if self.index - before < 0:
-                self.index = 0
+            old_before = self.before_index
+            if self.before_index - before - 1 < 0:
+                self.before_index = 0
             else:
-                self.index = self.index - before
-            quotes_list = self.quotes[self.index:old_index + 1]
-            self.before_index = None
+                self.before_index = self.before_index - before - 1
+            quotes_list = self.quotes[self.before_index:old_before]
         elif after:
             if self.after_index:
                 self.index = self.after_index
@@ -123,11 +120,13 @@ class Quote():
             else:
                 quotes_list = self.quotes[self.index:self.index + after]
             self.index = self.index + after
-            self.after_index = None
-        ret_str = self.robot.sanitize('.'.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '.')
+        ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '.').replace('..', '.')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
-        return ret_str
+        if ret_str[-1] != '.':
+            return ret_str + '.'
+        else:
+            return ret_str
 
 class Scholasticus(commands.Bot):
 
@@ -696,7 +695,10 @@ class Scholasticus(commands.Bot):
             else:
                 after = int(args[1])
             try:
-                await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
+                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after, joiner=""))
+                else:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -711,7 +713,10 @@ class Scholasticus(commands.Bot):
             else:
                 before = int(args[1])
             try:
-                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
+                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, joiner=""))
+                else:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -725,7 +730,10 @@ class Scholasticus(commands.Bot):
             else:
                 before = int(args[1])
                 after = int(args[2])
-            await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
+            if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after, joiner=""))
+            else:
+                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
             return
 
         if content.lower().startswith(self.command_prefix + 'owo'):
@@ -753,12 +761,12 @@ class Scholasticus(commands.Bot):
             try:
                 if (markov_args[1].strip() == '-t'):
                     author = ' '.join(markov_args[2:]).lower().strip()
-                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower())).replace("&%", "")
+                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower())).replace(robotic_roman.ABSOLUTE_DELIMITER, "")
                     await self.send_message(channel, transliterated)
                     return
                 else:
                     author = ' '.join(markov_args[1:]).strip().lower()
-                    await self.send_message(channel, self.robot.make_sentence(author.lower()).replace("&%", ""))
+                    await self.send_message(channel, self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
                     return
             except Exception as e:
                 traceback.print_exc()

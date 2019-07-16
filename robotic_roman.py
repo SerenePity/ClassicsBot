@@ -57,6 +57,7 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
+ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush']
 
 def format_color(text, color_type="yaml"):
     # Nothing for now
