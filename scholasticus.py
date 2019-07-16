@@ -91,6 +91,24 @@ class Quote():
         self.robot = robot
         self.works_list = works_list
 
+    def get_before(self, before):
+        old_before = self.before_index
+        if self.before_index - before - 1 < 0:
+            self.before_index = 0
+        else:
+            self.before_index = self.before_index - before - 1
+        return self.quotes[self.before_index:old_before]
+
+    def get_after(self, after):
+        print("After: " + str(after))
+        old_after = self.after_index
+        if self.after_index + after > len(self.quotes) - 1:
+            self.after_index = len(self.quotes) - 1
+        else:
+            self.after_index = self.after_index + after
+            print("After index: " + str(self.after_index))
+        return self.quotes[old_after:self.after_index]
+
     def get_surrounding(self, before=None, after=None, joiner='.'):
         print("Index: " + str(self.index))
         quotes_list = []
@@ -106,7 +124,9 @@ class Quote():
             self.after_index = after_index
             quotes_list = self.quotes[before_index:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:after_index]
         elif before:
-            old_before = self.before_index
+            old_before = self.before_index - 1
+            if old_before < 0:
+                old_before = self.before_index
             if self.before_index - before - 1 < 0:
                 self.before_index = 0
             else:
@@ -116,7 +136,7 @@ class Quote():
             print("After: " + str(after))
             old_after = self.after_index
             if self.after_index + after > len(self.quotes) - 1:
-                self.after_index = len(quotes_list) - 1
+                self.after_index = len(self.quotes) - 1
             else:
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
