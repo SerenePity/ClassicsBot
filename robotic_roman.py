@@ -754,7 +754,6 @@ class RoboticRoman():
         # text_list = [t.replace('@', '\n') for t in text_list]
         return text_list
 
-
     def _process_holy_text(self, scripture):
         return [s for s in re.split(BIBLE_DELIMITERS, self._replace_abbreviation_period(scripture))
                 if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
