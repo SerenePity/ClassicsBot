@@ -92,15 +92,16 @@ class Quote():
         self.works_list = works_list
 
     def get_before(self, before):
-        old_before = self.before_index
+        old_before = self.before_index - 1
         if self.before_index - before - 1 < 0:
             self.before_index = 0
         else:
             self.before_index = self.before_index - before - 1
-        return self.quotes[self.before_index:old_before]
+        quotes_list = self.quotes[self.before_index:old_before]
+        self.before_index = self.before_index - before + 2
+        return quotes_list
 
     def get_after(self, after):
-        print("After: " + str(after))
         old_after = self.after_index
         if self.after_index + after > len(self.quotes) - 1:
             self.after_index = len(self.quotes) - 1
@@ -112,17 +113,8 @@ class Quote():
     def get_surrounding(self, before=None, after=None, joiner='.'):
         print("Index: " + str(self.index))
         quotes_list = []
-        max_len = len(self.quotes)
         if before and after:
-            before_index = self.index - before
-            if before_index < 0:
-                before_index = 0
-            self.before_index = before_index
-            after_index = self.index + after + 1
-            if after_index > max_len:
-                after_index = max_len
-            self.after_index = after_index
-            quotes_list = self.quotes[before_index:self.index] + [self.quotes[self.index]] + self.quotes[self.index + 1:after_index]
+            quotes_list = self.get_before(before) + [self.quotes[self.index]] + self.get_after(after)
         elif before:
             old_before = self.before_index - 1
             if self.before_index - before - 1 < 0:
@@ -132,7 +124,6 @@ class Quote():
             quotes_list = self.quotes[self.before_index:old_before]
             self.before_index = self.before_index - before + 2
         elif after:
-            print("After: " + str(after))
             old_after = self.after_index
             if self.after_index + after > len(self.quotes) - 1:
                 self.after_index = len(self.quotes) - 1
@@ -140,7 +131,6 @@ class Quote():
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
             quotes_list = self.quotes[old_after:self.after_index]
-            print(quotes_list)
         ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
