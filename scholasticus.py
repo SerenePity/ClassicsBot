@@ -730,8 +730,10 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"Text is too long.")
             return
 
-        if content.lower().startswith(self.command_prefix + 'surr '):
+        if content.lower().startswith(self.command_prefix + 'surr'):
             args = shlex.split(content.lower())
+            if args[0].lower() != 'surr':
+                return
             if len(args) < 3:
                 before = 1
                 after = 1
