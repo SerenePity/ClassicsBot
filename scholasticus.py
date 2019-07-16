@@ -98,7 +98,7 @@ class Quote():
         else:
             self.before_index = self.before_index - before - 1
         quotes_list = self.quotes[self.before_index:old_before]
-        self.before_index = self.before_index - before + 2
+        self.before_index = old_before
         return quotes_list
 
     def get_after(self, after):
@@ -114,7 +114,10 @@ class Quote():
         print("Index: " + str(self.index))
         quotes_list = []
         if before and after:
-            quotes_list = self.get_before(before) + [self.quotes[self.index]] + self.get_after(after)
+            self.before_index = self.index - before - 1
+            self.after_index = self.index + after + 1
+            print("Center: " + self.quotes[self.index])
+            quotes_list = self.quotes[self.before_index:self.after_index]
         elif before:
             old_before = self.before_index - 1
             if self.before_index - before - 1 < 0:
@@ -670,7 +673,8 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
-                    qt_obj = Quote(source.lower(), quotes_list, index + 1)
+                    _, works_list = self.robot.show_author_works(source)
+                    qt_obj = Quote(source.lower(), quotes_list, index + 1, works_list)
                     self.quote_requestors[author] = qt_obj
                     transliterated = transliteration.greek.transliterate(quote)
                     await self.send_message(channel, transliterated)
