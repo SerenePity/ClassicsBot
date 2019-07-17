@@ -633,36 +633,24 @@ A Sarmatian campaign of Theodosius in 378 ad after his recall from Spain is ment
 12.: CHRONOLOGY OF THE PACIFICATION OF THE GOTHS, ad 379, 380 — (P. 329 sqq.)
 The account given in our sources of the warfare in Thrace and Illyricum during the years 379-80 and the subjugation of the Goths is very confused, and Gibbon has made no attempt to distinguish the events of the two years. With the help of laws in the Codex Theod. (of which the dates however cannot be implicitly trusted) Ifland has extracted with some pains the following chronology from Zosimus, Jordanes, and the ecclesiastical historians, with an occasional indication from Ambrose (Der Kaiser Theodosius, p. 65-86).
 
-379, Spring:				|	Theodosius with Gratian at Sirmium.
-----------------------------------------------------------------------------------------
-379, before middle of June:	|	Theodosius at Thessalonica (c. Th. x. 1, 12);
-							|	Embassy of senate of Constantinople greets Theodosius there;
-							|	Themistius delivers his panegyric, written for the occasion, some weeks later (Or. 14).
-							|	Having organised his army Theodosius divides his forces. One part he leads northward to act against the Goths in Dacia and Moesia; the other under		
-							|   Modares is to operate in Thrace.
-----------------------------------------------------------------------------------------							
-379, 6 July:				|	Theodosius at Scupi (c. Th. vi. 30, 2).
-----------------------------------------------------------------------------------------
-379,						|	Modares gains a great victory in Thrace.
-----------------------------------------------------------------------------------------
-379, Aug.:					|	Theodosius at Vicus Augusti (on the Danube?), c. Th. xii. 13, 4.
-----------------------------------------------------------------------------------------
-379,						|	Roman victories during autumn (see chronicles of Idatius and Prosper; Aur. Victor, 48; Socrates, 5, 6; Sozomen, vii. 4);
-----------------------------------------------------------------------------------------
-379,						|	fœdus made with the Goths, who give hostages (Sozomen, vii. 4);
-----------------------------------------------------------------------------------------
-379, Nov. 17:				|	proclamation of Roman victories over Goths, Alans and Huns (Idatius Fasti, ad ann.).
-----------------------------------------------------------------------------------------
-380, January:				|	Theodosius again in Thessalonica (c. Th. ix. 27, 1).
-----------------------------------------------------------------------------------------
-380, February:				|	illness of Theodosius (Feb. 27, his intolerant edict, C. Th. xvi. 1, 2); his illness lasts during the summer.
-----------------------------------------------------------------------------------------
-380,						|	Goths begin new hostilities; two movements distinguished: (1) West Gothic under Fritigern against Epirus, Thessaly, Achaia; (2) East Gothic under 	                            |   Alatheus and Safrax against Pannonia and Upper Moesia.
-----------------------------------------------------------------------------------------
-380,						|	Difficulties of Theodosius in coping with the Goths. Gratian sends troops to his aid, under Bauto and Arbogastes. Cp. Zosimus, iv. 33.
-----------------------------------------------------------------------------------------
-380, 						|	Second half of year: Fritigern disappears; Athanaric crosses the Danube into Roman territory; Gratian himself acts against the Goths 												|	in Pannonia (Zos.,  i b.; Jordanes, 27).
-----------------------------------------------------------------------------------------
-380, 17 August:				|	Theodosius at Hadrianople; 8 September, at Sirmium.
-----------------------------------------------------------------------------------------
-380, 14 or 24 November:		|	Theodosius enters Constantinople in triumph (cp. below, vol. v. p. 18, n. 37).|
+379, Spring
+    Theodosius with Gratian at Sirmium.
+379, before middle of June:**
+    Theodosius at Thessalonica (c. Th. x. 1, 12);
+    Embassy of senate of Constantinople greets Theodosius there;
+    Themistius delivers his panegyric, written for the occasion, some weeks later (Or. 14).
+    Having organised his army Theodosius divides his forces. One part he leads northward to act against the Goths in Dacia and Moesia; the other under
+    Modares is to operate in Thrace.
+379, 6 July: Theodosius at Scupi (c. Th. vi. 30, 2).
+379, Modares gains a great victory in Thrace.
+379, Aug.: Theodosius at Vicus Augusti (on the Danube?), c. Th. xii. 13, 4.
+379, Roman victories during autumn (see chronicles of Idatius and Prosper; Aur. Victor, 48; Socrates, 5, 6; Sozomen, vii. 4);
+379, fœdus made with the Goths, who give hostages (Sozomen, vii. 4);
+379, Nov. 17:⠀proclamation of Roman victories over Goths, Alans and Huns (Idatius Fasti, ad ann.).
+380, January:⠀Theodosius again in Thessalonica (c. Th. ix. 27, 1).
+380, February:⠀Illness of Theodosius (Feb. 27, his intolerant edict, C. Th. xvi. 1, 2); his illness lasts during the summer.
+380,⠀Goths begin new hostilities; two movements distinguished: (1) West Gothic under Fritigern against Epirus, Thessaly, Achaia; (2) East Gothic under Alatheus and Safrax against Pannonia and Upper Moesia.
+380,⠀Difficulties of Theodosius in coping with the Goths. Gratian sends troops to his aid, under Bauto and Arbogastes. Cp. Zosimus, iv. 33.
+380, Second half of year:⠀Fritigern disappears; Athanaric crosses the Danube into Roman territory; Gratian himself acts against the Goths in Pannonia (Zos.,  i b.; Jordanes, 27).
+380, 17 August:⠀Theodosius at Hadrianople; 8 September, at Sirmium.
+380, 14 or 24 November:⠀Theodosius enters Constantinople in triumph (cp. below, vol. v. p. 18, n. 37).|
