@@ -545,7 +545,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"Error transliterating input.")
                 return
 
-        if content.lower().startswith(self.command_prefix + 'textend'):
+        if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txend'):
             qt_obj = self.quote_requestors[author]
             del qt_obj
             self.quote_requestors[author] = None
@@ -580,7 +580,7 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, qt_obj.get_surrounding(after=2))
             return
 
-        if content.lower().startswith(self.command_prefix + 'textstart'):
+        if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
             if len(args) < 2:
                 await self.send_message(channel, "You must provide an author or work.")
