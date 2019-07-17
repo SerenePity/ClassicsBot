@@ -972,7 +972,7 @@ class RoboticRoman():
                 i, quote = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
                 print(quote)
             else:
-                i, quote = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         elif 'the ' + person in self.off_topic_authors:
             files = self.off_topic_quotes_dict['the ' + person]
             i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
