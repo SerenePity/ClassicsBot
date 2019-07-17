@@ -35,7 +35,7 @@ OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
 PARALLEL_TEXTS_PATH = "parallel"
 SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 1000
-MIN_QUOTES_LENGTH = 10
+MIN_QUOTES_LENGTH = 40
 QUOTES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
@@ -114,7 +114,7 @@ class RoboticRoman():
             (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
             (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_game'"),
             (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-n] (no macrons)'"),
-            (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [-l <language>]'"),
+            (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
             (format_color("Guess answer ", "CSS"),                           f"'<answer>' | 'g(uess) <word>'"),
             (format_color("End game ", "CSS"),                               f"'{prefix}giveup'"),
             (format_color("Join game ", "CSS"),                              f"'{prefix}join <game owner>'"),

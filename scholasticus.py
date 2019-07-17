@@ -550,8 +550,10 @@ class Scholasticus(commands.Bot):
             del qt_obj
             self.quote_requestors[author] = None
 
-        if content.lower().startswith(self.command_prefix + 'pick '):
+        if content.lower().startswith(self.command_prefix + 'pick'):
             args = shlex.split(content.lower())
+            if not args[0].lower() == 'pick':
+                return
             if len(args) < 2:
                 await self.send_message(channel, "You need to pick an index.")
                 return
@@ -746,10 +748,14 @@ class Scholasticus(commands.Bot):
             else:
                 before = int(args[1])
                 after = int(args[2])
-            if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after, joiner=""))
-            else:
-                await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
+            try:
+                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after, joiner=""))
+                else:
+                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await self.send_message(channel, f"The passage is too long.")
             return
 
         if content.lower().startswith(self.command_prefix + 'owo'):
