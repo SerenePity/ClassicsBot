@@ -58,7 +58,7 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
-ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush']
+ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
 
 def format_color(text, color_type="yaml"):
     # Nothing for now
@@ -991,6 +991,13 @@ class RoboticRoman():
             files = self.quotes_dict[person]
             if person == 'the bible':
                 i, quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+            elif person == 'phrases':
+                res = [(i,e) for i,e in enumerate(open({LATIN_TEXTS_PATH}//"phrases"//"phrases.txt").read().split("円"))]
+                print(res)
+                index = random.randint(0, len(res))
+                i = index
+                quote = res[i]
+                return quote
             else:
                 i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
@@ -1043,8 +1050,16 @@ class RoboticRoman():
             if not person in self.quotes_dict:
                 person = "the " + person
             files = self.quotes_dict[person]
+
             if person == 'the bible':
                 i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+            elif person == 'phrases':
+                res = [(i,e) for i,e in enumerate(open('//'.join([LATIN_TEXTS_PATH, "phrases", "phrases.txt"]), encoding='utf8').read().split("円"))]
+                print(res)
+                index = random.randint(0, len(res))
+                i = index
+                quote = res[i]
+                return i, ''.join(quote[1:]), [r[1] for r in res]
             else:
                 i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
