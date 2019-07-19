@@ -5,6 +5,7 @@ from markovchain.text import MarkovText
 from bs4 import BeautifulSoup
 from cltk.stem.latin.declension import CollatinusDecliner
 from wiktionaryparser import WiktionaryParser
+from latin_word_picker import word_picker
 import my_wiktionary_parser
 import bible_versions
 import old_english_bible.john
@@ -250,7 +251,7 @@ class RoboticRoman():
                 derives = '\n\n' + derives
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
             #print(return_str)
-        return return_str
+        return '\n' + return_str
 
     def get_derivatives(self, word, language='latin', misc=False):
         soup = my_wiktionary_parser.get_soup(word)
@@ -290,7 +291,8 @@ class RoboticRoman():
         if category:
             url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{word}"
         elif language.lower().strip() == 'latin':
-            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_terms_derived_from_Proto-Indo-European"
+            word = word_picker.pick_word()
+            return word
         elif language.lower().strip() == 'chinese':
             url = random.choice([f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
                    "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_chengyu",
