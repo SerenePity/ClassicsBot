@@ -137,7 +137,7 @@ class Quote():
         ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
-        return ret_str
+        return ret_str.replace("円", "")
 
 class Scholasticus(commands.Bot):
 
