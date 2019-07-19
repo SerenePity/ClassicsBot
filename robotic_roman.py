@@ -1054,12 +1054,13 @@ class RoboticRoman():
             if person == 'the bible':
                 i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
-                res = [(i,e) for i,e in enumerate(open('//'.join([LATIN_TEXTS_PATH, "phrases", "phrases.txt"]), encoding='utf8').read().split("円"))]
-                print(res)
-                index = random.randint(0, len(res))
-                i = index
-                quote = res[i]
-                return i, ''.join(quote[1:]), [r[1] for r in res]
+                i, quote, quotes_list = self.pick_quote(files, lambda x : x.split("円"), word, lemmatize, case_sensitive)
+
+                #res = [(i,e) for i,e in enumerate(open('//'.join([LATIN_TEXTS_PATH, "phrases", "phrases.txt"]), encoding='utf8').read().split("円"))]
+                #print(res)
+                #index = random.randint(0, len(res))
+                #i = index
+                #quote = res[i]
             else:
                 i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
