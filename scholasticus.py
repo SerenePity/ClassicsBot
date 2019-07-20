@@ -573,6 +573,14 @@ class Scholasticus(commands.Bot):
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
             elif source.lower() == "jaspers":
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
+            elif source.lower() == "mommsen":
+                if 'contents' in file.name:
+                    print("In contents")
+                    quotes = self.robot.get_passage_list_for_file(file, lambda x: [x])
+                    await self.send_message(channel, quotes[0])
+                    return
+                else:
+                    quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
             else:
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
             qt_obj = Quote(source, quotes, 0, works_list=qt_obj.works_list)

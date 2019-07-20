@@ -40,7 +40,7 @@ MIN_QUOTES_LENGTH = 40
 QUOTES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
-ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS'] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
+ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'"]
 PARALLEL_DELIMITERS = ["."]
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
@@ -1055,7 +1055,12 @@ class RoboticRoman():
                 i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
                 i, quote, quotes_list = self.pick_quote(files, lambda x : x.split("円"), word, lemmatize, case_sensitive)
-
+            elif person == 'mommsen':
+                files = filter(lambda x: "content" not in x, files)
+                index_files = filter(lambda x: "content" in x, files)
+                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                #i_c, quote_c, quotes_list_c = self.pick_quote(index_files, lambda x: x, word, lemmatize, case_sensitive)
+                
                 #res = [(i,e) for i,e in enumerate(open('//'.join([LATIN_TEXTS_PATH, "phrases", "phrases.txt"]), encoding='utf8').read().split("円"))]
                 #print(res)
                 #index = random.randint(0, len(res))
