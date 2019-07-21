@@ -740,6 +740,9 @@ class Scholasticus(commands.Bot):
                 if after < 1:
                     await self.send_message(channel, f"You must pick a number greater than 0.")
                     return
+                if after > 5:
+                    await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
+                    return
             try:
                 if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
                     await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after, joiner=""))
@@ -760,6 +763,9 @@ class Scholasticus(commands.Bot):
                 before = int(args[1])
                 if before < 1:
                     await self.send_message(channel, f"You must pick a number greater than 0.")
+                    return
+                if before > 5:
+                    await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
                 if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
