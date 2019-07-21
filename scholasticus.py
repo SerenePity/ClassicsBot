@@ -80,7 +80,7 @@ class Game():
         self.exited_players = set()
         self.players_dict = dict()
 
-class Quote():
+class QuoteContext():
 
     def __init__(self, author, quotes, index, works_list):
         self.author = author
@@ -92,6 +92,8 @@ class Quote():
         self.works_list = works_list
 
     def get_before(self, before):
+        if self.index == 0 and before > 0:
+            return "You cannot retrieve quotes from before the beginning of the text"
         old_before = self.before_index - 1
         if self.before_index - before - 1 < 0:
             self.before_index = 0
@@ -102,6 +104,8 @@ class Quote():
         return quotes_list
 
     def get_after(self, after):
+        if self.index == len(self.quotes) - 1 and after > 0:
+            return "You cannot retrieve quotes from after the end of the text"
         old_after = self.after_index
         if self.after_index + after > len(self.quotes) - 1:
             self.after_index = len(self.quotes) - 1
@@ -111,6 +115,10 @@ class Quote():
         return self.quotes[old_after:self.after_index]
 
     def get_surrounding(self, before=None, after=None, joiner='.'):
+        if self.index == 0 and before and before > 0:
+            return "You cannot retrieve quotes from before the beginning of the text"
+        if self.index == len(self.quotes) - 1 and after and after > 0:
+            return "You cannot retrieve quotes from after the end of the text"
         print("Index: " + str(self.index))
         quotes_list = []
         if before and after:
@@ -119,14 +127,18 @@ class Quote():
             print("Center: " + self.quotes[self.index])
             quotes_list = self.quotes[self.before_index:self.after_index]
         elif before:
+            if self.index == 0 and before > 0:
+                return "You cannot retrieve quotes from before the beginning of the text"
             old_before = self.before_index - 1
             if self.before_index - before - 1 < 0:
                 self.before_index = 0
             else:
                 self.before_index = self.before_index - before - 1
             quotes_list = self.quotes[self.before_index:old_before]
-            self.before_index = self.before_index - before + 2
+            self.before_index = self.before_index - before + 3
         elif after:
+            if self.index == len(self.quotes) - 1 and after > 0:
+                return "You cannot retrieve quotes from after the end of the text"
             old_after = self.after_index
             if self.after_index + after > len(self.quotes) - 1:
                 self.after_index = len(self.quotes) - 1
@@ -348,6 +360,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             language = ""
@@ -376,6 +390,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_ety'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             try:
@@ -402,6 +418,8 @@ class Scholasticus(commands.Bot):
                 traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_word'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
@@ -437,6 +455,8 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, parallel_list)
             return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'latin_grammar'):
             if "-m" in content.lower():
                 macrons = True
@@ -451,6 +471,8 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'parallel'):
             args = shlex.split(content.lower().strip())
@@ -472,6 +494,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "Error. I do not have parallel texts for this person.")
                 return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'redditquote'):
             try:
                 subreddit = shlex.split(content.lower().strip())[1]
@@ -479,6 +503,8 @@ class Scholasticus(commands.Bot):
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
             args = shlex.split(content.lower())
@@ -502,6 +528,7 @@ class Scholasticus(commands.Bot):
                     traceback.print_exc()
                     await self.send_message(channel, f"Text is too long.")
 
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'tr '):
             try:
@@ -545,10 +572,14 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"Error transliterating input.")
                 return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txend'):
             qt_obj = self.quote_requestors[author]
             del qt_obj
             self.quote_requestors[author] = None
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'pick'):
             args = shlex.split(content.lower())
@@ -583,10 +614,12 @@ class Scholasticus(commands.Bot):
                     quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
             else:
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
-            qt_obj = Quote(source, quotes, 0, works_list=qt_obj.works_list)
+            qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             await self.send_message(channel, qt_obj.get_surrounding(after=2))
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
@@ -595,7 +628,7 @@ class Scholasticus(commands.Bot):
             else:
                 source = ' '.join(args[1:])
                 display, workslist = self.robot.show_author_works(source)
-                qt_obj = Quote(source, [], 0, workslist)
+                qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
                     parts = list(self.robot.chunks(display.split('\n'), 10))
@@ -603,6 +636,8 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, ' '.join(part))
                 else:
                     await self.send_message(channel, display)
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
             qt_args = shlex.split(content)
@@ -619,6 +654,7 @@ class Scholasticus(commands.Bot):
                 traceback.print_exc()
                 await self.send_message(channel, "Error retrieving verse.")
 
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
             qt_args = shlex.split(content)
@@ -648,6 +684,8 @@ class Scholasticus(commands.Bot):
                 traceback.print_exc()
                 await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'qt'):
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
@@ -686,7 +724,7 @@ class Scholasticus(commands.Bot):
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                     _, works_list = self.robot.show_author_works(source)
-                    qt_obj = Quote(source.lower(), quotes_list, index + 1, works_list)
+                    qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
                     self.quote_requestors[author] = qt_obj
                     transliterated = transliteration.greek.transliterate(quote)
                     await self.send_message(channel, transliterated)
@@ -697,7 +735,7 @@ class Scholasticus(commands.Bot):
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                     _, works_list = self.robot.show_author_works(source)
-                    qt_obj = Quote(source.lower(), quotes_list, index + 1, works_list=works_list)
+                    qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
                     self.quote_requestors[author] = qt_obj
                     await self.send_message(channel, quote)
             except discord.errors.HTTPException:
@@ -709,6 +747,8 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'next'):
             args = shlex.split(content.lower())
@@ -736,6 +776,9 @@ class Scholasticus(commands.Bot):
                 before = 1
             else:
                 before = int(args[1])
+                if before < 1:
+                    await self.send_message(channel, f"You must pick a number greater than 0.")
+                    return
             try:
                 if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
                     await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, joiner=""))
@@ -745,6 +788,8 @@ class Scholasticus(commands.Bot):
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'surr'):
             args = shlex.split(content.lower())
@@ -766,6 +811,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, f"The passage is too long.")
             return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'owo'):
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(qt_args)
@@ -784,7 +831,9 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
-                    
+
+        # ==================================================================================================================================================
+
         if content.strip().lower().startswith(self.command_prefix + "markov"):
             markov_args = shlex.split(content.replace('“','"').replace('”','"'))
             print(markov_args)
@@ -805,6 +854,8 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
+        # ==================================================================================================================================================
+
         if content.strip().lower() in self.markov_commands:
             author = self.markov_commands[content.strip().lower().replace('“','"').replace('”','"')]
             try:
@@ -815,6 +866,8 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
+
+        # ==================================================================================================================================================
 
         if content.strip().lower() in self.quotes_commands:
             person = self.quotes_commands[content.strip().lower()]
@@ -830,8 +883,12 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await self.send_message(channel, self.robot.pick_random_quote())
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
             args = shlex.split(content.lower())
@@ -840,6 +897,8 @@ class Scholasticus(commands.Bot):
             if transliterate:
                 quote = transliteration.greek.transliterate(quote)
             await self.send_message(channel, quote)
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'comm '):
             args = shlex.split(content.lower())
@@ -853,6 +912,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "Argument must be an integer.")
                 await self.send_message(channel, self.command_dict[i])
 
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'help'):
             help = self.robot.commands
@@ -864,19 +924,29 @@ class Scholasticus(commands.Bot):
             print('Pick the number to see the command:\n' + '\n'.join(ret))
             await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(ret))
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
             await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
             await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "ancientgreek")
             return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'latingame'):
             await self.start_game(channel, author, "latin")
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'wordgame'):
             args = shlex.split(content.lower().replace('“','"').replace('”','"'))
@@ -887,9 +957,13 @@ class Scholasticus(commands.Bot):
             await self.start_game(channel, author, "word", word_language=language)
             return
 
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().endswith('_grammar') or content.lower().endswith('_grammar -m'):
             args = shlex.split(content.lower())
@@ -897,6 +971,8 @@ class Scholasticus(commands.Bot):
             language = content.lower().split('_grammar')[0].replace('_', ' ')
             await self.start_game(channel, author, language, macrons=macrons)
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'giveup'):
             if author in self.players_to_game_owners:
@@ -917,6 +993,8 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"{author.mention} has left the game.")
             return
 
+        # ==================================================================================================================================================
+
         if author in self.players_to_game_owners :
             game_owner = self.players_to_game_owners[author]
             game = self.games[game_owner]
@@ -934,6 +1012,8 @@ class Scholasticus(commands.Bot):
                     if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
                         await self.process_guess(channel, author, guess, True)
                 return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'join'):
             if len(message.mentions) > 0 :
