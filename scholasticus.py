@@ -100,7 +100,7 @@ class QuoteContext():
         else:
             self.before_index = self.before_index - before - 1
         quotes_list = self.quotes[self.before_index:old_before]
-        self.before_index = old_before
+        self.before_index = self.before_index - before + 3
         return quotes_list
 
     def get_after(self, after):
@@ -112,7 +112,8 @@ class QuoteContext():
         else:
             self.after_index = self.after_index + after
             print("After index: " + str(self.after_index))
-        return self.quotes[old_after:self.after_index]
+        quotes_list = self.quotes[old_after:self.after_index]
+        return quotes_list
 
     def get_surrounding(self, before=None, after=None, joiner='.'):
         if self.index == 0 and before and before > 0:
@@ -127,25 +128,9 @@ class QuoteContext():
             print("Center: " + self.quotes[self.index])
             quotes_list = self.quotes[self.before_index:self.after_index]
         elif before:
-            if self.index == 0 and before > 0:
-                return "You cannot retrieve quotes from before the beginning of the text"
-            old_before = self.before_index - 1
-            if self.before_index - before - 1 < 0:
-                self.before_index = 0
-            else:
-                self.before_index = self.before_index - before - 1
-            quotes_list = self.quotes[self.before_index:old_before]
-            self.before_index = self.before_index - before + 3
+            quotes_list = self.get_before(before)
         elif after:
-            if self.index == len(self.quotes) - 1 and after > 0:
-                return "You cannot retrieve quotes from after the end of the text"
-            old_after = self.after_index
-            if self.after_index + after > len(self.quotes) - 1:
-                self.after_index = len(self.quotes) - 1
-            else:
-                self.after_index = self.after_index + after
-                print("After index: " + str(self.after_index))
-            quotes_list = self.quotes[old_after:self.after_index]
+            quotes_list = self.get_after(after)
         ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split("--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
