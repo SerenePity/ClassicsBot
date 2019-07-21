@@ -758,6 +758,9 @@ class Scholasticus(commands.Bot):
                 after = 1
             else:
                 after = int(args[1])
+                if after < 1:
+                    await self.send_message(channel, f"You must pick a number greater than 0.")
+                    return
             try:
                 if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
                     await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after, joiner=""))
