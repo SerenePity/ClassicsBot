@@ -583,6 +583,8 @@ class Scholasticus(commands.Bot):
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
             elif source.lower() == "jaspers":
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
+            elif source.lower() == "gibbon" and file.name.endswith('footnotes_from_gibbon.txt'):
+                quotes = file.read().split("円")
             elif source.lower() == "mommsen":
                 if 'contents' in file.name:
                     print("In contents")
