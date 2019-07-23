@@ -150,7 +150,11 @@ class Scholasticus(commands.Bot):
         print('Logged on as', self.user)
         await self.change_presence(game=discord.Game(name=self.command_prefix + "help for help"))
         self.robot.load_all_models()
-        self.authors_set = set(list(self.robot.quotes_dict.keys()) + list(self.robot.greek_quotes_dict.keys()) + list(self.robot.off_topic_quotes_dict))
+        self.authors_set = set()
+        for authors in self.robot.authors_collection:
+            for author in authors:
+                self.authors_set.add(author)
+
         self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
         for author in self.authors:
@@ -188,7 +192,7 @@ class Scholasticus(commands.Bot):
             if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors:
                 await self.send_message(channel, "You're playing a Greek game, but picked a Latin author! Try again.")
                 return
-            if self.games[game_owner].language == 'latin' and guess not in self.robot.authors:
+            if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors:
                 await self.send_message(channel, "You're playing a Latin game, but picked a Greek author! Try again.")
                 return
 
@@ -257,7 +261,7 @@ class Scholasticus(commands.Bot):
                 return
             is_word_game = True
         elif text_set == 'latin':
-            answer = random.choice(self.robot.authors)
+            answer = random.choice(self.robot.latin_authors)
         else:
             print("In other lang")
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
@@ -584,7 +588,7 @@ class Scholasticus(commands.Bot):
             elif source.lower() == "jaspers":
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
             elif source.lower() == "gibbon" and file.name.endswith('footnotes_from_gibbon.txt'):
-                quotes = file.read().split("円")
+                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
             elif source.lower() == "mommsen":
                 if 'contents' in file.name:
                     print("In contents")
@@ -698,6 +702,9 @@ class Scholasticus(commands.Bot):
                     source = ' '.join(qt_args[1:]).lower().strip()
                 if word:
                     word = self.sanitize_user_input(word).lower()
+
+                if source not in self.authors_set:
+                    source = "the " + source.strip().lower()
 
                 if transliterate:
                     if source == "reddit" and message.author.id != BOT_OWNER:
@@ -876,7 +883,7 @@ class Scholasticus(commands.Bot):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
-            await self.send_message(channel, self.robot.pick_random_quote())
+            await self.send_message(channel, self.robot.pick_random_latin_quote())
 
         # ==================================================================================================================================================
 
@@ -917,7 +924,7 @@ class Scholasticus(commands.Bot):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
@@ -926,6 +933,22 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        if content.lower().startswith(self.command_prefix + 'modernphilosophers'):
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'modernhistorians'):
+            await self.send_message(channel, '```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.historians_quotes_dict.keys())]) + '```')
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'modernauthors'):
+            await self.send_message(channel, '```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.literature_quotes_dict.keys())]) + '```')
+
+        # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "ancientgreek")
             return

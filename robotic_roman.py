@@ -32,8 +32,12 @@ import urllib.parse
 
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
-OFF_TOPIC_TEXTS_PATH = "off_topic_texts"
+GERMANIC_TEXTS_PATH = "germanic_texts"
+MODERN_HISTORIANS_PATH = "modern_historians"
+MODERN_PHILOSOPHERS_PATH = "modern_philosophers"
+MODERN_LITERATURE_PATH = "modern_literature"
 PARALLEL_TEXTS_PATH = "parallel"
+
 SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 1000
 MIN_QUOTES_LENGTH = 40
@@ -48,7 +52,7 @@ REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
-ABSOLUTE_DELIMITER = "&%"
+ABSOLUTE_DELIMITER = "‰"
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
@@ -69,73 +73,88 @@ QUOTE_RETRIEVAL_MAX_TRIES = 2
 class RoboticRoman():
 
     def __init__(self, prefix):
+
+        self.text_paths = [LATIN_TEXTS_PATH,
+                            GREEK_TEXTS_PATH,
+                            GERMANIC_TEXTS_PATH,
+                            MODERN_HISTORIANS_PATH,
+                            MODERN_PHILOSOPHERS_PATH,
+                            MODERN_LITERATURE_PATH,
+                           PARALLEL_TEXTS_PATH]
+
         self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
         self.decliner = CollatinusDecliner()
-        self.quotes_dict = dict()
-        self.greek_quotes_dict = dict()
-        self.off_topic_quotes_dict = dict()
-        self.parallel_quotes_dict = dict()
-        self.markov_dict = dict()
         self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
                                   client_secret=os.environ['reddit_secret'],
                                   user_agent='user agent')
-        self.authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
+
+        self.latin_quotes_dict = dict()
+        self.greek_quotes_dict = dict()
+        self.germanic_quotes_dict = dict()
+        self.historians_quotes_dict = dict()
+        self.philosophers_quotes_dict = dict()
+        self.literature_quotes_dict = dict()
+        self.parallel_quotes_dict = dict()
+
+        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.germanic_quotes_dict,
+                                       self.historians_quotes_dict, self.philosophers_quotes_dict, self.literature_quotes_dict,
+                                       self.parallel_quotes_dict]
+
+        self.latin_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
-        self.off_topic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(OFF_TOPIC_TEXTS_PATH)]))
+        self.germanic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
+        self.historian_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_HISTORIANS_PATH)]))
+        self.philosophy_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_PHILOSOPHERS_PATH)]))
+        self.literature_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_LITERATURE_PATH)]))
         self.parallel_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(PARALLEL_TEXTS_PATH)]))
+
+        self.authors_collection = [self.latin_authors, self.greek_authors, self.germanic_authors, self.historian_authors, self.philosophy_authors, self.literature_authors, self.parallel_authors]
+
+        self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
+
         self.quote_tries = 0
         self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
-        for author in self.authors:
-            print(author)
-            self.quotes_dict[author] = []
 
-        for grecian in self.greek_authors:
-            print(grecian)
-            self.greek_quotes_dict[grecian] = []
+        for author_collection, quotes_dict, directory in self.zipped:
+            print(directory)
+            for author in author_collection:
+                quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
-        for writer in self.off_topic_authors:
-            print(writer)
-            self.off_topic_quotes_dict[writer] = []
-
-        for writer in self.parallel_authors:
-            print(writer)
-            self.parallel_quotes_dict[writer] = []
-
-            self.commands = [(format_color("Get random quote by author ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                                                                                  "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
-                (format_color("Generate markov sentence ", "CSS"),                f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
-                                                                                  "\n\tNotes: -t to transliterate."),
-                (format_color("List available Latin authors ", "CSS"),           f"'{prefix}latinauthors'"),
-                (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
-                (format_color("Transliterate input ", "CSS"),                    f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                                                                                  "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian"),
-                (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
-                (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
-                (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_game'"),
-                (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-n] (no macrons)'"),
-                (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
-                (format_color("Guess answer ", "CSS"),                           f"'<answer>' | 'g(uess) <word>'"),
-                (format_color("End game ", "CSS"),                               f"'{prefix}giveup'"),
-                (format_color("Join game ", "CSS"),                              f"'{prefix}join <game owner>'"),
-                (format_color("Owify quote from author ", "CSS"),                f"'{prefix}owo <author>"),
-                (format_color("Get available Bible versions ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
-                (format_color("Bible compare ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                                  "\n\tNotes: add the prefix $ for transliteration."),
-                (format_color("Quote for parallel text ", "CSS"),                f"'{prefix}parallel <work/author>'"),
-                (format_color("Sources for parallel command ", "CSS"),           f"'{prefix}listparallel'"),
-                (format_color("Word definition (defaults to Latin) ", "CSS"),    f"'{prefix}<language>_def (<word>)'"),
-                (format_color("Word etymology (defaults to Latin) ", "CSS"),     f"'{prefix}<language>_ety (<word>)'"),
-                (format_color("Word entry (defaults to Latin) ", "CSS"),         f"'{prefix}<language>_word (<word>)'"),
-                (format_color("Random entry (defaults to Latin) ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
-                (format_color("List texts to start from an author ", "CSS"),     f"'{prefix}textstart' | 'tstart'"),
-                (format_color("Start a text from an author ", "CSS"),            f"'{prefix}pick <number>'"),
-                (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}next [<number>]'"),
-                (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),         f"'{prefix}bef [<number>]'"),
-                (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),    f"'{prefix}surr <number> <number>'"),
-                (format_color("End text reading session ", "CSS"),               f"'{prefix}textend' | 'txend'"),
-                (format_color("Help ", "CSS"),                                   f"'{prefix}helpme'")]
+        self.commands = [(format_color("Get random quote by author ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
+                                                                              "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
+            (format_color("Generate markov sentence ", "CSS"),                f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
+                                                                              "\n\tNotes: -t to transliterate."),
+            (format_color("List available Latin authors ", "CSS"),           f"'{prefix}latinauthors'"),
+            (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
+            (format_color("Transliterate input ", "CSS"),                    f"'{prefix}tr [-(language abbreviation)] <input>'" +
+                                                                              "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian"),
+            (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
+            (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
+            (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_game'"),
+            (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-n] (no macrons)'"),
+            (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
+            (format_color("Guess answer ", "CSS"),                           f"'<answer>' | 'g(uess) <word>'"),
+            (format_color("End game ", "CSS"),                               f"'{prefix}giveup'"),
+            (format_color("Join game ", "CSS"),                              f"'{prefix}join <game owner>'"),
+            (format_color("Owify quote from author ", "CSS"),                f"'{prefix}owo <author>"),
+            (format_color("Get available Bible versions ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
+            (format_color("Bible compare ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+                                                                              "\n\tNotes: add the prefix $ for transliteration."),
+            (format_color("Quote for parallel text ", "CSS"),                f"'{prefix}parallel <work/author>'"),
+            (format_color("Sources for parallel command ", "CSS"),           f"'{prefix}listparallel'"),
+            (format_color("Word definition (defaults to Latin) ", "CSS"),    f"'{prefix}<language>_def (<word>)'"),
+            (format_color("Word etymology (defaults to Latin) ", "CSS"),     f"'{prefix}<language>_ety (<word>)'"),
+            (format_color("Word entry (defaults to Latin) ", "CSS"),         f"'{prefix}<language>_word (<word>)'"),
+            (format_color("Random entry (defaults to Latin) ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
+            (format_color("List texts to start from an author ", "CSS"),     f"'{prefix}textstart' | 'tstart'"),
+            (format_color("Start a text from an author ", "CSS"),            f"'{prefix}pick <number>'"),
+            (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}next [<number>]'"),
+            (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),         f"'{prefix}bef [<number>]'"),
+            (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),    f"'{prefix}surr <number> <number>'"),
+            (format_color("End text reading session ", "CSS"),               f"'{prefix}textend' | 'txend'"),
+            (format_color("Help ", "CSS"),                                   f"'{prefix}helpme'")]
 
     def sort_files(self, file):
         try:
@@ -144,29 +163,15 @@ class RoboticRoman():
             return hash(file)
 
     def show_author_works(self, author, tries=0):
-        if tries > 1:
-            return "None found", []
-        works_list = []
-        file_list = []
+
         author = author.lower()
-        if author in self.greek_authors:
-            for i, file in enumerate(sorted(os.listdir(f"greek_texts/{author.replace(' ', '_')}"), key=self.sort_files)):
-                if file.endswith(".txt"):
-                    works_list.append(f"**{i + 1}.** {file}")
-                    file_list.append(open(f"greek_texts/{author}/{file}", encoding='utf8'))
-        elif author in self.authors:
-            for i, file in enumerate(sorted(os.listdir(f"latin_texts/{author}"), key=self.sort_files)):
-                if file.endswith(".txt"):
-                    works_list.append(f"**{i + 1}.** {file}")
-                    file_list.append(open(f"latin_texts/{author}/{file}", encoding='utf8'))
-        elif author in self.off_topic_authors:
-            for i, file in enumerate(sorted(os.listdir(f"off_topic_texts/{author}"), key=self.sort_files)):
-                if file.endswith(".txt"):
-                    works_list.append(f"**{i + 1}.** {file}")
-                    file_list.append(open(f"off_topic_texts/{author}/{file}", encoding='utf8'))
-        if len(file_list) == 0:
-            return self.show_author_works('the ' + author, tries + 1)
-        return '\n'.join([w.replace('.txt', '').replace('_', ' ').replace('formatted', '') for w in works_list]), file_list
+
+        dic = self.map_person_to_dict(author)
+
+        works = dic[author]
+        work_names = [work.name.replace('.txt', '').title().split('/')[-1] for work in works]
+        display_index = '\n'.join([f"{i+1}. {e}" for i,e in enumerate(work_names)])
+        return display_index, works
 
     def fetch_def_by_other_parser(self, word_input, language):
         defs = []
@@ -770,66 +775,25 @@ class RoboticRoman():
         return text
 
     def load_all_models(self):
-        for author in self.authors:
-            self.load_quotes(author)
-
-        for grecian in self.greek_quotes_dict:
-            print(grecian)
-            self.load_greek_quotes(grecian)
-
-        for person in self.off_topic_quotes_dict:
-            print(person)
-            print(person)
-            self.load_off_topic_quotes(person)
-
-        for person in self.parallel_quotes_dict:
-            print(person)
-            self.load_parallel_quotes(person)
-
+        # self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
+        #self.quotes_collection
+        for author, quotes_dict, text_path in self.zipped:
+            self.load_quotes(quotes_dict, text_path, author)
         print("Finished loading models")
 
-    """
-    def load_markov_model(self, author):
-        try:
-            self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
-        except:
-            self.load_model(author)
-            self.markov_dict[author] = f"markov_models/{author}/{author}_markov.json"
-    """
-
-    def load_greek_quotes(self, author):
-        author_dir = author.replace(' ', '_')
-        author_path = f"{GREEK_TEXTS_PATH}/{author_dir}/"
+    def load_quotes(self, quotes_dict, path, author):
+        quotes_dict[author] = []
+        author_path = f"{path}/{author}/"
         for file in os.listdir(author_path):
             if file.endswith('.txt'):
-                self.greek_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
+                quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
-    def load_quotes(self, author):
-        self.quotes_dict[author] = []
-        author_path = f"{LATIN_TEXTS_PATH}/{author}/"
-        for file in os.listdir(author_path):
-            if file.endswith('.txt'):
-                self.quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
-
-    def load_off_topic_quotes(self, author):
-        self.off_topic_quotes_dict[author] = []
-        author_path = f"{OFF_TOPIC_TEXTS_PATH}/{author}/"
-        for file in os.listdir(author_path):
-            if file.endswith('.txt'):
-                self.off_topic_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
-
-    def load_parallel_quotes(self, author):
-        self.parallel_quotes_dict[author] = []
-        author_path = f"{PARALLEL_TEXTS_PATH}/{author}/"
-        for file in os.listdir(author_path):
-            if file.endswith('.txt'):
-                self.parallel_quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
     def format_name(self, author):
-        return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ',
-                                                                        ' de ')
-    def pick_random_quote(self):
-        author = random.choice(list(self.quotes_dict.keys()))
+        return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
+
+    def pick_random_latin_quote(self):
+        author = random.choice(list(self.latin_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
     def flatten(self, array):
@@ -933,9 +897,9 @@ class RoboticRoman():
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
         else:
-            if not person in self.quotes_dict:
+            if not person in self.latin_quotes_dict:
                 person = "the " + person
-            files = self.quotes_dict[person]
+            files = self.latin_quotes_dict[person]
         file = random.choice(files).read()
         if person == 'the bible':
             return re.split(BIBLE_DELIMITERS, file)
@@ -986,9 +950,9 @@ class RoboticRoman():
             i, quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
             print("Parallel quote: " + quote)
         else:
-            if not person in self.quotes_dict:
+            if not person in self.latin_quotes_dict:
                 person = "the " + person
-            files = self.quotes_dict[person]
+            files = self.latin_quotes_dict[person]
             if person == 'the bible':
                 i, quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
@@ -1002,72 +966,51 @@ class RoboticRoman():
                 i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
 
+
+    def map_person_to_dict(self, person):
+        for dic in self.quotes_dict_collection:
+            if person.lower() in dic:
+                return dic
+        return None
+
+
     def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
-        if person in self.greek_quotes_dict:
-            files = self.greek_quotes_dict[person]
-            try:
-               i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-            except Exception as error:
-                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
-                    self.quote_tries += 1
-                    i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-                    return i, quote, quotes_list
-                else:
-                    self.quote_tries = 0
-                    raise error
-        elif "the " + person in self.greek_quotes_dict:
-            files = self.greek_quotes_dict["the " + person]
-            try:
-                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-            except Exception as error:
-                if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
-                    self.quote_tries += 1
-                    i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-                    return i, quote
-                else:
-                    self.quote_tries = 0
-                    raise error
-        elif person in self.off_topic_authors:
-            files = self.off_topic_quotes_dict[person]
-            if person.lower() == "joyce":
-                i, quote, quotes_list = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
-            elif person.lower() == "bush" or person.lower() == "yogi berra":
-                i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
-                print(quote)
-            else:
-                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-        elif 'the ' + person in self.off_topic_authors:
-            files = self.off_topic_quotes_dict['the ' + person]
-            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-        elif 'parallel_' in person:
-            files = self.parallel_quotes_dict[person.replace('parallel_', '')]
-            i, quote, quotes_list = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
-            print("Parallel quote: " + quote)
-        else:
-            if not person in self.quotes_dict:
-                person = "the " + person
-            files = self.quotes_dict[person]
 
-            if person == 'the bible':
-                i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
-            elif person == 'phrases':
-                i, quote, quotes_list = self.pick_quote(files, lambda x : x.split("円"), word, lemmatize, case_sensitive)
-            elif person == 'mommsen':
-                files = filter(lambda x: "content" not in x, files)
-                index_files = filter(lambda x: "content" in x, files)
+        quotes_dict = self.map_person_to_dict(person.lower())
+        if not quotes_dict:
+            person = "the " + person.lower().strip()
+            quotes_dict = self.map_person_to_dict(person)
+            if not quotes_dict:
+                return "Given author not availabe (yet)."
+        else:
+            person = person.lower().strip()
+
+        files = quotes_dict[person.lower()]
+
+        try:
+           i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        except Exception as error:
+            if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
+                self.quote_tries += 1
                 i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-                #i_c, quote_c, quotes_list_c = self.pick_quote(index_files, lambda x: x, word, lemmatize, case_sensitive)
-                
-                #res = [(i,e) for i,e in enumerate(open('//'.join([LATIN_TEXTS_PATH, "phrases", "phrases.txt"]), encoding='utf8').read().split("円"))]
-                #print(res)
-                #index = random.randint(0, len(res))
-                #i = index
-                #quote = res[i]
+                return i, quote, quotes_list
             else:
-                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                self.quote_tries = 0
+                raise error
+
+        if person == 'the bible':
+            i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+        elif person == 'phrases':
+            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+        elif person == 'mommsen':
+            files = [f for f in files if 'content' not in f.name]
+            index_files = [f for f in files if 'content' in f.name]
+            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        else:
+            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
 
     def sanitize(self, quote):
@@ -1094,13 +1037,11 @@ class RoboticRoman():
                    "That being said, I am open to any and all criticism.\n\n\"In this moment, I am euphoric. " \
                    "Not because of any phony god's blessing. But because, I am englightened by my intelligence.\" - Aalewis"
         if not os.path.isfile(f"markov_models/{author}/{author}_markov.json"):
-            if author in self.authors:
-                path = f"{LATIN_TEXTS_PATH}/{author}"
-            elif author in self.greek_authors:
-                path = f"{GREEK_TEXTS_PATH}/{author}"
-            else:
-                path = f"{OFF_TOPIC_TEXTS_PATH}/{author}"
-            self.train_model(author, path)
+            for author_set in self.authors_collection:
+                if author in author_set:
+                    for zipped_author, zipped_quotes_dict, zipped_path in self.zipped:
+                        if author.lower() == zipped_author.lower():
+                            self.train_model(author, zipped_path)
         return self.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
 
     def train_model(self, author, author_path):
