@@ -802,6 +802,10 @@ class RoboticRoman():
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
 
+    def pick_quote(self, quote_dict):
+        author = random.choice(list(quote_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
+
     def pick_random_literature_quote(self):
         author = random.choice(list(self.literature_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
