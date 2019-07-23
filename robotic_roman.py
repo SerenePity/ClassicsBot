@@ -745,7 +745,8 @@ class RoboticRoman():
         return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), 3))]
 
     def _process_absolute(self, text):
-        return text.split(ABSOLUTE_DELIMITER)
+        splitted = text.split(ABSOLUTE_DELIMITER)
+        return [w.replace(ABSOLUTE_DELIMITER, "") for w in splitted]
 
     def _process_text(self, text):
         text = self._replace_abbreviation_period(text.replace('...', '^'))
@@ -877,13 +878,23 @@ class RoboticRoman():
         else:
             f = random.choice(files)
             quotes_list = process_func(f.read())
+            print(quotes_list)
             index = random.randint(0, len(quotes_list))
             quote = quotes_list[index]
             f.seek(0)
+        print("Proces function name: ")
+        print(process_func.__name__)
+        if process_func.__name__ == "_process_absolute":
+            quote.replace(ABSOLUTE_DELIMITER, "")
+            quotes_list = [q.replace(ABSOLUTE_DELIMITER, "") for q in quotes_list]
+
         return index, quote, quotes_list
 
     def get_passage_list_for_file(self, file, process_func):
-        return process_func(file.read())
+        passage_list = process_func(file.read())
+        if process_func.__name__ == "_process_absolute":
+            passage_list = [w.replace(ABSOLUTE_DELIMITER, "") for w in passage_list]
+        return passage_list
 
     def get_text_list_for_person(self, person):
         if person in self.greek_quotes_dict:
@@ -1000,8 +1011,13 @@ class RoboticRoman():
             else:
                 self.quote_tries = 0
                 raise error
+        person = person.lower().strip()
 
-        if person == 'the bible':
+        if person == 'bush':
+            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+        elif person == 'yogi berra':
+            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+        elif person == 'the bible':
             i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
         elif person == 'phrases':
             i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)

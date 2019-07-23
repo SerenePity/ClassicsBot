@@ -128,7 +128,7 @@ class QuoteContext():
             "--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
-        return ret_str.replace("円", "")
+        return ret_str.replace(robotic_roman.ABSOLUTE_DELIMITER, "")
 
 class Scholasticus(commands.Bot):
 
@@ -578,7 +578,10 @@ class Scholasticus(commands.Bot):
                 index = int(args[1])
             except:
                 self.send_message(channel, "Index must be an integer.")
-            file = qt_obj.works_list[index-1]
+            file = qt_obj.works_list[index - 1]
+            if file.closed:
+                qt_obj.works_list[index - 1] = open(file.name)
+                file = qt_obj.works_list[index - 1]
             if source == 'the bible':
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_holy_text)
             elif source.lower() == "joyce":
@@ -588,7 +591,7 @@ class Scholasticus(commands.Bot):
             elif source.lower() == "jaspers":
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
             elif source.lower() == "gibbon" and file.name.endswith('footnotes_from_gibbon.txt'):
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
+                quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
             elif source.lower() == "mommsen":
                 if 'contents' in file.name:
                     print("In contents")
@@ -601,7 +604,18 @@ class Scholasticus(commands.Bot):
                 quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
             qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
-            await self.send_message(channel, qt_obj.get_surrounding(after=2))
+            try:
+                await self.send_message(channel, qt_obj.get_surrounding(after=2))
+            except:
+                display, workslist = self.robot.show_author_works(source)
+                print("WORKSLIST:")
+                print(workslist)
+                if workslist[index-1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
+                    qt_obj = QuoteContext(source, self.robot._process_absolute(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
+                else:
+                    qt_obj = QuoteContext(source, self.robot._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
+                self.quote_requestors[author] = qt_obj
+                await self.send_message(channel, qt_obj.get_surrounding(after=2))
             return
 
         # ==================================================================================================================================================
