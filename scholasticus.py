@@ -564,6 +564,9 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        def process_gibbon_footnots(self, file):
+            return [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
+
         if content.lower().startswith(self.command_prefix + 'pick'):
             args = shlex.split(content.lower())
             if not args[0].lower() == 'pick':
@@ -611,7 +614,10 @@ class Scholasticus(commands.Bot):
                 print("WORKSLIST:")
                 print(workslist)
                 if workslist[index-1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
-                    qt_obj = QuoteContext(source, self.robot._process_absolute(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
+                    qt_obj = QuoteContext(source,
+                                          [ q.rstrip('\n') for q in
+                                          self.robot._process_absolute(open(workslist[index - 1].name, encoding='utf8').read())
+                                          ], 0, workslist)
                 else:
                     qt_obj = QuoteContext(source, self.robot._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
