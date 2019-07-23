@@ -902,6 +902,25 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        if content.lower().startswith(self.command_prefix + 'literaturequote'):
+            await self.send_message(channel, self.robot.pick_random_literature_quote())
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'historianquote'):
+            await self.send_message(channel, self.robot.pick_random_historians_quote())
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'philosopherquote'):
+            await self.send_message(channel, self.robot.pick_random_philosopher_quote())
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'germanicquote'):
+            await self.send_message(channel, self.robot.pick_random_germanic_quote())
+
+        # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await self.send_message(channel, self.robot.pick_random_latin_quote())
 
@@ -937,9 +956,15 @@ class Scholasticus(commands.Bot):
             for i in range(len(help)):
                 desc = help[i][0].strip()
                 self.command_dict[i+1] = command = help[i][1]
-                ret.append(f"{i+1}. {desc}")
+                ret.append(f"**{i+1}.** {desc}")
+            lines = list(self.robot.chunks(ret, 5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
-            await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(ret))
+            await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'germanicauthors'):
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 

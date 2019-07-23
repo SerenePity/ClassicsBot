@@ -132,6 +132,15 @@ class RoboticRoman():
                                                                               "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian"),
             (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
+            (format_color("List Germanic authors ", "CSS"),                  f"'{prefix}germanicauthors'"),
+            (format_color("Retrieve random Germanic quote ", "CSS"),         f"'{prefix}germanicquote'"),
+            (format_color("List available modern historians ", "CSS"),       f"'{prefix}modernhistorians'"),
+            (format_color("Retrieve random (modern) historian's quote ", "CSS"), f"'{prefix}historianquote'"),
+            (format_color("List available modern philosophers ", "CSS"),     f"'{prefix}modernphilosophers'"),
+            (format_color("Retrieve random (modern) philosopher's quote ", "CSS"), f"'{prefix}philosopherquote'"),
+            (format_color("List available modern authors ", "CSS"),          f"'{prefix}modernauthors'"),
+            (format_color("Retrieve random (modern) authors's quote ", "CSS"), f"'{prefix}literaturequote'"),
+            (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
             (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_game'"),
             (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-n] (no macrons)'"),
             (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
@@ -792,6 +801,22 @@ class RoboticRoman():
 
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
+
+    def pick_random_literature_quote(self):
+        author = random.choice(list(self.literature_quotes_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
+
+    def pick_random_historians_quote(self):
+        author = random.choice(list(self.historians_quotes_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
+
+    def pick_random_philosopher_quote(self):
+        author = random.choice(list(self.philosophers_quotes_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
+
+    def pick_random_germanic_quote(self):
+        author = random.choice(list(self.germanic_quotes_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
     def pick_random_latin_quote(self):
         author = random.choice(list(self.latin_quotes_dict.keys()))
