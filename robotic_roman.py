@@ -753,6 +753,11 @@ class RoboticRoman():
     def _process_basic(self, text):
         return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), 3))]
 
+    def _process_mixed(self, text):
+        if ABSOLUTE_DELIMITER in text:
+            return self._process_absolute(text)
+        return self._process_text(text)
+
     def _process_absolute(self, text):
         splitted = text.split(ABSOLUTE_DELIMITER)
         return [w.replace(ABSOLUTE_DELIMITER, "") for w in splitted]
@@ -1054,6 +1059,8 @@ class RoboticRoman():
             files = [f for f in files if 'content' not in f.name]
             index_files = [f for f in files if 'content' in f.name]
             i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+        elif person == 'gibbon':
+            i, quote, quotes_list = self.pick_quote(files, self._process_mixed, word, lemmatize, case_sensitive)
         else:
             i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
