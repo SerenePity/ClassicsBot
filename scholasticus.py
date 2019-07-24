@@ -148,7 +148,7 @@ class Scholasticus(commands.Bot):
 
     async def on_ready(self):
         print('Logged on as', self.user)
-        await self.change_presence(game=discord.Game(name=self.command_prefix + "help for help"))
+        await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
         self.robot.load_all_models()
         self.authors_set = set()
         for authors in self.robot.authors_collection:
@@ -950,7 +950,7 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'help'):
+        if content.lower().strip() == self.command_prefix + 'helpme':
             help = self.robot.commands
             ret = []
             for i in range(len(help)):
