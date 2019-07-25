@@ -70,6 +70,55 @@ def format_color(text, color_type="yaml"):
 
 QUOTE_RETRIEVAL_MAX_TRIES = 2
 
+class QuoteContext():
+
+    def __init__(self, author, quotes, index, works_list):
+        self.author = author
+        self.quotes = quotes
+        self.index = index
+        self.before_index = index
+        self.after_index = index
+        self.works_list = works_list
+        self.first_before = True
+
+    def get_surrounding(self, before=None, after=None, joiner='.', tries=0):
+        if tries > 1:
+            return "Not found."
+        print("Index: " + str(self.index))
+        quotes_list = []
+        if before and after:
+            self.before_index = self.index - before - 1
+            self.after_index = self.index + after
+            print("Center: " + self.quotes[self.index])
+            quotes_list = self.quotes[self.before_index:self.after_index]
+        elif before:
+            try:
+                if self.first_before:
+                    self.first_before = False
+                    self.before_index = self.index - before
+                    quotes_list = self.quotes[self.before_index:self.index][1:]
+                    self.index = self.before_index
+            except:
+                quotes_list = self.get_surrounding(before=before)
+            self.before_index = self.index - before
+            quotes_list = self.quotes[self.before_index:self.index]
+            self.index = self.before_index
+            if quotes_list == []:
+                quotes_list = self.get_surrounding(before=before, tries=tries + 1)
+        elif after:
+            old_after = self.after_index
+            if self.after_index + after > len(self.quotes) - 1:
+                self.after_index = len(self.quotes) - 1
+            else:
+                self.after_index = self.after_index + after
+                print("After index: " + str(self.after_index))
+            quotes_list = self.quotes[old_after:self.after_index]
+        ret_str = RoboticRoman.sanitize(joiner.join(quotes_list)).replace("_found", "").split(
+            "--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
+        if len(ret_str) >= 2000:
+            ret_str = ret_str[:1998] + "..."
+        return ret_str.replace(ABSOLUTE_DELIMITER, "")
+
 class RoboticRoman():
 
     def __init__(self, prefix):
@@ -368,7 +417,7 @@ class RoboticRoman():
         quote = quote.replace(' () ', '\n\n')
         return quote
 
-    def _fix_unclosed_quotes(self, text):
+    def _fix_unclosed_quotes(text):
         opened = False
         closed = False
         quote_type = ""
@@ -385,7 +434,7 @@ class RoboticRoman():
             text += quote_type
         return text
 
-    def _passage_parallel_deliminator(self, text, delimiters=PARALLEL_DELIMITERS):
+    def _passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS):
         cur_sentence_len = 0
         prev_delimiter_pos = 0
         prev_delimiter = ""
@@ -412,7 +461,7 @@ class RoboticRoman():
 
         return ''.join(final_sentence)
 
-    def _passage_deliminator(self, text, delimiters=DELIMITERS):
+    def _passage_deliminator(text, delimiters=DELIMITERS):
         cur_sentence_len = 0
         prev_delimiter_pos = 0
         prev_delimiter = ""
@@ -461,7 +510,7 @@ class RoboticRoman():
             traceback.print_exc()
         return "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api."
 
-    def chunks(self, lst, n):
+    def chunks(lst, n):
         """Yield successive n-sized chunks from l."""
         for i in range(0, len(lst), n):
             yield lst[i:i + n]
@@ -745,26 +794,26 @@ class RoboticRoman():
             verse = self.get_random_verse()
         return self.bible_compare(verse, versions)
 
-    def _replace_placeholders(self, text):
+    def _replace_placeholders(text):
         for key in REVERSE_DELIMITERS_MAP:
             text = text.replace(key, REVERSE_DELIMITERS_MAP[key])
         return text
 
-    def _process_basic(self, text):
-        return ['. '.join(s) + '.' for s in list(self.chunks(text.split('.'), 3))]
+    def _process_basic(text):
+        return ['. '.join(s) + '.' for s in list(RoboticRoman.chunks(text.split('.'), 3))]
 
-    def _process_mixed(self, text):
+    def _process_mixed(text):
         if ABSOLUTE_DELIMITER in text:
-            return self._process_absolute(text)
-        return self._process_text(text)
+            return RoboticRoman._process_absolute(text)
+        return RoboticRoman._process_text(text)
 
     def _process_absolute(self, text):
         splitted = text.split(ABSOLUTE_DELIMITER)
         return [w.replace(ABSOLUTE_DELIMITER, "") for w in splitted]
 
-    def _process_text(self, text):
-        text = self._replace_abbreviation_period(text.replace('...', '^'))
-        text = self._passage_deliminator(text)
+    def _process_text(text):
+        text = RoboticRoman._replace_abbreviation_period(text.replace('...', '^'))
+        text = RoboticRoman._passage_deliminator(text)
         text = re.sub(r"[\n]{2,}|(\n+\s+){2,}|(\s+\n+){2,}", "\n\n", text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
         return [re.sub(REGEX_SUB, '', t) + (first_pass[i+1] if first_pass[i+1] != '|' else '') for i,t in
@@ -772,19 +821,19 @@ class RoboticRoman():
                 and t.strip().replace('\n','') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
                 i < len(first_pass) - 1]
 
-    def _process_parallel(self, text):
-        text = self._replace_abbreviation_period(text.replace('...', '^'))
-        text = self._passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS)
+    def _process_parallel(text):
+        text = RoboticRoman._replace_abbreviation_period(text.replace('...', '^'))
+        text = RoboticRoman._passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS)
         text_list = text.split('\n')
         # text_list = [t.replace('@', '\n') for t in text_list]
         return text_list
 
-    def _process_holy_text(self, scripture):
-        return [s for s in re.split(BIBLE_DELIMITERS, self._replace_abbreviation_period(scripture))
+    def _process_holy_text(scripture):
+        return [s for s in re.split(BIBLE_DELIMITERS, RoboticRoman._replace_abbreviation_period(scripture))
                 if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
                 and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
 
-    def _replace_abbreviation_period(self, text):
+    def _replace_abbreviation_period(text):
         for abbreviations in ABBREVIATIONS:
             text = text.replace(" " + abbreviations + '.', " " + abbreviations + '%')
         return text
@@ -957,11 +1006,11 @@ class RoboticRoman():
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
                     return quote
                 else:
                     self.quote_tries = 0
@@ -969,11 +1018,11 @@ class RoboticRoman():
         elif "the " + person in self.greek_quotes_dict:
             files = self.greek_quotes_dict["the " + person]
             try:
-                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
                     return i, quote
                 else:
                     self.quote_tries = 0
@@ -981,25 +1030,25 @@ class RoboticRoman():
         elif person in self.off_topic_authors:
             files = self.off_topic_quotes_dict[person]
             if person.lower() == "joyce":
-                quote = self.pick_quote(files, self._process_basic, word, lemmatize, case_sensitive)
+                quote = self.pick_quote(files, RoboticRoman._process_basic, word, lemmatize, case_sensitive)
             elif person.lower() == "bush" or person.lower() == "yogi berra":
-                i, quote = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
                 print(quote)
             else:
-                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         elif 'the ' + person in self.off_topic_authors:
             files = self.off_topic_quotes_dict['the ' + person]
-            i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         elif 'parallel_' in person:
             files = self.parallel_quotes_dict[person.replace('parallel_', '')]
-            i, quote = self.pick_quote(files, self._process_parallel, word, lemmatize, case_sensitive)
+            i, quote = self.pick_quote(files, RoboticRoman._process_parallel, word, lemmatize, case_sensitive)
             print("Parallel quote: " + quote)
         else:
             if not person in self.latin_quotes_dict:
                 person = "the " + person
             files = self.latin_quotes_dict[person]
             if person == 'the bible':
-                i, quote = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
                 res = [(i,e) for i,e in enumerate(open({LATIN_TEXTS_PATH}//"phrases"//"phrases.txt").read().split("円"))]
                 print(res)
@@ -1008,8 +1057,8 @@ class RoboticRoman():
                 quote = res[i]
                 return quote
             else:
-                i, quote = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(self._replace_placeholders(quote)))
+                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
 
 
     def map_person_to_dict(self, person):
@@ -1036,11 +1085,11 @@ class RoboticRoman():
         files = quotes_dict[person.lower()]
 
         try:
-           i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+           i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         except Exception as error:
             if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                 self.quote_tries += 1
-                i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+                i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
                 return i, quote, quotes_list
             else:
                 self.quote_tries = 0
@@ -1048,27 +1097,27 @@ class RoboticRoman():
         person = person.lower().strip()
 
         if person == 'bush':
-            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
         elif person == 'yogi berra':
-            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
         elif person == 'the bible':
-            i, quote, quotes_list = self.pick_quote(files, self._process_holy_text, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize, case_sensitive)
         elif person == 'phrases':
-            i, quote, quotes_list = self.pick_quote(files, self._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
         elif person == 'mommsen':
             files = [f for f in files if 'content' not in f.name]
             index_files = [f for f in files if 'content' in f.name]
-            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         elif person == 'gibbon':
-            i, quote, quotes_list = self.pick_quote(files, self._process_mixed, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_mixed, word, lemmatize, case_sensitive)
         else:
-            i, quote, quotes_list = self.pick_quote(files, self._process_text, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
 
-    def sanitize(self, quote):
-        return self.fix_crushed_punctuation(self._replace_placeholders(quote))
+    def sanitize(quote):
+        return RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote))
 
-    def fix_crushed_punctuation(self, text):
+    def fix_crushed_punctuation(text):
         text = re.sub(r"(\w)\.([^\s])", r"\1. \2", text)
         text = re.sub(r"(\w);([^\s])", r"\1; \2", text)
         text = re.sub(r"(\w)\?([^\s])", r"\1? \2", text)

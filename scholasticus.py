@@ -13,7 +13,7 @@ import robotic_roman
 import shlex
 from TextToOwO import owo
 import my_wiktionary_parser
-
+from robotic_roman import QuoteContext
 
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
@@ -79,56 +79,6 @@ class Game():
         self.is_word_game = False
         self.exited_players = set()
         self.players_dict = dict()
-
-class QuoteContext():
-
-    def __init__(self, author, quotes, index, works_list):
-        self.author = author
-        self.quotes = quotes
-        self.index = index
-        self.before_index = index
-        self.after_index = index
-        self.robot = robot
-        self.works_list = works_list
-        self.first_before = True
-
-    def get_surrounding(self, before=None, after=None, joiner='.', tries=0):
-        if tries > 1:
-            return "Not found."
-        print("Index: " + str(self.index))
-        quotes_list = []
-        if before and after:
-            self.before_index = self.index - before - 1
-            self.after_index = self.index + after
-            print("Center: " + self.quotes[self.index])
-            quotes_list = self.quotes[self.before_index:self.after_index]
-        elif before:
-            try:
-                if self.first_before:
-                    self.first_before = False
-                    self.before_index = self.index - before
-                    quotes_list = self.quotes[self.before_index:self.index][1:]
-                    self.index = self.before_index
-            except:
-                quotes_list = self.get_surrounding(before=before)
-            self.before_index = self.index - before
-            quotes_list = self.quotes[self.before_index:self.index]
-            self.index = self.before_index
-            if quotes_list == []:
-                quotes_list = self.get_surrounding(before=before, tries=tries + 1)
-        elif after:
-            old_after = self.after_index
-            if self.after_index + after > len(self.quotes) - 1:
-                self.after_index = len(self.quotes) - 1
-            else:
-                self.after_index = self.after_index + after
-                print("After index: " + str(self.after_index))
-            quotes_list = self.quotes[old_after:self.after_index]
-        ret_str = self.robot.sanitize(joiner.join(quotes_list)).replace("_found", "").split(
-            "--------------------------EOF--------------------------")[0].replace('. .', '. ').replace('..', '. ')
-        if len(ret_str) >= 2000:
-            ret_str = ret_str[:1998] + "..."
-        return ret_str.replace(robotic_roman.ABSOLUTE_DELIMITER, "")
 
 class Scholasticus(commands.Bot):
 
