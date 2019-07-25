@@ -961,7 +961,7 @@ class RoboticRoman():
         else:
             f = random.choice(files)
             quotes_list = process_func(f.read())
-            print(quotes_list)
+            #print(quotes_list)
             index = random.randint(0, len(quotes_list))
             quote = quotes_list[index]
             f.seek(0)
@@ -1112,7 +1112,7 @@ class RoboticRoman():
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_mixed, word, lemmatize, case_sensitive)
         else:
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-        return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", self.sanitize(quote)), quotes_list
+        return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.sanitize(quote)), quotes_list
 
     def sanitize(quote):
         return RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote))

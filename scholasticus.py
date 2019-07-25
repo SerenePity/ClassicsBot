@@ -183,7 +183,7 @@ class Scholasticus(commands.Bot):
         is_grammar_game = False
         grammar_game_set = []
         is_word_game = False
-        print(text_set)
+        #print(text_set)
         text_set = text_set.split('[')[0].strip()
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
