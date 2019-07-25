@@ -303,7 +303,7 @@ class RoboticRoman():
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
         if category:
-            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{word}"
+            url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{category}"
         elif language.lower().strip() == 'latin':
             word = word_picker.pick_word()
             return word
