@@ -220,13 +220,22 @@ class RoboticRoman():
         except:
             return hash(file)
 
+    def display_sort(x):
+        x = x.replace('.txt', '').replace('_', ' ')
+
+        m = re.findall(r"[0-9]+", x)
+        if m and len(m) != 0:
+            return int(m[0])
+        else:
+            return int(''.join(str(ord(c)) for c in x.split()[0]))
+
     def show_author_works(self, author, tries=0):
 
         author = author.lower()
 
         dic = self.map_person_to_dict(author)
 
-        works = dic[author]
+        works = sorted(dic[author], key=lambda x : RoboticRoman.display_sort(x.name))
         work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
         display_index = '\n'.join([f"**{i+1}.** {e}" for i,e in enumerate(work_names)])
         return display_index, works
