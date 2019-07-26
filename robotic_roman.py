@@ -228,7 +228,7 @@ class RoboticRoman():
 
         works = dic[author]
         work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
-        display_index = '\n'.join([f"{i+1}. {e}" for i,e in enumerate(work_names)])
+        display_index = '\n'.join([f"**{i+1}.** {e}" for i,e in enumerate(work_names)])
         return display_index, works
 
     def fetch_def_by_other_parser(self, word_input, language):

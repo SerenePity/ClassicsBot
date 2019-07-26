@@ -19,6 +19,7 @@ from robotic_roman import QuoteContext
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
 robot = RoboticRoman("")
+DISCORD_CHAR_LIMIT = 2000
 
 class PlayerSession():
 
@@ -115,14 +116,6 @@ class Scholasticus(commands.Bot):
 
     def sanitize_user_input(self, text):
         return text.replace(',', '').replace('!', '').replace(':','').replace(';', '')
-
-    async def send_in_chunks(self, channel, lst, n=2000):
-        if len(lst) > n:
-            chunks = RoboticRoman.chunks(lst, 2000)
-            for chunk in chunks:
-                await self.send_message(channel, chunk)
-        else:
-            await self.send_message(channel, lst)
 
     async def process_guess(self, channel, player, content, word_game=False):
 
@@ -265,6 +258,14 @@ class Scholasticus(commands.Bot):
         except:
             False
 
+    async def send_in_chunks_if_needed(self, channel, text, n=2000):
+        if len(text) > DISCORD_CHAR_LIMIT:
+            chunks = RoboticRoman.chunks(text, n)
+            for chunk in chunks:
+                await self.send_message(channel, chunk)
+        else:
+            await self.send_message(channel, text)
+
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
@@ -291,12 +292,7 @@ class Scholasticus(commands.Bot):
                     definition = self.robot.get_and_format_word_defs(word)
                 else:
                     definition = "Invalid arguments"
-                if len(definition) > 2000:
-                    chunks = RoboticRoman.chunks(definition, 2000)
-                    for chunk in chunks:
-                        await self.send_message(channel, chunk)
-                else:
-                    await self.send_message(channel, definition)
+                await self.send_in_chunks_if_needed(channel, definition)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -324,12 +320,7 @@ class Scholasticus(commands.Bot):
                     print("SCHOLASTICUS WORD: " + word)
                     print("SCHOLASTICUS WORD: " + language)
                     entry = self.robot.get_full_entry(word, language)
-                    if len(entry) > 2000:
-                        chunks = RoboticRoman.chunks(entry, 2000)
-                        for chunk in chunks:
-                            await self.send_message(channel, chunk)
-                    else:
-                        await self.send_message(channel, self.robot.get_full_entry(word, language))
+                    await self.send_in_chunks_if_needed(channel, entry)
                     return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -361,12 +352,7 @@ class Scholasticus(commands.Bot):
                     etymology = self.robot.get_word_etymology(word)
                 else:
                     etymology = "Invalid arguments"
-                if len(etymology) > 2000:
-                    chunks = RoboticRoman.chunks(etymology, 2000)
-                    for chunk in chunks:
-                        await self.send_message(channel, chunk)
-                else:
-                    await self.send_message(channel, etymology)
+                await self.send_in_chunks_if_needed(channel, etymology)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -397,12 +383,7 @@ class Scholasticus(commands.Bot):
                     entry = self.robot.get_full_entry(word)
                 else:
                     entry = "Invalid arguments"
-                if len(entry) > 2000:
-                    chunks = RoboticRoman.chunks(entry, 2000)
-                    for chunk in chunks:
-                        await self.send_message(channel, chunk)
-                else:
-                    await self.send_message(channel, entry)
+                await self.send_in_chunks_if_needed(channel, entry)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
