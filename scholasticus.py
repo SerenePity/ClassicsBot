@@ -114,8 +114,16 @@ class Scholasticus(commands.Bot):
         print('Done initializing')
 
     def sanitize_user_input(self, text):
-        return text.replace(',', '').replace('!', '').replace(':','').replace(';', ''
-                                                                              )
+        return text.replace(',', '').replace('!', '').replace(':','').replace(';', '')
+
+    async def send_in_chunks(self, channel, lst, n=2000):
+        if len(lst) > n:
+            chunks = RoboticRoman.chunks(lst, 2000)
+            for chunk in chunks:
+                await self.send_message(channel, chunk)
+        else:
+            await self.send_message(channel, lst)
+
     async def process_guess(self, channel, player, content, word_game=False):
 
         try:
@@ -283,7 +291,12 @@ class Scholasticus(commands.Bot):
                     definition = self.robot.get_and_format_word_defs(word)
                 else:
                     definition = "Invalid arguments"
-                await self.send_message(channel, definition)
+                if len(definition) > 2000:
+                    chunks = RoboticRoman.chunks(definition, 2000)
+                    for chunk in chunks:
+                        await self.send_message(channel, chunk)
+                else:
+                    await self.send_message(channel, definition)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -310,7 +323,13 @@ class Scholasticus(commands.Bot):
                     word = self.robot.get_random_word(language)
                     print("SCHOLASTICUS WORD: " + word)
                     print("SCHOLASTICUS WORD: " + language)
-                    await self.send_message(channel, self.robot.get_full_entry(word, language))
+                    entry = self.robot.get_full_entry(word, language)
+                    if len(entry) > 2000:
+                        chunks = RoboticRoman.chunks(entry, 2000)
+                        for chunk in chunks:
+                            await self.send_message(channel, chunk)
+                    else:
+                        await self.send_message(channel, self.robot.get_full_entry(word, language))
                     return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -342,7 +361,12 @@ class Scholasticus(commands.Bot):
                     etymology = self.robot.get_word_etymology(word)
                 else:
                     etymology = "Invalid arguments"
-                await self.send_message(channel, etymology)
+                if len(etymology) > 2000:
+                    chunks = RoboticRoman.chunks(etymology, 2000)
+                    for chunk in chunks:
+                        await self.send_message(channel, chunk)
+                else:
+                    await self.send_message(channel, etymology)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
@@ -373,7 +397,12 @@ class Scholasticus(commands.Bot):
                     entry = self.robot.get_full_entry(word)
                 else:
                     entry = "Invalid arguments"
-                await self.send_message(channel, entry)
+                if len(entry) > 2000:
+                    chunks = RoboticRoman.chunks(entry, 2000)
+                    for chunk in chunks:
+                        await self.send_message(channel, chunk)
+                else:
+                    await self.send_message(channel, entry)
                 return
             except discord.errors.HTTPException:
                 traceback.print_exc()
