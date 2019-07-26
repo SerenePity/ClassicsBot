@@ -588,7 +588,7 @@ class Scholasticus(commands.Bot):
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
-                    parts = list(self.robot.chunks(display.split('\n'), 10))
+                    parts = list(RoboticRoman.chunks(display.split('\n'), 10))
                     for part in parts:
                         await self.send_message(channel, ' '.join(part))
                 else:
