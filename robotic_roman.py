@@ -46,8 +46,8 @@ PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
 PARALLEL_DELIMITERS = ["."]
-DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
-REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
+DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$', '‰': '\n'}
+REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...', '‰': '\n'}
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
@@ -804,10 +804,10 @@ class RoboticRoman():
 
     def _process_mixed(text):
         if ABSOLUTE_DELIMITER in text:
-            return RoboticRoman._process_absolute(text)
+            return RoboticRoman._process_absolute(text=text)
         return RoboticRoman._process_text(text)
 
-    def _process_absolute(self, text):
+    def _process_absolute(text):
         splitted = text.split(ABSOLUTE_DELIMITER)
         return [w.replace(ABSOLUTE_DELIMITER, "") for w in splitted]
 
@@ -966,7 +966,7 @@ class RoboticRoman():
             print(quotes_list)
             print("len: " + str(len(quotes_list)))
             #print(quotes_list)
-            index = random.randint(0, len(quotes_list) - 1)
+            index = i = random.choice(range(len(quotes_list)))
             print("index: " + str(index))
             quote = quotes_list[index]
             f.seek(0)
