@@ -221,13 +221,13 @@ class RoboticRoman():
             return hash(file)
 
     def display_sort(x):
-        x = x.replace('.txt', '').replace('_', ' ')
+        x = x.replace('.txt', '')
 
         m = re.findall(r"[0-9]+", x)
         if m and len(m) != 0:
             return int(m[0])
         else:
-            return int(''.join(str(ord(c)) for c in x.split()[0]))
+            return int(''.join(str(ord(c)) for c in x.split('_')[0]))
 
     def show_author_works(self, author, tries=0):
 
