@@ -13,11 +13,12 @@ import robotic_roman
 import shlex
 from TextToOwO import owo
 import my_wiktionary_parser
+from robotic_roman import RoboticRoman
 from robotic_roman import QuoteContext
 
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
-robot = robotic_roman.RoboticRoman("")
+robot = RoboticRoman("")
 
 class PlayerSession():
 
@@ -535,14 +536,15 @@ class Scholasticus(commands.Bot):
             if file.closed:
                 qt_obj.works_list[index - 1] = open(file.name)
                 file = qt_obj.works_list[index - 1]
+            file.seek(0)
             if source == 'the bible':
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_holy_text)
+                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_holy_text)
             elif source.lower() == "joyce":
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
+                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_basic)
             elif source.lower() == "bush" or source.lower() == "yogi berra":
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_absolute)
+                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_absolute)
             elif source.lower() == "jaspers":
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_basic)
+                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_basic)
             elif source.lower() == "gibbon" and 'footnotes' in file.name:
                 quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
             elif source.lower() == "mommsen":
@@ -552,9 +554,9 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, quotes[0])
                     return
                 else:
-                    quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
+                    quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_text)
             else:
-                quotes = self.robot.get_passage_list_for_file(file, self.robot._process_text)
+                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_text)
             qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             try:
@@ -566,10 +568,10 @@ class Scholasticus(commands.Bot):
                 if workslist[index-1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
                     qt_obj = QuoteContext(source,
                                           [ q.rstrip('\n') for q in
-                                          self.robot._process_absolute(open(workslist[index - 1].name, encoding='utf8').read())
+                                            RoboticRoman._process_absolute(open(workslist[index - 1].name, encoding='utf8').read())
                                           ], 0, workslist)
                 else:
-                    qt_obj = QuoteContext(source, self.robot._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
+                    qt_obj = QuoteContext(source, RoboticRoman._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 await self.send_message(channel, qt_obj.get_surrounding(after=2))
             return
@@ -671,7 +673,7 @@ class Scholasticus(commands.Bot):
                 elif not word and not transliterate:
                     source = ' '.join(qt_args[1:]).lower().strip()
                 if word:
-                    word = self.sanitize_user_input(word).lower()
+                    word = self.sanitize_user_input(word)
 
                 if source not in self.authors_set:
                     source = "the " + source.strip().lower()
@@ -896,7 +898,7 @@ class Scholasticus(commands.Bot):
                     i = int(args[1])
                 except:
                     await self.send_message(channel, "Argument must be an integer.")
-                await self.send_message(channel, self.command_dict[i])
+                await self.send_message(channel, f"Type {self.command_dict[i]}")
 
         # ==================================================================================================================================================
 
@@ -907,7 +909,7 @@ class Scholasticus(commands.Bot):
                 desc = help[i][0].strip()
                 self.command_dict[i+1] = command = help[i][1]
                 ret.append(f"**{i+1}.** {desc}")
-            lines = list(self.robot.chunks(ret, 5))
+            lines = list(RoboticRoman.chunks(ret, 5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
             await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
 

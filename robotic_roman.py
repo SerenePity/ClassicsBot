@@ -45,7 +45,6 @@ QUOTES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
-DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'"]
 PARALLEL_DELIMITERS = ["."]
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$'}
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...'}
@@ -53,6 +52,7 @@ REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
 BIBLE_DELIMITERS = "[0-9]+"
 ABSOLUTE_DELIMITER = "‰"
+DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", ABSOLUTE_DELIMITER]
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
@@ -190,8 +190,8 @@ class RoboticRoman():
             (format_color("List available modern authors ", "CSS"),          f"'{prefix}modernauthors'"),
             (format_color("Retrieve random (modern) authors's quote ", "CSS"), f"'{prefix}literaturequote'"),
             (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
-            (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_game'"),
-            (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-n] (no macrons)'"),
+            (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_grammar'"),
+            (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-m] (with macrons)'"),
             (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
             (format_color("Guess answer ", "CSS"),                           f"'<answer>' | 'g(uess) <word>'"),
             (format_color("End game ", "CSS"),                               f"'{prefix}giveup'"),
@@ -202,10 +202,10 @@ class RoboticRoman():
                                                                               "\n\tNotes: add the prefix $ for transliteration."),
             (format_color("Quote for parallel text ", "CSS"),                f"'{prefix}parallel <work/author>'"),
             (format_color("Sources for parallel command ", "CSS"),           f"'{prefix}listparallel'"),
-            (format_color("Word definition (defaults to Latin) ", "CSS"),    f"'{prefix}<language>_def (<word>)'"),
-            (format_color("Word etymology (defaults to Latin) ", "CSS"),     f"'{prefix}<language>_ety (<word>)'"),
-            (format_color("Word entry (defaults to Latin) ", "CSS"),         f"'{prefix}<language>_word (<word>)'"),
-            (format_color("Random entry (defaults to Latin) ", "CSS"),       f"'{prefix}randword [<language>]' | '>randomword [<language>]'"),
+            (format_color("Word definition (defaults to Latin) ", "CSS"),    f"'{prefix}<language>_def <word>'"),
+            (format_color("Word etymology (defaults to Latin) ", "CSS"),     f"'{prefix}<language>_ety <word>'"),
+            (format_color("Word entry (defaults to Latin) ", "CSS"),         f"'{prefix}<language>_word <word>'"),
+            (format_color("Random entry (defaults to Latin) ", "CSS"),       f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
             (format_color("List texts to start from an author ", "CSS"),     f"'{prefix}textstart' | 'tstart'"),
             (format_color("Start a text from an author ", "CSS"),            f"'{prefix}pick <number>'"),
             (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}next [<number>]'"),
@@ -227,7 +227,7 @@ class RoboticRoman():
         dic = self.map_person_to_dict(author)
 
         works = dic[author]
-        work_names = [work.name.replace('.txt', '').title().split('/')[-1] for work in works]
+        work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
         display_index = '\n'.join([f"{i+1}. {e}" for i,e in enumerate(work_names)])
         return display_index, works
 
@@ -856,7 +856,7 @@ class RoboticRoman():
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
 
-    def pick_quote(self, quote_dict):
+    def pick_quote_generic(self, quote_dict):
         author = random.choice(list(quote_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
@@ -910,6 +910,7 @@ class RoboticRoman():
 
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
+        print("Case_sensitive: " + str(case_sensitive))
         if tries > 2:
             return -1, "Not found.", []
         if word:
@@ -960,9 +961,13 @@ class RoboticRoman():
                 return ret[0], ret[1], ret[2]
         else:
             f = random.choice(files)
+            print(f)
             quotes_list = process_func(f.read())
+            print(quotes_list)
+            print("len: " + str(len(quotes_list)))
             #print(quotes_list)
-            index = random.randint(0, len(quotes_list))
+            index = random.randint(0, len(quotes_list) - 1)
+            print("index: " + str(index))
             quote = quotes_list[index]
             f.seek(0)
         print("Proces function name: ")
@@ -974,6 +979,8 @@ class RoboticRoman():
         return index, quote, quotes_list
 
     def get_passage_list_for_file(self, file, process_func):
+        print(file)
+        print(process_func)
         passage_list = process_func(file.read())
         if process_func.__name__ == "_process_absolute":
             passage_list = [w.replace(ABSOLUTE_DELIMITER, "") for w in passage_list]
@@ -1058,7 +1065,7 @@ class RoboticRoman():
                 return quote
             else:
                 i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ", self.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
 
 
     def map_person_to_dict(self, person):
@@ -1122,6 +1129,7 @@ class RoboticRoman():
         text = re.sub(r"(\w);([^\s])", r"\1; \2", text)
         text = re.sub(r"(\w)\?([^\s])", r"\1? \2", text)
         text = re.sub(r"(\w)!([^\s])", r"\1! \2", text)
+        text = re.sub(r"(\w):([^\s])", r"\1: \2", text)
         return text
 
     def pick_greek_quote(self):
@@ -1137,13 +1145,19 @@ class RoboticRoman():
                    "values his intelligence and scientific fact over any silly fiction book written 3,500 years ago. " \
                    "That being said, I am open to any and all criticism.\n\n\"In this moment, I am euphoric. " \
                    "Not because of any phony god's blessing. But because, I am englightened by my intelligence.\" - Aalewis"
-        if not os.path.isfile(f"markov_models/{author}/{author}_markov.json"):
-            for author_set in self.authors_collection:
-                if author in author_set:
-                    for zipped_author, zipped_quotes_dict, zipped_path in self.zipped:
-                        if author.lower() == zipped_author.lower():
-                            self.train_model(author, zipped_path)
-        return self.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
+
+        if not os.path.exists(f"markov_models/{author.lower()}"):
+            print("Made directory")
+            os.mkdir(f"markov_models/{author.lower()}")
+
+        if not os.path.isfile(f"markov_models/{author.lower()}/{author.lower()}_markov.json"):
+            dic = self.map_person_to_dict(author)
+            works = dic[author]
+            model = MarkovText()
+            for work in works:
+                model.data(work.read())
+            model.save(f"markov_models/{author}/{author}_markov.json")
+        return RoboticRoman.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
 
     def train_model(self, author, author_path):
         model = MarkovText()
