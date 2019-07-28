@@ -28,6 +28,8 @@ import re
 import string
 import praw
 import urllib.parse
+import importlib
+import cached_quotes.gibbon.gibbon_footnotes
 
 
 LATIN_TEXTS_PATH = "latin_texts"
@@ -169,7 +171,13 @@ class RoboticRoman():
         for author_collection, quotes_dict, directory in self.zipped:
             print(directory)
             for author in author_collection:
-                quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
+                if author == 'gibbon':
+                    for f in os.listdir("cached_quotes/gibbon"):
+                        if 'footnotes' not in f and '__pycache__' not in f:
+                            quotes_dict = importlib.import_module(f"cached_quotes.gibbon.{f.replace('.py', '')}").quotes
+                else:
+                    print(author)
+                    quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
         self.commands = [(format_color("Get random quote by author ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
                                                                               "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
@@ -219,6 +227,11 @@ class RoboticRoman():
             return int(''.join([s.strip() for s in file if s.isdigit()]))
         except:
             return hash(file)
+
+    def get_gibbon_footnote(self, chapter, footnote: int, footnote_end=None):
+        if footnote_end:
+            return '\n'.join(cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1:footnote_end])
+        return cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1]
 
     def display_sort(x):
         x = x.replace('.txt', '')

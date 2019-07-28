@@ -720,6 +720,36 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        if content.lower().startswith(self.command_prefix + 'fn'):
+            args = shlex.split(content.lower())
+            if args[0].lower() != 'fn':
+                return
+            if len(args) == 3:
+                chapter = args[1].title()
+                try:
+                    footnote_num = int(args[2])
+                except:
+                    await self.send_message(channel, "Footnote number must be an integer.")
+                    return
+                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
+                await self.send_message(channel, footnote)
+            elif len(args) == 4:
+                chapter = args[1].title()
+                try:
+                    footnote_num = int(args[2])
+                except:
+                    await self.send_message(channel, "Footnote number must be an integer.")
+                    return
+                try:
+                    footnote_end = int(args[3])
+                except:
+                    await self.send_message(channel, "Footnote number must be an integer.")
+                    return
+                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num, footnote_end)
+                await self.send_message(channel, footnote)
+
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'next'):
             args = shlex.split(content.lower())
             if args[0].lower() != 'next':
