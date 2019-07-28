@@ -38,7 +38,7 @@ def get_etymology(language_header, language, word):
 
     if not language_header:
         return "Not found."
-
+    finished_first_ety = False
     for sibling in language_header.next_siblings:
         if isinstance(sibling, NavigableString):
             continue
@@ -55,10 +55,13 @@ def get_etymology(language_header, language, word):
                     ety_sect = ety_sect.findNextSibling()
                     if isinstance(ety_sect, Tag):
                         if ety_sect.name in ['h3', 'h4']:
+                            finished_first_ety = True
                             break
                         etymology.append(ety_sect.get_text())
                     else:
                         etymology.append(" ")
+                if finished_first_ety:
+                    break
             except:
                 return "Not found."
     print(etymology)
@@ -94,6 +97,7 @@ def get_definition(soup, language, include_examples=True):
                 elif li.ul:
                     li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
                 li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
+    print(definition)
     return definition
 
 def remove_example(li):
@@ -473,6 +477,7 @@ def get_glyph_origin(soup):
                     origin.append(dictify(sibling))
                 if sibling.name in ['h3', 'h4']:
                     break
+    print("Glyph origin: " + str(origin))
     return '\n'.join(origin).strip()
 
 mapping = {
