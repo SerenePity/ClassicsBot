@@ -62,6 +62,8 @@ def get_etymology(language_header, language, word):
             except:
                 return "Not found."
     print(etymology)
+    if etymology == "Not found.":
+        return "Not found."
     return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
 
 def get_definition(soup, language, include_examples=True):
@@ -386,14 +388,13 @@ def get_grammar_question(language, tries=0):
 def get_middle_chinese_only(soup, c):
     print("Middle Chinese only char: " + c)
 
-    #print(soup)
-    matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
+    print("Middle Chinese soup: " + str(soup))
+    #matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
     try:
-        pronunciation = re.findall(matcher, str(soup))[0]
+        middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
     except:
-        return "Not found."
-    pronunciation = re.sub(r"<.*?/*>", "", pronunciation)
-    return pronunciation
+        return "N/A"
+    return middle_chinese
 
 def get_old_chinese_only_zhengchang(c, soup):
     print("Old Chinese only char: " + c)
@@ -415,73 +416,62 @@ def get_language_header(word, language):
             return language_header, soup
     return None, soup
 
-def get_mandarin_pronunciation(language_header):
-    siblings = '|'.join((list([s.get_text() if (isinstance(s, Tag) and not isinstance(s, str)) else s for s in
-                                   language_header.next_siblings])))
-        # print(siblings)
-    mandarin_pronunciation = language_header.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
+def get_mandarin_pronunciation(soup):
+    mandarin_pronunciation = soup.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
     #mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
     return mandarin_pronunciation
 
-def get_historical_chinese(char, soup):
+def get_historical_chinese(char):
     if char in baxter_sagart.reconstructions:
         tuple_list = baxter_sagart.reconstructions[char]
         first_entry = tuple_list[0]
         pinyin, mc, oc_bax, gloss = first_entry
-        oc_zc = get_old_chinese_only_zhengchang(char, soup)
         oc_bax = oc_bax.split(" (")[0].strip()
-        return pinyin, mc, oc_bax, oc_zc
+        return pinyin, mc, oc_bax
     else:
+        soup = get_soup(char)
         mc = get_middle_chinese_only(soup, char)
         oc_bax = "N/A"
-        oc_zc = get_old_chinese_only_zhengchang(char, soup)
-        return None, mc, oc_bax, oc_zc
+        return None, mc, oc_bax
 
 def get_historical_chinese_word(word):
     language_header, soup = get_language_header(word, "Chinese")
-    print(soup)
+    #print(soup)
     mandarin_word, mc_word, oc_bax_word, oc_zc_word = [], [], [], []
     for char in list(word):
-        pinyin, mc, oc_bax, oc_zc = get_historical_chinese(char, soup)
+        pinyin, mc, oc_bax = get_historical_chinese(char)
         mandarin_word.append(pinyin)
         mc_word.append(mc)
         oc_bax_word.append(oc_bax)
-        oc_zc_word.append(oc_zc)
     if None in mandarin_word:
-        mandarin_word = get_mandarin_pronunciation(word, soup)
-    mc_pronunciation = "Middle Chinese: " + " ".join(mc_word)
-    oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc_word).replace("*", "\*")
+        mandarin_word = get_mandarin_pronunciation(soup)
+    mc_pronunciation = "Middle Chinese: " + " ".join(mc_word).replace("/", "")
     oc_pronunciation_bax = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_bax_word).replace("*", "\*")
     mandarin_pronunciation = "Mandarin: " + ''.join(mandarin_word)
-    pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_bax, mc_pronunciation, mandarin_pronunciation])
+    pronunciation = '\n'.join([oc_pronunciation_bax, mc_pronunciation, mandarin_pronunciation])
     return pronunciation
 
 
-def get_glyph_origin_multiple(words, soup):
+def get_glyph_origin_multiple(words):
     final = []
     for i, c in enumerate(words):
+        char_soup = get_soup(c)
         print("Charlist mem: " + c)
-        final.append(f"{i+1}. {c}: {get_glyph_origin(soup)}")
-    return '\n'.join(final)
+        final.append(f"**{i+1}.** {c}: {get_glyph_origin(char_soup)}")
+    return '\n\n'.join(final)
 
 def get_glyph_origin(soup):
     origin = []
-    for h2 in soup.find_all('h2'):
-        # print(h2)
-        if h2.span and 'Chinese' in [s.get_text().strip() for s in h2.find_all('span')]:
-            language_header = h2
-            break
-
-    for h3 in soup.find_all('h3'):
+    for h in soup.find_all('h3') + soup.find_all('h4'):
         #print("H3: " + str(h3))
-        if h3.span and 'Glyph origin' in h3.span.get_text():
+        if h.span and 'Glyph origin' in h.span.get_text():
             #print("In glyph origin")
-            for sibling in h3.next_siblings:
+            for sibling in h.next_siblings:
                 if sibling.name == 'p':
                     origin.append(sibling.get_text())
                 if sibling.name == 'ul':
                     origin.append(dictify(sibling))
-                if sibling.name == 'h3':
+                if sibling.name in ['h3', 'h4']:
                     break
     return '\n'.join(origin).strip()
 

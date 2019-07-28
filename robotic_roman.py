@@ -334,7 +334,7 @@ class RoboticRoman():
         definition = self.get_and_format_word_defs(word, language)
         etymology = self.get_word_etymology(word, language)
         if language.lower() == 'chinese':
-            word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_middle_chinese(soup, word)
+            word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_historical_chinese_word(word)
         else:
             word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
@@ -390,8 +390,8 @@ class RoboticRoman():
         etymology = None
         print("Word: " + str(word))
         try:
-            soup = my_wiktionary_parser.get_soup(word)
-            etymology = my_wiktionary_parser.get_etymology(soup, language).replace(u'\xa0', u' ')
+            language_section, soup = my_wiktionary_parser.get_language_header(word, language)
+            etymology = my_wiktionary_parser.get_etymology(language_section, language, word).replace(u'\xa0', u' ')
             return etymology
         except:
             traceback.print_exc()
