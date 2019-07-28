@@ -526,7 +526,3 @@ def remove_macrons(text):
     for key in mapping.keys():
         text = text.replace(key, mapping[key])
     return text
-
-soup = get_soup('奴')
-#print(soup)
-print(get_glyph_origin(soup))

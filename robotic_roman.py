@@ -126,7 +126,7 @@ class QuoteContext():
         print("Quote index: " + str(self.index))
         for i in range(self.index, -1, -1):
             passage = self.quotes[i]
-            print("Passage: " + passage)
+            #print("Passage: " + passage)
             chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
             if not chapter or len(chapter) == 0:
                 continue

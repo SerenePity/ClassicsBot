@@ -6718,7 +6718,7 @@ See likewise Pacatus (in Panegyr. Vet. xii. 5). But it is not easy to appreciate
 
 Oft o’er the trembling nations from afar
 Has Scythia breath’d the living cloud of war.
-"""
+""",
 
 "**7.** The fourth book of Herodotus affords a curious, though imperfect, portrait of the Scythians. Among the moderns, who describe the uniform scene, the Khan of Khowaresm, Abulghazi Bahadur, expresses his native feelings; and his Genealogical History of the Tartars has been copiously illustrated by the French and English editors. Carpin, Ascelin, and Rubruquis (in the Hist. des Voyages, tom. vii.) represent the Moguls of the fourteenth century. To these guides I have added Gerbillon, and the other Jesuits (Description de la Chine, par du Halde, tom. iv.), who accurately surveyed the Chinese Tartary; and that honest and intelligent traveller, Bell of Antermony (two volumes in 4to, Glasgow, 1763).",
 
@@ -8710,7 +8710,7 @@ Claudian (i. 229-270), with that mixture of indignation and humour which always 
 
 — Gaudet, cum viderit hostis,
 Et sentit jam deesse viros.
-"""
+""",
 
 "**6.** The poet’s lively description of his deformity (i. 110-125) is confirmed by the authentic testimony of Chrysostom (tom. iii. p. 384, edit. Montfaucon), who observes that, when the paint was washed away, the face of Eutropius appeared more ugly and wrinkled than that of an old woman. Claudian remarks (i. 469), and the remark must have been founded on experience, that there was scarcely any interval between the youth and the decrepid age of an eunuch.",
 
@@ -9366,7 +9366,7 @@ Mincius, et tenerâ prætexit arundine ripas
 . . . . . . . . .
 Anne lacus tantos, te Lari maxime, teque
 Fluctibus, et fremitu assurgens Benace marino.
-"""
+""",
 
 "**64.** The Marquis Maffei (Verona Illustrata, part i. p. 95, 129, 221, part ii. p. ii. 6) has illustrated with taste and learning this interesting topography. He places the interview of Attila and St. Leo near Ariolica, or Ardelica, now Peschiera, at the conflux of the lake and river; ascertains the villa of Catullus, in the delightful peninsula of Sirmio; and discovers the Andes of Virgil, in the village of Bandes, precisely situate quâ se subducere colles incipiunt, where the Veronese hills imperceptibly slope down into the plain of Mantua. [Muratori (Ann. d’Italia, iii. 154) placed the interview at Governolo, a village situated where the Mincio joins the Po.]",
 
@@ -10777,7 +10777,7 @@ It will be seen that Gibbon (misled by false arrangement of the fragments of Mal
 
 "**121.** This legend is related by Gregory I. (Dialog. iv. 30), and approved by Baronius (ad 526, No. 28); and both the Pope and Cardinal are grave doctors, sufficient to establish a probable opinion.",
 
-"**122.** Theodoric himself, or rather Cassiodorius, had described in tragic strains the vulcanos of Lipari (Cluver. Sicilia, p. 406, 410), and Vesuvius (iv. 50)."
+"**122.** Theodoric himself, or rather Cassiodorius, had described in tragic strains the vulcanos of Lipari (Cluver. Sicilia, p. 406, 410), and Vesuvius (iv. 50).",
 
 "**1.** Cp. especially p. 148-9. But Shestakov makes one inaccurate statement. Our sole authority for the place to which Basiliscus, on his return from Africa, was removed, namely, Heraclea (Perinthus), is Nicephorus Callistus (p. 80 C). Shestakov states that we find him there afterwards, in Theodore Lector, p. 180 A (Migne), and in John Ant. fr. 210; and (p. 149) ascribes to John of Antioch the statement that Basiliscus is at Heraclea, where he has an interview with Illus and conspires with him against Zeno. The place is mentioned by Theodore (and Theophanes) but not by John. The name Heraclea or Perinthus does not occur in the fragment.",
 
@@ -11701,7 +11701,7 @@ similique viros virtute necabas
 Germano spargente ferum victumque tyrannum.
 te Cellas Vatari miro spectabat amore,
 te Autenti saevos mactantem viderat hostes.]
-"""
+""",
 
 "**4.** [The battle in which Stutias fell took place in ad 545, towards the end of the year, while Areobindus was Mag. Mil. The Romans were led by John son of Sisinniolus. The battle consisted of two engagements, in the first of which the Romans had the worst of it, and in the second were distinctly defeated. Stutias was killed by an arrow from the hand of the Roman general, but John himself was also slain. See Corippus, Joh. 4, 103 sqq. and Partsch, Proœmium, p. xxii. The scene of the battles was Thacea (near the modern village of Bordjmassudi), about 26 Roman miles from Sicca Veneria (el Kef). See Victor Tonn. ap. Mommsen, Chron. Min. ii. p. 201.]",
 
@@ -15947,7 +15947,7 @@ Antamathie
 —
 —
 Theodosiopolis
-"""
+""",
 
 "**1.** P. 66 ed. Bonn.",
 
@@ -17104,7 +17104,7 @@ c. 39-52
 c. 45
 c. 54-77
 
-"""
+""",
 
 "**44.** The author of the Esprit des Croisades has doubted, and might have disbelieved, the crusade and tragic death of Prince Sueno, with 1500 or 15,000 Danes, who was cut off by Sultan Soliman in Cappadocia, but who still lives in the poem of Tasso (tom. iv. p. 111-115).",
 
