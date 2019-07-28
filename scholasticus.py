@@ -731,6 +731,26 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"Could not find quotes matching criteria.")
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().strip() == self.command_prefix + "whatchapter":
+            print("In whatchapter")
+            try:
+                qt_obj: QuoteContext = self.quote_requestors[author]
+            except:
+                await self.send_message(channel, "You have not started reading anything yet.")
+                return
+            if qt_obj.author != "gibbon":
+                await self.send_message(channel, f"This utility if only for finding which chapter of Gibbon's Declien and Fall you are reading.")
+                return
+            chapter = self.robot.find_chapter_from_passage(qt_obj)
+            if chapter == "Preface":
+                await self.send_message(channel, f"You are in the Preface in Volume 1")
+            else:
+                await self.send_message(channel, f"You are in {chapter}")
+            return
 
         # ==================================================================================================================================================
 
