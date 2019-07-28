@@ -1868,7 +1868,7 @@ footnotes = {"Preface":
 "**100.** Hist. August. p. 215, 216 [xxvi. 18, 21]. Dexippus in the Excerpta Legationum, p. 8 [p. 11, ed. Bonn; F.H.G. iii. p. 682]. Hieronym. Chron. Orosius, vii. 22. [The first campaigns of Gallienus against the Alamanni were in 256 and 257. The invasion of Italy took place 259-260. Simultaneously another band invaded Gaul, and was subdued near Arelate; Gregory of Tours, i. 32.]",
 
 """**101.** Zosimus, l. i. p. 34 [37].",
-a [The original text has public. I have ventured to amend. Ed.]"""
+a [The original text has public. I have ventured to amend. Ed.]""",
 
 "**102.** Aurel. Victor in Gallieno et Probo [Cæsar. 34, 37]. His complaints breathe an uncommon spirit of freedom.",
 
@@ -2008,7 +2008,7 @@ a [The original text has public. I have ventured to amend. Ed.]"""
 
 Ite ait, O Juvenes, pariter sudate medullis
 Omnibus, inter vos; non murmura vestra columbæ,
-Brachia non hederæ, non vincant oscula conchæ."""
+Brachia non hederæ, non vincant oscula conchæ.""",
 
 
 "**170.** He was on the point of giving Plotinus a ruined city of Campania to try the experiment of realising Plato’s Republic. See the Life of Plotinus, by Porphyry, in Fabricius’s Biblioth. Græc. l. iv.",
@@ -2045,8 +2045,8 @@ Brachia non hederæ, non vincant oscula conchæ."""
 
 "**186.** Plin. Hist. Natur. v. 10.",
 
-"""**187.** Diodor. Sicul. l. xvii. p. 590. Edit. Wesseling [52].",
-a [The original text omits, presumably by accident, after again. Ed.]"""
+"""**187.** Diodor. Sicul. l. xvii. p. 590. Edit. Wesseling [52]
+a [The original text omits, presumably by accident, after again. Ed.]""",
 
 "**188.** See a very curious letter of Hadrian in the Augustan History, p. 245 [xxix. 8. Cp. Student’s Roman Empire, p. 520.]",
 
@@ -2280,7 +2280,7 @@ Infelix raros numerabit curia Patres.
 — Calphurn. Eclog. i. 60.
 
 
-[See above, note 88.]"""
+[See above, note 88.]""",
 
 "**101.** According to the younger Victor, he sometimes wore the diadem [Epit. 35]. Deus and Dominus appear on his medals.",
 
@@ -2500,9 +2500,7 @@ Infelix raros numerabit curia Patres.
 Balteus en gemmis, en inlita porticus auro.
 Certatim radiant, &c.
 
-—Calphurn. vii. [47]."""
-
-
+—Calphurn. vii. [47].""",
 
 "**105.** Et Martis vultus et Apollinis esse putavi, says Calphurnius; but John Malala, who had perhaps seen pictures of Carinus, describes him as thick, short, and white, tom. i. p. 403.",
 
@@ -2622,7 +2620,7 @@ Et nulla humani spectans vestigia cultus
 . . . . . . . .
 Arvaque Sauromatûm nuper metata colonis.
 
-There was a town of the Carpi in the Lower Mæsia. [In Gaul Constantius had to rebuild the ruined Autun and Trier.]"""
+There was a town of the Carpi in the Lower Mæsia. [In Gaul Constantius had to rebuild the ruined Autun and Trier.]""",
 
 "**42.** See the rhetorical exultation of Eumenius. Panegyr. vii. 9.",
 
@@ -2742,7 +2740,7 @@ Et regio Herculei celebris sub honore lavacri.
 Cunctaque marmoreis ornata Peristyla signis;
 Mœniaque in valli formam circumdata labro,
 Omnia quæ magnis operum velut æmula formis
-Excellunt: nec juncta premit vicinia Romæ."""
+Excellunt: nec juncta premit vicinia Romæ.""",
 
 
 "**96.** Lactant. de M. P. c. 7. Libanius Orat. viii. p. 203.",
@@ -2891,9 +2889,7 @@ His aries actus disperget saxa lacertis;
 Illa licet penitus tolli quam jusseris urbem
 Roma sit.
 
-—Lucan. Pharsal. i. 381."""
-
-
+—Lucan. Pharsal. i. 381.""",
 
 "**33.** Lactantius de M. P. c. 27. Zosim. l. ii. p. 82 [10]. The latter insinuates that Constantine, in his interview with Maximian, had promised to declare war against Galerius.",
 
@@ -3095,8 +3091,7 @@ Quæsitum ad fontem solos deducere verpos.
 [Juvenal, xiv. 102.]
 
 
-The letter of this law is not to be found in the present volume of Moses. But the wise, the humane Maimonides openly teaches that, if an idolater fall into the water, a Jew ought not to save him from instant death. See Basnage, Histoire des Juifs, l. vi. c. 28."""
-
+The letter of this law is not to be found in the present volume of Moses. But the wise, the humane Maimonides openly teaches that, if an idolater fall into the water, a Jew ought not to save him from instant death. See Basnage, Histoire des Juifs, l. vi. c. 28.""",
 "**4.** A Jewish sect, which indulged themselves in a sort of occasional conformity, derived from Herod, by whose example and authority they had been seduced, the name of Herodians. But their numbers were so inconsiderable, and their duration so short, that Josephus has not thought them worthy of his notice. See Prideaux’s Connection, vol. ii. p. 285.",
 
 "**5.** Cicero pro Flacco, c. 28.",
@@ -3117,7 +3112,7 @@ The letter of this law is not to be found in the present volume of Moses. But th
 
 """**13.** When Pompey, using or abusing the right of conquest, entered into the Holy of Holies, it was observed with amazement, “Nullâ intus Deûm effigie, vacuam sedem et inania arcana.” Tacit. Hist. v. 9. It was a popular saying, with regard to the Jews,",
 
-Nil præter nubes et cæli numen adorant."""
+Nil præter nubes et cæli numen adorant.""",
 
 
 "**14.** A second kind of circumcision was inflicted on a Samaritan or Egyptian proselyte. The sullen indifference of the Talmudists, with respect to the conversion of strangers, may be seen in Basnage, Histoire des Juifs l. vi. c. 6.",
@@ -3386,7 +3381,7 @@ Nudare dulces liberos.
 Prudent. περὶ στεϕάνων, Hymn 2.
 
 
-The subsequent conduct of the deacon Laurence only proves how proper a use was made of the wealth of the Roman church; it was undoubtedly very considerable; but Fra Paolo (c. 3) appears to exaggerate when he supposes that the successors of Commodus were urged to persecute the Christians by their own avarice, or that of their Prætorian prefects."""
+The subsequent conduct of the deacon Laurence only proves how proper a use was made of the wealth of the Roman church; it was undoubtedly very considerable; but Fra Paolo (c. 3) appears to exaggerate when he supposes that the successors of Commodus were urged to persecute the Christians by their own avarice, or that of their Prætorian prefects.""",
 
 "**136.** Cyprian. Epistol. 62.",
 
@@ -3549,7 +3544,7 @@ The subsequent conduct of the deacon Laurence only proves how proper a use was m
 ϒίὸν πατρὸς, πνεν̂μα ἑκ πατρὸς ἐκπορευόμενον
 Ἓν ἐκ τριω̂ν, καὶ ἐξ ἑνὸς τρία.
 
-Άριθμέειν με διδάσκεις (is the profane answer of Critias) καὶ δρκος ὴ ὰριθμητική οὐκ ο[Editor: illegible character]δα γὰρ τί λέγεις· ἒν τρία, τρία ἒν!"""
+Άριθμέειν με διδάσκεις (is the profane answer of Critias) καὶ δρκος ὴ ὰριθμητική οὐκ ο[Editor: illegible character]δα γὰρ τί λέγεις· ἒν τρία, τρία ἒν!""",
 
 "**12.** According to Justin Martyr (Apolog. Major, c. 70-85), the dæmon, who had gained some imperfect knowledge of the prophecies, purposely contrived this resemblance, which might deter, though by different means, both the people and the philosophers from embracing the faith of Christ.",
 
@@ -3878,7 +3873,7 @@ Finibus expulsus patriæ est feritate Tyranni.
 Hæc breviter Damasus voluit comperta referre:
 Marcelli [ut] populus meritum cognoscere posset.
 
-We may observe, that Damasus was made bishop of Rome, ad 366. [Cp. App. 2.]"""
+We may observe, that Damasus was made bishop of Rome, ad 366. [Cp. App. 2.]""",
 
 "**171.** Optatus contr. Donatist. l. i. c. 17, 18.",
 
@@ -4042,7 +4037,7 @@ Cum subiit par Roma mihi divisaque sumsit
 Æquales aurora togas: Ægyptia rura
 In partem cessere novam.
 
-[Cp. also Libanius περὶ τω̂ν ὶερ. 184, ed. Reiske; Themistius, Or. 4, p. 52. C.I.L., i. p. 394.]"""
+[Cp. also Libanius περὶ τω̂ν ὶερ. 184, ed. Reiske; Themistius, Or. 4, p. 52. C.I.L., i. p. 394.]""",
 
 "**61.** The regions of Constantinople are mentioned in the code of Justinian, and particularly described in the Notitia of the younger Theodosius; but, as the four last of them are not included within the wall of Constantine, it may be doubted whether this division of the city should be referred to the founder.",
 
@@ -4489,7 +4484,7 @@ Et telum causas mortis habere duas.
 —Ovid. ex Ponto, l. iv. ep. 7, ver. 7.
 
 
-See in the Recherches sur les Américains, tom. ii. p. 236-271, a very curious dissertation on poisoned darts. The venom was commonly extracted from the vegetable reign; but that employed by the Scythians appears to have been drawn from the viper and a mixture of human blood. The use of poisoned arms, which has been spread over both worlds, never preserved a savage tribe from the arms of a disciplined enemy."""
+See in the Recherches sur les Américains, tom. ii. p. 236-271, a very curious dissertation on poisoned darts. The venom was commonly extracted from the vegetable reign; but that employed by the Scythians appears to have been drawn from the viper and a mixture of human blood. The use of poisoned arms, which has been spread over both worlds, never preserved a savage tribe from the arms of a disciplined enemy.""",
 
 "**40.** The nine books of Poetical Epistles, which Ovid composed during the seven first years of his melancholy exile, possess, besides the merit of elegance, a double value. They exhibit a picture of the human mind under very singular circumstances; and they contain many curious observations, which no Roman, except Ovid, could have an opportunity of making. Every circumstance which tends to illustrate the history of the Barbarians has been drawn together by the very accurate Count de Buat. Hist. Ancienne des Peuples de l’Europe, tom. iv. c. xvi. p. 286-317. [For Sarmatians cp. Appendix 11.]",
 
@@ -4632,7 +4627,7 @@ Quia solæ utuntur his reginæ —
 — Terent. Eunuch. Act i. scene 2.
 
 
-This play is translated from Menander, and the original must have appeared soon after the Eastern conquests of Alexander."""
+This play is translated from Menander, and the original must have appeared soon after the Eastern conquests of Alexander.""",
 
 """**3.**",
 
@@ -4642,14 +4637,14 @@ Servire rugosis potest.
 — Horat. Carm. v. 9 [Epode 9], and Dacier ad loc.
 
 
-By the word spado the Romans very forcibly expressed their abhorrence of this mutilated condition. The Greek appellation of eunuchs, which insensibly prevailed, had a milder sound and a more ambiguous sense."""
+By the word spado the Romans very forcibly expressed their abhorrence of this mutilated condition. The Greek appellation of eunuchs, which insensibly prevailed, had a milder sound and a more ambiguous sense.""",
 
 """**4.** We need only mention Posides, a freedman and eunuch of Claudius, in whose favour the emperor prostituted some of the most honourable rewards of military valour. See Sueton. in Claudio, c. 28. Posides employed a great part of his wealth in building.",
 
 Ut spado vincebat Capitolia nostra
 Posides.
 
-— Juvenal. Sat. xiv. [91]."""
+— Juvenal. Sat. xiv. [91].""",
 
 
 
@@ -4996,7 +4991,7 @@ Etoient mes Dieux, avoient mes sacrifices.
 L’or des Chrétiens, leurs intrigues, leur sang
 Ont cimenté ma fortune et mon rang.
 
-The poem which contains these lines may be read with pleasure, but cannot be named with decency."""
+The poem which contains these lines may be read with pleasure, but cannot be named with decency.""",
 
 "**55.** This favourite was probably the great Osius, bishop of Cordova, who preferred the pastoral care of the whole church to the government of a particular diocese. His character is magnificently, though concisely, expressed by Athanasius (tom. i. p. 703). See Tillemont, Mém. Ecclés. tom. vii. p. 524-561. Osius was accused, perhaps unjustly, of retiring from court with a very ample fortune.",
 
@@ -5189,7 +5184,7 @@ The poem which contains these lines may be read with pleasure, but cannot be nam
 
 Mens agitat molem, et magno se corpore miscet.
 
-Besides this material soul, Cudworth has discovered (p. 562) in Amelius, Porphyry, Plotinus, and, as he thinks, in Plato himself, a superior, spiritual, hupercosmian soul of the universe. But this double soul is exploded by Brucker, Basnage, and Le Clerc, as an idle fancy of the latter Platonists."""
+Besides this material soul, Cudworth has discovered (p. 562) in Amelius, Porphyry, Plotinus, and, as he thinks, in Plato himself, a superior, spiritual, hupercosmian soul of the universe. But this double soul is exploded by Brucker, Basnage, and Le Clerc, as an idle fancy of the latter Platonists.""",
 
 "**19.** Petav. Dogmata Theologica, tom. ii. l. viii. c. 2, p. 791. Bull, Defens. Fid. Nicen. s. i. c. 1, p. 8, 13. This notion, till it was abused by the Arians, was freely adopted in the Christian theology. Tertullian (adv. Praxeam, c. 16) has a remarkable and dangerous passage. After contrasting, with indiscreet wit, the nature of God and the actions of Jehovah, he concludes: Scilicet ut hæc de filio Dei non credenda fuisse si non scripta essent; fortasse non credenda de Patre licet scripta.",
 
@@ -5383,7 +5378,7 @@ Besides this material soul, Cudworth has discovered (p. 562) in Amelius, Porphyr
 
 Sæpe premente Deo fert Deus alter opem.
 
-For the credit of human nature, I am always pleased to discover some good qualities in those men whom party has represented as tyrants and monsters."""
+For the credit of human nature, I am always pleased to discover some good qualities in those men whom party has represented as tyrants and monsters.""",
 
 "**114.** The chronological difficulties which perplex the residence of Athanasius at Rome are strenuously agitated by Valesius (Observat. ad Calcem, tom. ii. Hist. Eccles. l. i. c. 1-5) and Tillemont (Mém. Ecclés. tom. viii. p. 674, &c.). I have followed the simple hypothesis of Valesius, who allows only one journey, after the intrusion of Gregory. [Rightly; but the date must be Easter 340. This follows from the true date of the Council of Sardica, fixed by Hefele (Conciliengeschichte, i. p. 503-516) to ad 343, autumn-344, spring (Mansi had put it in 344); which date itself depends on the true date of the return of Athanasius to Alexandria. This had been formerly placed in 349; but the fragment of an anonymous biographer of Athanasius (c. 385 ad), published by Maffei in Osservasioni litterarie, iii. p. 60, in 1738, gave the right date, 346 (21st Oct.), and occasioned an admirable discussion of the chronology by Mansi, Concilia, 3, p. 87 sqq. This was confirmed by one of the Festal Letters (Ep. 19), written after the return of Athanasius, in 347; and agrees with the Historia Acephala, and Jerome’s Chronicle (Migne, 8, 682). Hefele’s correction of Mansi as to the Council takes account of the date 343, given in the Index to the Festal Letters.]",
 
@@ -5558,7 +5553,7 @@ Multiplici latebrâ scelerum tersura ruborem.
 . . . . pereuntis sæpe pudoris
 Celatura nefas, Venerisque accommoda furtis.
 
-(These lines are quoted from the Architrenius, l. iv. c. 8, a poetical work of John de Hauteville, or Hanville [Altavilla or Auvilla, near Rouen], a Monk of St. Alban’s about the year 1190 [1184]. See Warton’s Hist. of English Poetry, vol. i. dissert. ii.) Yet such thefts might be less pernicious to mankind than the theological disputes of the Sorbonne, which have been since agitated on the same ground. Bonamy, Mém. de l’Académie, tom. xv. p. 678-682."""
+(These lines are quoted from the Architrenius, l. iv. c. 8, a poetical work of John de Hauteville, or Hanville [Altavilla or Auvilla, near Rouen], a Monk of St. Alban’s about the year 1190 [1184]. See Warton’s Hist. of English Poetry, vol. i. dissert. ii.) Yet such thefts might be less pernicious to mankind than the theological disputes of the Sorbonne, which have been since agitated on the same ground. Bonamy, Mém. de l’Académie, tom. xv. p. 678-682.""",
 
 "**10.** Even in this tumultuous moment, Julian attended to the forms of superstitious ceremony, and obstinately refused the inauspicious use of a female necklace, or a horse-collar, which the impatient soldiers would have employed in the room of a diadem.",
 
@@ -5609,7 +5604,7 @@ Celatura nefas, Venerisque accommoda furtis.
 — So eagerly the fiend,
 O’er bog, or steep, through strait, rough, dense, or rare,
 With head, hands, wings, or feet, pursues his way
-And swims, or sinks, or wades, or creeps, or flies."""
+And swims, or sinks, or wades, or creeps, or flies.""",
 
 
 "**33.** In that interval the Notitia places two or three fleets, the Lauriacensis (at Lauriacum, or Lorch), the Arlapensis, the Maginensis; and mentions five legions, or cohorts, of Liburnarii, who should be a sort of marines. Sect. lviii. edit. Labb.",
@@ -5656,7 +5651,7 @@ And swims, or sinks, or wades, or creeps, or flies."""
 
 Centum quadrijugos agitabo ad humina currus.
 
-It appears that they ran five or seven times round the Meta (Sueton. in Domitian. c. 4); and (from the measure of the Circus Maximus at Rome, the Hippodrome at Constantinople, &c.) it might be about a four-mile course."""
+It appears that they ran five or seven times round the Meta (Sueton. in Domitian. c. 4); and (from the measure of the Circus Maximus at Rome, the Hippodrome at Constantinople, &c.) it might be about a four-mile course.""",
 
 "**54.** Julian. in Misopogon. p. 340 [p. 437, ed. H.]. Julius Cæsar had offended the Roman people by reading his despatches during the actual race. Augustus indulged their taste, or his own, by his constant attention to the important business of the circus, for which he professed the warmest inclination. Sueton. in August. c. xlv.",
 
@@ -5709,7 +5704,7 @@ It appears that they ran five or seven times round the Meta (Sueton. in Domitian
 Si male condiderit in quem quis carmina, jus est
 Judiciumque —
 
-Julian (in Misopogon. p. 337 [ad init.]) owns himself subject to the law; and the Abbé de la Bléterie (Hist. de Jovien, tom. ii. p. 92) has eagerly embraced a declaration so agreeable to his own system, and indeed to the true spirit of the Imperial constitution."""
+Julian (in Misopogon. p. 337 [ad init.]) owns himself subject to the law; and the Abbé de la Bléterie (Hist. de Jovien, tom. ii. p. 92) has eagerly embraced a declaration so agreeable to his own system, and indeed to the true spirit of the Imperial constitution.""",
 
 "**78.** Zosimus, l. iii. p. 158.",
 
@@ -5924,7 +5919,7 @@ The consciousness of a generous sentiment seems to have raised the Christian poe
 Οὐ γάρ μοι θέμις ἐστὶ κομιζέμεν [Editor: illegible character] έλεαἱρειν.
 Ἅνδρας [leg. ένέρας] οί κε θεοɩ̂[Editor: illegible character]ιν άπέχθωντ’ ἀθανάτοισιν.
 
-These two lines, which Julian has changed and perverted in the true spirit of a bigot. (Epist. xlix.), are taken from the speech of Æolus, when he refuses to grant Ulysses a fresh supply of winds (Odyss. x. 73). Libanius (Orat. Parental. c. lix. p. 286) attempts to justify this partial behaviour by an apology in which persecution peeps through the mask of candour."""
+These two lines, which Julian has changed and perverted in the true spirit of a bigot. (Epist. xlix.), are taken from the speech of Æolus, when he refuses to grant Ulysses a fresh supply of winds (Odyss. x. 73). Libanius (Orat. Parental. c. lix. p. 286) attempts to justify this partial behaviour by an apology in which persecution peeps through the mask of candour.""",
 
 "**89.** These laws which affected the clergy may be found in the slight hints of Julian himself (Epist. lii.), in the vague declamations of Gregory (Orat. iii. p. 86, 87), and in the positive assertions of Sozomen (l. v. c. 5). [See Cod. Theod. 12, 1, 50.]",
 
@@ -6286,7 +6281,7 @@ Miles eget: toto censû non prodigus emit
 Exiguam Cererem. Proh lucri pallida tabes!
 Non deest prolato jejunus venditor auro.
 
-See Guichardt (Nouveaux Mémoires Militaires, tom. i. p. 379-382). His Analysis of the two Campaigns in Spain and Africa is the noblest monument that has ever been raised to the fame of Cæsar."""
+See Guichardt (Nouveaux Mémoires Militaires, tom. i. p. 379-382). His Analysis of the two Campaigns in Spain and Africa is the noblest monument that has ever been raised to the fame of Cæsar.""",
 
 "**122.** M. d’Anville (see his Maps, and l’Euphrate et le Tigre, p. 92, 93) traces their march, and assigns the true position of Hatra [Al-Hadr], Ur, and Thilsaphata, which Ammianus has mentioned. He does not complain of the Samiel, the deadly hot wind, which Thévenot (Voyages, part ii. li. p. 192) so much dreaded.",
 
@@ -6453,7 +6448,7 @@ Devovet absentes, simulacraque cerea figit.
 — Ovid. in Epist. Hypsip. ad Jason. [Her. vi.] 91.
 
 
-Such vain incantations could affect the mind and increase the disease of Germanicus. Tacit. Annal. ii. 69."""
+Such vain incantations could affect the mind and increase the disease of Germanicus. Tacit. Annal. ii. 69.""",
 
 "**53.** See Heineccius Antiquitat. Juris Roman. tom. ii. p. 353, &c. Cod. Theodosian. l. ix. tit. 7 with Godefroy’s Commentary.",
 
@@ -6572,7 +6567,7 @@ Ludus et assuto glaucum mare findere lembo.
 — Sidon. in Panegyr. Avit. 369.
 
 
-The genius of Cæsar imitated, for a particular service, these rude, but light vessels, which were likewise used by the natives of Britain (Comment. de Bell. Civil. i. 51, and Guichardt, Nouveaux Mémoires Militaires, tom. ii. p. 41, 42). The British vessels would now astonish the genius of Cæsar."""
+The genius of Cæsar imitated, for a particular service, these rude, but light vessels, which were likewise used by the natives of Britain (Comment. de Bell. Civil. i. 51, and Guichardt, Nouveaux Mémoires Militaires, tom. ii. p. 41, 42). The British vessels would now astonish the genius of Cæsar.""",
 
 "**108.** The best original account of the Saxon pirates may be found in Sidonius Apollinaris (l. viii. epist. 6, p. 223, edit. Sirmond.), and the best commentary in the Abbé du Bos (Hist. Critique de la Monarchie Françoise, &c., tom. i. l. i. c. 16, p. 148-155. See likewise p. 77, 78.). [The Saxons seem to have made a settlement in the north of Gaul.]",
 
@@ -6622,7 +6617,7 @@ Scotorum cumulos flevit glacialis Ierne.
 — In iv. Cons. Hon. ver. 31, &c.
 
 
-See likewise Pacatus (in Panegyr. Vet. xii. 5). But it is not easy to appreciate the intrinsic value of flattery and metaphor. Compare the British victories of Bolanus (Statius. Silv. v. 2) with his real character (Tacit. in Vit. Agricol. c. 16)."""
+See likewise Pacatus (in Panegyr. Vet. xii. 5). But it is not easy to appreciate the intrinsic value of flattery and metaphor. Compare the British victories of Bolanus (Statius. Silv. v. 2) with his real character (Tacit. in Vit. Agricol. c. 16).""",
 
 "**124.** Ammianus frequently mentions their concilium annuum, legitimum, &c. Leptis and Sabrata are long since ruined; but the city of Oea, the native country of Apuleius, still flourishes under the provincial denomination of Tripoli. See Cellarius (Geograph. Antiqua, tom. ii. part ii. p. 81), D’Anville (Géographie Ancienne, tom. iii. p. 71, 72), and Marmol (Afrique, tom. ii. p. 562).",
 
@@ -6854,7 +6849,7 @@ Has Scythia breath’d the living cloud of war.
 Quem si [leg. qui] scire velit, Libyci velit æquoris idem.
 Scire [leg. discere] quam multæ Zephyro truduntur [leg. turbentur] harenæ.
 
-Ammianus has inserted, in his prose, these lines of Virgil (Georgic. l. ii. [105-106]), originally designed by the poet to express the impossibility of numbering the different sorts of vines. See Plin. Hist. Natur. l. xiv."""
+Ammianus has inserted, in his prose, these lines of Virgil (Georgic. l. ii. [105-106]), originally designed by the poet to express the impossibility of numbering the different sorts of vines. See Plin. Hist. Natur. l. xiv.""",
 
 "**70.** Eunapius and Zosimus curiously specify these articles of Gothic wealth and luxury. Yet it must be presumed that they were the manufactures of the provinces; which the Barbarians had acquired as the spoils of war, or as the gifts or merchandise of peace. [Another frag. of Eunapius (55) describes a later crossing of Goths, in reign of Theodosius, c. 382 ad]",
 
@@ -6988,7 +6983,7 @@ Ausi Danuvium quondam tranare Gruthungi
 In lintres fregere nemus: ter mille ruebant
 Per fluvium plenæ cuneis immanibus alni.
 
-— Claudian, in iv. Cons. Hon. 623."""
+— Claudian, in iv. Cons. Hon. 623.""",
 
 
 
@@ -7002,14 +6997,14 @@ Rettulit —
 — Ver. 632 [ib.].
 
 
-The opima were the spoils which a Roman general could only win from the king, or general, of the enemy whom he had slain with his own hands; and no more than three such examples are celebrated in the victorious ages of Rome. [Had Odothæus been slain by Theodosius, Claudian would not have been content to insinuate it.]"""
+The opima were the spoils which a Roman general could only win from the king, or general, of the enemy whom he had slain with his own hands; and no more than three such examples are celebrated in the victorious ages of Rome. [Had Odothæus been slain by Theodosius, Claudian would not have been content to insinuate it.]""",
 
 """**134.** See Themistius, Orat. xvi. p. 211. Claudian (in Eutrop. l. ii. 152) mentions the Phrygian colony: —",
 
 — Ostrogothis colitur mistisque Gruthungis
 Phryx ager —
 
-and then proceeds to name the rivers of Lydia, the Pactolus and Hermus."""
+and then proceeds to name the rivers of Lydia, the Pactolus and Hermus.""",
 
 "**135.** [So Mr. Hodgkin, who discusses the treaty at length; i. p. 312.]",
 
@@ -7033,7 +7028,7 @@ Ex quo jam patrios gens hæc oblita Triones,
 Atque Istrum transvecta semel, vestigia fixit
 Threicio funesta solo —
 
-The error is inexcusable; since it disguises the principal and immediate cause of the fall of the Western empire of Rome."""
+The error is inexcusable; since it disguises the principal and immediate cause of the fall of the Western empire of Rome.""",
 
 "**1.** Among them letters to Hypatia.",
 
@@ -7132,8 +7127,7 @@ In the Midsummer Night’s Dream, Helena addresses the same pathetic complaint t
 Is all the counsel that we two have shared,
 The sister’s vows, &c.
 
-Shakespeare had never read the poems of Gregory Nazianzen, he was ignorant of the Greek language; but his mother-tongue, the language of Nature, is the same in Cappadocia and in Britain."""
-
+Shakespeare had never read the poems of Gregory Nazianzen, he was ignorant of the Greek language; but his mother-tongue, the language of Nature, is the same in Cappadocia and in Britain.""",
 "**30.** This unfavourable portrait of Sasima is drawn by Gregory Nazianzen (tom. ii. de Vitâ suâ, p. 7, 8 [Migne, 3, p. 1059]). Its precise situation, forty-nine miles from Archelais [Ak Serai], and thirty-two from Tyana, is fixed in the Itinerary of Antoninus (p. 144, edit. Wesseling).",
 
 "**31.** The name of Nazianzus has been immortalised by Gregory; but his native town, under the Greek or Roman title of Diocæsarea (Tillemont, Mém. Ecclés. tom. ix. p. 692), is mentioned by Pliny (vi. 3), Ptolemy, and Hierocles (Itinerar. Wesseling, p. 709). It appears to have been situate on the edge of Isauria. [ὴ Διοκαισαρέων ὀλίγη πόλις, as Gregory calls Nazianzus, is more northerly than Gibbon supposed, lying on the road from Iconium to Tyana; about six hours due east of Archelais; Ramsay, Asia Minor, 285.]",
@@ -7214,7 +7208,7 @@ Shakespeare had never read the poems of Gregory Nazianzen, he was ignorant of th
 
 """**69.** Invenimus miræ magnitudinis viros duos, ut prisca ætas ferebat. Tom. ii. epist. xxii. p. 875. [Mr. Hodgkin, who discusses the discovery, seems disposed to entertain the idea that Ambrose may have practised a pious fraud; i. 440.] The size of these skeletons was fortunately, or skilfully, suited to the popular prejudice of the gradual increase of the human stature; which has prevailed in every age since the time of Homer.",
 
-Grandiaque effossis mirabitur ossa sepulchris."""
+Grandiaque effossis mirabitur ossa sepulchris.""",
 
 
 "**70.** Ambros. tom. ii. epist. xxii. p. 875. Augustin. Confes. l. ix. c. 7, de Civitat. Dei, l. xxii. c. 8. Paulin. in Vitâ St. Ambros., c. 14, in Append. Benedict. p. 4. The blind man’s name was Severus; he touched the holy garment, recovered his sight, and devoted the rest of his life (at least twenty-five years) to the service of the church. I should recommend this miracle to our divines if it did not prove the worship of relics, as well as the Nicene creed.",
@@ -7323,7 +7317,7 @@ Grandiaque effossis mirabitur ossa sepulchris."""
 
 . . . Tot Augustos Hebro qui teste fugavi.
 
-Yet his vanity could scarcely have proved this plurality of flying emperors."""
+Yet his vanity could scarcely have proved this plurality of flying emperors.""",
 
 """**119.** Claudian (in iv. Cons. Honor. 77, &c.) contrasts the military plans of the two usurpers: —",
 
@@ -7332,7 +7326,7 @@ Suadebat; cautumque dabant exempla sequentem.
 Hic nova moliri præceps: hic quærere tutus
 Providus. Hic fusis; collectis viribus ille.
 Hic vagus excurrens; hic intra claustra reductus;
-Dissimiles, sed morte pares. . . ."""
+Dissimiles, sed morte pares. . . .""",
 
 
 "**120.** The Frigidus, a small though memorable stream in the country of Goretz, now called the Vipao [Wipbach], falls into the Sontius, or Lisonzo, above Aquileia, some miles from the Hadriatic. See D’Anville’s Ancient and Modern Maps, and the Italia Antiqua of Cluverius (tom. i. p. 188). [Mr. Hodgkin thinks the battle was fought near Heidenschafft, i. p. 578.]",
@@ -7350,7 +7344,7 @@ O nimium dilecte Deo, cui fundit ab antris
 Æolus armatas hyemes; cui militat Æther,
 Et conjurati veniunt ad classica venti.
 
-These famous lines of Claudian (in iii. Cons. Honor. 93, &c. ad 396) are alleged by his contemporaries, Augustin and Orosius; who suppress the Pagan deity of Æolus; and add some circumstances from the information of eye-witnesses. Within four months after the victory, it was compared by Ambrose to the miraculous victories of Moses and Joshua."""
+These famous lines of Claudian (in iii. Cons. Honor. 93, &c. ad 396) are alleged by his contemporaries, Augustin and Orosius; who suppress the Pagan deity of Æolus; and add some circumstances from the information of eye-witnesses. Within four months after the victory, it was compared by Ambrose to the miraculous victories of Moses and Joshua.""",
 
 "**124.** The events of this civil war are gathered from Ambrose (tom. ii. epist. lxii. p. 1022 [cp. Ep. 57]), Paulinus (in Vit. Ambros. c. 26-34), Augustin (de Civitat. Dei, v. 26), Orosius (l. vii. c. 35), Sozomen (l. vii. c. 24), Theodoret (l. v. c. 24), Zosimus (l. iv. p. 281, 282 [c. 58]), Claudian (in iii. Cons. Hon. 63-105, in iv. Cons. Hon. 70-117), and the Chronicles published by Scaliger. [See also Philostorg. xi. 2; Socrates, v. 25; Victor, Epit.; and cp. Sievers, Studien, p. 326 sqq. Cp. Appendix 2.]",
 
@@ -7419,8 +7413,7 @@ Idolium longe purgatâ ex urbe fugandum.
 Qua vocat egregii sententia Principis, illuc
 Libera, cum pedibus, tum corde, frequentia transit.
 
-Zosimus ascribes to the conscript fathers an heathenish courage, which few of them are found to possess."""
-
+Zosimus ascribes to the conscript fathers an heathenish courage, which few of them are found to possess.""",
 "**26.** Jerom specifies the pontiff Albinus, who was surrounded with such a believing family of children and grand-children as would have been sufficient to convert even Jupiter himself; an extraordinary proselyte! (tom. i. ad Lætam, p. 54 [iuvenem is the reading of the MSS.; and the correction Iovem is unwarranted. Ep. 107, Migne, Hieron. i. p. 868]).",
 
 """**27.**
@@ -7435,8 +7428,7 @@ The fancy of Prudentius is warmed and elevated by victory.
 "**28.** Prudentius, after he has described the conversion of the senate and people, asks, with some truth and confidence,",
 
 Et dubitamus adhuc Romam, tibi, Christe, dicatam
-In leges transisse tuas?"""
-
+In leges transisse tuas?""",
 
 "**29.** Jerom exults in the desolation of the capitol, and the other temples of Rome (tom. i. p. 54 [ep. 107], tom. ii. p. 95).",
 
@@ -7500,7 +7492,7 @@ Sed fortes tremuere manus, motique verendâ
 Majestate loci, si robora sacra ferirent
 In sua credebant redituras membra secures.
 
-(Lucan. iii. 429.) “Is it true (said Augustus to a veteran of Italy, at whose house he supped) that the man who gave the first blow to the golden statue of Anaitis was instantly deprived of his eyes, and of his life?” “I was that man (replied the clear-sighted veteran), and you now sup on one of the legs of the goddess.” (Plin. Hist. Natur. xxxiii. 24.)"""
+(Lucan. iii. 429.) “Is it true (said Augustus to a veteran of Italy, at whose house he supped) that the man who gave the first blow to the golden statue of Anaitis was instantly deprived of his eyes, and of his life?” “I was that man (replied the clear-sighted veteran), and you now sup on one of the legs of the goddess.” (Plin. Hist. Natur. xxxiii. 24.)""",
 
 "**58.** The history of the Reformation affords frequent examples of the sudden change from superstition to contempt.",
 
@@ -7532,8 +7524,7 @@ Munera, sacricolis summos impertit honores.
 Ipse magistratum tibi consulis, ipse tribunal
 Contulit.
 
-— Prudent. in Symmach. i. 617, &c."""
-
+— Prudent. in Symmach. i. 617, &c.""",
 
 
 "**70.** Libanius (pro Templis, p. 32) is proud that Theodosius should thus distinguish a man, who even in his presence would swear by Jupiter. Yet this presence seems to be no more than a figure of rhetoric.",
@@ -7615,15 +7606,13 @@ Post trabeas exul.
 — Claudian in Rufin. i. 248 [246-9].
 
 
-The facts of Zosimus explain the allusions of Claudian; but his classic interpreters were ignorant of the fourth century. The fatal cord I found, with the help of Tillemont, in a sermon of St. Asterius of Amasea."""
-
+The facts of Zosimus explain the allusions of Claudian; but his classic interpreters were ignorant of the fourth century. The fatal cord I found, with the help of Tillemont, in a sermon of St. Asterius of Amasea.""",
 """**8.** This odious law is recited, and repealed, by Arcadius (ad 396), in the Theodosian Code, l. ix. tit. xxxviii. leg. 9. The sense, as it is explained by Claudian (in Rufin. i. 234 [232]) and Godefroy (tom. iii. p. 279), is perfectly clear.",
 
 . . . Exscindere cives
 Funditus et nomen gentis delere laborat.
 
-The scruples of Pagi and Tillemont can arise only from their zeal for the glory of Theodosius."""
-
+The scruples of Pagi and Tillemont can arise only from their zeal for the glory of Theodosius.""",
 "**9.** Ammonius . . . Rufinum propriis manibus suscepit sacro fonte mundatum. See Rosweyde’s Vitæ Patrum, p. 947 [ed. 2, ad 1628]. Sozomen (l. viii. c. 17) mentions the church and monastery; and Tillemont (Mém. Ecclés. tom. ix. p. 593) records this synod, in which St. Gregory of Nyssa performed a conspicuous part.",
 
 "**10.** Montesquieu (Esprit des Loix, l. xii. c. 12) praises one of the laws of Theodosius, addressed to the prefect Rufinus (l. ix. tit. iv. leg. unic.), to discourage the prosecution of treasonable, or sacrilegious, words. A tyrannical statute always proves the existence of tyranny; but a laudable edict may only contain the specious professions, or ineffectual wishes, of the prince, or his ministers. This, I am afraid, is a just though mortifying canon of criticism.",
@@ -7636,16 +7625,14 @@ Expleri ille calor nequit . . .
 Congestæ cumulantur opes; orbisque rapinas [ruinas]
 Accipit una domus . . .
 
-This character (Claudian in Rufin. i. 184 [183]-220) is confirmed by Jerom, a disinterested witness (dedecus insatiabilis avaritiæ, tom. i. ad Heliodor. p. 26 [Ep. 60]), by Zosimus (l. v. p. 286 [c. 1]), and by Suidas, who copied the history of Eunapius [fr. 63, F.H.G. iv. p. 42]."""
-
+This character (Claudian in Rufin. i. 184 [183]-220) is confirmed by Jerom, a disinterested witness (dedecus insatiabilis avaritiæ, tom. i. ad Heliodor. p. 26 [Ep. 60]), by Zosimus (l. v. p. 286 [c. 1]), and by Suidas, who copied the history of Eunapius [fr. 63, F.H.G. iv. p. 42].""",
 """**12.**
 
 . . . Cetera segnis;
 Ad facinus velox; penitus regione remotas
 Impiger ire vias.
 
-This allusion of Claudian (in Rufin. i. [239-]241) is again explained by the circumstantial narrative of Zosimus (l. v. p. 288, 289 [c. 2])."""
-
+This allusion of Claudian (in Rufin. i. [239-]241) is again explained by the circumstantial narrative of Zosimus (l. v. p. 288, 289 [c. 2]).""",
 "**13.** Zosimus (l. iv. p. 243 [c. 33]) praises the valour, prudence and integrity of Bauto the Frank. See Tillemont, Hist. des Empereurs, tom. v. p. 771.",
 
 "**14.** Arsenius escaped from the palace of Constantinople, and passed fifty-five years in rigid penance in the monasteries of Egypt. See Tillemont, Mém. Ecclés. tom. xiv. p. 676-702; and Fleury, Hist. Ecclés. tom. v. p. 1, &c., but the latter, for want of authentic materials, has given too much credit to the legend of Metaphrastes.",
@@ -7676,8 +7663,7 @@ Adspiceres. —
 — Claudian, Laus Seren. p. 196, &c.
 
 
-A modern general would deem their submission either heroic patriotism or abject servility."""
-
+A modern general would deem their submission either heroic patriotism or abject servility.""",
 "**24.** Compare the poem on the first consulship (i. 95 [94]-115) with the Laus Serenæ (227-237 [236], where it unfortunately breaks off). We may perceive the deep inveterate malice of Rufinus.",
 
 """**25.**",
@@ -7685,8 +7671,7 @@ A modern general would deem their submission either heroic patriotism or abject 
 . . . Quem fratribus ipse
 Discedens clipeumque [leg. clipeum] defensoremque dedisti.
 
-Yet the nomination (iv. Cons. Hon. 443) was private (iii. Cons. Hon. 142), cunctos discedere . . . jubet; and may therefore be suspected. Zosimus and Suidas apply to Stilicho and Rufinus the same equal title of Ἐπίτροποι, guardians, or procurators."""
-
+Yet the nomination (iv. Cons. Hon. 443) was private (iii. Cons. Hon. 142), cunctos discedere . . . jubet; and may therefore be suspected. Zosimus and Suidas apply to Stilicho and Rufinus the same equal title of Ἐπίτροποι, guardians, or procurators.""",
 "**26.** The Roman law distinguishes two sorts of minority, which expired at the age of fourteen and of twenty-five. The one was subject to the tutor, or guardian, of the person; the other to the curator, or trustee, of the estate (Heineccius, Antiquitat. Rom. ad Jurisprudent. pertinent. l. i. tit. xxii. xxiii. p. 218-232). But these legal ideas were never accurately transferred into the constitution of an elective monarchy.",
 
 "**27.** See Claudian (i. Cons. Stilich. i. 188-242), but he must allow more than fifteen days for the journey and return between Milan and Leyden.",
@@ -7698,8 +7683,7 @@ Yet the nomination (iv. Cons. Hon. 443) was private (iii. Cons. Hon. 142), cunct
 . . . Tantoque remoto
 Principe, mutatas orbis non sensit habenas.
 
-This high commendation (i. Cons. Stilich. i. 149) may be justified by the fears of the dying emperor (de Bell. Gildon. 292-301), and the peace and good order which were enjoyed after his death (i. Cons. Stilich. i. 150-168)."""
-
+This high commendation (i. Cons. Stilich. i. 149) may be justified by the fears of the dying emperor (de Bell. Gildon. 292-301), and the peace and good order which were enjoyed after his death (i. Cons. Stilich. i. 150-168).""",
 "**30.** Stilicho’s march, and the death of Rufinus, are described by Claudian (in Rufin. l. ii. 101-453), Zosimus (l. v. p. 296, 297 [c. 7]), Sozomen (l. viii. c. 1), Socrates (l. vi. c. 1), Philostorgius (l. xi. c. 3, with Godefroy, p. 441), and the Chronicle of Marcellinus. [See Appendix 6.]",
 
 "**31.** [See above, vol. iv. p. 184, n. 28, and vol. iii. Appendix 4.]",
@@ -7720,8 +7704,7 @@ This high commendation (i. Cons. Stilich. i. 149) may be justified by the fears 
 Et Byzantinos proceres Graiosque Quirites:
 O patribus plebes, O digni consule patres.
 
-It is curious to observe the first symptoms of jealousy and schism between old and new Rome, between the Greeks and Latins."""
-
+It is curious to observe the first symptoms of jealousy and schism between old and new Rome, between the Greeks and Latins.""",
 "**38.** Claudian may have exaggerated the vices of Gildo; but his Moorish extraction, his notorious actions, and the complaints of St. Augustin may justify the poet’s invectives. Baronius (Annal. Eccles. ad 398, No. 35-56) has treated the African rebellion with skill and learning.",
 
 """**39.**",
@@ -7736,7 +7719,7 @@ Fastidita datur. . . .
 [De B. G. 165 sqq. and 189
 
 
-Baronius condemns, still more severely, the licentiousness of Gildo; as his wife, his daughter, and his sister were examples of perfect chastity. The adulteries of the African soldiers are checked by one of the Imperial laws."""
+Baronius condemns, still more severely, the licentiousness of Gildo; as his wife, his daughter, and his sister were examples of perfect chastity. The adulteries of the African soldiers are checked by one of the Imperial laws.""",
 
 "**40.** Inque tuam sortem numerosas transtulit urbes. Claudian (de Bell. Gildonico, 220-324) has touched, with political delicacy, the intrigues of the Byzantine court which are likewise mentioned by Zosimus (l. v. p. 302 [c. 11]).",
 
@@ -7773,8 +7756,7 @@ Baronius condemns, still more severely, the licentiousness of Gildo; as his wife
 . . . Nunquam libertas gratior exstat
 Quam sub rege pio . . .
 
-But the freedom which depends on royal piety scarcely deserves that appellation."""
-
+But the freedom which depends on royal piety scarcely deserves that appellation.""",
 "**56.** See the Theodosian Code, l. ix. tit. xxxix. leg. 3, tit. xl. leg. 19.",
 
 "**57.** Stilicho, who claimed an equal share in all the victories of Theodosius and his son, particularly asserts that Africa was recovered by the wisdom of his counsels (see an inscription produced by Baronius). [Gruter, p. 412. See Appendix 5.]",
@@ -7795,8 +7777,7 @@ Dices “O” quotiens, “hoc mihi dulcius
 Quam flavos decies vincere Sarmatas.”
 . . . . . . . .
 Tum victor madido prosilias toro
-Nocturni referens vulnera prœlii."""
-
+Nocturni referens vulnera prœlii.""",
 
 "**61.** See Zosimus, l. v. p. 333 [c. 28].",
 
@@ -7816,7 +7797,7 @@ Frangunt stagna rotis
 [ib. 26].
 
 
-Claudian and Ovid often amuse their fancy by interchanging the metaphors and properties of liquid water and solid ice. Much false wit has been expended in this easy exercise."""
+Claudian and Ovid often amuse their fancy by interchanging the metaphors and properties of liquid water and solid ice. Much false wit has been expended in this easy exercise.""",
 
 "**3.** Jerom, tom. i. p. 26 [ep. 60]. He endeavours to comfort his friend Heliodorus, bishop of Altinum, for the loss of his nephew Nepotian, by a curious recapitulation of all the public and private misfortunes of the times. See Tillemont, Mém. Ecclés. tom. xii. p. 200, &c.",
 
@@ -7832,7 +7813,7 @@ Claudian and Ovid often amuse their fancy by interchanging the metaphors and pro
 
 Nec fera Ceropias traxissent vincula matres.
 
-Synesius (Epist. clvi. [leg. 135], p. 272, edit. Petav.) observes that Athens, whose sufferings he imputes to the proconsul’s avarice, was at that time less famous for her schools of philosophy than for her trade of honey."""
+Synesius (Epist. clvi. [leg. 135], p. 272, edit. Petav.) observes that Athens, whose sufferings he imputes to the proconsul’s avarice, was at that time less famous for her schools of philosophy than for her trade of honey.""",
 
 """**9.**
 
@@ -7843,7 +7824,7 @@ Isthmos —
 — Claudian de Bell. Getico, 188.
 
 
-The Scironian rocks are described by Pausanias (l. i. c. 44, p. 107, edit. Kuhn [§10]), and our modern travellers, Wheeler (p. 436), and Chandler (p. 298). Hadrian made the road passable for two carriages."""
+The Scironian rocks are described by Pausanias (l. i. c. 44, p. 107, edit. Kuhn [§10]), and our modern travellers, Wheeler (p. 436), and Chandler (p. 298). Hadrian made the road passable for two carriages.""",
 
 "**10.** Claudian (in Rufin. l. ii. 186, and de Bello Getico, 611, &c.) vaguely, though forcibly, delineates the scene of rapine and destruction.",
 
@@ -7866,7 +7847,7 @@ The Scironian rocks are described by Pausanias (l. i. c. 44, p. 107, edit. Kuhn 
 ——— Et Alpheus Geticis angustus acervis
 Tardior ad Siculos etiamnum pergit amores.
 
-Yet I should prefer the Peneus, a shallow stream in a wide and deep bed, which runs through Elis, and falls into the sea below Cyllene. It had been joined with the Alpheus, to cleanse the Augean stable (Cellarius, tom. i. p. 760; Chandler’s Travels, p. 286)."""
+Yet I should prefer the Peneus, a shallow stream in a wide and deep bed, which runs through Elis, and falls into the sea below Cyllene. It had been joined with the Alpheus, to cleanse the Augean stable (Cellarius, tom. i. p. 760; Chandler’s Travels, p. 286).""",
 
 "**19.** Strabo, l. viii. p. 517; Plin. Hist. Natur. iv. 3; Wheeler, p. 308; Chandler, p. 275. They measured from different points the distance between the two lands.",
 
@@ -7883,7 +7864,7 @@ Præsidet Illyrico; jam, quos obsedit, amicos
 Ingreditur muros; illis responsa daturus
 Quorum conjugibus potitur natosque peremit.
 
-Claudian in Eutrop. l. ii. 212. Alaric applauds his own policy (de Bell Getic. 533-543) in the use which he had made of this Illyrian jurisdiction. [The precise title is uncertain; but Master-General is probable. From de B. G. 534, ducem, Mr. Hodgkin suggests Dux Daciæ ripensis et Mœsiæ primæ.]"""
+Claudian in Eutrop. l. ii. 212. Alaric applauds his own policy (de Bell Getic. 533-543) in the use which he had made of this Illyrian jurisdiction. [The precise title is uncertain; but Master-General is probable. From de B. G. 534, ducem, Mr. Hodgkin suggests Dux Daciæ ripensis et Mœsiæ primæ.]""",
 
 "**23.** Jornandes, c. 29, p. 651. The Gothic historian adds, with unusual spirit, Cum suis deliberans suasit suo labore quærere regna, quam alienis per otium subjacere. [It is much more probable that he was proclaimed king (thiudans) in 395 ad, after the death of Theodosius; see Hodgkin, i. 653. Isidore gives the date 382, which Clinton accepts.]",
 
@@ -7893,7 +7874,7 @@ Claudian in Eutrop. l. ii. 212. Alaric applauds his own policy (de Bell Getic. 5
 Non sua vis tutata diu, dum fœdera fallax
 Ludit, et alternæ perjuria venditat aulæ.
 
-—Claudian de Bell. Get. 565."""
+—Claudian de Bell. Get. 565.""",
 
 
 
@@ -7916,7 +7897,7 @@ Ingentem meminit parvo qui germine quercum
 A neighbouring wood born with himself he sees,
 And loves his old contemporary trees.
 
-In this passage, Cowley is perhaps superior to his original; and the English poet, who was a good botanist, has concealed the oaks under a more general expression."""
+In this passage, Cowley is perhaps superior to his original; and the English poet, who was a good botanist, has concealed the oaks under a more general expression.""",
 
 "**32.** Claudian de Bell. Get. 192-266. He may seem prolix: but fear and superstition occupied as large a space in the minds of the Italians.",
 
@@ -7934,7 +7915,7 @@ Quæ Scoto dat frena truci.
 — De Bell. Get. 416.
 
 
-Yet the most rapid march from Edinburgh, or Newcastle, to Milan must have required a longer space of time than Claudian seems willing to allow for the duration of the Gothic war."""
+Yet the most rapid march from Edinburgh, or Newcastle, to Milan must have required a longer space of time than Claudian seems willing to allow for the duration of the Gothic war.""",
 
 "**37.** Every traveller must recollect the face of Lombardy (see Fontenelle, tom. v. p. 279), which is often tormented by the capricious and irregular abundance of waters. The Austrians, before Genoa, were encamped in the dry bed of the Polcevera. “Ne sarebbe” (says Muratori) “mai passato per mente a que’ buoni Alemanni, che quel picciolo torrente potesse, per cosi dire, in un instante cangiarsi in un terribil gigante” (Annal. d’Italia, tom. xvi. p. 443. Milan, 1753, 8vo edit.).",
 
@@ -7951,7 +7932,7 @@ Yet the most rapid march from Edinburgh, or Newcastle, to Milan must have requir
 Hanc ego vel victor regno vel morte tenebo
 Victus humum ——
 
-The speeches (de Bell. Get. 479-549) of the Gothic Nestor and Achilles are strong, characteristic, adapted to the circumstances, and possibly not less genuine than those of Livy."""
+The speeches (de Bell. Get. 479-549) of the Gothic Nestor and Achilles are strong, characteristic, adapted to the circumstances, and possibly not less genuine than those of Livy.""",
 
 "**43.** Orosius (l. vii. c. 37) is shocked at the impiety of the Romans who attacked, on Easter Sunday, such pious Christians. Yet, at the same time, public prayers were offered at the shrine of St. Thomas of Edessa, for the destruction of the Arian robber. See Tillemont (Hist. des Emp. tom. v. p. 529), who quotes an homily, which has been erroneously ascribed to St. Chrysostom. [For date see Appendix 9.]",
 
@@ -7967,7 +7948,7 @@ Romanasque alta famulas cervice petebat.
 — De Bell. Get. 627.
 
 
-[The capture of Alaric’s wife is a totally unjustifiable inference from these lines. Cp. Von Wietersheim, Gesch. der Völkerwanderung (ed. Dahn), 2, 189.]"""
+[The capture of Alaric’s wife is a totally unjustifiable inference from these lines. Cp. Von Wietersheim, Gesch. der Völkerwanderung (ed. Dahn), 2, 189.]""",
 
 "**47.** Claudian (de Bell. Get. 586-647) and Prudentius (in Symmach. l. ii. 694-719) celebrate, without ambiguity, the Roman victory of Pollentia. They are poetical and party writers; yet some credit is due to the most suspicious witnesses, who are checked by the recent notoriety of facts.",
 
@@ -7980,7 +7961,7 @@ Romanasque alta famulas cervice petebat.
 Et gravant en airain ses frêles avantages.
 De mes états conquis enchaîner les images.
 
-The practice of exposing in triumph the images of kings and provinces was familiar to the Romans. The bust of Mithridates himself was twelve feet high, of massy gold (Freinshem. Supplement. Livian. ciii. 47)."""
+The practice of exposing in triumph the images of kings and provinces was familiar to the Romans. The bust of Mithridates himself was twelve feet high, of massy gold (Freinshem. Supplement. Livian. ciii. 47).""",
 
 "**51.** [Alaric was retreating and had no idea of advancing on Rome. He was obliged to retreat towards the Apennines (Claud. de vi. Cons. Hon. 183). Stilicho let him go once more (as before in the Peloponnesus). Cp. von Wietersheim, op. cit. 2, 230.]",
 
@@ -8032,7 +8013,7 @@ Spectator vel causa fui,
 —— Claudian, vi. Cons. Hon. 439.
 
 
-is the modest language of Honorius, in speaking of the Gothic war, which he had seen somewhat nearer."""
+is the modest language of Honorius, in speaking of the Gothic war, which he had seen somewhat nearer.""",
 
 "**73.** Zosimus (l. v. p. 331 [c. 26]) transports the war and the victory of Stilicho beyond the Danube. A strange error, which is awkwardly and imperfectly cured by reading Ἄρνον for Ἴστρον (Tillemont, Hist. des Emp. tom. v. p. 807). In good policy, we must use the service of Zosimus, without esteeming or trusting him. [But see Appendix 10.]",
 
@@ -8056,7 +8037,7 @@ Disponit castella jugis, magnoque recessu
 Amplexus fines; saltus nemorosaque tesqua
 Et silvas vastâque feras indagine claudit.
 
-Yet the simplicity of truth (Cæsar, de Bell. Civ. iii. 44) is far greater than the amplifications of Lucan (Pharsal. l. vi. 29-63)."""
+Yet the simplicity of truth (Cæsar, de Bell. Civ. iii. 44) is far greater than the amplifications of Lucan (Pharsal. l. vi. 29-63).""",
 
 "**81.** The rhetorical expressions of Orosius, “In arido et aspero montis jugo,” “in unum ac parvum verticem,” are not very suitable to the encampment of a great army. But Fæsulæ, only three miles from Florence, might afford space for the headquaters of Radagarisus, and would be comprehended within the circuit of the Roman lines.",
 
@@ -8080,7 +8061,7 @@ Yet the simplicity of truth (Cæsar, de Bell. Civ. iii. 44) is far greater than 
 Expellet citius fasces quam Francia reges
 Quos dederis.
 
-Claudian (i. Cons. Stil. i. 235 [236], &c.) is clear and satisfactory. These kings of France are unknown to Gregory of Tours; but the author of the Gesta Francorum mentions both Sunno and Marcomir, and names the latter as the father of Pharamond (in tom. ii. p. 543). He seems to write from good materials, which he did not understand. [Mr. Hodgkin places this journey of Stilicho in the first half of ad 396 (i. 660). The source for it is Claudian, de iv. Cons. Hon. 439 sqq.]"""
+Claudian (i. Cons. Stil. i. 235 [236], &c.) is clear and satisfactory. These kings of France are unknown to Gregory of Tours; but the author of the Gesta Francorum mentions both Sunno and Marcomir, and names the latter as the father of Pharamond (in tom. ii. p. 543). He seems to write from good materials, which he did not understand. [Mr. Hodgkin places this journey of Stilicho in the first half of ad 396 (i. 660). The source for it is Claudian, de iv. Cons. Hon. 439 sqq.]""",
 
 "**90.** See Zosimus (l. vi. p. 373 [c. 3]). Orosius (l. vii. c. 40, p. 576), and the Chronicles. Gregory of Tours (l. ii. c. 9, p. 165, in the second volume of the Historians of France) has preserved a valuable fragment of Renatus Profuturus Frigeridus, whose three names denote a Christian, a Roman subject, and a Semi-barbarian.",
 
@@ -8089,7 +8070,7 @@ Claudian (i. Cons. Stil. i. 235 [236], &c.) is clear and satisfactory. These kin
 """**92.**",
 
 — Geminasque viator
-Cum videat ripas, quæ sit Romana requirat."""
+Cum videat ripas, quæ sit Romana requirat.""",
 
 
 "**93.** Jerom, tom. i. p. 93. See in the 1st vol. of the Historians of France, p. 777, 782, the proper extracts from the Carmen de Providentiâ Divinâ, and Salvian. The anonymous poet was himself a captive, with his bishop and fellow-citizens.",
@@ -8116,7 +8097,7 @@ Cum videat ripas, quæ sit Romana requirat."""
 Pallor et atra fames, et saucia lividus ora
 Luctus, et inferni stridentes agmine morbi.
 
-— Claudian in vi. Cons. Hon. 321, &c."""
+— Claudian in vi. Cons. Hon. 321, &c.""",
 
 
 
@@ -8157,7 +8138,7 @@ Insomnis Pharius sacra, profana, rapit.
 Omnibus, hoc, Italæ gentes, exposcite votis
 Mallius ut vigilet, dormiat ut Pharius.
 
-Hadrian was a Pharian (of Alexandria). See his public life in Godefroy, Cod. Theodos. tom. vi. p. 364. [Hadrianus was Pr. Pr. in 405 ad] Mallius did not always sleep. He composed some elegant dialogues on the Greek systems of natural philosophy (Claud. in Mall. Theodore. Cons. 61-112). [This Hadrian episode is very doubtful; see next note.]"""
+Hadrian was a Pharian (of Alexandria). See his public life in Godefroy, Cod. Theodos. tom. vi. p. 364. [Hadrianus was Pr. Pr. in 405 ad] Mallius did not always sleep. He composed some elegant dialogues on the Greek systems of natural philosophy (Claud. in Mall. Theodore. Cons. 61-112). [This Hadrian episode is very doubtful; see next note.]""",
 
 "**119.** See Claudian’s first Epistle. Yet, in some places, an air of irony and indignation betrays his secret reluctance. [“(1) The MSS. greatly vary as to the heading of this epistle some even calling it Deprecatio ad Stilichonem; (2) there is nothing to connect it with the latter rather than the earlier part of Claudian’s career; and (3) the whole piece sounds more like banter than earnest,” Hodgkin, i. 731.]",
 
@@ -8168,7 +8149,7 @@ Hadrian was a Pharian (of Alexandria). See his public life in Godefroy, Cod. The
 Romanos bibimus primum, te consule, fontes,
 Et Latiæ cessit [leg. accessit] Graia Thalia togæ.
 
-Besides some Greek epigrams, which are still extant, the Latin poet had composed, in Greek, the antiquities of Tarsus, Anazarbus, Berytus, Nice, &c. It is more easy to supply the loss of good poetry than of authentic history."""
+Besides some Greek epigrams, which are still extant, the Latin poet had composed, in Greek, the antiquities of Tarsus, Anazarbus, Berytus, Nice, &c. It is more easy to supply the loss of good poetry than of authentic history.""",
 
 "**122.** Strada (Prolusion v. vi.) allows him to contend with the five heroic poets, Lucretius, Virgil, Ovid, Lucan, and Statius. His patron is the accomplished courtier Balthazar Castiglione. His admirers are numerous and passionate. Yet the rigid critics reproach the exotic weeds, or flowers, which spring too luxuriantly in his Latian soil."],
 
@@ -8189,7 +8170,7 @@ Hinc albi, Clitumne, greges, et maxima taurus
 Victima, sæpe tuo perfusi flumine sacro
 Romanos ad templa Deum duxere triumphos.
 
-Besides Virgil, most of the Latin poets, Propertius, Lucan, Silius, Italicus, Claudian, &c., whose passages may be found in Cluverius and Addison, have celebrated the triumphal victims of the Clitumnus."""
+Besides Virgil, most of the Latin poets, Propertius, Lucan, Silius, Italicus, Claudian, &c., whose passages may be found in Cluverius and Addison, have celebrated the triumphal victims of the Clitumnus.""",
 
 "**7.** Some ideas of the march of Alaric are borrowed from the journey of Honorius over the same ground (see Claudian in vi. Cons. Hon. 494-522). The measured distance between Ravenna and Rome was 254 Roman miles. Itinerar. Wesseling, p. 126.",
 
@@ -8215,7 +8196,7 @@ Aucheniis, de jure licet certare secundo.
 — Claud. in Prob. et Olybrii Coss. 18.
 
 
-Such a compliment paid to the obscure name of the Auchenii has amazed the critics; but they all agree that, whatever may be the true reading, the sense of Claudian can be applied only to the Anician family."""
+Such a compliment paid to the obscure name of the Auchenii has amazed the critics; but they all agree that, whatever may be the true reading, the sense of Claudian can be applied only to the Anician family.""",
 
 "**15.** The earliest date in the annals of Pighius is that of M. Anicius Gallus, Trib. Pl. a.u.c. 506. Another Tribune, Q. Anicius, a.u.c. 508, is distinguished by the epithet of Prænestinus. Livy (xlv. 43) places the Anicii below the great families of Rome. [Q. Anicius Prænestinus was curule ædile bc 304.]",
 
@@ -8233,7 +8214,7 @@ Hâc de stirpe virum, certum est de Consule nasci.
 Per fasces numerantur Avi, semperque renata
 Nobilitate virent, et prolem fata sequuntur.
 
-(Claudian in Prob. et Olyb. Consulat. 12, &c.) The Annii, whose name seems to have merged in the Anician, mark the Fasti with many consulships, from the time of Vespasian to the fourth century."""
+(Claudian in Prob. et Olyb. Consulat. 12, &c.) The Annii, whose name seems to have merged in the Anician, mark the Fasti with many consulships, from the time of Vespasian to the fourth century.""",
 
 "**20.** The title of first Christian senator may be justified by the authority of Prudentius (in Symmach. i. 553), and the dislike of the pagans to the Anician family. See Tillemont, Hist. des Empereurs, tom. iv. p. 183, v. p. 44. Baron. Annal. ad 312, No. 78, ad 322, No. 2.",
 
@@ -8255,7 +8236,7 @@ Vernula quæ vario carmine ludit avis.
 — Claud. Rutil. Numatian Itinerar. ver. 111.
 
 
-The poet lived at the time of the Gothic invasion, A moderate palace would have covered Cincinnatus’s farm of four acres (Val. Max. iv. 4). In laxitatem ruris excurrunt, says Seneca, Epist. 114. See a judicious note of Mr. Hume, Essays, vol. i. p. 562, last 8vo edition."""
+The poet lived at the time of the Gothic invasion, A moderate palace would have covered Cincinnatus’s farm of four acres (Val. Max. iv. 4). In laxitatem ruris excurrunt, says Seneca, Epist. 114. See a judicious note of Mr. Hume, Essays, vol. i. p. 562, last 8vo edition.""",
 
 "**27.** This curious account of Rome in the reign of Honorius is found in a fragment of the historian Olympiodorus, ap. Photium, p. 197 [fr. 43, 44, F.H.G. iv. p. 67].",
 
@@ -8281,7 +8262,7 @@ Postquam jura ferox in se communia Cæsar
 Transtulit; et lapsi mores; desuetaque priscis
 Artibus in gremium pacis servile recessi.
 
-— De Bell. Gildonico, v. 49."""
+— De Bell. Gildonico, v. 49.""",
 
 
 
@@ -8323,7 +8304,7 @@ Artibus in gremium pacis servile recessi.
 Jampridem Syrus in Tiberim defluxit Orontes;
 Et linguam et mores, &c.
 
-Seneca, when he proposes to comfort his mother (Consolat. ad Helv. c. 6) by the reflection that a great part of mankind were in a state of exile, reminds her how few of the inhabitants of Rome were born in the city."""
+Seneca, when he proposes to comfort his mother (Consolat. ad Helv. c. 6) by the reflection that a great part of mankind were in a state of exile, reminds her how few of the inhabitants of Rome were born in the city.""",
 
 "**54.** Almost all that is said of the bread, bacon, oil, wine, &c., may be found in the fourteenth book of the Theodosian Code, which expressly treats of the police of the great cities. See particularly the titles iii. iv. xv. xvi. xvii. xxiv. The collateral testimonies are produced in Godefroy’s Commentary, and it is needless to transcribe them. According to a law of Theodosius, which appreciates in money the military allowance, a piece of gold (eleven shillings) was equivalent to eighty pounds of bacon, or to eighty pounds of oil, or to twelve modii (or pecks) of salt (Cod. Theod. l. viii. tit. iv. leg. 17). This equation, compared with another, of seventy pounds of bacon for an amphora (Cod. Theod. l. xiv. tit. iv. leg. 4), fixes the price of wine at about sixteen pence the gallon.",
 
@@ -8348,7 +8329,7 @@ Seneca, when he proposes to comfort his mother (Consolat. ad Helv. c. 6) by the 
 — Vestigia Græca
 Ausi deserere et celebrare domestica facta.
 
-Horat. Epistol. ad Pisones, 285, and the learned, though perplexed, note of Dacier, who might have allowed the name of tragedies to the Brutus and the Decius of Pacuvius, or to the Cato of Maternus. The Octavia, ascribed to one of the Senecas, still remains a very unfavourable specimen of Roman tragedy. [This play was not the work of one of the Senecas, as it contains a reference to the death of Nero, but it was probably written soon after that event.]"""
+Horat. Epistol. ad Pisones, 285, and the learned, though perplexed, note of Dacier, who might have allowed the name of tragedies to the Brutus and the Decius of Pacuvius, or to the Cato of Maternus. The Octavia, ascribed to one of the Senecas, still remains a very unfavourable specimen of Roman tragedy. [This play was not the work of one of the Senecas, as it contains a reference to the death of Nero, but it was probably written soon after that event.]""",
 
 "**64.** In the time of Quintilian and Pliny, a tragic poet was reduced to the imperfect method of hiring a great room, and reading his play to the company whom he invited for that purpose (see Dialog. de Oratoribus, c. 9, 11, and Plin. Epistol. vii. 17).",
 
@@ -8369,7 +8350,7 @@ Tu nescis; nam si gradibus trepidatur ab imis,
 Ultimus ardebit quem tegula sola tuetur
 A pluviâ.
 
-— Juvenal. Satir. iii. 199."""
+— Juvenal. Satir. iii. 199.""",
 
 
 
@@ -8393,7 +8374,7 @@ A pluviâ.
 Quâque trahant superis sedibus arte Jovem,
 Scire nefas homini.
 
-The ancilia, or shields of Mars, the pignora Imperii, which were carried in solemn procession on the calends of March, derived their origin from this mysterious event (Ovid. Fast. iii. 259-398). It was probably designed to revive this ancient festival, which had been suppressed by Theodosius. In that case, we recover a chronological date (March the 1st, ad 409) which has not hitherto been observed. [An improbable guess. The siege of Rome was certainly raised in ad 408.]"""
+The ancilia, or shields of Mars, the pignora Imperii, which were carried in solemn procession on the calends of March, derived their origin from this mysterious event (Ovid. Fast. iii. 259-398). It was probably designed to revive this ancient festival, which had been suppressed by Theodosius. In that case, we recover a chronological date (March the 1st, ad 409) which has not hitherto been observed. [An improbable guess. The siege of Rome was certainly raised in ad 408.]""",
 
 "**79.** Sozomen (l. ix. c. 6) insinuates that the experiment was actually, though unsuccessfully, made; but he does not mention the name of Innocent: and Tillemont (Mém. Ecclés. tom. x. p. 645) is determined not to believe that a pope could be guilty of such impious condescension. [The episode of Pompeianus seems to have taken place after the embassy of Basilius and John.]",
 
@@ -8452,7 +8433,7 @@ The ancilia, or shields of Mars, the pignora Imperii, which were carried in sole
 Quis cladem illius noctis, quis funera fando,
 Explicet, &c.
 
-Procopius (l. i. c. 2) positively affirms that great numbers were slain by the Goths. Augustin (de Civitat. Dei, l. i. c. 12, 13) offers Christian comfort for the death of those whose bodies (multa corpora) had remained (in tantâ strage) unburied. Baronius, from the different writings of the Fathers, has thrown some light on the sack of Rome. Annal. Eccles. ad 410, No. 16-44."""
+Procopius (l. i. c. 2) positively affirms that great numbers were slain by the Goths. Augustin (de Civitat. Dei, l. i. c. 12, 13) offers Christian comfort for the death of those whose bodies (multa corpora) had remained (in tantâ strage) unburied. Baronius, from the different writings of the Fathers, has thrown some light on the sack of Rome. Annal. Eccles. ad 410, No. 16-44.""",
 
 "**106.** Sozomen, l. ix. c. 10. Augustin (de Civitat. Dei, l. i. c. 17) intimates that some virgins or matrons actually killed themselves to escape violation; and, though he admires their spirit, he is obliged by his theology to condemn their rash presumption. Perhaps the good bishop of Hippo was too easy in the belief, as well as too rigid in the censure, of this act of female heroism. The twenty maidens (if they ever existed) who threw themselves into the Elbe, when Magdeburg was taken by storm, have been multiplied to the number of twelve hundred. See Harte’s History of Gustavus Adolphus, vol. i. p. 308.",
 
@@ -8492,7 +8473,7 @@ Tam prope Romanis, tam procul esse Getis.
 — Rutilius, in Itinerar. l. i. 325.
 
 
-The island is now called Giglio. See Cluver. Ital. Antiq. l. ii. p. 502."""
+The island is now called Giglio. See Cluver. Ital. Antiq. l. ii. p. 502.""",
 
 "**117.** As the adventures of Proba and her family are connected with the life of St. Augustin, they are diligently illustrated by Tillemont, Mém. Ecclés. tom. xiii. p. 620-635. Some time after their arrival in Africa, Demetrias took the veil, and made a vow of virginity; an event which was considered as of the highest importance to Rome and to the world. All the Saints wrote congratulatory letters to her; that of Jerom is still extant (tom. i. p. 62-73, ad Demetriad. de servandâ Virginitat.) and contains a mixture of absurd reasoning, spirited declamation, and curious facts, some of which relate to the siege and sack of Rome [ep. 130; Migne, i. 1107].",
 
@@ -8531,7 +8512,7 @@ A brighter day, and skies of azure hue;
 Scent the new fragrance of the opening rose,
 And quaff the pendent vintage as it grows.
 
-See Gray’s Poems, published by Mr. Mason, p. 197. Instead of compiling tables of chronology and natural history, why did not Mr. Gray apply the powers of his genius to finish the philosophic poem of which he has left such an exquisite specimen?"""
+See Gray’s Poems, published by Mr. Mason, p. 197. Instead of compiling tables of chronology and natural history, why did not Mr. Gray apply the powers of his genius to finish the philosophic poem of which he has left such an exquisite specimen?""",
 
 "**132.** For the perfect description of the Straits of Messina, Scylla, Charybdis, &c., see Cluverius (Ital. Antiq. l. iv. p. 1293, and Sicilia Antiq. l. i. p. 60-76), who had diligently studied the ancients and surveyed with a curious eye the actual face of the country.",
 
@@ -8572,7 +8553,7 @@ See Gray’s Poems, published by Mr. Mason, p. 197. Instead of compiling tables 
 Erige crinales lauros, seniumque sacrati
 Verticis in virides Roma recinge comas, &c.
 
-[Rutilius had been magister officiorum and præf. urbi of Rome.]"""
+[Rutilius had been magister officiorum and præf. urbi of Rome.]""",
 
 "**150.** Orosius composed his history in Africa only two years after the event; yet his authority seems to be overbalanced by the improbability of the fact. The Chronicle of Marcellinus gives Heraclian 700 ships and 3000 men: the latter of these numbers is ridiculously corrupt, but the former would please me very much.",
 
@@ -8616,7 +8597,7 @@ Quod Tartessiacis avus hujus Vallia terris
 Vandalicas turmas, et juncti Martis Alanos
 Stravit, et occiduam texere cadavera Calpen.
 
-— Sidon. Apollinar. in Panegyr. Anthem. 363. p. 300, edit. Sirmond."""
+— Sidon. Apollinar. in Panegyr. Anthem. 363. p. 300, edit. Sirmond.""",
 
 
 
@@ -8639,7 +8620,7 @@ O Lycida, vivi pervenimus: advena nostri
 Diceret: Hæc mea sunt; veteres migrate coloni.
 Nunc victi tristes, &c.
 
-See the whole of the ninth Eclogue, with the useful Commentary of Servius. Fifteen miles of the Mantuan territory were assigned to the veterans, with a reservation, in favour of the inhabitants, of three miles round the city. Even in this favour they were cheated by Alfenus Varus, a famous lawyer, and one of the commissioners, who measured eight hundred paces of water and morass."""
+See the whole of the ninth Eclogue, with the useful Commentary of Servius. Fifteen miles of the Mantuan territory were assigned to the veterans, with a reservation, in favour of the inhabitants, of three miles round the city. Even in this favour they were cheated by Alfenus Varus, a famous lawyer, and one of the commissioners, who measured eight hundred paces of water and morass.""",
 
 "**176.** See the remarkable passage of the Eucharisticon of Paulinus, 575, apud Mascou, l. viii. c. 42. [See vol. iv. Appendix 5.]",
 
@@ -8657,7 +8638,7 @@ Torva, ferox, ventosa, procax, incauta, rebellis
 Inconstans, disparque sibi novitatis amore;
 Prodiga verborum, sed non et prodiga facti.
 
-Erricus Monach. in Vit. St. Germani, l. v. apud Vales. Notit. Galliarum, p. 43. Valesius alleges several testimonies to confirm this character; to which I shall add the evidence of the presbyter Constantine (ad 488), who, in the life of St. Germain, calls the Armorican rebels mobilem et indisciplinatum populum. See the Historians of France, tom. i. p. 643."""
+Erricus Monach. in Vit. St. Germani, l. v. apud Vales. Notit. Galliarum, p. 43. Valesius alleges several testimonies to confirm this character; to which I shall add the evidence of the presbyter Constantine (ad 488), who, in the life of St. Germain, calls the Armorican rebels mobilem et indisciplinatum populum. See the Historians of France, tom. i. p. 643.""",
 
 "**181.** I thought it necessary to enter my protest against this part of the system of the Abbé Dubos, which Montesquieu has so vigorously opposed. See Esprit des Loix, l. xxx. c. 24.",
 
@@ -8678,7 +8659,7 @@ Erricus Monach. in Vit. St. Germani, l. v. apud Vales. Notit. Galliarum, p. 43. 
 Leges restituit, libertatemque reducit,
 Et servos famulis non sinit esse suis.
 
-— Itinerar. Rutil. l. i. 215."""
+— Itinerar. Rutil. l. i. 215.""",
 
 
 
@@ -8716,7 +8697,7 @@ Imperii.
 — In Eutrop. i. 422.
 
 
-Yet it does not appear that the eunuch had assumed any of the efficient offices of the empire, and he is styled only Præpositus sacri cubiculi, in the edict of his banishment. See Cod. Theod. l. ix. tit. xl. leg. 17."""
+Yet it does not appear that the eunuch had assumed any of the efficient offices of the empire, and he is styled only Præpositus sacri cubiculi, in the edict of his banishment. See Cod. Theod. l. ix. tit. xl. leg. 17.""",
 
 """**5.**",
 
@@ -8747,7 +8728,7 @@ Et sentit jam deesse viros.
 Diversum suspendit onus: cum pondere Judex
 Vergit, et in geminas nutat provincia lances.
 
-Claudian (i. 192-209) so curiously distinguishes the circumstances of the sale that they all seem to allude to particular anecdotes."""
+Claudian (i. 192-209) so curiously distinguishes the circumstances of the sale that they all seem to allude to particular anecdotes.""",
 
 "**12.** Claudian (i. 154-170) mentions the guilt and exile of Abundantius, nor could he fail to quote the example of the artist who made the first trial of the brazen bull which he presented to Phalaris. See Zosimus, l. v. p. 302 [10]. Jerom. tom. i. p. 26 [ep. 60; Migne, i. 600]. The difference of place is easily reconciled; but the decisive authority of Asterius of Amasia (Orat. iv. p. 76 apud Tillemont, Hist. des Empereurs, tom. v. p. 435) must turn the scale in favour of Pityus.",
 
@@ -9086,7 +9067,7 @@ Proterit imbellem sonipes hostilis Orontem.
 — Claudian, in Rufin. l. ii. 28-35.
 
 
-See likewise, in Eutrop. l. i. 243-251, and the strong description of Jerom, who wrote from his feelings, tom. i. p. 26, ad Heliodor. [ep. 60], p. 220, ad Ocean [ep. 77]. Philostorgius (l. ix. c. 8) mentions this irruption."""
+See likewise, in Eutrop. l. i. 243-251, and the strong description of Jerom, who wrote from his feelings, tom. i. p. 26, ad Heliodor. [ep. 60], p. 220, ad Ocean [ep. 77]. Philostorgius (l. ix. c. 8) mentions this irruption.""",
 
 "**17.** [Basich and Cursich are not names of cities, but of two men, commanders of large bands of the Huns who invaded Persia. Gibbon misunderstood Priscus.]",
 
@@ -9195,7 +9176,7 @@ Another poet, Paulinus of Perigord, confirms the complaint: —
 
 Nam socium vix ferre queas, qui durior hoste.
 
-See Dubos, tom. i. p. 330."""
+See Dubos, tom. i. p. 330.""",
 
 
 
@@ -9207,7 +9188,7 @@ Quod te, Roma, capit. ——
 — Sidon. Panegyric. Avit. 505.
 
 
-This character, applicable only to the great Alaric, establishes the genealogy of the Gothic kings, which has hitherto been unnoticed. [The reference to Alaric is clear; cp. Luetjohann in his ed. of Sidonius, p. 418. But avus is used loosely. If Theodoric I. were Alaric’s son, the fact must have been otherwise known.]"""
+This character, applicable only to the great Alaric, establishes the genealogy of the Gothic kings, which has hitherto been unnoticed. [The reference to Alaric is clear; cp. Luetjohann in his ed. of Sidonius, p. 418. But avus is used loosely. If Theodoric I. were Alaric’s son, the fact must have been otherwise known.]""",
 
 "**11.** The name of Sapaudiae, the origin of Savoy, is first mentioned by Ammianus Marcellinus [xv. 11, 17]; and two military posts are ascertained, by the Notitia, within the limits of that province: a cohort was stationed at Grenoble [Gratianopolis] in Dauphiné; and Ebredunum, or Iverdun, sheltered a fleet of small vessels, which commanded the lake of Neufchâtel. See Valesius, Notit. Galliarum, p. 503. D’Anville, Notice de l’Ancienne Gaule, p. 284, 579.",
 
@@ -9226,7 +9207,7 @@ Vincere contingat, trepido —.
 — Panegyr. Avit 300, &c.
 
 
-Sidonius then proceeds, according to the duty of a panegyrist, to transfer the whole merit from Aetius to his minister Avitus."""
+Sidonius then proceeds, according to the duty of a panegyrist, to transfer the whole merit from Aetius to his minister Avitus.""",
 
 """**14.** Theodoric II. revered, in the person of Avitus, the character of his preceptor.",
 
@@ -9235,7 +9216,7 @@ Per te jura placent, parvumque ediscere jussit
 Ad tua verba pater, docili quo prisca Maronis
 Carmine molliret Scythicos mihi pagina mores.
 
-— Sidon. Panegyr. Avit. 495, &c."""
+— Sidon. Panegyr. Avit. 495, &c.""",
 
 
 "**15.** Our authorities for the reign of Theodoric I. are: Jornandes de Rebus Geticis, c. 34, 36, and the Chronicles of Idatius, and the two Prospers, inserted in the Historians of France, tom. i. p. 612-640. To these we may add Salvian de Gubernatione Dei, l. vii. p. 243, 244, 245, and the Panegyric of Avitus, by Sidonius.",
@@ -9262,7 +9243,7 @@ Atrebatum terras pervaserat. ——
 — Panegyr. Majorian. 212.
 
 
-The precise spot was a town or village called Vicus Helena [ib. 215]; and both the name and the place are discovered by modern geographers at Lens. [Longnon suggests Hélenne. Sirmond sought the place at Vieil-Hesdin.] See Vales. Notit. Gall. p. 246. Longuerue, Description de la France, tom. ii. p. 88."""
+The precise spot was a town or village called Vicus Helena [ib. 215]; and both the name and the place are discovered by modern geographers at Lens. [Longnon suggests Hélenne. Sirmond sought the place at Vieil-Hesdin.] See Vales. Notit. Gall. p. 246. Longuerue, Description de la France, tom. ii. p. 88.""",
 
 "**24.** See a vague account of the action in Sidonius, Panegyr. Majorian. 212-230. The French critics, impatient to establish their monarchy in Gaul, have drawn a strong argument from the silence of Sidonius, who dares not insinuate that the vanquished Franks were compelled to repass the Rhine. Dubos, tom. i. p. 322.",
 
@@ -9296,7 +9277,7 @@ In campos se, Belga, tuos. ——
 — Panegyr. Avit. 319, &c.
 
 
-[The Bellonoti are unknown. Cp. Valer. Flaccus, vi. 160: Balloniti.]"""
+[The Bellonoti are unknown. Cp. Valer. Flaccus, vi. 160: Balloniti.]""",
 
 "**33.** The most authentic and circumstantial account of this war is contained in Jornandes (de Reb. Geticis, c. 36-41, p. 662-672), who has sometimes abridged, and sometimes transcribed, the larger history of Cassiodorius. Jornandes, a quotation which it would be superfluous to repeat, may be corrected and illustrated by Gregory of Tours, l. 2, c. 5, 6, 7, and the Chronicles of Idatius, Isidore, and the two Prospers. All the ancient testimonies are collected and inserted in the Historians of France; but the reader should be cautioned against a supposed extract from the Chronicle of Idatius (among the fragments of Fredegarius, tom. ii. p. 462), which often contradicts the genuine text of the Gallician bishop.",
 
@@ -9313,7 +9294,7 @@ Aetius, tenue et rarum sine milite ducens
 Robur in auxiliis, Geticum male credulus agmen
 Incassum propriis præsumiens adfore castris.
 
-— Pangyr. Avit. 328, &c."""
+— Pangyr. Avit. 328, &c.""",
 
 
 
@@ -9400,7 +9381,7 @@ Fluctibus, et fremitu assurgens Benace marino.
 """**69.** The report of her guilt reached Constantinople, where it obtained a very different name; and Marcellinus observes that the tyrant of Europe was slain in the night by the hand and the knife of a woman. Corneille, who has adapted the genuine account to his tragedy, describes the irruption of blood in forty bombast lines, and Attila exclaims with ridiculous fury: —",
 
 — S’il ne veut s’arrêter (his blood),
-(Dit il) on me payera ce qui m’en va coûter."""
+(Dit il) on me payera ce qui m’en va coûter.""",
 
 
 "**70.** The curious circumstances of the death and funeral of Attila are related by Jornandes (c. 49, p. 683, 684, 685), and were probably [those of the death, confessedly] transcribed from Priscus.",
@@ -9427,7 +9408,7 @@ Vulturis incidunt properatis sæcula metis.
 Jam prope fata tui bissenas vulturis alas
 Implebant; scis namque tuos, scis, Roma, labores.
 
-See Dubos, Hist. Critique, tom. i. p. 340-346."""
+See Dubos, Hist. Critique, tom. i. p. 340-346.""",
 
 "**79.** The fifth book of Salvian is filled with pathetic lamentations and vehement invectives. His immoderate freedom serves to prove the weakness, as well as the corruption, of the Roman government. His book was published after the loss of Africa (ad 439) and before Attila’s war (ad 451).",
 
@@ -9452,7 +9433,7 @@ Somnum reducent.
 — Horat. Carm. iii. 1.
 
 
-Sidonius concludes his letter with the story of Damocles, which Cicero (Tusculan. v. 20, 21) had so inimitably told."""
+Sidonius concludes his letter with the story of Damocles, which Cicero (Tusculan. v. 20, 21) had so inimitably told.""",
 
 "**5.** [Paulo amplius quam bimestris principatus, Sidonius, ib. The date of the death of Maximus is May 31 (Prosper); June 12 is given by Anon. Cuspiniani.]",
 
@@ -9466,7 +9447,7 @@ Extorquet trepidas mactandi principis iras.
 — Sidon. in Panegyr. Avit. 442.
 
 
-A remarkable line, which insinuates that Rome and Maximus were betrayed by their Burgundian mercenaries. [Binding, Gesch. des burgundischromanischen Königr. p. 49, conjectures that there had been a recent Burgundian incursion into Italy.]"""
+A remarkable line, which insinuates that Rome and Maximus were betrayed by their Burgundian mercenaries. [Binding, Gesch. des burgundischromanischen Königr. p. 49, conjectures that there had been a recent Burgundian incursion into Italy.]""",
 
 "**8.** The apparent success of Pope Leo may be justified by Prosper and the Historia Miscella; but the improbable notion of Baronius (ad 455, No. 13) that Genseric spared the three apostolical churches is not countenanced even by the doubtful testimony of the Liber Pontificalis.",
 
@@ -9550,7 +9531,7 @@ Atque meæ vitæ laus tua sit pretium.
 — Sidon. Apoll. carm. iv. p. 308.
 
 
-See Dubos, Hist. Critique, tom. i. p. 448, &c."""
+See Dubos, Hist. Critique, tom. i. p. 448, &c.""",
 
 "**38.** The words of Procopius deserve to be transcribed: ον̂̔τος γὰρ ὸ Μαιορɩ̂νος ξύμπαντας τοὺς πώποτε Ῥωμαίων· βεβασιλευκότας ὑπεραίρων ἀρετῃ̑ πάσῃ; and afterwards, ἀνὴρ τὰ μὲν εἰν τοὺς ὑπηκόους μέτριος γεγονὼς, ϕοβερὸς δὲ τὰ ἐς τοὺς πολεμίους (de Bell. Vandal. l. i. c. 7, p. 194): a concise but comprehensive definition of royal virtue.",
 
@@ -9606,7 +9587,7 @@ Silva tibi, &c. ——
 — Sidon. Panegyr. Majorian. 441-461.
 
 
-The number of ships which Priscus fixes at 300 is magnified by an indefinite comparison with the fleets of Agamemnon, Xerxes, and Augustus."""
+The number of ships which Priscus fixes at 300 is magnified by an indefinite comparison with the fleets of Agamemnon, Xerxes, and Augustus.""",
 
 "**57.** Procopius de Bell. Vandal. l. i. c. 8, p. 194. When Genseric conducted his unknown guest into the arsenal of Carthage, the arms clashed of their own accord. Majorian had tinged his yellow locks with a black colour.",
 
@@ -9619,7 +9600,7 @@ Quo valuit dum pauper erat.
 — Panegyr. Majorian. 330.
 
 
-He afterwards applies to Genseric, unjustly as it should seem, the vices of his subjects."""
+He afterwards applies to Genseric, unjustly as it should seem, the vices of his subjects.""",
 
 "**59.** He burnt the villages, and poisoned the springs (Priscus, p. 42). Dubos (Hist. Critique, tom. i. p. 475) observes that the magazines which the Moors buried in the earth might escape his destructive search. Two or three hundred pits are sometimes dug in the same place, and each pit contains at least 400 bushels of corn. Shaw’s Travels, p. 139.",
 
@@ -9685,7 +9666,7 @@ Italy addresses her complaint to the Tiber, and Rome, at the solicitation of the
 Procopio genitore micas; cui prisca propago
 Augustis venit a proavis.
 
-The poet (Sidon. Panegyr. Anthem. 67-306) then proceeds to relate the private life and fortunes of the future emperor, with which he must have been very imperfectly acquainted."""
+The poet (Sidon. Panegyr. Anthem. 67-306) then proceeds to relate the private life and fortunes of the future emperor, with which he must have been very imperfectly acquainted.""",
 
 "**79.** Sidonius discovers, with tolerable ingenuity, that this disappointment added new lustre to the virtues of Anthemius (210, &c.), who declined one sceptre and reluctantly accepted another (22, &c.).",
 
@@ -11735,7 +11716,7 @@ solus et infestum leto damnare tyrannum.
 Armenius tanti fuerat tunc ille minister
 consilii.
 
-The success of Artaban in crushing Guntarith further depended on the temporary goodwill of the great chief of the Moors of Byzacium — Antala. See Corippus, ib. 368.]"""
+The success of Artaban in crushing Guntarith further depended on the temporary goodwill of the great chief of the Moors of Byzacium — Antala. See Corippus, ib. 368.]""",
 
 "**7.** Yet I must not refuse him the merit of painting, in lively colours, the murder of Gontharis. One of the assassins uttered a sentiment not unworthy of a Roman patriot: “If I fail,” said Artasires, “in the first stroke, kill me on the spot lest the rack should extort a discovery of my accomplices.”",
 
@@ -12122,7 +12103,7 @@ Sub galli cantum, consultor ubi ostia pulsat.
 
 
 Romæ dulce diu fuit et solemne reclusâ
-Mane domo vigilare, clienti promere jura."""
+Mane domo vigilare, clienti promere jura.""",
 
 
 
@@ -12281,7 +12262,7 @@ Quinque per autumnos.
 (Juvenal, Satir. vi. 20.)
 
 
-A rapid succession, which may yet be credible, as well as the non consulum numero, sed maritorum annos suos computant, of Seneca (de Beneficiis, iii. 16). Jerom saw at Rome a triumphant husband bury his twenty-first wife, who had interred twenty-two of his less sturdy predecessors (Opp. tom. i. p. 90, ad Gerontiam). But the ten husbands in a month of the poet Martial is an extravagant hyperbole (l. vi. epigram 7)."""
+A rapid succession, which may yet be credible, as well as the non consulum numero, sed maritorum annos suos computant, of Seneca (de Beneficiis, iii. 16). Jerom saw at Rome a triumphant husband bury his twenty-first wife, who had interred twenty-two of his less sturdy predecessors (Opp. tom. i. p. 90, ad Gerontiam). But the ten husbands in a month of the poet Martial is an extravagant hyperbole (l. vi. epigram 7).""",
 
 "**127.** Sacellum Viriplacæ (Valerius Maximus, l. ii. c. 1) in the Palatine region appears in the time of Theodosius, in the description of Rome by Publius Victor.",
 
@@ -12507,7 +12488,7 @@ Hoc est quod puerum tangar amore minus.
 
 Cusina Mastracianis secum viribus ingens —
 
-is obviously corrupt."""
+is obviously corrupt.""",
 
 "**2.** A plan of the citadel is given in Diehl, l’Afrique byzantine, p. 273.",
 
@@ -12998,7 +12979,7 @@ Then Heraclius entered Adherbijan, destroyed a fine temple at Ganzaca (Tavriz), 
 
 “Montrez Héraclius au peuple qui l’attend,”
 
-is much better suited to the present occasion. See his triumph in Theophanes (p. 272, 273 [a.m. 6119]), and Nicephorus (p. 15, 16). The life of the mother and tenderness of the son are attested by George of Pisidia (Bell. Abar. 255, &c. p. 49). The metaphor of the Sabbath is used, somewhat profanely, by these Byzantine Christians."""
+is much better suited to the present occasion. See his triumph in Theophanes (p. 272, 273 [a.m. 6119]), and Nicephorus (p. 15, 16). The life of the mother and tenderness of the son are attested by George of Pisidia (Bell. Abar. 255, &c. p. 49). The metaphor of the Sabbath is used, somewhat profanely, by these Byzantine Christians.""",
 
 "**134.** See Baronius (Annal. Eccles. ad 628, No. 1-4), Eutychius (Annal. tom. ii. p. 240-248), Nicephorus (Brev. p. 15). The seals of the case had never been broken; and this preservation of the cross is ascribed (under God) to the devotion of Queen Sira.",
 
@@ -14041,7 +14022,7 @@ Est tamen in dubio, hinc mirer an inde magis.
 —— Many a league,
 Pleas’d with the grateful scent, old Ocean smiles.
 
-(Plin. Hist. Natur. xii. 42.)"""
+(Plin. Hist. Natur. xii. 42.)""",
 
 "**8.** Agatharchides affirms that lumps of pure gold were found, from the size of an olive to that of a nut; that iron was twice, and silver ten times, the value of gold (de Mari Rubro, p. 60). These real or imaginary treasures are vanished; and no gold mines are at present known in Arabia (Niebuhr, Description, p. 124). [But see Appendix 1.]",
 
@@ -14467,7 +14448,7 @@ Aut si velis ejus (Priapi) gemino triente, aut si malis totus veniam.
 Imo, totus venito, O Apostole Dei, clamabat fœmina. Id ipsum dicebat
 Moseilama mihi quoque suggessit Deus.
 
-The prophetess Segjah, after the fall of her lover, returned to idolatry; but, under the reign of Moawiyah, she became a Musulman, and died at Bassora (Abulfeda, Annal. vers. Reiske, p. 63). [The tradition that Musailima and Sejāh spent three days “in amorous converse” is found in Tabari (i. p 135-7, ed. Kosegarten), but seems to be refuted by the circumstance that Musailima was then more than a hundred years old; Weil, i. p. 22.]"""
+The prophetess Segjah, after the fall of her lover, returned to idolatry; but, under the reign of Moawiyah, she became a Musulman, and died at Bassora (Abulfeda, Annal. vers. Reiske, p. 63). [The tradition that Musailima and Sejāh spent three days “in amorous converse” is found in Tabari (i. p 135-7, ed. Kosegarten), but seems to be refuted by the circumstance that Musailima was then more than a hundred years old; Weil, i. p. 22.]""",
 
 "**3.** See this text, which demonstrates a God from the works of generation, in Abulpharagius (Specimen Hist. Arabum, p. 13, and Dynast. p. 103) and Abulfeda (Annal. p. 63).",
 
@@ -14801,7 +14782,7 @@ The dusky people drive before the gale;
 Or on frail floats to neighbouring cities ride,
 That rise and glitter o’er the ambient tide.
 
-(Mason’s Works, and Memoirs of Gray, p. 199, 200.)"""
+(Mason’s Works, and Memoirs of Gray, p. 199, 200.)""",
 
 
 
@@ -14845,7 +14826,7 @@ That rise and glitter o’er the ambient tide.
 Your mistress awaits you in the Hijāz,
 You will carry a skin of water from Koba (to Medina).”
 
-She “asked what this dog meant; and having learned the meaning of the words threw herself from the camel and broke her neck.”]"""
+She “asked what this dog meant; and having learned the meaning of the words threw herself from the camel and broke her neck.”]""",
 
 "**168.** Ἐπεστράτευσαν Σαρακηνοὶ τὴν Ἀϕρικὴν, καὶ συμβαλόντες τῷ τυράννῳ Γρηγορίῳ τον̂τον τρέπουσι καὶ τοὺς σὺν αὐτῷ κτέννουσι καὶ στοιχήσαντες ϕόρους μετὰ τω̂ν Ἀϕρων ὑπέστρε ψαν. Theophan. Chronograph. p. 285, edit. Paris [a.m. 6139]. His chronology is loose and inaccurate. [Some words have accidentally fallen out in this passage after κτέννουσι and are preserved in the translation of Anastasius: et hunc ab Africa pellunt (de Boor supplies καὶ τον̂τον Ἀϕρικη̂ς ἀπελαύνουσιν). This implies that Gregory was not slain, cp. above, note 162. Diehl justly remarks that he must not be identified with Gregory the nephew of Heraclius who died in 651-2; op. cit. p. 559; but does not question the statement (of Arabic sources, e g. Ibn Abd al Hakam, loc. cit. p. 304) that he was slain at Sbaitla. The details of the battle given in the text depend chiefly on the doubtful authority of Novairi.]",
 
@@ -15323,7 +15304,7 @@ Ardua privatos nescit fortuna Penates;
 Et regnum cum luce dedit. Cognata potestas
 Excepit Tyrio venerabile pignus in ostro.
 
-And Ducange, in his Greek and Latin Glossaries, produces many passages expressive of the same idea. [In connection with the following account of the work of Constantine, the reader might have been reminded that the Continuation of Theophanes (and also the work of Genesius) were composed at the instigation of this Emperor, and that he himself wrote the Life of his grandfather Basil — a remarkable work whose tendency, credibility, and value have been fully discussed in A. Rambaud’s L’empire grec au dixième siècle, p. 137-164.]"""
+And Ducange, in his Greek and Latin Glossaries, produces many passages expressive of the same idea. [In connection with the following account of the work of Constantine, the reader might have been reminded that the Continuation of Theophanes (and also the work of Genesius) were composed at the instigation of this Emperor, and that he himself wrote the Life of his grandfather Basil — a remarkable work whose tendency, credibility, and value have been fully discussed in A. Rambaud’s L’empire grec au dixième siècle, p. 137-164.]""",
 
 "**2.** A splendid MS. of Constantine, de Ceremoniis Aulæ et Ecclesiæ Byzantinæ, wandered from Constantinople to Buda, Frankfort, and Leipsic, where it was published in a splendid edition by Leich and Reiske (ad 1751[-1754] in folio), with such slavish praise as editors never fail to bestow on the worthy or worthless object of their toil. [See Appendix 6.]",
 
@@ -15346,7 +15327,7 @@ And Ducange, in his Greek and Latin Glossaries, produces many passages expressiv
 Καππαδόκην ποτ’ ἔχιδνα κακὴ δάκεν, ἀλλὰ καὶ αὐτή
 Κάτθανε, γευσαμένη αἴματος ἱοβόλου.
 
-The sting is precisely the same with the French epigram against Fréron: Un serpent mordit Jean Fréron — Eh bien? Le serpent en mourut. But, as the Paris wits are seldom read in the Anthology, I should be curious to learn through what channel it was conveyed for their imitation (Constantin. Porphyrogen. de Themat. c. ii. Brunk, Analect. Græc. tom. ii. p 56 [p. 21, ed. Bonn]; Brodæi. Anthologia, l. ii. p. 244 [Anthol. Pal. xi. 237]). [Of Constantine’s Book on the Themes, M. Rambaud observes: “C’est l’empire au vie siècle, et non pas au xe siècle, que nous trouvons dans son livre” (op. cit. p. 166).]"""
+The sting is precisely the same with the French epigram against Fréron: Un serpent mordit Jean Fréron — Eh bien? Le serpent en mourut. But, as the Paris wits are seldom read in the Anthology, I should be curious to learn through what channel it was conveyed for their imitation (Constantin. Porphyrogen. de Themat. c. ii. Brunk, Analect. Græc. tom. ii. p 56 [p. 21, ed. Bonn]; Brodæi. Anthologia, l. ii. p. 244 [Anthol. Pal. xi. 237]). [Of Constantine’s Book on the Themes, M. Rambaud observes: “C’est l’empire au vie siècle, et non pas au xe siècle, que nous trouvons dans son livre” (op. cit. p. 166).]""",
 
 "**11.** The Legatio Liutprandi Episcopi Cremonensis ad Nicephorum Phocam is inserted in Muratori, Scriptores Rerum Italicarum, tom. ii. pars i. [In Pertz, Monum. vol. 3. There is a convenient ed. of Liutprand’s works by E. Dümmler in the Scr. rer. Germ. 1877.]",
 
@@ -15541,7 +15522,7 @@ Vicinas quibus est studium devincere terras
 Depressumque larem spoliis hinc inde coactis
 Sustentare ——
 
-(Anonym. Carmen Panegyricum de Laudibus Berengarii Augusti, l. ii. in Muratori, Script. Rerum Italic. tom. ii. pars i. p. 393 [leg. 395] [in Pertz Monum., iv. p. 189 sqq. New ed. by Dümmler, 1871])."""
+(Anonym. Carmen Panegyricum de Laudibus Berengarii Augusti, l. ii. in Muratori, Script. Rerum Italic. tom. ii. pars i. p. 393 [leg. 395] [in Pertz Monum., iv. p. 189 sqq. New ed. by Dümmler, 1871]).""",
 
 "**100.** Justinian, says the Historian Agathias (l. v. p. 157 [c. 14]), πρω̂τος Ῥωμαίων αὐτοκράτωρ ὀνόματι καὶ πράγματί. Yet the specific title of Emperor of the Romans was not used at Constantinople, till it had been claimed by the French and German emperors of old Rome.",
 
@@ -15552,7 +15533,7 @@ Sustentare ——
 Ὡς εἴτις ἁβροστόλιστον ἀποκοσμήσει νύμϕην,
 Καὶ γραν̂ν τινα τρικόρωνον ὡς κόρην ὡρ[Editor: illegible Greek character] ίσει —
 
-and it is confirmed by Theophanes, Zonaras, Cedrenus, and the Historia Miscella: Voluit in urbem Romam Imperium transferre (l. xix. p. 157, in tom. i. pars i. of the Scriptores Rer. Ital. of Muratori)."""
+and it is confirmed by Theophanes, Zonaras, Cedrenus, and the Historia Miscella: Voluit in urbem Romam Imperium transferre (l. xix. p. 157, in tom. i. pars i. of the Scriptores Rer. Ital. of Muratori).""",
 
 "**102.** Paul. Diacon. l. v. c. 11, p. 480. Anastasius in Vitis Pontificum, in Muratori’s Collection, tom. iii. pars i. p. 141.",
 
@@ -15596,7 +15577,7 @@ Proverbs in this form existed as early as the sixth century; and in the Ceremoni
 
 ἰδὲ τὸ ἔαρ τὸ γλυκὺ | πάλιν ἐπανατέλλει.
 
-The question has been much debated whether this kind of verse arose out of the ancient trochaic, or the ancient iambic, tetrameter. Cp. Krumbacher, op. cit. p. 650-1.]"""
+The question has been much debated whether this kind of verse arose out of the ancient trochaic, or the ancient iambic, tetrameter. Cp. Krumbacher, op. cit. p. 650-1.]""",
 
 "**120.** As St. Bernard of the Latin, so St. John Damascenus in the viiith century is revered as the last father of the Greek, church.",
 
@@ -19593,7 +19574,7 @@ Which his good sword had digg’d.
 Præsule, qui numeros vetitum contingere nostros
 Nomen ab innocuâ ducit laudabile vitâ.
 
-We may applaud the dexterity and correctness of Ligurinus, who turns the unpoetical name of Innocent II. into a compliment. [For the acts of the Lateran Council see Mansi, Concil. xxi. p. 523 sqq.]"""
+We may applaud the dexterity and correctness of Ligurinus, who turns the unpoetical name of Innocent II. into a compliment. [For the acts of the Lateran Council see Mansi, Concil. xxi. p. 523 sqq.]""",
 
 "**32.** A Roman inscription of Statio Turicensis has been found at Zurich (d’Anville, Notice de l’ancienne Gaule, p. 642-644); but it is without sufficient warrant that the city and canton have usurped and even monopolised the names of Tigurum and Pagus Tigurinus. [See Otto of Freisingen, Gesta Frederici, ii. 29.]",
 
@@ -19601,7 +19582,7 @@ We may applaud the dexterity and correctness of Ligurinus, who turns the unpoeti
 
 Nobile Turegum multarum copia rerum,
 
-is repeated with pleasure by the antiquaries of Zurich."""
+is repeated with pleasure by the antiquaries of Zurich.""",
 
 "**34.** Bernard, epistol. cxcv. cxcvi. tom. i. p. 187-190. Amidst his invectives, he drops a precious acknowledgment, qui utinam quam sanæ esset doctrinæ quam districtæ est vitæ. He owns that Arnold would be a valuable acquisition for the church. [Bernard himself — though he opposed Arnold as a heretic — strongly condemned the temporal dominion of the Pope, in his De Consideratione. He observes, for instance: nemo militans Deo implicet se negotiis secularibus. Cp. Gregorovius, op. cit. iv. p. 483-4.]",
 
@@ -19613,7 +19594,7 @@ Pontifici summo, modicum concedere regi
 Suadebat populo. Sic læsâ stultus utrâque
 Majestate, reum geminæ se facerat aulæ.
 
-Nor is the poetry of Gunther different from the prose of Otho."""
+Nor is the poetry of Gunther different from the prose of Otho.""",
 
 "**36.** See Baronius (ad 1148, No. 38, 39) from the Vatican MSS. He loudly condemns Arnold (ad 1141, No. 3) as the father of the political heretics whose influence then hurt him in France.",
 
@@ -19716,7 +19697,7 @@ Imperii vires, proprias tibi tollere vires.
 Ergo triumphorum urbs potes memor esse priorum
 Quos tibi mittebant reges qui bella gerebant.
 
-Ne si dee tacere (I now use the Italian Dissertations, tom. i. p. 444) che nell’ anno 1727, una copia desso Caroccio in marmo dianzi ignoto si scopri, nel Campidoglio, presso alle carcere di quel luogo, dove Sisto V. l’avea falto rinchiudere. Stava esso posto sopra quatro colonne di marmo fina colla sequente inscrizione, &c. to the same purpose as the old inscription."""
+Ne si dee tacere (I now use the Italian Dissertations, tom. i. p. 444) che nell’ anno 1727, una copia desso Caroccio in marmo dianzi ignoto si scopri, nel Campidoglio, presso alle carcere di quel luogo, dove Sisto V. l’avea falto rinchiudere. Stava esso posto sopra quatro colonne di marmo fina colla sequente inscrizione, &c. to the same purpose as the old inscription.""",
 
 "**75.** The decline of the Imperial arms and authority in Italy is related with impartial learning in the Annals of Muratori (tom. x.-xii.); and the reader may compare his narrative with the Histoire des Allemands (tom. iii. iv.) by Schmidt, who has deserved the esteem of his countrymen.",
 
@@ -19823,7 +19804,7 @@ Præfectusque urbis magnum sine viribus nomen.
 (l. ii. c. 5, 100, p. 647, 648.)
 
 
-The ancient statutes of Rome (l. iii. c. 59, p. 174, 175) distinguish eleven families of barons, who are obliged to swear in concilio communi, before the senator, that they would not harbour or protect any malefactors, outlaws, &c. — a feeble security! [The Anibaldi family rose to prominence c. ad 1230. See Gregorovius, v. 158.]"""
+The ancient statutes of Rome (l. iii. c. 59, p. 174, 175) distinguish eleven families of barons, who are obliged to swear in concilio communi, before the senator, that they would not harbour or protect any malefactors, outlaws, &c. — a feeble security! [The Anibaldi family rose to prominence c. ad 1230. See Gregorovius, v. 158.]""",
 
 "**116.** It is pity that the Colonna themselves have not favoured the world with a complete and critical history of their illustrious house. I adhere to Muratori (Dissert. xlii. tom. iii. p. 647, 648).",
 
@@ -19909,7 +19890,7 @@ Raptat amor.
 — Georgics 3, 291.
 
 
-This address has been published by Attilio Hortis in Scritti inediti di Fr. Petrarca, 1874, p. 311 sqq.]"""
+This address has been published by Attilio Hortis in Scritti inediti di Fr. Petrarca, 1874, p. 311 sqq.]""",
 
 "**15.** The original act is printed among the Pièces Justificatives in the Mémoires sur Pétrarque, tom. iii. p. 50-53.",
 
@@ -19987,7 +19968,7 @@ This address has been published by Attilio Hortis in Scritti inediti di Fr. Petr
 
 """**52.** Petrarch wrote a stiff and pedantic letter of consolation (Fam. l. vii. epist. 13, p. 682, 683). The friend was lost in the patriot. Nulla toto orbe principum familia carior; carior tamen respublica, carior Roma, carior Italia.",
 
-Je rends grâces aux Dieux de n’être pas Romain."""
+Je rends grâces aux Dieux de n’être pas Romain.""",
 
 
 "**53.** This council and opposition is obscurely mentioned by Pollistore, a contemporary writer, who has preserved some curious and original facts (Rer. Italicarum, tom. xxv. c. 31, p. 798-804).",

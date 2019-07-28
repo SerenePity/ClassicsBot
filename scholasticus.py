@@ -266,6 +266,15 @@ class Scholasticus(commands.Bot):
         else:
             await self.send_message(channel, text)
 
+    def format_chapter_for_gibbon(self, chapter):
+        if "chapter" not in chapter and chapter.lower() != "preface":
+            chapter_number = re.findall(r"[0-9]+", chapter)
+            if len(chapter_number) > 0:
+                chapter = f"Chapter {chapter_number[0]}"
+                return chapter
+        else:
+            return chapter.title()
+
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
@@ -745,7 +754,7 @@ class Scholasticus(commands.Bot):
             if qt_obj.author != "gibbon":
                 await self.send_message(channel, f"This utility if only for finding which chapter of Gibbon's Declien and Fall you are reading.")
                 return
-            chapter = self.robot.find_chapter_from_passage(qt_obj)
+            chapter = qt_obj.find_chapter_from_passage()
             if chapter == "Preface":
                 await self.send_message(channel, f"You are in the Preface in Volume 1")
             else:
@@ -754,21 +763,38 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'gibbonfn'):
+        if content.lower().startswith(self.command_prefix + 'fn'):
             args = shlex.split(content.lower())
-            if args[0].lower() != 'gibbonfn':
+            if args[0].lower() != 'fn':
+                return
+            if len(args) == 2:
+                try:
+                    qt_obj: QuoteContext = self.quote_requestors[author]
+                except:
+                    await self.send_message("The current command form assumes that you are reading Gibbon and are trying to retrieve a footnote from a passage you have just read, but htis does not appear to be the case.")
+                    return
+                chapter = qt_obj.find_chapter_from_passage()
+                try:
+                    footnote_num = int(args[1])
+                except:
+                    await self.send_message(channel, "Footnote number must be an integer.")
+                    return
+                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
+                await self.send_in_chunks_if_needed(channel, footnote)
                 return
             if len(args) == 3:
                 chapter = args[1].title()
+                chapter = self.format_chapter_for_gibbon(chapter)
                 try:
                     footnote_num = int(args[2])
                 except:
                     await self.send_message(channel, "Footnote number must be an integer.")
                     return
                 footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
-                await self.send_message(channel, footnote)
+                await self.send_in_chunks_if_needed(channel, footnote)
             elif len(args) == 4:
                 chapter = args[1].title()
+                chapter = self.format_chapter_for_gibbon(chapter)
                 try:
                     footnote_num = int(args[2])
                 except:
@@ -779,8 +805,15 @@ class Scholasticus(commands.Bot):
                 except:
                     await self.send_message(channel, "Footnote number must be an integer.")
                     return
+                if footnote_end - footnote_num > 4:
+                    await self.send_message(channel, "For the sake of sanity, please retrieve only five footnotes at a time.")
+                    return
                 footnote = self.robot.get_gibbon_footnote(chapter, footnote_num, footnote_end)
-                await self.send_message(channel, footnote)
+                await self.send_in_chunks_if_needed(channel, footnote)
+            else:
+                await self.send_message(channel, "Wrong number of arguments. Type helpme for help.")
+                return
+            return
 
         # ==================================================================================================================================================
 

@@ -122,6 +122,19 @@ class QuoteContext():
             ret_str = ret_str[:1998] + "..."
         return ret_str.replace(ABSOLUTE_DELIMITER, "")
 
+    def find_chapter_from_passage(self):
+        print("Quote index: " + str(self.index))
+        for i in range(self.index, -1, -1):
+            passage = self.quotes[i]
+            print("Passage: " + passage)
+            chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
+            if not chapter or len(chapter) == 0:
+                continue
+            else:
+                chapter_number = roman.fromRoman(chapter[0])
+                return "Chapter " + str(chapter_number)
+        return "Preface"
+
 class RoboticRoman():
 
     def __init__(self, prefix):
@@ -244,20 +257,6 @@ class RoboticRoman():
             return int(m[0])
         else:
             return int(''.join(str(ord(c)) for c in x.split('_')[0]))
-
-    def find_chapter_from_passage(self, qt_obj: QuoteContext):
-        print("Quote index: " + str(qt_obj.index))
-        for i in range(qt_obj.index, -1, -1):
-            passage = qt_obj.quotes[i]
-            print("Passage: " + passage)
-            chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
-            if not chapter or len(chapter) == 0:
-                continue
-            else:
-                chapter_number = roman.fromRoman(chapter[0])
-                return "Chapter " + str(chapter_number)
-        return "Preface"
-
 
     def format_gibbon_module(self, w):
         return str(w).split("from")[0].replace("'","").replace("<module cached_quotes.gibbon.", "").replace("__", " ").replace("_", " ").strip().title()
