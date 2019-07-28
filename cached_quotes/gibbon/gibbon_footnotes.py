@@ -5525,10 +5525,10 @@ For the credit of human nature, I am always pleased to discover some good qualit
 
 "**1.** My friend Mr. F. C. Conybeare is inclined to believe that Gregory the Illuminator used an Armenian version of New Testament Scriptures made from a pre-Peshito Syriac text, long before the time of Mesrop. This version may have been due to the Church in Vaspurakan. Apparently the non-existence of Mesrop’s alphabet did not prevent literary composition in Armenian.",
 
-"**1.** Compare the words: ne aedis nostro nomini dedicata cuiusquam contagiosae superstitionis fraudibus polluatur, insisted on by Seeck, Untergang der antiken Welt, p. 439.",
+"**1.** Compare the words: ne aedis nostro nomini dedicata cuiusquam contagiosae superstitionis fraudibus polluatur, insisted on by Seeck, Untergang der antiken Welt, p. 439."],
 
-
-"**1.** Omnes qui plus poterant in palatio, adulandi professores jam docti, recte consulta prospereque completa vertebant in deridiculum: talia sine modo strepentes insulse; in odium venit cum victoriis suis capella, non homo; ut hirsutum Julianum carpentes, appellantesque loquacem talpam, et purpuratam simiam, et litterionem Græcum: et his congruentia plurima atque vernacula [legendum cum Ungero aeque ut tintinnabula] principi resonantes, audire hæc taliaque gestienti, virtutes ejus obruere verbis impudentibus conabantur, ut segnem incessentes et timidum et umbratilem, gestaque secus verbis comptioribus exornantem. Ammianus, xvii. 11.",
+"Chapter 22":
+["**1.** Omnes qui plus poterant in palatio, adulandi professores jam docti, recte consulta prospereque completa vertebant in deridiculum: talia sine modo strepentes insulse; in odium venit cum victoriis suis capella, non homo; ut hirsutum Julianum carpentes, appellantesque loquacem talpam, et purpuratam simiam, et litterionem Græcum: et his congruentia plurima atque vernacula [legendum cum Ungero aeque ut tintinnabula] principi resonantes, audire hæc taliaque gestienti, virtutes ejus obruere verbis impudentibus conabantur, ut segnem incessentes et timidum et umbratilem, gestaque secus verbis comptioribus exornantem. Ammianus, xvii. 11.",
 
 "**2.** Ammian. xvi. 12. The orator Themistius (iv. p. 56, 57) believed whatever was contained in the Imperial letters which were addressed to the senate of Constantinople. Aurelius Victor, who published his Abridgment in the last year of Constantius, ascribes the German victories to the wisdom of the emperor, and the fortune of the Cæsar. Yet the historian, soon afterwards, was indebted to the favour or esteem of Julian for the honour of a brass statue, and the important offices of consular of the second Pannonia, and prefect of the city. Ammian. xxi. 10.",
 
@@ -5739,7 +5739,7 @@ Perfidus ille Deo, sed non et [leg. quamuis non] perfidus orbi.
 The consciousness of a generous sentiment seems to have raised the Christian poet above his usual mediocrity."""],
 
 
-"Chapter 22":
+"Chapter 23":
 ["**1.** I shall transcribe some of his own expressions from a short religious discourse which the Imperial pontiff composed to censure the bold impiety of a Cynic: Ἄλλ’ ὅμως οὕτω δή τι τοὺς θεοὺς πέϕρικα, καὶ ϕιλω̂, καὶ σέβω, καὶ ἄζομαι, καὶ πάνθ’ ἁπλω̂ς τὰ τοιαν̂τα πάσχω, ὄσαπερ ἄν τις καὶ ο[Editor: illegible character]α πρὸς ἀγαθοὺς δεσπότας, πρὸς διδασκάλους, πρὸς πατέρας, πρὸς κηδεμὁνας. Orat. vii. p. 212 [275, ed. Hertl.]. The variety and copiousness of the Greek tongue seem inadequate to the fervour of his devotion.",
 
 "**2.** The orator, with some eloquence, much enthusiasm, and more vanity, addresses his discourse to heaven and earth, to men and angels, to the living and the dead; and above all, to the great Constantius (εἴ τις αἴσθησις, an odd Pagan expression [cp. Isocr. Evagoras, 1, 2]). He concludes with a bold assurance that he has erected a monument not less durable, and much more portable, than the columns of Hercules. See Greg. Nazianzen, Orat. iii. p. 50, iv. p. 134 [iv. c. 3, v. ad fin. c. 42].",
@@ -6029,7 +6029,7 @@ These two lines, which Julian has changed and perverted in the true spirit of a 
 
 "**142.** The resignation of Gregory is truly edifying (Orat. iv. p. 123, 124). Yet, when an officer of Julian attempted to seize the Church of Nazianzus, he would have lost his life, if he had not yielded to the zeal of the bishop and people (Orat. xix. p. 308 [c. 32]). See the reflections of Chrysostom, as they are alleged by Tillemont (Mém. Ecclés. tom. vii. p. 575)."],
 
-"Chapter 23":
+"Chapter 24":
 ["**1.** See this fable or satire, p. 306-336 of the Leipzig edition of Julian’s works. The French version of the learned Ezekiel Spanheim (Paris, 1683) is coarse, languid, and incorrect; and his notes, proofs, illustrations, &c., are piled on each other till they form a mass of 557 close-printed quarto pages. The Abbé de la Bléterie (Vie de Jovien, tom. i. p. 241-393) has more happily expressed the spirit, as well as the sense, of the original, which he illustrates with some concise and curious notes.",
 
 "**2.** Spanheim (in his preface) has most learnedly discussed the etymology, origin, resemblance, and disagreement of the Greek satyrs, a dramatic piece, which was acted after the tragedy; and the Latin satires (from satura), a miscellaneous composition, either in prose or verse. But the Cæsars of Julian are of such an original cast that the critic is perplexed to which class he should ascribe them.",
@@ -6331,7 +6331,7 @@ See Guichardt (Nouveaux Mémoires Militaires, tom. i. p. 379-382). His Analysis 
 
 "**144.** Cujus suprema et cineres, si qui tunc juste consuleret, non Cydnus videre deberet, quamvis gratissimus amnis et liquidus: sed ad perpetuandam gloriam recte factorum praeterlambere Tiberis, intersecans urbem aeternam divorumque veterum monumenta praestringens. Ammian. xxv. 10."],
 
-"Chapter 24":
+"Chapter 25":
 ["**1.** The medals of Jovian adorn him with victories, laurel crowns, and prostrate captives. Ducange, Famil. Byzantin. p. 52. Flattery is a foolish suicide; she destroys herself with her own hands.",
 
 "**2.** Jovian restored to the church τὸν ἀρχαɩ̂ον κόσμον; a forcible and comprehensive expression (Philostorgius, l. viii. c. 5, with Godefroy’s Dissertations, p. 329. Sozomen, l. vi. c. 3. [The phrase means the policy of Constantius, cp. Schiller, ii. 349.]). The new law which condemned the rape or marriage of nuns (Cod. Theod. l. ix. tit. xxv. leg. 2) is exaggerated by Sozomen, who supposes that an amorous glance, the adultery of the heart, was punished with death by the evangelic legislator. [Jovian’s Corcyræan inscription boasts that he destroyed pagan temples Ἑλλήνων τεμένη καὶ βωμοὺς ἑξαλαπάξας, C.I.G. 8608.]",
@@ -6703,7 +6703,7 @@ See likewise Pacatus (in Panegyr. Vet. xii. 5). But it is not easy to appreciate
 
 "**164.** Ammianus, xxx. 10. Zosimus, l. iv. p. 222, 223 [c. 19]. Tillemont has proved (Hist. des Empereurs, tom. v. p. 707-709) that Gratian reigned in Italy, Africa, and Illyricum. I have endeavoured to express his authority over his brother’s dominions, as he used it, in an ambiguous style."],
 
-"Chapter 25":
+"Chapter 26":
 ["**1.** Such is the bad taste of Ammianus (xxvi. 10) that it is not easy to distinguish his facts from his metaphors. Yet he positively affirms that he saw the rotten carcase of a ship, ad secundum lapidem, at Methone, or Modon, in Peloponnesus.",
 
 "**2.** The earthquakes and inundations are variously described by Libanius (Orat. de ulciscendâ Juliani nece, c. x. in Fabricius, Bibl. Græc. tom. vii. p. 158, with a learned note of Olearius), Zosimus (l. iv. p. 221 [c. 18]), Sozomen (l. vi. c. 2), Cedrenus (p. 310, 314), and Jerom (in Chron. p. 186, and t. i. p. 250, in Vit. Hilarion). Epidaurus must have been overwhelmed, had not the prudent citizens placed St. Hilarion, an Egyptian monk, on the beach. He made the sign of the cross; the mountain wave stopped, bowed, and returned. [The earthquakes in Greece mentioned by Zosimus belong to ad 375.]",
