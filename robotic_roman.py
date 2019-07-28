@@ -172,9 +172,11 @@ class RoboticRoman():
             print(directory)
             for author in author_collection:
                 if author == 'gibbon':
+                    if 'gibbon' not in quotes_dict:
+                        quotes_dict['gibbon'] = []
                     for f in os.listdir("cached_quotes/gibbon"):
                         if 'footnotes' not in f and '__pycache__' not in f:
-                            quotes_dict = importlib.import_module(f"cached_quotes.gibbon.{f.replace('.py', '')}").quotes
+                            quotes_dict[author].append(importlib.import_module(f"cached_quotes.gibbon.{f.split('/')[-1].replace('.py', '')}"))
                 else:
                     print(author)
                     quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
@@ -230,7 +232,7 @@ class RoboticRoman():
 
     def get_gibbon_footnote(self, chapter, footnote: int, footnote_end=None):
         if footnote_end:
-            return '\n'.join(cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1:footnote_end])
+            return '\n\n'.join(cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1:footnote_end])
         return cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1]
 
     def display_sort(x):
@@ -242,11 +244,22 @@ class RoboticRoman():
         else:
             return int(''.join(str(ord(c)) for c in x.split('_')[0]))
 
+    def format_gibbon_module(self, w):
+        return str(w).split("from")[0].replace("'","").replace("<module cached_quotes.gibbon.", "").replace("__", " ").replace("_", " ").strip().title()
+
     def show_author_works(self, author, tries=0):
 
         author = author.lower()
 
         dic = self.map_person_to_dict(author)
+
+        if author.strip().lower() == 'gibbon':
+            modules = dic['gibbon']
+            works = sorted(modules, key=lambda x : RoboticRoman.display_sort(self.format_gibbon_module(x)))
+            display_works = [self.format_gibbon_module(w) for w in works]
+            print(', '.join(display_works))
+            display_index = '\n'.join([f"**{i+1}.** {str(e)}" for i,e in enumerate(display_works)])
+            return display_index, works
 
         works = sorted(dic[author], key=lambda x : RoboticRoman.display_sort(x.name))
         work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
@@ -930,6 +943,65 @@ class RoboticRoman():
         nfkd_form = unicodedata.normalize('NFKD', input_str)
         return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
+    def pick_quote_modular(self, modules, word=None, lemmatize=False, case_sensitive=False, tries=0):
+        # print(', '.join([f.name for f in files]))
+        print("Case_sensitive: " + str(case_sensitive))
+        if tries > 2:
+            return -1, "Not found.", []
+        if word:
+            word = self.remove_accents(word).lower() if not case_sensitive else word
+            regex_list = []
+            if lemmatize:
+                try:
+                    #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
+                    inflected = self.decliner.decline(word, flatten=True)
+                    for form in inflected:
+                        regex_list.append(f"\\b{form}\\b")
+                except:
+                    traceback.print_exc()
+                    return -1, "Unknown lemma.", []
+            else:
+                #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
+                #words = [f"{word} ", f" {word} ", f" {word}."]
+                regex_list.append(f"\\b{word}\\b")
+                # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
+            print(regex_list)
+            search_quotes = []
+            quotes_list = []
+            all_quotes = []
+            for module in modules:
+                # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
+                for p in module.quotes:
+                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
+                    if search_target:
+                        search_quotes.append(p)
+                        quotes_list.append(p + "_found")
+                    else:
+                        quotes_list.append(p)
+                quotes_list.append("--------------------------EOF--------------------------")
+            if len(search_quotes) == 0:
+                print("Search_quotes is 0")
+                j = JVReplacer()
+                index, quote, quotes_list = self.pick_quote_modular(modules, j.replace(word), lemmatize, case_sensitive,  tries + 1)
+                if not search_quotes or len(search_quotes) == 0:
+                    return -1, "Not found.", []
+            else:
+                return_values = []
+                for i, quote in enumerate(quotes_list):
+                    if quote.endswith("_found"):
+                        return_values.append((i, quote.replace("_found", ""),  quotes_list))
+                ret = random.choice(return_values)
+                #print("Return: " + str(ret))
+                return ret[0], ret[1], ret[2]
+        else:
+            vol_index = random.randint(0, len(modules) - 1)
+            volume = modules[vol_index]
+            quotes_list = volume.quotes
+            quote_index = random.randint(0, len(quotes_list) - 1)
+            quote = quotes_list[quote_index]
+            return quote_index, quote, quotes_list
+        return index, quote, quotes_list
+
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
         # print(', '.join([f.name for f in files]))
         print("Case_sensitive: " + str(case_sensitive))
@@ -1101,6 +1173,11 @@ class RoboticRoman():
         print(person)
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
+
+        if person.strip().lower() == 'gibbon':
+            modules = self.map_person_to_dict('gibbon')['gibbon']
+            i, quote, quotes_list = self.pick_quote_modular(modules, word, lemmatize, case_sensitive)
+            return i, quote, quotes_list
 
         quotes_dict = self.map_person_to_dict(person.lower())
         if not quotes_dict:

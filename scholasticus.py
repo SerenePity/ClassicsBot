@@ -536,12 +536,24 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "You need to pick an index.")
                 return
             index = 0
-            qt_obj = self.quote_requestors[author]
+            qt_obj: QuoteContext = self.quote_requestors[author]
             source = qt_obj.author
+
             try:
                 index = int(args[1])
             except:
                 self.send_message(channel, "Index must be an integer.")
+
+            if source.lower().strip() == 'gibbon':
+                module = qt_obj.works_list[index - 1]
+                quotes = module.quotes
+                qt_obj.works_list[index - 1] = module
+                qt_obj.quotes = quotes
+                qt_obj.index = 0
+                qt_obj.author = 'gibbon'
+                await self.send_message(channel, qt_obj.get_surrounding(after=1))
+                return
+
             file = qt_obj.works_list[index - 1]
             if file.closed:
                 qt_obj.works_list[index - 1] = open(file.name)
@@ -570,7 +582,7 @@ class Scholasticus(commands.Bot):
             qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             try:
-                await self.send_message(channel, qt_obj.get_surrounding(after=2))
+                await self.send_message(channel, qt_obj.get_surrounding(after=1))
             except:
                 display, workslist = self.robot.show_author_works(source)
                 print("WORKSLIST:")
@@ -583,7 +595,7 @@ class Scholasticus(commands.Bot):
                 else:
                     qt_obj = QuoteContext(source, RoboticRoman._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
-                await self.send_message(channel, qt_obj.get_surrounding(after=2))
+                await self.send_message(channel, qt_obj.get_surrounding(after=1))
             return
 
         # ==================================================================================================================================================
@@ -595,6 +607,8 @@ class Scholasticus(commands.Bot):
             else:
                 source = ' '.join(args[1:])
                 display, workslist = self.robot.show_author_works(source)
+                print("Display: " + str(display))
+                print("Workslist: " + str(workslist))
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
@@ -720,9 +734,9 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'fn'):
+        if content.lower().startswith(self.command_prefix + 'gibbonfn'):
             args = shlex.split(content.lower())
-            if args[0].lower() != 'fn':
+            if args[0].lower() != 'gibbonfn':
                 return
             if len(args) == 3:
                 chapter = args[1].title()
