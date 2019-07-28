@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from cached_antique_chinese import baxter_sagart
 
 import requests
 import re
@@ -28,16 +29,12 @@ def format(ul):
                 ret += '\n' + (li.get_text() if li and isinstance(li, NavigableString) else "") + '\n'
     return ret
 
-def get_etymology(soup, language):
-    if "Wiktionary does not yet have an entry for " in str(soup):
+def get_etymology(language_header, language, word):
+    next_siblings = language_header.next_siblings
+    print(language_header)
+    if "Wiktionary does not yet have an entry for " in str(next_siblings):
         return "Not found."
-    language_header = None
     etymology = "Not found."
-    for h2 in soup.find_all('h2'):
-        #print(h2)
-        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
-            language_header = h2
-            break
 
     if not language_header:
         return "Not found."
@@ -48,21 +45,24 @@ def get_etymology(soup, language):
         if sibling.name == 'h2':
             break
         if 'Etymology' in sibling.get_text():
+            etymology = []
             if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             try:
-                dls = sibling.find_next_siblings('dl')
-                if not dls or len(list(dls)) == 0:
-                    etymology = sibling.findNextSibling('p').get_text()
-                    if etymology and etymology.strip() != "":
-                        break
-                else:
-                    etymology = sibling.findNextSibling('p').get_text()
-                    if etymology and etymology.strip() != "":
-                        break
+                ety_sect = sibling.findNextSibling('p')
+                etymology.append(ety_sect.get_text())
+                while True:
+                    ety_sect = ety_sect.findNextSibling()
+                    if isinstance(ety_sect, Tag):
+                        if ety_sect.name in ['h3', 'h4']:
+                            break
+                        etymology.append(ety_sect.get_text())
+                    else:
+                        etymology.append(" ")
             except:
                 return "Not found."
-    return etymology
+    print(etymology)
+    return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
 
 def get_definition(soup, language, include_examples=True):
     #print("Part of speech: " + part_of_speech.title())
@@ -282,7 +282,7 @@ def get_latin_grammar_forms(no_macrons=False, tries=0):
         if sibling.name == 'h2':
             break
     if headword_forms == []:
-        headword_forms = [get_etymology(soup, 'Latin')]
+        headword_forms = [get_etymology(soup, 'Latin', headword)]
     if headword == None:
         return get_latin_grammar_forms(tries + 1)
     if no_macrons:
@@ -321,7 +321,7 @@ def get_greek_grammar_forms(tries=0):
         if sibling.name == 'h2':
             break
     if headword_forms == []:
-        headword_forms = [get_etymology(soup, 'Ancient Greek')]
+        headword_forms = [get_etymology(soup, 'Ancient Greek', headword)]
     if headword == None:
         return get_greek_grammar_forms(tries + 1)
     return [headword.split('•')[0].strip(), headword_forms]
@@ -377,14 +377,15 @@ def get_grammar_question(language, tries=0):
         if sibling.name == 'h2':
             break
     if headword_forms == []:
-        headword_forms = [get_etymology(soup, language.title())]
+        headword_forms = [get_etymology(soup, language.title(), headword)]
     if headword == None:
         return get_grammar_question(language, tries + 1)
     return [headword.split('•')[0].strip(), headword_forms]
 
-def get_middle_chinese_only(c):
+
+def get_middle_chinese_only(soup, c):
     print("Middle Chinese only char: " + c)
-    soup = get_soup(c)
+
     #print(soup)
     matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
     try:
@@ -394,87 +395,72 @@ def get_middle_chinese_only(c):
     pronunciation = re.sub(r"<.*?/*>", "", pronunciation)
     return pronunciation
 
-def get_old_chinese_only_zhengchang(c):
+def get_old_chinese_only_zhengchang(c, soup):
     print("Old Chinese only char: " + c)
-    soup = get_soup(c)
     pronunciation = ""
     try:
         pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
     except:
         traceback.print_exc()
-        return "Not found."
+        return "N/A"
     return pronunciation
 
-def get_old_chinese_only(c):
-    print("Old Chinese only char: " + c)
-    soup = get_soup(c)
-    pronunciation_zc = ""
-    pronunciation_sg = ""
-    try:
-        pronunciation_zc = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
-    except:
-        traceback.print_exc()
-        pronunciation_zc = "Not found"
-
-    try:
-        pronunciation_sg = re.findall(r"Sagart\".*\"IPAchar\">/(.*?)/", str(soup))[0]
-    except:
-        traceback.print_exc()
-        pronunciation_sg = "Not found"
-    return pronunciation_zc, pronunciation_sg
-
-def get_middle_chinese(soup, word):
-    print("Chinese char: " + word)
+def get_language_header(word, language):
+    soup = get_soup(word)
     language_header = None
     for h2 in soup.find_all('h2'):
         # print(h2)
-        if h2.span and 'Chinese' in [s.get_text().strip() for s in h2.find_all('span')]:
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
-            break
+            return language_header, soup
+    return None, soup
 
-    pronunciation = "Not found."
-    for sibling in language_header.next_siblings:
-        siblings = '|'.join((list([s.get_text() if (isinstance(s, Tag) and not isinstance(s, str)) else s for s in language_header.next_siblings])))
-        #print(siblings)
-        mc = '-'.join(' '.join([s.split('|')[0] for s in re.findall(r"Middle Chinese:\s/(.*?)", siblings)]).split()).replace('/', '')
+def get_mandarin_pronunciation(language_header):
+    siblings = '|'.join((list([s.get_text() if (isinstance(s, Tag) and not isinstance(s, str)) else s for s in
+                                   language_header.next_siblings])))
+        # print(siblings)
+    mandarin_pronunciation = language_header.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
+    #mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
+    return mandarin_pronunciation
 
-        mc_list = []
-        if not mc:
-            mc_list = []
-            for c in list(word):
-                if c == '，':
-                    mc_list.append(", ")
-                else:
-                    mc_list.append(get_middle_chinese_only(c).split('|')[0])
-            mc = ' '.join([s.split(', ')[0] for s in mc_list]).replace('/', '')
+def get_historical_chinese(char, soup):
+    if char in baxter_sagart.reconstructions:
+        tuple_list = baxter_sagart.reconstructions[char]
+        first_entry = tuple_list[0]
+        pinyin, mc, oc_bax, gloss = first_entry
+        oc_zc = get_old_chinese_only_zhengchang(char, soup)
+        oc_bax = oc_bax.split(" (")[0].strip()
+        return pinyin, mc, oc_bax, oc_zc
+    else:
+        mc = get_middle_chinese_only(soup, char)
+        oc_bax = "N/A"
+        oc_zc = get_old_chinese_only_zhengchang(char, soup)
+        return None, mc, oc_bax, oc_zc
 
-        if not mc:
-            mc_pronunciation = "Middle Chinese: Not found"
-        else:
-            mc_pronunciation = "Middle Chinese: " + mc
-        oc_zs_list = []
-        oc_sg_list = []
-        for c in list(word):
-            if c == '，':
-                oc_zs_list.append(", ")
-                oc_sg_list.append(", ")
-            else:
-                oc_zs, oc_sg = get_old_chinese_only(c)
-                oc_zs_list.append(oc_zs)
-                oc_sg_list.append(oc_sg)
-
-        oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zs_list).replace("*", "\*")
-        oc_pronunciation_sg = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_sg_list).replace("*", "\*")
-        mandarin_pronunciation = "Mandarin: " + ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
-        pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_sg, mc_pronunciation, mandarin_pronunciation])
-        return pronunciation
+def get_historical_chinese_word(word):
+    language_header, soup = get_language_header(word, "Chinese")
+    print(soup)
+    mandarin_word, mc_word, oc_bax_word, oc_zc_word = [], [], [], []
+    for char in list(word):
+        pinyin, mc, oc_bax, oc_zc = get_historical_chinese(char, soup)
+        mandarin_word.append(pinyin)
+        mc_word.append(mc)
+        oc_bax_word.append(oc_bax)
+        oc_zc_word.append(oc_zc)
+    if None in mandarin_word:
+        mandarin_word = get_mandarin_pronunciation(word, soup)
+    mc_pronunciation = "Middle Chinese: " + " ".join(mc_word)
+    oc_pronunciation_zc = "Old Chinese (Zhengchang): " + ' '.join(oc_zc_word).replace("*", "\*")
+    oc_pronunciation_bax = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_bax_word).replace("*", "\*")
+    mandarin_pronunciation = "Mandarin: " + ''.join(mandarin_word)
+    pronunciation = '\n'.join([oc_pronunciation_zc, oc_pronunciation_bax, mc_pronunciation, mandarin_pronunciation])
     return pronunciation
 
-def get_glyph_origin_multiple(words):
+
+def get_glyph_origin_multiple(words, soup):
     final = []
     for i, c in enumerate(words):
         print("Charlist mem: " + c)
-        soup = get_soup(c)
         final.append(f"{i+1}. {c}: {get_glyph_origin(soup)}")
     return '\n'.join(final)
 
