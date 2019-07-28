@@ -8,3 +8,4 @@ cltk
 wiktionaryparser
 transliterate
 mafan
+roman
