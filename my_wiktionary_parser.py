@@ -1,3 +1,4 @@
+# coding=utf8
 from collections import OrderedDict
 from cached_antique_chinese import baxter_sagart
 
@@ -159,23 +160,30 @@ def old_dictify(ul, level=0):
 def dictify(ul, level=0):
     print("In Dictify")
     return_str = ""
-    for li in ul.find_all("li", recursive=False):
-        stripped = iter([s for s in li.stripped_strings if s not in ['⇒', '→']])
-        key = next(stripped)
-        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
-        if not nukes:
-            continue
-        if key.strip().lower() == nukes.split()[0].lower().strip():
-            key = nukes.strip()
-            nukes = ""
-        return_str += level*'\t\t' + key + " " + nukes + '\n'
+    try:
+        for li in ul.find_all("li", recursive=False):
+            stripped = iter([s for s in li.stripped_strings if s not in ['⇒', '→']])
+            try:
+                key = next(stripped)
+            except:
+                key = ""
+            nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
+            if not nukes:
+                continue
+            if key.strip().lower() == nukes.split()[0].lower().strip():
+                key = nukes.strip()
+                nukes = ""
+            return_str += level*'\t\t' + key + " " + nukes + '\n'
 
-        #print("Spans: " + str([s.text for s in li.find_all('span')]))
-        ul2 = li.find("ul")
-        if ul2:
-            return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
+            #print("Spans: " + str([s.text for s in li.find_all('span')]))
+            ul2 = li.find("ul")
+            if ul2:
+                return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
+    except:
+        traceback.print_exc()
+
     #print(return_str)
-    return return_str.strip()
+    return "Not found."
 
 def has_unwanted_headers(header):
     unwanted_list = ['References', 'See also', 'Further reading']
@@ -236,7 +244,12 @@ def get_derivations(soup, language, misc=False):
                 return "Not found."
             else:
                 if misc:
-                    misc = get_misc(uls)
+                    if language.lower() != "japanese":
+                        misc = get_misc(uls)
+                    else:
+                        japanese_pronunciations = get_japanese_pronunciation(soup)
+                        print("Japanese pronunciation: " + ', '.join(japanese_pronunciations))
+                        return '\n\n'.join([f"**Tokyo Pronunciation {i+1}**\n{e}" for i, e in enumerate(japanese_pronunciations)])
                     return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls] + misc)
                 else:
                     return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + old_dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
@@ -502,6 +515,18 @@ mapping = {
     'ŏ': 'o',
     'ŭ': 'u'
 }
+
+def get_japanese_pronunciation(soup):
+    tokyo_pronunciations = []
+    tokyo_dialect = soup.find_all(attrs={"title": "w:Tokyo dialect"})
+    for pronunciation in tokyo_dialect:
+        print(pronunciation)
+        print(pronunciation.parent)
+        surrounding = pronunciation.parent.parent
+        print(surrounding)
+        pronunciation = surrounding.find_all('samp', recursive=True)[0].get_text()
+        tokyo_pronunciations.append(pronunciation)
+    return tokyo_pronunciations
 
 def remove_macrons(text):
     for key in mapping.keys():
