@@ -123,9 +123,12 @@ class QuoteContext():
         return ret_str.replace(ABSOLUTE_DELIMITER, "")
 
     def find_chapter_from_passage(self):
-        print("Quote index: " + str(self.index))
+        #print("Quote index: " + str(self.index))
+        #print(self.quotes)
         for i in range(self.index, -1, -1):
             passage = self.quotes[i]
+            if re.match(r"\*\*[0-9]+\.\*\*", passage):
+                return "the footnotes"
             #print("Passage: " + passage)
             chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
             if not chapter or len(chapter) == 0:
@@ -133,7 +136,7 @@ class QuoteContext():
             else:
                 chapter_number = roman.fromRoman(chapter[0])
                 return "Chapter " + str(chapter_number)
-        return "Preface"
+        return "the preface"
 
 class RoboticRoman():
 
@@ -189,7 +192,7 @@ class RoboticRoman():
                     if 'gibbon' not in quotes_dict:
                         quotes_dict['gibbon'] = []
                     for f in os.listdir("cached_quotes/gibbon"):
-                        if 'footnotes' not in f and '__pycache__' not in f:
+                        if '__pycache__' not in f:
                             quotes_dict[author].append(importlib.import_module(f"cached_quotes.gibbon.{f.split('/')[-1].replace('.py', '')}"))
                 else:
                     print(author)
@@ -236,6 +239,8 @@ class RoboticRoman():
             (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),         f"'{prefix}bef [<number>]'"),
             (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),    f"'{prefix}surr <number> <number>'"),
             (format_color("End text reading session ", "CSS"),               f"'{prefix}textend' | 'txend'"),
+            (format_color("Get Gibbon footnote", "CSS"),                     f"'{prefix}fn <footnote>' | '{prefix}fn <chapter> <footnote> [<ending footnote>]'"),
+            (format_color("Get current Gibbon chapter", "CSS"),              f"'{prefix}whatchapter'"),
             (format_color("Help ", "CSS"),                                   f"'{prefix}helpme'")]
 
     def sort_files(self, file):
@@ -980,7 +985,15 @@ class RoboticRoman():
             all_quotes = []
             for module in modules:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                for p in module.quotes:
+                quotes = []
+                print(f"Module file: {module.__file__}")
+                if 'footnotes' not in module.__file__:
+                    quotes = module.quotes
+                else:
+                    quotes = []
+                    for chapter in module.footnotes:
+                        quotes += module.footnotes[chapter]
+                for p in quotes:
                     search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
                     if search_target:
                         search_quotes.append(p)
@@ -1005,7 +1018,13 @@ class RoboticRoman():
         else:
             vol_index = random.randint(0, len(modules) - 1)
             volume = modules[vol_index]
-            quotes_list = volume.quotes
+            if 'footnotes' in volume.__file__:
+                quotes = []
+                for chapter in volume:
+                    quotes += volume[chapter]
+                quotes_list = quotes
+            else:
+                quotes_list = volume.quotes
             quote_index = random.randint(0, len(quotes_list) - 1)
             quote = quotes_list[quote_index]
             return quote_index, quote, quotes_list
