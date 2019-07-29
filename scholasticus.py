@@ -555,12 +555,22 @@ class Scholasticus(commands.Bot):
 
             if source.lower().strip() == 'gibbon':
                 module = qt_obj.works_list[index - 1]
-                quotes = module.quotes
-                qt_obj.works_list[index - 1] = module
-                qt_obj.quotes = quotes
-                qt_obj.index = 0
-                qt_obj.author = 'gibbon'
-                await self.send_message(channel, qt_obj.get_surrounding(after=1))
+                if 'footnotes' in module.__file__:
+                    quotes = []
+                    for chapter in module.footnotes:
+                        quotes += [fn + '\n\n' for fn in module.footnotes[chapter]]
+                    qt_obj.works_list[index - 1] = module
+                    qt_obj.quotes = quotes
+                    qt_obj.index = 0
+                    qt_obj.author = 'gibbon'
+                    await self.send_message(channel, qt_obj.get_surrounding(after=1, joiner=""))
+                else:
+                    quotes = module.quotes
+                    qt_obj.works_list[index - 1] = module
+                    qt_obj.quotes = quotes
+                    qt_obj.index = 0
+                    qt_obj.author = 'gibbon'
+                    await self.send_message(channel, qt_obj.get_surrounding(after=1))
                 return
 
             file = qt_obj.works_list[index - 1]
