@@ -992,7 +992,7 @@ class RoboticRoman():
                 else:
                     quotes = []
                     for chapter in module.footnotes:
-                        quotes += module.footnotes[chapter]
+                        quotes += [fn.lstrip() + '\n\n' for fn in module.footnotes[chapter]]
                 for p in quotes:
                     search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
                     if search_target:

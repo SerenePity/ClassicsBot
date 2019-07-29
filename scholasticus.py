@@ -832,8 +832,11 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
-                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after, joiner=""))
+                qt_obj: QuoteContext = self.quote_requestors[author]
+                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
+                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
+                    await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 else:
                     await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
             except discord.errors.HTTPException:
@@ -856,10 +859,13 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
-                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, joiner=""))
+                qt_obj: QuoteContext = self.quote_requestors[author]
+                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    await self.send_message(channel, qt_obj.get_surrounding(before=before, joiner=""))
+                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
+                    await self.send_message(channel, qt_obj.get_surrounding(before=before, joiner=""))
                 else:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before))
+                    await self.send_message(channel, qt_obj.get_surrounding(before=before))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -878,10 +884,16 @@ class Scholasticus(commands.Bot):
                 before = int(args[1])
                 after = int(args[2])
             try:
-                if self.quote_requestors[author].author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after, joiner=""))
+                qt_obj: QuoteContext = self.quote_requestors[author]
+                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
+                    surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
+                    await self.send_message(channel, surr_quotes)
+                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
+                    surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
+                    await self.send_message(channel, surr_quotes)
                 else:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(before=before, after=after))
+                    surr_quotes = qt_obj.get_surrounding(before=before, after=after)
+                    await self.send_message(channel, surr_quotes)
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"The passage is too long.")
