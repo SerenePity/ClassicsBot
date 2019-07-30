@@ -298,14 +298,14 @@ def get_derivations(soup, language, misc=False):
                         if sub_subling.name in ['h2', 'h3', 'h4']:
                             break
                         else:
-                            if header != "Declension":
+                            if header != "Declension" and header != "Inflection":
                                 if header == "References":
                                     deriv_terms.append(old_dictify(sub_subling))
                                 else:
                                     deriv_terms.append(sub_subling.get_text().strip())
                             else:
                                 #print(sub_subling)
-                                if part_of_speech == "Noun":
+                                if part_of_speech == "Noun" and language.lower() == 'latin':
                                     table = sub_subling.find_next(name="table")
                                     if not table:
                                         break
