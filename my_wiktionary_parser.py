@@ -186,9 +186,11 @@ def get_soup(word):
 def old_dictify(ul, level=0):
     return_str = ""
     for li in ul.find_all("li", recursive=False):
-        key = next(li.stripped_strings)
-        print("Key: " + key)
+        key = next(li.strings)
         nukes = ' '.join([s.get_text() if isinstance(s, Tag) else s for s in li]).replace(key, "")
+        print("Key: " + key + ", Nukes: " + nukes)
+        if key.strip() == 'Carl Meissner; Henry William Auden (1894)':
+            nukes = nukes.split(":")[0]
         return_str +=  level*'\t\t' + key + " " + nukes + '\n'
 
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
