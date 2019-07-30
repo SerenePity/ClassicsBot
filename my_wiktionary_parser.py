@@ -1,4 +1,5 @@
 # coding=utf8
+import pprint
 from collections import OrderedDict
 from cached_antique_chinese import baxter_sagart
 
@@ -7,6 +8,8 @@ import re
 from mafan import simplify, tradify
 from bs4 import BeautifulSoup, NavigableString, Tag
 import traceback
+import xml.etree.ElementTree
+import collections
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -29,6 +32,41 @@ def format(ul):
             for li in ul2:
                 ret += '\n' + (li.get_text() if li and isinstance(li, NavigableString) else "") + '\n'
     return ret
+
+def format_row(row, longest_len):
+    ret_str = "|\t"
+    for word in row:
+        length = len(word)
+        num_spaces = longest_len - length
+        ret_str += word + " "*num_spaces + "|\t"
+    return ret_str
+
+def parse_table(table: Tag):
+    table_array = []
+    tbody = table.find_all('tbody')[0]
+    row_soup = tbody.find_all('tr')
+    longest_word_length = 0
+    print("row_soup: " + str(row_soup))
+    print("Length of row_soup: " + str(len(row_soup)))
+    for i,row in enumerate(row_soup):
+        if i == 0:
+            row_str = ["[" + h.get_text().strip() + "]" for h in row.find_all('th')] + [h.get_text().strip() for h in row.find_all('td')]
+            table_array.append(row_str)
+            table_array.append(["―――――――――――"]*len(row_str))
+        else:
+            row_str = [h.get_text().strip() for h in row.find_all('th')] + [h.get_text().strip() for h in row.find_all('td')]
+            table_array.append(row_str)
+    for row in table_array:
+        for word in row:
+            print("Get length of: " + word)
+            length = len(word)
+            if length > longest_word_length:
+                longest_word_length = length
+    print("Longest length: " + str(longest_word_length))
+    longest_word_length += 2
+    pprint.pprint(table_array)
+    table_array[1] = ["―"*(longest_word_length) for i in range(len(row_str))]
+    return "```bash\n" + '\n'.join([format_row(row, longest_word_length) for row in table_array]) + "```"
 
 def get_etymology(language_header, language, word):
     next_siblings = language_header.next_siblings
@@ -134,14 +172,7 @@ def get_definitions(soup, language, include_examples=True):
 
 def get_soup(word):
     print(f"https://en.wiktionary.org/wiki/{word}")
-    return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text)
-
-def parse_table(ul):
-    descendants = []
-    for ul in ul:
-        if not isinstance(ul, NavigableString):
-            descendants.append(ul.li)
-    return descendants
+    return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text.replace("<!-->", ""))
 
 def old_dictify(ul, level=0):
     return_str = ""
@@ -202,6 +233,7 @@ def has_wanted_text(text):
 def get_derivations(soup, language, misc=False):
     if "Wiktionary does not yet have an entry for " in str(soup):
         return "Not found."
+    """
     greek_tables = soup.find_all('div', {'class': 'NavFrame grc-decl grc-adecl'})
     for table in greek_tables:
         table.extract()
@@ -211,59 +243,50 @@ def get_derivations(soup, language, misc=False):
     latin_tables = soup.find_all('table')
     for table in latin_tables:
         table.extract()
-    language_header = None
-    for h2 in soup.find_all('h2'):
-        # print(h2)
-        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
-            language_header = h2
-            break
-    if not language_header:
-        return '\n\n'.join(["**Derivarives**" + '\n' + "None found."])
+    """
+
+    derivations = []
+
+    language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
-        if isinstance(sibling, NavigableString):
-            continue
+        header = ""
         if sibling.name == 'h2':
             break
-        if sibling.name == 'h4' and sibling.span and not isinstance(sibling.span, NavigableString) and any(has_wanted_text(s) if isinstance(s, NavigableString) else has_wanted_text(s.get_text().strip()) for s in sibling.span.contents):
-            ul = None
-            uls = []
-            for e in sibling.next_siblings:
-                if e.name == 'h2':
-                    break
-                if e.name == 'ul':
-                    uls.append(e)
-                    """
-                    for li in e.find_all('li'):
-                        
-                        for s in e.span.contents:
-                            if not isinstance(e.span, NavigableString) and e.span.get_text() in ['Descendants', 'Derived terms']:
-                                for ele in e.find_next_siblings():
-                                    if ele.name == 'ul':
-                                        uls.append(ele)"""
-            if not uls:
-                return "Not found."
-            else:
-                if misc:
-                    if language.lower() != "japanese":
-                        misc = get_misc(uls)
-                    else:
-                        japanese_pronunciations = get_japanese_pronunciation(soup)
-                        print("Japanese pronunciation: " + ', '.join(japanese_pronunciations))
-                        return '\n\n'.join([f"**Tokyo Pronunciation {i+1}**\n{e}" for i, e in enumerate(japanese_pronunciations)])
-                    return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + dictify(ul, 0) for ul in uls] + misc)
-                else:
-                    return '\n\n'.join(["**" + re.sub(r"\[(.*?)\]", "", ul.find_previous_siblings(['h4', 'h3'])[0].text).strip() + "**" + '\n' + old_dictify(ul, 0) for ul in uls if 'References' not in ul.get_text() and 'See also' not in ul.get_text()])
-    return "Not found."
+        if isinstance(sibling, Tag) and sibling.has_attr('class') and sibling['class'] == "derivedterms":
+            header = ""
+            derived_terms = []
+            for previous in sibling.previous_sibling:
+                if previous.name in ['h3', 'h4']:
+                    header = previous.get_text()
+            for child in sibling.children:
+                if child.name == 'ul':
+                    derived_terms += [li.get_text() for li in child.find_all('li')]
+                derived_terms = '\n'.join(derived_terms)
+            derivations.append(f"**{header}\n{derived_terms}")
+        else:
+            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', 'Pronunciation'] + PARTS_OF_SPEECH:
+                print("Sibling header: " + sibling.get_text().strip().replace("[edit]", ""))
+                header = sibling.get_text().strip().replace("[edit]", "")
+                deriv_terms = []
+                for sub_subling in sibling.next_siblings:
+                    if isinstance(sub_subling, Tag):
+                        if sub_subling.name in ['h2', 'h3', 'h4']:
+                            break
+                        else:
+                            if header != "Declension":
+                                deriv_terms.append(sub_subling.get_text().strip())
+                            else:
+                                #print(sub_subling)
+                                table = sub_subling.find_next(name="table")
+                                if not table:
+                                    break
+                                table_array = parse_table(table)
+                                print(table_array)
+                                deriv_terms.append(table_array)
+                deriv_terms = '\n'.join(deriv_terms)
+                derivations.append(f"**{header}**\n{deriv_terms}")
+    return '\n\n'.join(derivations)
 
-def get_misc(uls):
-    novel_headers = ['Descendants']
-    for ul in uls:
-        header_dict = dict()
-        misc = dictify(ul)
-        header = ul.find_previous_siblings(['h4', 'h3'])[0].text.strip()
-        if not has_unwanted_headers(header) and header in novel_headers:
-            header_dict["**" + re.sub(r"\[(.*?)\]" + "", "", header) + "**"] += misc
-    return [key.strip() + '\n' + header_dict[key].strip() for key in header_dict]
 
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
@@ -425,6 +448,15 @@ def get_old_chinese_only_zhengchang(c, soup):
 
 def get_language_header(word, language):
     soup = get_soup(word)
+    language_header = None
+    for h2 in soup.find_all('h2'):
+        # print(h2)
+        if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
+            language_header = h2
+            return language_header, soup
+    return None, soup
+
+def get_language_header_with_soup(soup, language):
     language_header = None
     for h2 in soup.find_all('h2'):
         # print(h2)
