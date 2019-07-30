@@ -187,7 +187,7 @@ def old_dictify(ul, level=0):
         nukes = ' '.join([s.get_text() if isinstance(s, Tag) else s for s in li]).replace(key, "")
         print("Key: " + key + ", Nukes: " + nukes)
         if key.strip() == 'Carl Meissner; Henry William Auden (1894)':
-            nukes = nukes.split(":")[0]
+            nukes = nukes.split(":")[0] + ":"
         return_str +=  level*'\t\t' + key + " " + nukes + '\n'
 
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
