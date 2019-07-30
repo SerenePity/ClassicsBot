@@ -259,6 +259,7 @@ def get_derivations(soup, language, misc=False):
 
     derivations = []
     part_of_speech = None
+    one_table_found = False
     language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
         if isinstance(sibling, Tag) and sibling.get_text().strip().replace("[edit]", "") in PARTS_OF_SPEECH:
@@ -290,6 +291,8 @@ def get_derivations(soup, language, misc=False):
                     continue
                 if header in header_set:
                     continue
+                if header in ['Declension', 'Inflection'] and language.lower() != 'latin':
+                    continue
                 else:
                     header_set.add(header)
                 deriv_terms = []
@@ -306,6 +309,10 @@ def get_derivations(soup, language, misc=False):
                             else:
                                 #print(sub_subling)
                                 if part_of_speech == "Noun" and language.lower() == 'latin':
+                                    if not one_table_found:
+                                        one_table_found = True
+                                    else:
+                                        continue
                                     table = sub_subling.find_next(name="table")
                                     if not table:
                                         break
