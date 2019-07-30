@@ -321,7 +321,7 @@ class Scholasticus(commands.Bot):
 
                 if len(args) == 1:
                     word = self.robot.get_random_word('latin')
-                    await self.send_message(channel, self.robot.get_full_entry(word, 'latin'))
+                    await self.send_in_chunks_if_needed(channel, self.robot.get_full_entry(word, 'latin'))
                     return
                 elif len(args) > 1:
                     language = ' '.join(args[1:])

@@ -59,7 +59,12 @@ def parse_table(table: Tag):
             table_array.append(["―――――――――――"]*len(row_str))
         else:
             row_str = [h.get_text().strip() for h in row.find_all('th')] + [h.get_text().strip() for h in row.find_all('td')]
-            table_array.append(row_str)
+            can_append = True
+            for col in row_str:
+                if "Notes:" in col:
+                    can_append = False
+            if can_append:
+                table_array.append(row_str)
     for row in table_array:
         for word in row:
             print("Get length of: " + word)
@@ -67,7 +72,7 @@ def parse_table(table: Tag):
             if length > longest_word_length:
                 longest_word_length = length
     print("Longest length: " + str(longest_word_length))
-    longest_word_length += 2
+    longest_word_length += 1
     pprint.pprint(table_array)
     table_array[1] = ["―"*(longest_word_length + 1) for i in range(len(row_str))]
     return "```md\n" + '\n'.join([format_row(row, longest_word_length) if i != 1 else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)]) + "```"
@@ -183,7 +188,7 @@ def old_dictify(ul, level=0):
     for li in ul.find_all("li", recursive=False):
         key = next(li.stripped_strings)
         print("Key: " + key)
-        nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all('span', recursive=False)]).replace(key, "")
+        nukes = ' '.join([s.get_text() if isinstance(s, Tag) else s for s in li]).replace(key, "")
         return_str +=  level*'\t\t' + key + " " + nukes + '\n'
 
         #print("Spans: " + str([s.text for s in li.find_all('span')]))
@@ -235,6 +240,9 @@ def has_wanted_text(text):
     return False
 
 def get_derivations(soup, language, misc=False):
+
+    header_set = set()
+
     if "Wiktionary does not yet have an entry for " in str(soup):
         return "Not found."
     """
@@ -250,9 +258,12 @@ def get_derivations(soup, language, misc=False):
     """
 
     derivations = []
-
+    part_of_speech = None
     language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
+        if isinstance(sibling, Tag) and sibling.get_text().strip().replace("[edit]", "") in PARTS_OF_SPEECH:
+            part_of_speech = sibling.get_text().strip().replace("[edit]", "")
+            print("PART OF SPEECH: " + part_of_speech)
         header = ""
         if sibling.name == 'h2':
             break
@@ -262,13 +273,17 @@ def get_derivations(soup, language, misc=False):
             for previous in sibling.previous_sibling:
                 if previous.name in ['h3', 'h4']:
                     header = previous.get_text()
+                    if header in header_set:
+                        break
+                    else:
+                        header_set.add(header)
             for child in sibling.children:
                 if child.name == 'ul':
                     derived_terms += [li.get_text() for li in child.find_all('li')]
                 derived_terms = '\n'.join(derived_terms)
             derivations.append(f"**{header}\n{derived_terms}")
         else:
-            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', 'Pronunciation'] + PARTS_OF_SPEECH:
+            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
                 print("Sibling header: " + sibling.get_text().strip().replace("[edit]", ""))
                 header = sibling.get_text().strip().replace("[edit]", "")
                 deriv_terms = []
@@ -278,17 +293,24 @@ def get_derivations(soup, language, misc=False):
                             break
                         else:
                             if header != "Declension":
-                                deriv_terms.append(sub_subling.get_text().strip())
+                                if header == "References":
+                                    deriv_terms.append(old_dictify(sub_subling))
+                                else:
+                                    deriv_terms.append(sub_subling.get_text().strip())
                             else:
                                 #print(sub_subling)
-                                table = sub_subling.find_next(name="table")
-                                if not table:
-                                    break
-                                table_array = parse_table(table)
-                                print(table_array)
-                                deriv_terms.append(table_array)
+                                if part_of_speech == "Noun":
+                                    table = sub_subling.find_next(name="table")
+                                    if not table:
+                                        break
+                                    table_array = parse_table(table)
+                                    print(table_array)
+                                    deriv_terms.append(table_array)
                 deriv_terms = '\n'.join(deriv_terms)
-                derivations.append(f"**{header}**\n{deriv_terms}")
+                if header.strip() == "Declension" and part_of_speech != "Noun":
+                    pass
+                else:
+                    derivations.append(f"**{header}**\n{deriv_terms}")
     return '\n\n'.join(derivations)
 
 
