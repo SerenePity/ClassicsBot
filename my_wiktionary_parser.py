@@ -1,6 +1,5 @@
 # coding=utf8
 import pprint
-from collections import OrderedDict
 from cached_antique_chinese import baxter_sagart
 
 import requests
@@ -8,8 +7,6 @@ import re
 from mafan import simplify, tradify
 from bs4 import BeautifulSoup, NavigableString, Tag
 import traceback
-import xml.etree.ElementTree
-import collections
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
