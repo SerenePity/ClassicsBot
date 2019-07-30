@@ -281,11 +281,17 @@ def get_derivations(soup, language, misc=False):
                 if child.name == 'ul':
                     derived_terms += [li.get_text() for li in child.find_all('li')]
                 derived_terms = '\n'.join(derived_terms)
-            derivations.append(f"**{header}\n{derived_terms}")
+            derivations.append(f"**{header}:**\n{derived_terms.replace('Derived terms', '')}")
         else:
-            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
+            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
                 print("Sibling header: " + sibling.get_text().strip().replace("[edit]", ""))
                 header = sibling.get_text().strip().replace("[edit]", "")
+                if re.match(r"Etymology\s[0-9]+", header):
+                    continue
+                if header in header_set:
+                    continue
+                else:
+                    header_set.add(header)
                 deriv_terms = []
                 for sub_subling in sibling.next_siblings:
                     if isinstance(sub_subling, Tag):
@@ -310,7 +316,9 @@ def get_derivations(soup, language, misc=False):
                 if header.strip() == "Declension" and part_of_speech != "Noun":
                     pass
                 else:
-                    derivations.append(f"**{header}**\n{deriv_terms}")
+                    if header.strip() == 'Derived terms':
+                        deriv_terms.replace("Derived terms", "").strip()
+                    derivations.append(f"**{header}:**\n{deriv_terms}")
     return '\n\n'.join(derivations)
 
 
