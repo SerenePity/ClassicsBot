@@ -49,7 +49,12 @@ def process_entry(h):
 
 
 def get_longest_in_col(table_array, col_num):
-    return max([len(row[col_num]) for row in table_array])
+    max_in_col = 0
+    for row in table_array:
+        word_length = len(row[col_num])
+        if word_length > max_in_col:
+            max_in_col = word_length
+    return max_in_col
 
 def parse_table(table: Tag):
     table_array = []
@@ -91,16 +96,24 @@ def parse_table(table: Tag):
     print("Longest length: " + str(longest_word_length))
     longest_word_length += 1
     pprint.pprint(table_array)
-    col_to_max_word = dict()
+    max_word_in_col_dict = dict()
     for i,row in enumerate(table_array):
         for j in range(len(row)):
             longest_in_col = get_longest_in_col(table_array, j)
-        col_to_max_word[i] = longest_in_col
-    top_line = "┌" + '┬'.join(["─"*(col_to_max_word[i] + 1) for i in range(max_cols)]) + "┐"
-    bottom_line = "└" + '┴'.join(["─"*(col_to_max_word[i] + 1) for i in range(max_cols)]) + "┘"
+            print(f"Longest word in col {j}: length of {longest_in_col}")
+            max_word_in_col_dict[j] = longest_in_col
+    top_line = "┌" + '┬'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┐"
+    display_table = '\n'.join([format_row2(row, max_word_in_col_dict) if "‰" != row[0] else format_row2(row, max_word_in_col_dict, True) for i,row in enumerate(table_array)])
+    bottom_line = "└" + '┴'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┘"
 
-    display_table = '\n'.join([format_row(row, col_to_max_word[i]) if "‰" != row[0] else format_row(row, col_to_max_word[i], True) for i,row in enumerate(table_array)])
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
+
+def format_row2(row, max_word_in_col_dict, is_line = False):
+    vertical = "│"
+    if is_line:
+        return "├" + '┼'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(len(row))]) + "┤"
+    ret_str = vertical + vertical.join([word + (max_word_in_col_dict[i] + 1 - len(word))*" " for i, word in enumerate(row)]) + vertical
+    return ret_str
 
 def get_etymology(language_header, language, word):
     next_siblings = language_header.next_siblings
