@@ -34,7 +34,7 @@ def format_row(row, longest_len, is_line=False):
     vertical = "│"
     ret_str = vertical
     if is_line:
-        return "┣" + '╈'.join([(longest_len + 1) * "―" for i in range(len(row))]) + "┫"
+        return "├" + '┼'.join([(longest_len + 1) * "─" for i in range(len(row))]) + "┤"
     for i,word in enumerate(row):
         length = len(word)
         num_spaces = longest_len - length
@@ -73,8 +73,8 @@ def parse_table(table: Tag):
     pprint.pprint(table_array)
 
 
-    top_line = "┌" + '┳'.join(["―"*(longest_word_length + 1) for i in range(len(row_str))]) + "┐"
-    bottom_line = "└" + '┴'.join(["―"*(longest_word_length + 1) for i in range(len(row_str))]) + "┘"
+    top_line = "┌" + '┬'.join(["─"*(longest_word_length + 1) for i in range(len(row_str))]) + "┐"
+    bottom_line = "└" + '┴'.join(["─"*(longest_word_length + 1) for i in range(len(row_str))]) + "┘"
 
     display_table = '\n'.join([format_row(row, longest_word_length) if i != 1 else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)])
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
