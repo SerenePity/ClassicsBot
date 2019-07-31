@@ -47,6 +47,10 @@ def process_entry(h):
         br.replaceWith(", ")
     return h.get_text().strip()
 
+
+def get_longest_in_col(table_array, col_num):
+    return max([len(row[col_num]) for row in table_array])
+
 def parse_table(table: Tag):
     table_array = []
     tbody = table.find_all('tbody')[0]
@@ -87,12 +91,15 @@ def parse_table(table: Tag):
     print("Longest length: " + str(longest_word_length))
     longest_word_length += 1
     pprint.pprint(table_array)
+    col_to_max_word = dict()
+    for i,row in enumerate(table_array):
+        for j in range(len(row)):
+            longest_in_col = get_longest_in_col(table_array, j)
+        col_to_max_word[i] = longest_in_col
+    top_line = "┌" + '┬'.join(["─"*(col_to_max_word[i] + 1) for i in range(max_cols)]) + "┐"
+    bottom_line = "└" + '┴'.join(["─"*(col_to_max_word[i] + 1) for i in range(max_cols)]) + "┘"
 
-
-    top_line = "┌" + '┬'.join(["─"*(longest_word_length + 1) for i in range(max_cols)]) + "┐"
-    bottom_line = "└" + '┴'.join(["─"*(longest_word_length + 1) for i in range(max_cols)]) + "┘"
-
-    display_table = '\n'.join([format_row(row, longest_word_length) if "‰" != row[0] else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)])
+    display_table = '\n'.join([format_row(row, col_to_max_word[i]) if "‰" != row[0] else format_row(row, col_to_max_word[i], True) for i,row in enumerate(table_array)])
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
 
 def get_etymology(language_header, language, word):
