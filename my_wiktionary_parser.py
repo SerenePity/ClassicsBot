@@ -42,6 +42,11 @@ def format_row(row, longest_len, is_line=False):
 
     return ret_str
 
+def process_entry(h):
+    for br in h.find_all('br'):
+        br.replaceWith(", ")
+    return h.get_text().strip()
+
 def parse_table(table: Tag):
     table_array = []
     tbody = table.find_all('tbody')[0]
@@ -60,7 +65,7 @@ def parse_table(table: Tag):
     for i,row in enumerate(row_soup):
         ths = row.find_all('th')
         tds = row.find_all('td')
-        row_str = list(filter(None, [h.get_text().strip() for h in ths] + [h.get_text().strip() for h in tds]))
+        row_str = list(filter(None, [process_entry(h) for h in ths] + [process_entry(h) for h in tds]))
         if len(row_str) < max_cols:
             diff = (max_cols - len(row_str))
             for i in range(diff):
