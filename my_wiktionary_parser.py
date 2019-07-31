@@ -31,15 +31,15 @@ def format(ul):
     return ret
 
 def format_row(row, longest_len, is_line=False):
-    vertical = "|"
+    vertical = "│"
     ret_str = vertical
-    for word in row:
+    if is_line:
+        return "┣" + '╈'.join([(longest_len + 1) * "―" for i in range(len(row))]) + "┫"
+    for i,word in enumerate(row):
         length = len(word)
         num_spaces = longest_len - length
-        if not is_line:
-            ret_str += " " + word + " "*num_spaces + "|"
-        else:
-            ret_str += word + " " * (num_spaces + 1) + "|"
+        ret_str += " " + word + " "*num_spaces + vertical
+
     return ret_str
 
 def parse_table(table: Tag):
@@ -71,8 +71,13 @@ def parse_table(table: Tag):
     print("Longest length: " + str(longest_word_length))
     longest_word_length += 1
     pprint.pprint(table_array)
-    table_array[1] = ["―"*(longest_word_length + 1) for i in range(len(row_str))]
-    return "```md\n" + '\n'.join([format_row(row, longest_word_length) if i != 1 else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)]) + "```"
+
+
+    top_line = "┌" + '┳'.join(["―"*(longest_word_length + 1) for i in range(len(row_str))]) + "┐"
+    bottom_line = "└" + '┴'.join(["―"*(longest_word_length + 1) for i in range(len(row_str))]) + "┘"
+
+    display_table = '\n'.join([format_row(row, longest_word_length) if i != 1 else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)])
+    return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
 
 def get_etymology(language_header, language, word):
     next_siblings = language_header.next_siblings
