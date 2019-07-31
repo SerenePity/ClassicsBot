@@ -10,8 +10,8 @@ import traceback
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
-    "Article", "Preposition", "Conjunction", "Proper noun",
-    "Letter", "Character", "Phrase", "Proverb", "Idiom",
+    "Article", "Preposition", "Postposition", "Conjunction", "Proper noun",
+    "Letter", "Character", "Phrase", "Proverb", "Particle", "Idiom", "Participle",
     "Symbol", "Syllable", "Numeral", "Initialism", "Interjection",
     "Definitions", "Pronoun", "Prefix", "Suffix", "Infix", "Root"
 ]
@@ -46,22 +46,33 @@ def parse_table(table: Tag):
     table_array = []
     tbody = table.find_all('tbody')[0]
     row_soup = tbody.find_all('tr')
+    max_cols = 0
+    for row in row_soup:
+        row_cols = [col for col in row.find_all('th') if col.get_text().strip() != ""] + [col for col in row.find_all('td') if col.get_text().strip() != ""]
+        print(f"Row Cols of length {len(row_cols)}: {str(row_cols)}")
+        if len(row_cols) > max_cols:
+            max_cols = len(row_cols)
+
+    print("Max cols: " + str(max_cols))
     longest_word_length = 0
-    print("row_soup: " + str(row_soup))
-    print("Length of row_soup: " + str(len(row_soup)))
+    #print("row_soup: " + str(row_soup))
+    #print("Length of row_soup: " + str(len(row_soup)))
     for i,row in enumerate(row_soup):
-        if i == 0:
-            row_str = [h.get_text().strip() for h in row.find_all('th')] + [h.get_text().strip() for h in row.find_all('td')]
+        ths = row.find_all('th')
+        tds = row.find_all('td')
+        row_str = list(filter(None, [h.get_text().strip() for h in ths] + [h.get_text().strip() for h in tds]))
+        if len(row_str) < max_cols:
+            diff = (max_cols - len(row_str))
+            for i in range(diff):
+                row_str.append(" ")
+        can_append = True
+        for col in row_str:
+            if "Notes:" in col:
+                can_append = False
+        if can_append:
             table_array.append(row_str)
-            table_array.append(["―――――――――――"]*len(row_str))
-        else:
-            row_str = [h.get_text().strip() for h in row.find_all('th')] + [h.get_text().strip() for h in row.find_all('td')]
-            can_append = True
-            for col in row_str:
-                if "Notes:" in col:
-                    can_append = False
-            if can_append:
-                table_array.append(row_str)
+        if len(tds) == 0:
+            table_array.append(["‰"]*max_cols)
     for row in table_array:
         for word in row:
             print("Get length of: " + word)
@@ -73,10 +84,10 @@ def parse_table(table: Tag):
     pprint.pprint(table_array)
 
 
-    top_line = "┌" + '┬'.join(["─"*(longest_word_length + 1) for i in range(len(row_str))]) + "┐"
-    bottom_line = "└" + '┴'.join(["─"*(longest_word_length + 1) for i in range(len(row_str))]) + "┘"
+    top_line = "┌" + '┬'.join(["─"*(longest_word_length + 1) for i in range(max_cols)]) + "┐"
+    bottom_line = "└" + '┴'.join(["─"*(longest_word_length + 1) for i in range(max_cols)]) + "┘"
 
-    display_table = '\n'.join([format_row(row, longest_word_length) if i != 1 else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)])
+    display_table = '\n'.join([format_row(row, longest_word_length) if "‰" != row[0] else format_row(row, longest_word_length, True) for i,row in enumerate(table_array)])
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
 
 def get_etymology(language_header, language, word):
@@ -147,7 +158,7 @@ def get_definition(soup, language, include_examples=True):
                 elif li.ul:
                     li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
                 li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
-    print(definition)
+    #print(definition)
     return definition
 
 def remove_example(li):
@@ -249,17 +260,6 @@ def get_derivations(soup, language, misc=False):
 
     if "Wiktionary does not yet have an entry for " in str(soup):
         return "Not found."
-    """
-    greek_tables = soup.find_all('div', {'class': 'NavFrame grc-decl grc-adecl'})
-    for table in greek_tables:
-        table.extract()
-    latin_tables = soup.find_all('table')
-    for table in latin_tables:
-        table.extract()
-    latin_tables = soup.find_all('table')
-    for table in latin_tables:
-        table.extract()
-    """
 
     derivations = []
     part_of_speech = None
@@ -288,9 +288,12 @@ def get_derivations(soup, language, misc=False):
                 derived_terms = '\n'.join(derived_terms)
             derivations.append(f"**{header}:**\n{derived_terms.replace('Derived terms', '')}")
         else:
-            if sibling.name in ['h3', 'h4'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
-                print("Sibling header: " + sibling.get_text().strip().replace("[edit]", ""))
-                header = sibling.get_text().strip().replace("[edit]", "")
+            if sibling.name in ['h3', 'h4', 'h5'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
+                header = sibling.get_text().replace("[edit]", "").strip()
+                print("Sibling header: " + header)
+                if header in PARTS_OF_SPEECH:
+                    part_of_speech = header.strip()
+                    print("PART OF SPEECH: " + part_of_speech)
                 if re.match(r"Etymology\s[0-9]+", header):
                     continue
                 if header in header_set:
@@ -312,7 +315,7 @@ def get_derivations(soup, language, misc=False):
                                     deriv_terms.append(sub_subling.get_text().strip())
                             else:
                                 #print(sub_subling)
-                                if part_of_speech == "Noun" and language.lower() == 'latin':
+                                if part_of_speech in ["Noun", "Proper noun", "Pronoun", "Adjective", "Participle"] and language.lower() == 'latin':
                                     if not one_table_found:
                                         one_table_found = True
                                     else:
@@ -324,12 +327,10 @@ def get_derivations(soup, language, misc=False):
                                     print(table_array)
                                     deriv_terms.append(table_array)
                 deriv_terms = '\n'.join(deriv_terms)
-                if header.strip() == "Declension" and part_of_speech != "Noun":
-                    pass
-                else:
-                    if header.strip() == 'Derived terms':
-                        deriv_terms.replace("Derived terms", "").strip()
-                    derivations.append(f"**{header}:**\n{deriv_terms}")
+
+                if header.strip() == 'Derived terms':
+                    deriv_terms.replace("Derived terms", "").strip()
+                derivations.append(f"**{header}:**\n{deriv_terms}")
     return '\n\n'.join(derivations)
 
 
@@ -445,7 +446,7 @@ def get_grammar_question(language, tries=0):
         if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             if not language_header:
                 language_header = h2
-            print("Language header: " + language_header.get_text())
+            #print("Language header: " + language_header.get_text())
             break
 
     for sibling in language_header.next_siblings:
@@ -473,7 +474,7 @@ def get_grammar_question(language, tries=0):
 def get_middle_chinese_only(soup, c):
     print("Middle Chinese only char: " + c)
 
-    print("Middle Chinese soup: " + str(soup))
+    #print("Middle Chinese soup: " + str(soup))
     #matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
     try:
         middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
