@@ -43,17 +43,25 @@ def format_row(row, longest_len, is_line=False):
     return ret_str
 
 def process_entry(h):
+    colspan = None
+    if h.has_attr('rowspan') and not h.get_text().strip():
+        return None, None
     for br in h.find_all('br'):
         br.replaceWith(", ")
-    return h.get_text().strip()
+    if h.has_attr('colspan'):
+        colspan = int(h['colspan'])
+    return (h.get_text().strip(), colspan)
 
 
 def get_longest_in_col(table_array, col_num):
     max_in_col = 0
+    longest_word = ""
     for row in table_array:
-        word_length = len(row[col_num])
+        word_length = len(row[col_num][0].strip())
         if word_length > max_in_col:
             max_in_col = word_length
+            longest_word = row[col_num][0].strip()
+    print(f"Longest word in column {col_num} is {longest_word} with length {max_in_col}")
     return max_in_col
 
 def parse_table(table: Tag):
@@ -74,22 +82,22 @@ def parse_table(table: Tag):
     for i,row in enumerate(row_soup):
         ths = row.find_all('th')
         tds = row.find_all('td')
-        row_str = list(filter(None, [process_entry(h) for h in ths] + [process_entry(h) for h in tds]))
+        row_str = list(filter(lambda x: x[0], [process_entry(h) for h in ths] + [process_entry(h) for h in tds]))
         if len(row_str) < max_cols:
             diff = (max_cols - len(row_str))
             for i in range(diff):
-                row_str.append(" ")
+                row_str.append((" ", None))
         can_append = True
-        for col in row_str:
+        for col,_ in row_str:
             if "Notes:" in col:
                 can_append = False
         if can_append:
             table_array.append(row_str)
         if len(tds) == 0:
-            table_array.append(["‰"]*max_cols)
+            table_array.append([("‰", None)]*max_cols)
     for row in table_array:
-        for word in row:
-            print("Get length of: " + word)
+        for word, colspan in row:
+            print("Get length of: " + word + " - " + str(len(word)))
             length = len(word)
             if length > longest_word_length:
                 longest_word_length = length
@@ -100,20 +108,49 @@ def parse_table(table: Tag):
     for i,row in enumerate(table_array):
         for j in range(len(row)):
             longest_in_col = get_longest_in_col(table_array, j)
-            print(f"Longest word in col {j}: length of {longest_in_col}")
             max_word_in_col_dict[j] = longest_in_col
     top_line = "┌" + '┬'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┐"
-    display_table = '\n'.join([format_row2(row, max_word_in_col_dict) if "‰" != row[0] else format_row2(row, max_word_in_col_dict, True) for i,row in enumerate(table_array)])
+    display_table = '\n'.join([format_row2(row, max_word_in_col_dict) if "‰" != row[0][0] else format_row2(row, max_word_in_col_dict, True) for i,row in enumerate(table_array)])
     bottom_line = "└" + '┴'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┘"
 
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
 
 def format_row2(row, max_word_in_col_dict, is_line = False):
     vertical = "│"
-    if is_line:
+    if is_line and not any(i[1] for i in row):
         return "├" + '┼'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(len(row))]) + "┤"
-    ret_str = vertical + vertical.join([word + (max_word_in_col_dict[i] + 1 - len(word))*" " for i, word in enumerate(row)]) + vertical
-    return ret_str
+    else:
+        colspans = [r for r in row if r[1]]
+        non_colspans = [r for r in row if not r[1]]
+        print("Num of colspans: " + str(len(colspans)))
+        print("Num of non-colspans: " + str(len(non_colspans)))
+        ret_str = vertical
+        if colspans:
+            for i,r in enumerate(row):
+                word = r[0]
+                colspan = r[1]
+                if colspan:
+                    ret_str += (colspan) * (max_word_in_col_dict[i] * " ")[0:(colspan) * (max_word_in_col_dict[i] - len(word) + 1)] + " " + word
+                    if i == len(row) - 1:
+                        ret_str += (colspan) * (max_word_in_col_dict[i] * " ")[0:(colspan) + 1]
+                else:
+                    ret_str += (max_word_in_col_dict[i] - len(word) + 1)*" " + word + vertical
+        else:
+            ret_str = (vertical + vertical.join([(max_word_in_col_dict[i] - len(word) + 1)*" " + word for i, (word, colspan) in enumerate(row)]) + vertical)
+        return ret_str
+    """
+    for i, (word, colspan) in enumerate(row):
+        if colspan:
+            ret_str += word
+            print(f"Word: {word}, Colspan: {colspan}")
+            for j in range(colspan - 1):
+                ret_str += (max_word_in_col_dict[i + j] + 1)*" " + " "
+            ret_str.replace(" ", "", len(word))
+            ret_str += " " + vertical
+        else:
+            ret_str += word + (max_word_in_col_dict[i] - len(word) + 1)*" " + vertical
+            #ret_str += vertical + vertical.join([word + (max_word_in_col_dict[i] + 1 - len(word))*" " for i, (word, colspan) in enumerate(row)]) + vertical
+    return ret_str"""
 
 def get_etymology(language_header, language, word):
     next_siblings = language_header.next_siblings
@@ -315,6 +352,8 @@ def get_derivations(soup, language, misc=False):
         else:
             if sibling.name in ['h3', 'h4', 'h5'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
                 header = sibling.get_text().replace("[edit]", "").strip()
+                if header.lower() in ["see also", "translations"]:
+                    continue
                 print("Sibling header: " + header)
                 if header in PARTS_OF_SPEECH:
                     part_of_speech = header.strip()
@@ -340,7 +379,10 @@ def get_derivations(soup, language, misc=False):
                                     deriv_terms.append(sub_subling.get_text().strip())
                             else:
                                 #print(sub_subling)
-                                if part_of_speech in ["Noun", "Proper noun", "Pronoun", "Adjective", "Participle"] and language.lower() == 'latin':
+                                if part_of_speech in ["Noun", "Proper noun"
+                                                      #,"Pronoun", "Adjective", "Participle"
+                                                    ] \
+                                        and language.lower() == 'latin':
                                     if not one_table_found:
                                         one_table_found = True
                                     else:
