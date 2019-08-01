@@ -2,7 +2,7 @@ import unicodedata
 
 from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from cltk.stem.latin.declension import CollatinusDecliner
 from wiktionaryparser import WiktionaryParser
 from latin_word_picker import word_picker
@@ -336,6 +336,14 @@ class RoboticRoman():
         if language.lower() == 'chinese':
             word = tradify(word)
         soup = my_wiktionary_parser.get_soup(word)
+        my_wiktionary_parser.destroy_latin_correlatives(soup)
+        for child in soup.children:
+            if isinstance(child, Tag) and child.find_all('a', text="Latin correlatives"):
+                for s in child.strings:
+                    print(s)
+                    s = None
+                child.decompose()
+
         definition = self.get_and_format_word_defs(word, language)
         etymology = self.get_word_etymology(word, language)
         if language.lower() == 'chinese':
@@ -367,8 +375,8 @@ class RoboticRoman():
 
     def get_derivatives(self, word, language='latin', misc=False):
         soup = my_wiktionary_parser.get_soup(word)
+        my_wiktionary_parser.destroy_latin_correlatives(soup)
         return my_wiktionary_parser.get_derivations(soup, language, misc)
-
 
     def get_word_header(self, word, language):
         try:

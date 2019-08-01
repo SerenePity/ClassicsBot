@@ -302,6 +302,22 @@ def dictify(ul, level=0):
     #print(return_str)
     return "Not found."
 
+def destroy_latin_correlatives(soup):
+    latin_correlatives_title = soup.find_all(text="Latin correlatives")
+    print("Latin correlatives: " + str(latin_correlatives_title))
+    if latin_correlatives_title:
+        for lc in latin_correlatives_title:
+            lc.decompose() if isinstance(lc, Tag) else lc.replace_with("")
+
+    related_terms = soup.find_all('span', text="Related terms")
+    for rt in related_terms:
+        rt.parent.extract()
+
+    for t in soup.find_all('table', attrs={'class': 'wikitable'}):
+        print("Destroying table")
+        t.decompose()
+    print("Soup Afterwards: " + str(soup))
+
 def has_unwanted_headers(header):
     unwanted_list = ['References', 'See also', 'Further reading']
     for unwanted in unwanted_list:
@@ -328,11 +344,17 @@ def get_derivations(soup, language, misc=False):
     one_table_found = False
     language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
+        print(f"Sibling: {sibling}")
         if isinstance(sibling, Tag) and sibling.get_text().strip().replace("[edit]", "") in PARTS_OF_SPEECH:
             part_of_speech = sibling.get_text().strip().replace("[edit]", "")
             print("PART OF SPEECH: " + part_of_speech)
         header = ""
         if sibling.name == 'h2':
+            break
+        if isinstance(sibling, Tag) and sibling.find_all('a', text="Latin correlatives"):
+            print("FOUND CORRELATIVES")
+            [a.decompose() for a in sibling.find_all('a', text="Latin correlatives")]
+            print("Sibling at end: " + str(sibling))
             break
         if isinstance(sibling, Tag) and sibling.has_attr('class') and sibling['class'] == "derivedterms":
             header = ""
@@ -355,6 +377,7 @@ def get_derivations(soup, language, misc=False):
                 if header.lower() in ["see also", "translations"]:
                     continue
                 print("Sibling header: " + header)
+
                 if header in PARTS_OF_SPEECH:
                     part_of_speech = header.strip()
                     print("PART OF SPEECH: " + part_of_speech)
