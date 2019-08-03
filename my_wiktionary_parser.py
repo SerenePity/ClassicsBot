@@ -412,10 +412,14 @@ def get_derivations(soup, language, misc=False):
                                         continue
                                     table = sub_subling.find_next(name="table")
                                     if not table:
-                                        break
+                                        deriv_terms.append("Table not found.")
+                                        continue
                                     table_array = parse_table(table)
                                     print(table_array)
                                     deriv_terms.append(table_array)
+                                else:
+                                    if "Table too large to print." not in deriv_terms:
+                                        deriv_terms.append("Table too large to print.")
                 deriv_terms = '\n'.join(deriv_terms)
 
                 if header.strip() == 'Derived terms':
