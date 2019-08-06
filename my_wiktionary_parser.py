@@ -302,6 +302,24 @@ def dictify(ul, level=0):
     #print(return_str)
     return "Not found."
 
+def destroy_translations(soup):
+    translations = soup.find_all(text="Translations")
+    print("Latin correlatives: " + str(translations))
+    if translations:
+        for tr in translations:
+            if tr.parent.name == 'h5':
+                tr.parent.decompose()
+            if isinstance(tr, Tag):
+                tr.decompose()
+            else:
+                tr.string = ""
+
+    for t in soup.find_all('table', attrs={'class': 'translations'}):
+        print("Destroying table")
+        t.parent.parent.decompose()
+        t.decompose()
+    print("Soup Afterwards: " + str(soup))
+
 def destroy_latin_correlatives(soup):
     latin_correlatives_title = soup.find_all(text="Latin correlatives")
     print("Latin correlatives: " + str(latin_correlatives_title))
@@ -375,6 +393,8 @@ def get_derivations(soup, language, misc=False):
             if sibling.name in ['h3', 'h4', 'h5'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
                 header = sibling.get_text().replace("[edit]", "").strip()
                 if header.lower() in ["see also", "translations"]:
+                    print("FOUND TRANSLATION")
+                    header = ""
                     continue
                 print("Sibling header: " + header)
 
@@ -425,7 +445,7 @@ def get_derivations(soup, language, misc=False):
                 if header.strip() == 'Derived terms':
                     deriv_terms.replace("Derived terms", "").strip()
                 derivations.append(f"**{header}:**\n{deriv_terms}")
-    return '\n\n'.join(derivations)
+    return '\n\n'.join(derivations).replace("Translations[edit]", "")
 
 
 def is_grammar_def(word):

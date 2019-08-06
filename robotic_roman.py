@@ -336,6 +336,7 @@ class RoboticRoman():
         if language.lower() == 'chinese':
             word = tradify(word)
         soup = my_wiktionary_parser.get_soup(word)
+        my_wiktionary_parser.destroy_translations(soup)
         my_wiktionary_parser.destroy_latin_correlatives(soup)
         for child in soup.children:
             if isinstance(child, Tag) and child.find_all('a', text="Latin correlatives"):
@@ -375,6 +376,7 @@ class RoboticRoman():
 
     def get_derivatives(self, word, language='latin', misc=False):
         soup = my_wiktionary_parser.get_soup(word)
+        my_wiktionary_parser.destroy_translations(soup)
         my_wiktionary_parser.destroy_latin_correlatives(soup)
         return my_wiktionary_parser.get_derivations(soup, language, misc)
 
