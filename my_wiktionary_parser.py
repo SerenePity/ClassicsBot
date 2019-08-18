@@ -630,6 +630,15 @@ def get_mandarin_pronunciation(soup):
     #mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
     return mandarin_pronunciation
 
+def get_chinese_gloss(char):
+    if char in baxter_sagart.reconstructions:
+        tuple_list = baxter_sagart.reconstructions[char]
+        first_entry = tuple_list[0]
+        pinyin, mc, oc_bax, gloss = first_entry
+        return gloss
+    else:
+        return "gloss unavailable"
+
 def get_historical_chinese(char):
     if char in baxter_sagart.reconstructions:
         tuple_list = baxter_sagart.reconstructions[char]
@@ -660,10 +669,33 @@ def get_historical_chinese_word(word):
     pronunciation = '\n'.join([oc_pronunciation_bax, mc_pronunciation, mandarin_pronunciation])
     return pronunciation
 
+def get_wiktionary_glosses(soup):
+    gloss_table = soup.find_all('table', attrs={'style': "clear: right;margin: 1em;border-collapse: collapse;text-align: center"})
+    gloss_list = []
+    if gloss_table:
+        gloss_table = gloss_table[0]
+        #ths = gloss_table.find_all('th', attrs={'style': "padding: 0.5em;border: 1px solid #aaa;background:#F5F5DC;font-weight: normal;font-size: 85%; width:60px"})
+        char_row = gloss_table.find_all('tr')[1]
+        gloss_row = gloss_table.find_all('tr')[0]
+        ths = gloss_row.find_all('th')[1:]
+        chars = [td.get_text().replace('\n','') for td in char_row.find_all('td')]
+        print(f"WiktChars: {chars}")
+        for th in ths:
+            if th.find_all(attrs={'class': 'vsShow'}):
+                gloss_list.append(th.find_all(attrs={'class': 'vsShow'})[0].get_text().replace('\n',''))
+            else:
+                gloss_list.append(th.get_text().replace('\n',''))
+        print(print(f"WiktGloss: {gloss_list}"))
+        gloss_tuples = list(zip(chars, gloss_list))
+        return '\n'.join([f"{c}: {g}" for c, g in gloss_tuples])
+    else:
+        return None
 
-def get_glyph_origin_multiple(words):
+def get_glyph_origin_multiple(soup, words):
     final = []
     for i, c in enumerate(words):
+        if c in baxter_sagart.punctuation:
+            continue
         char_soup = get_soup(c)
         print("Charlist mem: " + c)
         final.append(f"**{i+1}.** {c}: {get_glyph_origin(char_soup)}")
