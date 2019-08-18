@@ -5,6 +5,8 @@ import re
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
+import transliteration.middle_chinese
+import transliteration.mandarin
 from transliterate import translit, get_available_language_codes
 import traceback
 import random
@@ -501,6 +503,10 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.coptic.transliterate(input)
                 elif language == '-unc':
                     transliterated = transliteration.latin_antique.transliterate(input)
+                elif language == '-mc':
+                    transliterated = transliteration.middle_chinese.transliterate(input)
+                elif language == '-mand':
+                    transliterated = transliteration.mandarin.transliterate(input)
                 elif language == '-aram':
                     r = romanize3.__dict__['arm']
                     transliterated = r.convert(input)
