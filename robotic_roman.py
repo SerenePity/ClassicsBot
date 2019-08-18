@@ -356,15 +356,17 @@ class RoboticRoman():
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
         elif language.lower() == 'chinese':
             #print("WORD: " + word)
-            gloss = my_wiktionary_parser.get_wiktionary_glosses(soup)
+            gloss_section = ""
             if len(list(word)) > 1:
+                gloss = my_wiktionary_parser.get_wiktionary_glosses(soup)
+                gloss_section = f"**Gloss:**\n{gloss}\n\n"
                 print("In Muliple")
                 glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(soup, list(word))
             else:
                 glyph_origin = my_wiktionary_parser.get_glyph_origin(soup)
             if not glyph_origin:
                 glyph_origin = "Not found."
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n**Gloss:**\n{gloss}\n\n**Glyph Origin:**\n{glyph_origin}"
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
         else:
             derives = self.get_derivatives(word, language, misc=True)
             if derives == 'Not found.':
