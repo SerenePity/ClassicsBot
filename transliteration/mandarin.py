@@ -1,5 +1,12 @@
 from cached_antique_chinese import baxter_sagart
 import re
+import my_wiktionary_parser
+
+def get_pinyin_from_wiktionary(char):
+    soup = my_wiktionary_parser.get_soup(char)
+    pinyin = soup.find_all(attrs={'class': re.compile("form-of pinyin-t-form-of transliteration-.*")})[0].get_text().split("(")[0].strip()
+    print(f"PINYIN: {pinyin}")
+    return pinyin
 
 def transliterate(text):
 
@@ -7,6 +14,8 @@ def transliterate(text):
 
     for char in list(text):
         pinyin, mc, oc_bax, gloss = baxter_sagart.get_historical_chinese(char)
+        if pinyin == 'n/a':
+            pinyin = get_pinyin_from_wiktionary(char)
         ret_array.append(pinyin)
     ret_str = " ".join(ret_array)
     for char in baxter_sagart.punctuation:
