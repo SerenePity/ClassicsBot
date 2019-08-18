@@ -65,6 +65,14 @@ punctuation = {
  "…": "...",
  "—": "-",
  "～": "~",
+ "－": "－",
+ "-": "-",
+ "+": "+",
+ "/": "/",
+ "\\": "\\",
+ "&": "&",
+ "%": "%",
+ "*": "*"
 }
 
 def get_historical_chinese(char):
@@ -79,4 +87,4 @@ def get_historical_chinese(char):
         oc_bax = oc_bax.split(" (")[0].strip()
         return pinyin, mc, oc_bax, gloss
     else:
-        return "n/a", "n/a", "n/a", "n/a"
+        return "n/a", char, "n/a", "n/a"
