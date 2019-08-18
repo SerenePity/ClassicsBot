@@ -487,12 +487,12 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'tr '):
             try:
-                tr_args = shlex.split(content.lower())
+                tr_args = shlex.split(content)
             except:
                 await self.send_message(channel, "Error, no closing quotation. Please try to enclose the input within quotes.")
                 return
             if len(tr_args) > 2:
-                language = tr_args[1]
+                language = tr_args[1].lower()
             else:
                 await self.send_message(channel, "Invalid arguments.")
             try:
