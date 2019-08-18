@@ -2,11 +2,13 @@ from cached_antique_chinese import baxter_sagart
 import re
 import my_wiktionary_parser
 
+
 def get_pinyin_from_wiktionary(char):
     soup = my_wiktionary_parser.get_soup(char)
     pinyin = soup.find_all(attrs={'class': re.compile("form-of pinyin.*")})[0].get_text().split("(")[0].strip()
     print(f"PINYIN: {pinyin}")
     return pinyin
+
 
 def transliterate(text):
 
