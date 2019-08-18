@@ -1,5 +1,14 @@
 from cached_antique_chinese import baxter_sagart
 import re
+import my_wiktionary_parser
+
+def get_middle_chinese_from_wiktionary(char):
+    soup = my_wiktionary_parser.get_soup(char)
+    try:
+        middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
+    except:
+        return char
+    return middle_chinese
 
 def transliterate(text):
 
@@ -10,6 +19,8 @@ def transliterate(text):
             ret_array.append("‰" + char + "‰")
         else:
             pinyin, mc, oc_bax, gloss = baxter_sagart.get_historical_chinese(char)
+            if mc == 'n/a':
+                mc = get_middle_chinese_from_wiktionary(char)
             ret_array.append(mc)
 
     ret_str = " ".join(ret_array)
