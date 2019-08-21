@@ -1,7 +1,7 @@
 from cached_antique_chinese import baxter_sagart
 import re
 import my_wiktionary_parser
-
+from mafan import tradify
 
 def get_pinyin_from_wiktionary(char):
     soup = my_wiktionary_parser.get_soup(char)
@@ -18,9 +18,10 @@ def transliterate(text):
         if re.match(r"([0-9A-Za-z\s\.\,\!\"\';\)\(]+)", char):
             ret_array.append("‰" + char + "‰")
         else:
+            char = tradify(char)
             pinyin, mc, oc_bax, gloss = baxter_sagart.get_historical_chinese(char)
             if pinyin == 'n/a':
-                pinyin = get_pinyin_from_wiktionary(char)
+                pinyin = get_pinyin_from_wiktionary(char).split(",")[0].strip()
             ret_array.append(pinyin)
     ret_str = " ".join(ret_array)
     for char in baxter_sagart.punctuation:

@@ -1,6 +1,7 @@
 from cached_antique_chinese import baxter_sagart
 import re
 import my_wiktionary_parser
+from mafan import tradify
 
 
 def get_middle_chinese_from_wiktionary(char):
@@ -20,6 +21,7 @@ def transliterate(text):
         if re.match(r"([0-9A-Za-z\s\.\,\!\"\';\)\(]+)", char):
             ret_array.append("‰" + char + "‰")
         else:
+            char = tradify(char)
             pinyin, mc, oc_bax, gloss = baxter_sagart.get_historical_chinese(char)
             if mc == 'n/a':
                 mc = get_middle_chinese_from_wiktionary(char)
