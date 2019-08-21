@@ -743,6 +743,7 @@ class Scholasticus(commands.Bot):
                         await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                    quote = re.sub(r"([?!])\s*\.", r"\1", quote)
                     _, works_list = self.robot.show_author_works(source)
                     qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
                     self.quote_requestors[author] = qt_obj
@@ -854,7 +855,7 @@ class Scholasticus(commands.Bot):
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 else:
-                    await self.send_message(channel, self.quote_requestors[author].get_surrounding(after=after))
+                    await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -881,7 +882,7 @@ class Scholasticus(commands.Bot):
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     await self.send_message(channel, qt_obj.get_surrounding(before=before, joiner=""))
                 else:
-                    await self.send_message(channel, qt_obj.get_surrounding(before=before))
+                    await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -909,6 +910,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, surr_quotes)
                 else:
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after)
+                    surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)
                     await self.send_message(channel, surr_quotes)
             except discord.errors.HTTPException:
                 traceback.print_exc()
