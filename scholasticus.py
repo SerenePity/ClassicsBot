@@ -631,6 +631,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "You must provide an author or work.")
             else:
                 source = ' '.join(args[1:])
+                if source not in self.authors_set:
+                    source = "the " + source.strip().lower()
                 display, workslist = self.robot.show_author_works(source)
                 print("Display: " + str(display))
                 print("Workslist: " + str(workslist))
@@ -854,6 +856,9 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
+                elif qt_obj.author.lower() == 'the bible':
+                    await self.send_message(channel, re.sub(r"[\.](\w)", r"\1",
+                                                            self.quote_requestors[author].get_surrounding(after=after)))
                 else:
                     await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
@@ -908,6 +913,8 @@ class Scholasticus(commands.Bot):
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
                     await self.send_message(channel, surr_quotes)
+                elif qt_obj.author.lower() == 'the bible':
+                    await self.send_message(channel, re.sub(r"[\.](\w)", r"\1", qt_obj.get_surrounding(before=before, after=after)))
                 else:
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after)
                     surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)

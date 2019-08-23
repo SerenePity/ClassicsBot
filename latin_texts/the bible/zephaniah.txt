@@ -2,9 +2,8 @@ Vulgate: Zephaniah
  
  
  LIBER ZEPHANIAE 
- 
-	 1 	 2 	 3 	 
- 
+
+
  CAPUT 1 1 verbum Domini quod factum est ad Sofoniam filium Chusi filium Godoliae filii Amariae filii Ezechiae in diebus Iosiae filii Amon regis Iuda
  2 congregans congregabo omnia a facie terrae dicit Dominus
  3 congregans hominem et pecus congregans volatile caeli et pisces maris et ruinae impiorum erunt et disperdam homines a facie terrae dicit Dominus

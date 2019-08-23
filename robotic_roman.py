@@ -1,4 +1,5 @@
 import unicodedata
+from functools import reduce
 
 from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
@@ -53,7 +54,9 @@ DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$', '‰': '\n'}
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...', '‰': '\n'}
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
-BIBLE_DELIMITERS = "[0-9]+"
+BIBLE_DELIMITERS = "[0-9\.?!\n]+[^:]"
+NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
+#BIBLE_DELIMITERS = " ([0-9\.?!]+)"
 ABSOLUTE_DELIMITER = "‰"
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", ABSOLUTE_DELIMITER]
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
@@ -890,10 +893,20 @@ class RoboticRoman():
         # text_list = [t.replace('@', '\n') for t in text_list]
         return text_list
 
+    def splitkeepsep(self, s, sep):
+        return reduce(lambda acc, elem: acc[:-1] + [acc[-1] + elem] if re.match(elem, sep) else acc + [elem],
+                      re.split("(%s)" % re.escape(sep), s), [])
+
     def _process_holy_text(scripture):
-        return [s for s in re.split(BIBLE_DELIMITERS, RoboticRoman._replace_abbreviation_period(scripture))
-                if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
-                and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
+        first_pass = re.sub(r"CAPUT\s*([0-9]+)", r"CAPUT \1:", scripture)
+        second_pass = [s for s in re.split(r"(" + BIBLE_DELIMITERS + ")", first_pass)]
+        #print(second_pass)
+        third_pass = [re.sub(r"[0-9]+$", "", s.replace('\n', '').strip()) + " " + second_pass[i+1] if i + 1 < len(second_pass) and len(s.strip()) > 4 else None for i,s in enumerate(second_pass)]
+        #print(third_pass)
+        return [re.sub(r"([0-9])+\s\.", "\1 ", s) for s in third_pass if s]
+        #return [s for s in re.split(BIBLE_DELIMITERS, RoboticRoman._replace_abbreviation_period(first_pass))
+        #        if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
+        #        and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
 
     def _replace_abbreviation_period(text):
         for abbreviations in ABBREVIATIONS:
@@ -1097,6 +1110,8 @@ class RoboticRoman():
         else:
             f = random.choice(files)
             print(f)
+            print("Process function name: ")
+            print(process_func.__name__)
             quotes_list = process_func(f.read())
             print(quotes_list)
             print("len: " + str(len(quotes_list)))
@@ -1231,16 +1246,6 @@ class RoboticRoman():
 
         files = quotes_dict[person.lower()]
 
-        try:
-           i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-        except Exception as error:
-            if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
-                self.quote_tries += 1
-                i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-                return i, quote, quotes_list
-            else:
-                self.quote_tries = 0
-                raise error
         person = person.lower().strip()
 
         if person == 'bush':

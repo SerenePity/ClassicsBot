@@ -7,8 +7,7 @@ Vulgate: Numbers
  
  NUMERI 
  
-	 1 	 2 	 3 	 4 	 5 	 6 	 7 	 8 	 9 	 10 	 11 	 12 	 13 	 14 	 15 	 16 	 17 	 18 	 19 	 20 	 21 	 22 	 23 	 24 	 25 	 26 	 27 	 28 	 29 	 30 	 31 	 32 	 33 	 34 	 35 	 36 	 
- CAPUT 1 
+ CAPUT 1
  1 locutusque est Dominus ad Mosen in deserto Sinai in tabernaculo foederis prima die mensis secundi anno altero egressionis eorum ex Aegypto dicens 
  2 tollite summam universae congregationis filiorum Israhel per cognationes et domos suas et nomina singulorum quicquid sexus est masculini 
  3 a vicesimo anno et supra omnium virorum fortium ex Israhel et numerabitis eos per turmas suas tu et Aaron 
