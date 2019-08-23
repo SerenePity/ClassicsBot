@@ -769,7 +769,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, "You have not started reading anything yet.")
                 return
             if qt_obj.author != "gibbon":
-                await self.send_message(channel, f"This utility if only for finding which chapter of Gibbon's Declien and Fall you are reading.")
+                await self.send_message(channel, f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
                 return
             chapter = qt_obj.find_chapter_from_passage()
             if chapter == "Preface":
