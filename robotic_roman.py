@@ -93,15 +93,15 @@ class QuoteContext():
         print("Index: " + str(self.index))
         quotes_list = []
         if before and after:
-            self.before_index = self.index - before - 1
-            self.after_index = self.index + after
+            self.before_index = max(0, self.index - before - 1)
+            self.after_index = min(len(self.quotes), self.index + after)
             print("Center: " + self.quotes[self.index])
             quotes_list = self.quotes[self.before_index:self.after_index]
         elif before:
             try:
                 if self.first_before:
                     self.first_before = False
-                    self.before_index = self.index - before
+                    self.before_index = max(0, self.index - before)
                     quotes_list = self.quotes[self.before_index:self.index][1:]
                     self.index = self.before_index
             except:
@@ -114,7 +114,7 @@ class QuoteContext():
         elif after:
             old_after = self.after_index
             if self.after_index + after > len(self.quotes) - 1:
-                self.after_index = len(self.quotes) - 1
+                self.after_index = len(self.quotes)
             else:
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
