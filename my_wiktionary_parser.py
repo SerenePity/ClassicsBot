@@ -154,7 +154,7 @@ def format_row2(row, max_word_in_col_dict, is_line = False):
 
 def get_etymology(language_header, language, word):
     next_siblings = language_header.next_siblings
-    print(language_header)
+    #print(language_header)
     if "Wiktionary does not yet have an entry for " in str(next_siblings):
         return "Not found."
     etymology = "Not found."
@@ -187,7 +187,7 @@ def get_etymology(language_header, language, word):
                     break
             except:
                 return "Not found."
-    print(etymology)
+    #print(etymology)
     if etymology == "Not found.":
         return "Not found."
     return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
@@ -263,7 +263,7 @@ def old_dictify(ul, level=0):
     for li in ul.find_all("li", recursive=False):
         key = next(li.strings)
         nukes = ' '.join([s.get_text() if isinstance(s, Tag) else s for s in li]).replace(key, "")
-        print("Key: " + key + ", Nukes: " + nukes)
+        #print("Key: " + key + ", Nukes: " + nukes)
         if key.strip() == 'Carl Meissner; Henry William Auden (1894)':
             nukes = nukes.split(":")[0] + ":"
         return_str +=  level*'\t\t' + key + " " + nukes + '\n'
@@ -318,7 +318,7 @@ def destroy_translations(soup):
         print("Destroying table")
         t.parent.parent.decompose()
         t.decompose()
-    print("Soup Afterwards: " + str(soup))
+    #print("Soup Afterwards: " + str(soup))
 
 def destroy_latin_correlatives(soup):
     latin_correlatives_title = soup.find_all(text="Latin correlatives")
@@ -334,7 +334,7 @@ def destroy_latin_correlatives(soup):
     for t in soup.find_all('table', attrs={'class': 'wikitable'}):
         print("Destroying table")
         t.decompose()
-    print("Soup Afterwards: " + str(soup))
+    #print("Soup Afterwards: " + str(soup))
 
 def has_unwanted_headers(header):
     unwanted_list = ['References', 'See also', 'Further reading']
@@ -362,7 +362,7 @@ def get_derivations(soup, language, misc=False):
     one_table_found = False
     language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
-        print(f"Sibling: {sibling}")
+        #print(f"Sibling: {sibling}")
         if isinstance(sibling, Tag) and sibling.get_text().strip().replace("[edit]", "") in PARTS_OF_SPEECH:
             part_of_speech = sibling.get_text().strip().replace("[edit]", "")
             print("PART OF SPEECH: " + part_of_speech)
@@ -372,7 +372,7 @@ def get_derivations(soup, language, misc=False):
         if isinstance(sibling, Tag) and sibling.find_all('a', text="Latin correlatives"):
             print("FOUND CORRELATIVES")
             [a.decompose() for a in sibling.find_all('a', text="Latin correlatives")]
-            print("Sibling at end: " + str(sibling))
+            #print("Sibling at end: " + str(sibling))
             break
         if isinstance(sibling, Tag) and sibling.has_attr('class') and sibling['class'] == "derivedterms":
             header = ""
@@ -396,7 +396,7 @@ def get_derivations(soup, language, misc=False):
                     print("FOUND TRANSLATION")
                     header = ""
                     continue
-                print("Sibling header: " + header)
+                #print("Sibling header: " + header)
 
                 if header in PARTS_OF_SPEECH:
                     part_of_speech = header.strip()
@@ -435,7 +435,7 @@ def get_derivations(soup, language, misc=False):
                                         deriv_terms.append("Table not found.")
                                         continue
                                     table_array = parse_table(table)
-                                    print(table_array)
+                                    #print(table_array)
                                     deriv_terms.append(table_array)
                                 else:
                                     if "Table too large to print." not in deriv_terms:
