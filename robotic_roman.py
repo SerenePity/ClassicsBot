@@ -378,6 +378,11 @@ class RoboticRoman():
                 derives = '\n\n' + derives
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
             #print(return_str)
+        return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
+        double_derived_terms = re.compile(r"Derived terms\[edit\].*?\*\*", re.DOTALL)
+        return_str = re.sub(double_derived_terms, "\n**", return_str)
+        return_str = re.sub(r"Derived terms[^:]\n*", "", return_str)
+        return_str = re.sub(r"Compounds[^:]\n*", "", return_str)
         return '\n' + return_str
 
     def get_derivatives(self, word, language='latin', misc=False):
