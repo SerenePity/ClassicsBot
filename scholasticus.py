@@ -135,7 +135,9 @@ class Scholasticus(commands.Bot):
         print("Guess: " + guess)
         game_owner = self.players_to_game_owners[player]
         game_answer = self.games[game_owner].answer.strip()
-        formatted_answer = self.robot.format_name(game_answer) if not word_game else game_answer.split('/')[-1]
+        print(f"Is wordgame {word_game}")
+        print(f"Is grammargame {self.games[game_owner].is_grammar_game}")
+        formatted_answer = self.robot.format_name(game_answer) if not (word_game or self.games[game_owner].is_grammar_game) else game_answer.split('/')[-1]
         if guess.lower() == game_answer.lower().split('/')[-1]:
             await self.send_message(channel,
                                     f"{player.mention}, correct! The answer is {formatted_answer}.")
@@ -192,7 +194,6 @@ class Scholasticus(commands.Bot):
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
         if text_set == "ancientgreek":
-            answer = random.choice(self.robot.greek_authors)
             answer = random.choice(self.robot.greek_authors)
         elif text_set == "nomacrongrammar":
             grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms(no_macrons=True)
@@ -1164,7 +1165,10 @@ class Scholasticus(commands.Bot):
                 else:
                     guess = ' '.join(args[1:])
                     if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
-                        await self.process_guess(channel, author, guess, True)
+                        if game.is_word_game:
+                            await self.process_guess(channel, author, guess, True)
+                        else:
+                            await self.process_guess(channel, author, guess, False)
                 return
 
         # ==================================================================================================================================================
