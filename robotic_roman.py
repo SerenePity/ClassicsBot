@@ -336,8 +336,9 @@ class RoboticRoman():
         print("Language: " + language)
         if not word:
             word = self.get_random_word(language)
-        if language.lower() == 'chinese':
+        if language.lower() == 'tradchinese':
             word = tradify(word)
+            language = "chinese"
         soup = my_wiktionary_parser.get_soup(word)
         my_wiktionary_parser.destroy_translations(soup)
         my_wiktionary_parser.destroy_latin_correlatives(soup)
@@ -405,8 +406,9 @@ class RoboticRoman():
     def get_word_etymology(self, word, language='latin', tries=0):
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "No etymology found."
-        if language.lower() == 'chinese':
+        if language.lower() == 'tradchinese':
             word = tradify(word)
+            language = 'chinese'
         #word_entry = self.parser.fetch(word, language)
         etymology = None
         print("Word: " + str(word))
@@ -439,8 +441,9 @@ class RoboticRoman():
             word = word_url.split('/wiki/')[-1]
         else:
             word = urllib.parse.unquote(word_url.split('/')[-1].strip())
-            if language.lower() == 'chinese':
+            if language.lower() == 'tradchinese':
                 word = tradify(word)
+                language = 'chinese'
         if "category:" in word.lower():
             return self.get_random_word(language, tries=tries + 1, category=word)
         etymology = self.get_word_etymology(word, language=language)
@@ -464,8 +467,9 @@ class RoboticRoman():
             return string
 
     def get_and_format_word_defs(self, word, language='latin', include_examples=True):
-        if language.lower() == 'chinese':
+        if language.lower() == 'tradchinese':
             word = tradify(word)
+            language = 'chinese'
         word_defs = self.get_word_defs(word, language, include_examples)
         if isinstance(word_defs, str):
             word_defs = [word_defs]
