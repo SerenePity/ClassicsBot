@@ -719,25 +719,25 @@ Ut possis abolitus <re>surgere saeclo nouato.
 Quid malos attendis et iudicas sanctos iniquos, 
 Qui tibi nullum uerbum de lege demonstra<n>t? 
 De uirtute Dei refertur, quam fecit in illos; 
-** N_m dc qs_ f_at_ qaclcp_t_ diacpc nolsnt 
- Sbmmbo homi`id^b pbmmbo m^nibrpqrb <`>orbntip, 
- Qsoq Dominsq nsmqs_m notsit dom_pc moncndo. 
- Ssffiacpct illiq ncp ign_si_m t_nt_ fcaiqqc 
- Et di`bob: S`oimtrm pi` bo^t, modo `obdbob f^p bpt. 
-% Sbd Dominrp impb obp`ro^rit pbnprp boorm, 
-+ Indsp_sit coq qiast Ph_p_oncm in inqiq; 
-1 Nca npcacq copsm dixit cx_sdipc qc scllc 
-8 Et db tboo^ pr^ mooib`it illop io^trp. 
-? Csm filioq illoq stiqsc i_m dixcp_t _ntc 
-F Nb`bppb rolrbo^t bono `oodb rirbob n^top; 
-L Qs_ndo n_tcp g_sdct, asm qit bonsq filisq illi; 
-T Qsod qi m_lsq fscpit, cxcapctsp odio n_tsm. 
-[ Contp_pism nsllsq n_titsp qibi filism cqqc, 
-a Ex`lrditro omnip `^oit^p `ordblb db n^to, 
-g Nca f_ait hcpcdcm illsm cx _qqc qsopsm, 
-n Qs_c qi npisq notcpit aonqsmcpc, g_sdct in illsm. 
-v Imnism ct q_cssm qsbolcm, pci qs_c typ_nnsm, 
-, Nca obsism n_titsp gcnitop aommotsq _b illo. 
+Nam de sua facta scelerata dicere nolunt
+Semper homicidae semper manibusque cruentis,
+Quos Dominus nunquam potuit domare monendo.
+Sufficeret illis per ignaviam tanta fecisse
+Et dcere: Scriptum sic erat, modo credere fas est
+Sed Dominus ipse obscuravit sensus eorum,
+Induravit eos sicut Pharaonem in ipsis;
+Nec preces eorum dixit exaudire se velle
+Et de terra sua proiecit illos iratus.
+Cum filios illos utique iam dixerat ante,
+Necesse volverat bono corde vivere natos;
+Quando pater gaudet, cum sit bonus filius illi,
+Qusod si malus fuerit, exsecretur odio natum.
+Contrarium nullus patitur sibi filium esse,
+Excluditur omnis caritas crudele de nato,
+Nec facit heredem illum ex asse suorum,
+Quae si prius poterit consumere, gaudet in illum.
+Impium et saevum subolem rei suae tyrannum,
+Nec obvium patitur genitor conmotus ab illo.
 Quid isti praesumunt, cum sint adhortati, dicentes: 
 Ex omni populo nos sumus carissimi Summo? 
 Parricida patris semper et superbus in illo 
@@ -761,7 +761,7 @@ Nam et comminatur deorum cultoribus ipse:
 Sacrificans periet idolis in morte secunda. 
 Quisque deos ergo sequitur fabricatos in auro, 
 Argento uel lapide, ligno uel aeramine fusos, 
-**iuxix infjlix mittjtzw in ignj wjfjhtzx, 
+Cum ipsis infelix mittetur in igne proiectus
 Nec ibi permoritur, sed dat cruciatus iniquos. 
 Sunt homines pecorum similes in ista natura, 
 Qui nolunt accipere frenum Dei summi uagantes; 

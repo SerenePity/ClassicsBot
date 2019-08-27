@@ -569,6 +569,7 @@ class Scholasticus(commands.Bot):
                     qt_obj.works_list[index - 1] = module
                     qt_obj.quotes = quotes
                     qt_obj.index = 0
+                    qt_obj.after_index = 0
                     qt_obj.author = 'gibbon'
                     await self.send_message(channel, qt_obj.get_surrounding(after=1, joiner=""))
                 else:
@@ -576,6 +577,7 @@ class Scholasticus(commands.Bot):
                     qt_obj.works_list[index - 1] = module
                     qt_obj.quotes = quotes
                     qt_obj.index = 0
+                    qt_obj.after_index = 0
                     qt_obj.author = 'gibbon'
                     await self.send_message(channel, qt_obj.get_surrounding(after=1))
                 return
@@ -861,6 +863,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, re.sub(r"[\.](\w)", r"\1",
                                                             self.quote_requestors[author].get_surrounding(after=after)))
                 else:
+                    print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
                     await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
                 traceback.print_exc()

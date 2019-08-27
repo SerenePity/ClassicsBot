@@ -93,6 +93,8 @@ class QuoteContext():
         print("Index: " + str(self.index))
         quotes_list = []
         if before and after:
+            if self.index > len(self.quotes) - 1:
+                self.index = len(self.quotes) - 1
             self.before_index = max(0, self.index - before - 1)
             self.after_index = min(len(self.quotes), self.index + after)
             print("Center: " + self.quotes[self.index])
@@ -113,6 +115,8 @@ class QuoteContext():
                 quotes_list = self.get_surrounding(before=before, tries=tries + 1)
         elif after:
             old_after = self.after_index
+            if self.after_index == len(self.quotes):
+                return "Text ended"
             if self.after_index + after > len(self.quotes) - 1:
                 self.after_index = len(self.quotes)
             else:
@@ -1091,30 +1095,34 @@ class RoboticRoman():
             search_quotes = []
             quotes_list = []
             all_quotes = []
+            j_index = 0
             for f in files:
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                for p in process_func(f.read()):
-                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
+                for j, p in enumerate(process_func(f.read())):
+                    j_index = j
+                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w,0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
                     if search_target:
                         search_quotes.append(p)
-                        quotes_list.append(p + "_found")
+                        quotes_list.append((j, p + "_found", f))
                     else:
-                        quotes_list.append(p)
-                quotes_list.append("--------------------------EOF--------------------------")
+                        quotes_list.append((j, p, f))
+                quotes_list.append((j_index + 1, "--------------------------EOF--------------------------", f))
                 f.seek(0)
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
                 j = JVReplacer()
                 index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
-                if not search_quotes or len(search_quotes) == 0:
+                if not quote:
                     return -1, "Not found.", []
             else:
                 return_values = []
-                for i, quote in enumerate(quotes_list):
+                for i, (j, quote, f) in enumerate(quotes_list):
                     if quote.endswith("_found"):
-                        return_values.append((i, quote.replace("_found", ""),  quotes_list))
+                        return_values.append((j, quote.replace("_found", ""),  process_func(f.read())))
+                    f.seek(0)
                 ret = random.choice(return_values)
                 #print("Return: " + str(ret))
+                print(f"QuotesList: {ret[2]}")
                 return ret[0], ret[1], ret[2]
         else:
             f = random.choice(files)
