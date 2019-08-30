@@ -172,19 +172,23 @@ def get_etymology(language_header, language, word):
             if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             try:
-                ety_sect = sibling.findNextSibling('p')
-                etymology.append(ety_sect.get_text())
-                while True:
-                    ety_sect = ety_sect.findNextSibling()
-                    if isinstance(ety_sect, Tag):
-                        if ety_sect.name in ['h3', 'h4']:
-                            finished_first_ety = True
-                            break
-                        etymology.append(ety_sect.get_text())
-                    else:
-                        etymology.append(" ")
-                if finished_first_ety:
-                    break
+                print(f"Next sibling: {sibling.nextSibling.nextSibling}")
+                if sibling.nextSibling.nextSibling.name == 'dl':
+                    etymology.append(sibling.nextSibling.nextSibling.get_text())
+                else:
+                    ety_sect = sibling.findNextSibling('p')
+                    etymology.append(ety_sect.get_text())
+                    while True:
+                        ety_sect = ety_sect.findNextSibling()
+                        if isinstance(ety_sect, Tag):
+                            if ety_sect.name in ['h3', 'h4']:
+                                finished_first_ety = True
+                                break
+                            etymology.append(ety_sect.get_text())
+                        else:
+                            etymology.append(" ")
+                    if finished_first_ety:
+                        break
             except:
                 return "Not found."
     #print(etymology)
