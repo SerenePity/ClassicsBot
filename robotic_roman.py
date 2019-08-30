@@ -388,6 +388,7 @@ class RoboticRoman():
         return_str = re.sub(double_derived_terms, "\n**", return_str)
         return_str = re.sub(r"Derived terms[^:]\n*", "", return_str)
         return_str = re.sub(r"Compounds[^:]\n*", "", return_str)
+        return_str = re.sub(r"Synonyms[^:]\n*", "", return_str)
         return '\n' + return_str
 
     def get_derivatives(self, word, language='latin', misc=False):
