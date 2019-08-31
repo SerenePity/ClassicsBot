@@ -301,7 +301,14 @@ class RoboticRoman():
             except:
                 soup = my_wiktionary_parser.get_soup(word_input)
                 print(f"https://en.wiktionary.org/wiki/{word_input}")
-                defs = my_wiktionary_parser.get_definitions(soup, language)
+                try:
+                    defs = my_wiktionary_parser.get_definitions(soup, language)
+                except:
+                    if language.lower == 'chinese' or language.lower == 'tradchinese':
+                        print(f"tradified: {tradify(word_input)}")
+                        soup = my_wiktionary_parser.get_soup(tradify(word_input))
+                        defs = my_wiktionary_parser.get_definitions(soup, language)
+                        return defs
                 return defs
         if len(defs) == 0:
             # url = f"https://en.wiktionary.org/wiki/{word}"
@@ -320,7 +327,13 @@ class RoboticRoman():
             if "Wiktionary does not yet have an entry for " in str(soup):
                 return ["Not found."]
             print(f"https://en.wiktionary.org/wiki/{word_input}")
-            defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
+            try:
+                defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
+            except:
+                if language.lower() == 'chinese' or language.lower() == 'tradchinese':
+                    print(f"Tradified input: {tradify(word_input)}")
+                    soup = my_wiktionary_parser.get_soup(tradify(word_input))
+                    defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
             if defs[0] == 'Not found':
                 defs = self.fetch_def_by_other_parser(word_input, language)
             return defs
@@ -367,11 +380,13 @@ class RoboticRoman():
             gloss_section = ""
             if len(list(word)) > 1:
                 gloss = my_wiktionary_parser.get_wiktionary_glosses(soup)
+                if not gloss:
+                    gloss = my_wiktionary_parser.get_wiktionary_glosses(my_wiktionary_parser.get_soup(tradify(word)))
                 gloss_section = f"**Gloss:**\n{gloss}\n\n"
                 print("In Muliple")
                 glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(soup, list(word))
             else:
-                glyph_origin = my_wiktionary_parser.get_glyph_origin(soup)
+                glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, word)
             if not glyph_origin:
                 glyph_origin = "Not found."
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
@@ -422,6 +437,11 @@ class RoboticRoman():
             etymology = my_wiktionary_parser.get_etymology(language_section, language, word).replace(u'\xa0', u' ')
             return etymology
         except:
+            if language.lower() == 'chinese' or language.lower() == 'tradchinese':
+                word = tradify(word)
+                language_section, soup = my_wiktionary_parser.get_language_header(word, language)
+                etymology = my_wiktionary_parser.get_etymology(language_section, language, word).replace(u'\xa0', u' ')
+                return etymology
             traceback.print_exc()
             return "Not found."
 
@@ -436,7 +456,8 @@ class RoboticRoman():
         elif language.lower().strip() == 'chinese':
             url = random.choice([f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
                    "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_chengyu",
-                   "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_idioms"])
+                   "https://en.wiktionary.org/wiki/Special:RandomInCategory/Mandarin_lemmas"])
+            print(f"Chosen url: {url}")
 
         else:
             url = f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_lemmas"

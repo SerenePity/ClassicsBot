@@ -153,6 +153,8 @@ def format_row2(row, max_word_in_col_dict, is_line = False):
     return ret_str"""
 
 def get_etymology(language_header, language, word):
+    if not language_header:
+        return "Not found"
     next_siblings = language_header.next_siblings
     #print(language_header)
     if "Wiktionary does not yet have an entry for " in str(next_siblings):
@@ -597,7 +599,12 @@ def get_middle_chinese_only(soup, c):
     try:
         middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
     except:
-        return "N/A"
+        try:
+            c = tradify(c)
+            soup = get_soup(c)
+            middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
+        except:
+            return "N/A"
     return middle_chinese
 
 def get_old_chinese_only_zhengchang(c, soup):
@@ -606,8 +613,13 @@ def get_old_chinese_only_zhengchang(c, soup):
     try:
         pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
     except:
-        traceback.print_exc()
-        return "N/A"
+        try:
+            c = tradify(c)
+            soup = get_soup(c)
+            pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
+        except:
+            traceback.print_exc()
+            return "N/A"
     return pronunciation
 
 def get_language_header(word, language):
@@ -630,7 +642,10 @@ def get_language_header_with_soup(soup, language):
     return None, soup
 
 def get_mandarin_pronunciation(soup):
-    mandarin_pronunciation = soup.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
+    try:
+        mandarin_pronunciation = soup.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
+    except:
+        mandarin_pronunciation = soup.find_all(attrs={'class': 'Latn', 'lang': 'cmn'}, recursive=True)[0].get_text()
     #mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
     return mandarin_pronunciation
 
@@ -643,30 +658,49 @@ def get_chinese_gloss(char):
     else:
         return "gloss unavailable"
 
-def get_historical_chinese(char):
-    if char in baxter_sagart.reconstructions:
-        tuple_list = baxter_sagart.reconstructions[char]
-        first_entry = tuple_list[0]
-        pinyin, mc, oc_bax, gloss = first_entry
-        oc_bax = oc_bax.split(" (")[0].strip()
-        return pinyin, mc, oc_bax
-    else:
-        soup = get_soup(char)
-        mc = get_middle_chinese_only(soup, char)
-        oc_bax = "N/A"
-        return None, mc, oc_bax
+def get_historical_chinese(char, tries=0):
+    if tries > 1:
+        return "N/A", "N/A", "N/A"
+    try:
+        if char in baxter_sagart.reconstructions:
+            tuple_list = baxter_sagart.reconstructions[char]
+            first_entry = tuple_list[0]
+            pinyin, mc, oc_bax, gloss = first_entry
+            oc_bax = oc_bax.split(" (")[0].strip()
+            return pinyin, mc, oc_bax
+        elif (tradify(char)) in baxter_sagart.reconstructions:
+            char = tradify(char)
+            tuple_list = baxter_sagart.reconstructions[char]
+            first_entry = tuple_list[0]
+            pinyin, mc, oc_bax, gloss = first_entry
+            oc_bax = oc_bax.split(" (")[0].strip()
+            return pinyin, mc, oc_bax
+        else:
+            soup = get_soup(char)
+            mc = get_middle_chinese_only(soup, char)
+            oc_bax = "N/A"
+            return None, mc, oc_bax
+    except:
+        return get_historical_chinese(tradify(char), tries + 1)
 
 def get_historical_chinese_word(word):
     language_header, soup = get_language_header(word, "Chinese")
     #print(soup)
     mandarin_word, mc_word, oc_bax_word, oc_zc_word = [], [], [], []
     for char in list(word):
-        pinyin, mc, oc_bax = get_historical_chinese(char)
+        try:
+            pinyin, mc, oc_bax = get_historical_chinese(char)
+        except:
+            pinyin, mc, oc_bax = get_historical_chinese(tradify(char))
         mandarin_word.append(pinyin)
         mc_word.append(mc)
         oc_bax_word.append(oc_bax)
     if None in mandarin_word:
-        mandarin_word = get_mandarin_pronunciation(soup)
+        try:
+            mandarin_word = get_mandarin_pronunciation(soup)
+        except:
+            soup = get_soup(tradify(word))
+            mandarin_word = get_mandarin_pronunciation(soup)
     mc_pronunciation = "Middle Chinese: " + " ".join(mc_word).replace("/", "")
     oc_pronunciation_bax = "Old Chinese (Baxter-Sagart): " + ' '.join(oc_bax_word).replace("*", "\*")
     mandarin_pronunciation = "Mandarin: " + ''.join(mandarin_word)
@@ -690,22 +724,30 @@ def get_wiktionary_glosses(soup):
             else:
                 gloss_list.append(th.get_text().replace('\n',''))
         print(print(f"WiktGloss: {gloss_list}"))
-        gloss_tuples = list(zip(chars, gloss_list))
-        return '\n'.join([f"{c}: {g}" for c, g in gloss_tuples])
+        if len(chars) == len(gloss_list):
+            gloss_tuples = list(zip(chars, gloss_list))
+            return '\n'.join([f"{c}: {g}" for c, g in gloss_tuples])
+        else:
+            return "".join(chars) + ": " + gloss_list[0]
     else:
         return None
 
+def remove_duplicates(words):
+    return list(dict.fromkeys(words).keys())
+
 def get_glyph_origin_multiple(soup, words):
     final = []
-    for i, c in enumerate(words):
+    for i, c in enumerate(remove_duplicates(words)):
         if c in baxter_sagart.punctuation:
             continue
         char_soup = get_soup(c)
         print("Charlist mem: " + c)
-        final.append(f"**{i+1}.** {c}: {get_glyph_origin(char_soup)}")
+        final.append(f"**{i+1}.** {c}: {get_glyph_origin(char_soup, c)}")
     return '\n\n'.join(final)
 
-def get_glyph_origin(soup):
+def get_glyph_origin(soup, c, tries=0, tradified=False):
+    if tries > 1:
+        return ""
     origin = []
     for h in soup.find_all('h3') + soup.find_all('h4'):
         #print("H3: " + str(h3))
@@ -719,6 +761,10 @@ def get_glyph_origin(soup):
                 if sibling.name in ['h3', 'h4']:
                     break
     print("Glyph origin: " + str(origin))
+    if origin == []:
+        return get_glyph_origin(get_soup(tradify(c)), tradify(c), tries=tries + 1, tradified=True)
+    if tradified:
+        return f"(Simplified form of {c}) - " + '\n'.join(origin).strip()
     return '\n'.join(origin).strip()
 
 mapping = {
