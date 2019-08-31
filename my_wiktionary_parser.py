@@ -199,6 +199,7 @@ def get_etymology(language_header, language, word):
     return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
 
 def get_definition(soup, language, include_examples=True):
+    print("In get definition")
     #print("Part of speech: " + part_of_speech.title())
     if "Wiktionary does not yet have an entry for " in str(soup):
         return "Not found."
@@ -210,8 +211,17 @@ def get_definition(soup, language, include_examples=True):
             language_header = h2
             break
     if not language_header:
-        return "Could not find definition."
+        if language.lower() == 'chinese':
+            return get_definition(soup, 'mandarin', True)
+        else:
+            return "Could not find definition."
     #print(language_header)
+    if language.lower() == 'chinese':
+        # print(f"Language header: {soup.get_text()}")
+        variant_regex = re.match(re.compile(r"For pronunciation and definitions of . – see (.)"), soup.get_text())
+        print(f"Variant regex: {variant_regex}")
+        if variant_regex:
+            return get_definition(get_soup(variant_regex.group(1)), 'chinese', True)
     definition = language_header.findNextSibling('ol')
     #print(definition)
     if not include_examples:
@@ -226,7 +236,13 @@ def get_definition(soup, language, include_examples=True):
                 elif li.ul:
                     li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
                 li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
-    #print(definition)
+    print(f"Definition: {definition}")
+    if 'This term needs a translation to English' in str(definition):
+        print("Trying translingual")
+        try:
+            return get_definition(soup, "translingual", include_examples=True)
+        except:
+            return "Could not find definition."
     return definition
 
 def remove_example(li):
@@ -758,6 +774,8 @@ def get_glyph_origin(soup, c, tries=0, tradified=False):
                     origin.append(sibling.get_text())
                 if sibling.name == 'ul':
                     origin.append(dictify(sibling))
+                if sibling.name == 'ol':
+                    origin.append(old_dictify(sibling))
                 if sibling.name in ['h3', 'h4']:
                     break
     print("Glyph origin: " + str(origin))

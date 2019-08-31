@@ -349,7 +349,9 @@ class RoboticRoman():
         soup = my_wiktionary_parser.get_soup(word)
         return soup and "does not yet have an entry" not in soup
 
-    def get_full_entry(self, word=None, language='latin'):
+    def get_full_entry(self, word=None, language='latin', tries=0):
+        if tries > 1:
+            return "Error retrieving entry"
         print("Language: " + language)
         if not word:
             word = self.get_random_word(language)
@@ -365,8 +367,10 @@ class RoboticRoman():
                     print(s)
                     s = None
                 child.decompose()
-
-        definition = self.get_and_format_word_defs(word, language)
+        try:
+            definition = self.get_and_format_word_defs(word, language)
+        except:
+            return self.get_full_entry(word, language, tries + 1)
         etymology = self.get_word_etymology(word, language)
         if language.lower() == 'chinese':
             word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_historical_chinese_word(word)
