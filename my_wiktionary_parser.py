@@ -680,15 +680,15 @@ def get_historical_chinese(char, tries=0):
     try:
         if char in baxter_sagart.reconstructions:
             tuple_list = baxter_sagart.reconstructions[char]
-            first_entry = tuple_list[0]
-            pinyin, mc, oc_bax, gloss = first_entry
+            last_entry = tuple_list[-1]
+            pinyin, mc, oc_bax, gloss = last_entry
             oc_bax = oc_bax.split(" (")[0].strip()
             return pinyin, mc, oc_bax
         elif (tradify(char)) in baxter_sagart.reconstructions:
             char = tradify(char)
             tuple_list = baxter_sagart.reconstructions[char]
-            first_entry = tuple_list[0]
-            pinyin, mc, oc_bax, gloss = first_entry
+            last_entry = tuple_list[0]
+            pinyin, mc, oc_bax, gloss = last_entry
             oc_bax = oc_bax.split(" (")[0].strip()
             return pinyin, mc, oc_bax
         else:
