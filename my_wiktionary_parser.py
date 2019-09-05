@@ -481,13 +481,26 @@ def parse_descendants(ul, language, depth=0):
     if 'proto-' in language.lower():
         print("In Proto language flow")
         for li in ul.find_all('li', recursive=False):
-            line = li.find(text=True, recursive=False)
-            entry = '\t\t' * depth + line + re.sub(line, "", re.sub(r"<.*?>", "", str(li)))
+            line = li.find_all(text=True, recursive=False)
+            if len(line) > 0:
+                line = line[0]
+                entry = '\t\t' * depth + line + re.sub(line, "", re.sub(r"<.*?>", "", str(li)))
+            else:
+                line = li.find(text=True, recursive=False)
+                if not line:
+                    line = ""
+                entry = '\t\t' * depth + line + re.sub(line, "", re.sub(r"<.*?>", "", str(li)))
+
             print(f"Entry: {entry}")
             if depth > 0 or "Unsorted formations:" in li.get_text():
                 entry = entry.split('\n')[0]
             else:
-                entry = li.find(text=True, recursive=False).strip() + ' '.join([span.get_text() for span in li.find_all('span', recursive=False)]).replace("( ", "(").replace(" )", ")").replace("“ ", "“").replace(" ”", "”")
+                heading = li.find_all(text=True, recursive=False)
+                if heading:
+                    heading = heading[0].strip()
+                else:
+                    heading = ""
+                entry = heading + ' '.join([span.get_text() for span in li.find_all('span', recursive=False)]).replace("( ", "(").replace(" )", ")").replace("“ ", "“").replace(" ”", "”")
             #print(f"Depth: {depth}: {entry}")
             ret_str += entry.replace("&lt;", "<") + '\n'
             if li.find_all('ul'):
