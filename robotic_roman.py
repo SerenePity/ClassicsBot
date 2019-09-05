@@ -378,7 +378,7 @@ class RoboticRoman():
             word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}"
+            return_str = re.sub(r"(?<!\*)\*(?!\*)", "\\*", f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
         elif language.lower() == 'chinese':
             #print("WORD: " + word)
             gloss_section = ""
@@ -403,7 +403,7 @@ class RoboticRoman():
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
             #print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
-        double_derived_terms = re.compile(r"Derived terms\[edit\].*?\*\*", re.DOTALL)
+        double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
         return_str = re.sub(double_derived_terms, "\n**", return_str)
         return_str = re.sub(r"Derived terms[^:]\n*", "", return_str)
         return_str = re.sub(r"Compounds[^:]\n*", "", return_str)

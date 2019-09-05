@@ -440,6 +440,12 @@ def get_derivations(soup, language, misc=False):
                             if header != "Declension" and header != "Inflection":
                                 if header == "References":
                                     deriv_terms.append(old_dictify(sub_subling))
+                                elif header == 'Descendants' or header == 'Derived terms':
+                                    print(f"SubSubling: {sub_subling}")
+                                    print(language)
+                                    parsed_descendants = parse_descendants(sub_subling, language)
+                                    print(f"FINAL: {parsed_descendants}")
+                                    deriv_terms.append(parsed_descendants.strip())
                                 else:
                                     deriv_terms.append(sub_subling.get_text().strip())
                             else:
@@ -466,9 +472,30 @@ def get_derivations(soup, language, misc=False):
 
                 if header.strip() == 'Derived terms':
                     deriv_terms.replace("Derived terms", "").strip()
-                derivations.append(f"**{header}:**\n{deriv_terms}")
+                derivations.append(f"**{header}:**\n{deriv_terms.strip()}")
     return '\n\n'.join(derivations).replace("Translations[edit]", "")
 
+def parse_descendants(ul, language, depth=0):
+    ret_str = ""
+    print(f"Language: {language}")
+    if 'proto-' in language.lower():
+        print("In Proto language flow")
+        for li in ul.find_all('li', recursive=False):
+            line = li.find(text=True, recursive=False)
+            entry = '\t\t' * depth + line + re.sub(line, "", re.sub(r"<.*?>", "", str(li)))
+            print(f"Entry: {entry}")
+            if depth > 0 or "Unsorted formations:" in li.get_text():
+                entry = entry.split('\n')[0]
+            else:
+                entry = li.find(text=True, recursive=False).strip() + ' '.join([span.get_text() for span in li.find_all('span', recursive=False)]).replace("( ", "(").replace(" )", ")").replace("“ ", "“").replace(" ”", "”")
+            #print(f"Depth: {depth}: {entry}")
+            ret_str += entry.replace("&lt;", "<") + '\n'
+            if li.find_all('ul'):
+                print("Found nested list")
+                ret_str += parse_descendants(li.find_all('ul')[0], language, depth + 1)
+        return ret_str
+    else:
+        return ul.get_text().strip()
 
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
