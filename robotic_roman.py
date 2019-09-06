@@ -1156,7 +1156,6 @@ class RoboticRoman():
             print("Process function name: ")
             print(process_func.__name__)
             quotes_list = process_func(f.read())
-            print(quotes_list)
             print("len: " + str(len(quotes_list)))
             #print(quotes_list)
             index = i = random.choice(range(len(quotes_list)))
