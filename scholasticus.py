@@ -576,7 +576,7 @@ class Scholasticus(commands.Bot):
                 index = int(args[1])
             except:
                 self.send_message(channel, "Index must be an integer.")
-
+                return
             if source.lower().strip() == 'gibbon':
                 module = qt_obj.works_list[index - 1]
                 if 'footnotes' in module.__file__:
