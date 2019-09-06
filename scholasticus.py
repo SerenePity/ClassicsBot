@@ -287,6 +287,9 @@ class Scholasticus(commands.Bot):
         channel = message.channel
         content = message.content
 
+        print(channel)
+        print(content)
+
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             print(args)
