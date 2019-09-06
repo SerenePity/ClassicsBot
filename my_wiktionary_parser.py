@@ -484,7 +484,7 @@ def parse_descendants(ul, language, depth=0):
             line = li.find_all(text=True, recursive=False)
             if len(line) > 0:
                 line = line[0]
-                entry = '\t\t' * depth + line + re.sub(line, "", re.sub(r"<.*?>", "", str(li)))
+                entry = '\t\t' * depth + line + re.sub(re.escape(line), "", re.sub(r"<.*?>", "", str(li)))
             else:
                 line = li.find(text=True, recursive=False)
                 if not line:
