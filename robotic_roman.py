@@ -404,7 +404,7 @@ class RoboticRoman():
             #print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
         double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
-        return_str = re.sub(double_derived_terms, "\n**", return_str)
+        return_str = re.sub(double_derived_terms, "\n\n**", return_str)
         return_str = re.sub(r"Derived terms[^:]\n*", "", return_str)
         return_str = re.sub(r"Compounds[^:]\n*", "", return_str)
         return_str = re.sub(r"Synonyms[^:]\n*", "", return_str)
