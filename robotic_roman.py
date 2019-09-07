@@ -1148,7 +1148,7 @@ class RoboticRoman():
                     f.seek(0)
                 ret = random.choice(return_values)
                 #print("Return: " + str(ret))
-                print(f"QuotesList: {ret[2]}")
+                #print(f"QuotesList: {ret[2]}")
                 return ret[0], ret[1], ret[2]
         else:
             f = random.choice(files)
