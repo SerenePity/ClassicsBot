@@ -1,4 +1,19 @@
-
+BOOK III: From the Union of Italy to the Subjugation of Carthage and the Greek States
+CHAPTER
+I% Carthage
+II% The War between Rome and Carthage Concerning Sicily
+III% The Extension of Italy to Its Natural Boundaries
+IV% Hamilcar and Hannibal
+V% The War under Hannibal to the Battle of Cannae
+VI% The War under Hannibal from Cannae to Zama
+VII% The West from the Peace of Hannibal to the Close of the Third Period
+VIII% The Eastern States and the Second Macedonian War
+IX% The War with Antiochus of Asia
+X% The Third Macedonian War
+XI% The Government and the Governed
+XII% The Management of Land and of Capital
+XIII% Faith and Manners
+XIV% Literature and Art
 
 THE HISTORY OF ROME: BOOK III
 From the Union of Italy to the Subjugation of Carthage and the Greek States
@@ -6,9 +21,9 @@ From the Union of Italy to the Subjugation of Carthage and the Greek States
 BOOK THIRD
 From the Union of Italy to the Subjugation of Carthage and the Greek States
 
-Arduum res gestas scribere.
+Arduum res gestas scribere%
 —Sallust.
-
+‰
 CHAPTER I
 Carthage
 
