@@ -887,7 +887,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, re.sub(r"[\.](\w)", r"\1",
                                                             self.quote_requestors[author].get_surrounding(after=after)))
                 else:
-                    print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
+                    #print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
                     await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
                 traceback.print_exc()
