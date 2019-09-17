@@ -44,7 +44,7 @@ PARALLEL_TEXTS_PATH = "parallel"
 
 SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 1000
-MIN_QUOTES_LENGTH = 10
+MIN_QUOTES_LENGTH = 50
 QUOTES = ["\"", "'", "“", "\""]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
@@ -1286,13 +1286,7 @@ class RoboticRoman():
         else:
             person = person.lower().strip()
 
-        if person.lower() == "best korea":
-            files = quotes_dict[person.lower()]
-            files1 = files[:(len(files)// 2)]
-            files2 = files[len(files) // 2:]
-            files = random.choice([files1, files2])
-        else:
-            files = quotes_dict[person.lower()]
+        files = quotes_dict[person.lower()]
 
         person = person.lower().strip()
 
