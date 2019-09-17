@@ -506,11 +506,11 @@ class RoboticRoman():
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
-        author = 'parallel_' + author
+        author = author
         if line_num < 0:
             quote = self.random_quote(author)
         else:
-            f = self.parallel_quotes_dict[author.replace('parallel_', '')][0]
+            f = self.parallel_quotes_dict[author][0]
             try:
                 quote = f.readlines()[line_num]
             except:
@@ -1286,7 +1286,13 @@ class RoboticRoman():
         else:
             person = person.lower().strip()
 
-        files = quotes_dict[person.lower()]
+        if person.lower() == "best korea":
+            files = quotes_dict[person.lower()]
+            files1 = files[:(len(files)// 2)]
+            files2 = files[len(files) // 2:]
+            files = random.choice([files1, files2])
+        else:
+            files = quotes_dict[person.lower()]
 
         person = person.lower().strip()
 
