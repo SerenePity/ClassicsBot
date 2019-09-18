@@ -18,6 +18,9 @@ import transliteration.coptic
 import transliteration.latin_antique
 import transliteration.greek
 import transliteration.hebrew
+import transliteration.mandarin
+import transliteration.middle_chinese
+import transliteration.korean
 from mafan import simplify, tradify
 from transliterate import translit, get_available_language_codes
 import traceback
@@ -68,6 +71,8 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
+KOREAN = ['korean', 'KLB']
+CHINESE = ['CCB', 'CCBT', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
 
 def format_color(text, color_type="yaml"):
@@ -737,9 +742,14 @@ class RoboticRoman():
 
     def get_bible_verse(self, verse, version='kjv'):
         translit = False
+        middle_chinese = False
         if version[0] == '$':
-            version = version[1:]
+            version = ''.join(version[1:])
             translit = True
+        if version[0] == '#':
+            version = ''.join(version[1:])
+            translit = True
+            middle_chinese = True
         verse = verse.title()
         passage = "Not found"
         if version.strip().lower() == 'wyc':
@@ -775,7 +785,7 @@ class RoboticRoman():
             else:
                 passage = self.get_bible_verse_from_gateway(verse, version)
             if translit:
-                passage = self.transliterate_verse(version, passage)
+                passage = self.transliterate_verse(version, passage, middle_chinese)
         except:
             traceback.print_exc()
             passage = "Not found"
@@ -843,7 +853,8 @@ class RoboticRoman():
 
         return '\n'.join(translations)
 
-    def transliterate_verse(self, version, text):
+    def transliterate_verse(self, version, text, middle_chinese):
+        print("Version: " + version)
         if version in COPTIC:
             return transliteration.coptic.transliterate(text).lower()
         if version in ARAMAIC:
@@ -864,6 +875,12 @@ class RoboticRoman():
             return translit(input, 'ka', reversed=True).replace('ჲ', 'y')
         if version == "uncial":
             return transliteration.latin_antique(text)
+        if version in KOREAN:
+            return transliteration.korean.transliterate(text)
+        if version in CHINESE:
+            if middle_chinese:
+                return transliteration.middle_chinese.transliterate(text)
+            return transliteration.mandarin.transliterate(text)
         return text
 
     def bible_compare(self, verse, versions: list):

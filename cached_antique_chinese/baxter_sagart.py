@@ -72,7 +72,8 @@ punctuation = {
  "\\": "\\",
  "&": "&",
  "%": "%",
- "*": "*"
+ "*": "*",
+ "。": "."
 }
 
 def get_historical_chinese(char):

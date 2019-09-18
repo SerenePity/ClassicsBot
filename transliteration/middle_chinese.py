@@ -12,13 +12,15 @@ def get_middle_chinese_from_wiktionary(char):
         return char
     return middle_chinese
 
+def is_chinese_char(texts):
+    return re.search("[\u4e00-\u9FFF]", texts)
 
 def transliterate(text):
 
     ret_array = []
 
     for char in text:
-        if re.match(r"([0-9A-Za-z\s\.\,\!\"\';\)\(]+)", char):
+        if not is_chinese_char(char):
             ret_array.append("‰" + char + "‰")
         else:
             char = tradify(char)
@@ -34,6 +36,7 @@ def transliterate(text):
         elif baxter_sagart.punctuation[char] == "»":
             ret_str = ret_str.replace(f" {char} ", f"{baxter_sagart.punctuation[char]} ")
         else:
+            ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
             ret_str = re.sub(r"\s*([:,\.\";!?])", r"\1", ret_str)
     print(ret_str)
-    return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ")
+    return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "")
