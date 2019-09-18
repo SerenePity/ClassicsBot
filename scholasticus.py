@@ -7,6 +7,7 @@ import transliteration.hebrew
 import transliteration.coptic
 import transliteration.middle_chinese
 import transliteration.mandarin
+import transliteration.korean
 from transliterate import translit, get_available_language_codes
 import traceback
 import random
@@ -537,6 +538,8 @@ class Scholasticus(commands.Bot):
                     transliterated = translit(input, 'ka', reversed=True).replace('ჲ', 'y')
                 elif language == '-rus':
                     transliterated = translit(input, 'ru', reversed=True)
+                elif language == '-kor':
+                    transliterated = transliteration.korean.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
                 await self.send_message(channel, transliterated)
