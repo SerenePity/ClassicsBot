@@ -1076,10 +1076,10 @@ class RoboticRoman():
                 return_values = []
                 for i, quote in enumerate(quotes_list):
                     if quote.endswith("_found"):
-                        return_values.append((i, quote.replace("_found", ""),  quotes_list))
+                        return_values.append((i, quote.replace("_found", "")))
                 ret = random.choice(return_values)
                 #print("Return: " + str(ret))
-                return ret[0], ret[1], ret[2]
+                return ret[0], ret[1], quotes_list
         else:
             vol_index = random.randint(0, len(modules) - 1)
             volume = modules[vol_index]
@@ -1121,18 +1121,23 @@ class RoboticRoman():
             search_quotes = []
             quotes_list = []
             all_quotes = []
+            read_files = []
             j_index = 0
-            for f in files:
+            for i, f in enumerate(files):
+                print(str(i) + " " + f.name)
                 # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                for j, p in enumerate(process_func(f.read())):
+                read_file = process_func(f.read())
+                read_files.append(read_file)
+                for j, p in enumerate(read_file):
                     j_index = j
+                    all_quotes.append(p)
                     search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w,0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
                     if search_target:
                         search_quotes.append(p)
-                        quotes_list.append((j, p + "_found", f))
+                        quotes_list.append((j, p + "_found", i))
                     else:
-                        quotes_list.append((j, p, f))
-                quotes_list.append((j_index + 1, "--------------------------EOF--------------------------", f))
+                        quotes_list.append((j, p, i))
+                quotes_list.append((j_index + 1, "--------------------------EOF--------------------------", i))
                 f.seek(0)
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
@@ -1142,14 +1147,13 @@ class RoboticRoman():
                     return -1, "Not found.", []
             else:
                 return_values = []
-                for i, (j, quote, f) in enumerate(quotes_list):
+                for i, (j, quote, f_index) in enumerate(quotes_list):
                     if quote.endswith("_found"):
-                        return_values.append((j, quote.replace("_found", ""),  process_func(f.read())))
-                    f.seek(0)
+                        return_values.append((j, quote.replace("_found", ""),  f_index))
                 ret = random.choice(return_values)
                 #print("Return: " + str(ret))
                 #print(f"QuotesList: {ret[2]}")
-                return ret[0], ret[1], ret[2]
+                return ret[0], ret[1], read_files[ret[2]]
         else:
             f = random.choice(files)
             print(f)
