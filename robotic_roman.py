@@ -631,7 +631,7 @@ class RoboticRoman():
         versions = sorted(bible_versions.versions[lang.lower()], key=str.lower)
         return_string = f"{lang.title()}: {', '.join(versions)}"
         if len(return_string) >= 2000:
-            chunks = self.chunks(versions, 10)
+            chunks = RoboticRoman.chunks(versions, 10)
             return [lang.title() + ":"] + [f"{', '.join(chunk)}" for chunk in chunks]
         else:
             return [return_string]
