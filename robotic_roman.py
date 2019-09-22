@@ -652,7 +652,7 @@ class RoboticRoman():
             body = post.url
         else:
             body = post.title
-        return body
+        return f"**{post.title}**\n{body}"
 
     def get_old_english_verse(self, verse):
         book = ''.join(verse.split(":")[0].split()[:-1]).lower()

@@ -18,6 +18,7 @@ from TextToOwO import owo
 import my_wiktionary_parser
 from robotic_roman import RoboticRoman
 from robotic_roman import QuoteContext
+import praw
 
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
@@ -757,8 +758,10 @@ class Scholasticus(commands.Bot):
                     source = "the " + source.strip().lower()
 
                 if transliterate:
-                    if source == "reddit" and message.author.id != BOT_OWNER:
-                        await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
+                    if source == "reddit":
+                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                        await self.send_message(channel,
+                                                f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                     _, works_list = self.robot.show_author_works(source)
@@ -768,8 +771,10 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, transliterated)
                     return
                 else:
-                    if source == "reddit" and message.author.id != BOT_OWNER:
-                        await self.send_message(channel, "Sorry, www.reddit.com has been deleted. Please switch to Quora instead. Thank you.")
+                    if source == "reddit":
+                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                        print(subreddit.display_name)
+                        await self.send_message(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                     quote = re.sub(r"([?!])\s*\.", r"\1", quote)
