@@ -469,7 +469,7 @@ class Scholasticus(commands.Bot):
             self.debug(channel, content)
             try:
                 subreddit = shlex.split(content.lower().strip())[1]
-                await self.send_message(channel, self.robot.reddit_quote(subreddit))
+                await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit))
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
@@ -760,7 +760,7 @@ class Scholasticus(commands.Bot):
                 if transliterate:
                     if source == "reddit":
                         subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                        await self.send_message(channel,
+                        await self.send_in_chunks_if_needed(channel,
                                                 f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
@@ -774,7 +774,7 @@ class Scholasticus(commands.Bot):
                     if source == "reddit":
                         subreddit = self.robot.reddit.random_subreddit(nsfw=False)
                         print(subreddit.display_name)
-                        await self.send_message(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                        await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                         return
                     index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                     quote = re.sub(r"([?!])\s*\.", r"\1", quote)
@@ -888,15 +888,15 @@ class Scholasticus(commands.Bot):
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
                 if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
+                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
-                    await self.send_message(channel, qt_obj.get_surrounding(after=after, joiner=""))
+                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 elif qt_obj.author.lower() == 'the bible':
-                    await self.send_message(channel, re.sub(r"[\.](\w)", r"\1",
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1",
                                                             self.quote_requestors[author].get_surrounding(after=after)))
                 else:
                     #print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
-                    await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -920,11 +920,11 @@ class Scholasticus(commands.Bot):
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
                 if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_message(channel, qt_obj.get_surrounding(before=before, joiner=""))
+                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(before=before, joiner=""))
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
-                    await self.send_message(channel, qt_obj.get_surrounding(before=before, joiner=""))
+                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(before=before, joiner=""))
                 else:
-                    await self.send_message(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
@@ -947,16 +947,16 @@ class Scholasticus(commands.Bot):
                 qt_obj: QuoteContext = self.quote_requestors[author]
                 if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
-                    await self.send_message(channel, surr_quotes)
+                    await self.send_in_chunks_if_needed(channel, surr_quotes)
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
-                    await self.send_message(channel, surr_quotes)
+                    await self.send_in_chunks_if_needed(channel, surr_quotes)
                 elif qt_obj.author.lower() == 'the bible':
-                    await self.send_message(channel, re.sub(r"[\.](\w)", r"\1", qt_obj.get_surrounding(before=before, after=after)))
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1", qt_obj.get_surrounding(before=before, after=after)))
                 else:
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after)
                     surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)
-                    await self.send_message(channel, surr_quotes)
+                    await self.send_in_chunks_if_needed(channel, surr_quotes)
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 await self.send_message(channel, f"The passage is too long.")
