@@ -113,7 +113,7 @@ class Scholasticus(commands.Bot):
 
         self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
-        for author in self.authors:
+        for author in self.authors_set:
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
@@ -722,76 +722,86 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'qt'):
-            self.debug(channel, content)
-            qt_args = shlex.split(content.replace('“','"').replace('”','"'))
-            if qt_args[0].lower() != 'qt':
-                return
-            print(qt_args)
-            word = None
-            transliterate = False
-            lemmatize = False
-            case_sensitive = False
-            try:
-                for i, arg in enumerate(qt_args):
-                    if '-w' in arg.strip().lower():
-                        word = qt_args[i + 1]
-                        if "l" in arg:
-                            lemmatize = True
-                        if "c" in arg:
-                            case_sensitive = True
-                    if arg.strip().lower() == '-t':
-                        transliterate = True
-
-                if word and transliterate:
-                    source = ' '.join(qt_args[4:]).lower().strip()
-                elif word and not transliterate:
-                    source = ' '.join(qt_args[3:]).lower().strip()
-                elif transliterate and not word:
-                    source = ' '.join(qt_args[2:]).lower().strip()
-                elif not word and not transliterate:
-                    source = ' '.join(qt_args[1:]).lower().strip()
-                if word:
-                    word = self.sanitize_user_input(word)
-
-                if source not in self.authors_set:
-                    source = "the " + source.strip().lower()
-
-                if transliterate:
-                    if source == "reddit":
-                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                        await self.send_in_chunks_if_needed(channel,
-                                                f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
-                        return
-                    index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
-                    _, works_list = self.robot.show_author_works(source)
-                    qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
-                    self.quote_requestors[author] = qt_obj
-                    transliterated = transliteration.greek.transliterate(quote)
-                    await self.send_message(channel, transliterated)
+        if content.lower().startswith(self.command_prefix + 'qt') or content.lower().strip() in self.quotes_commands:
+            if content.lower().startswith("as") and content.lower().endswith("said:"):
+                source = self.quotes_commands[content.lower().strip()]
+                index, quote, quotes_list = self.robot.random_quote(source.lower(), None, False,
+                                                                    case_sensitive=False)
+                quote = re.sub(r"([?!])\s*\.", r"\1", quote)
+                _, works_list = self.robot.show_author_works(source)
+                qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
+                self.quote_requestors[author] = qt_obj
+                await self.send_message(channel, quote)
+            else:
+                self.debug(channel, content)
+                qt_args = shlex.split(content.replace('“','"').replace('”','"'))
+                if qt_args[0].lower() != 'qt':
                     return
-                else:
-                    if source == "reddit":
-                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                        print(subreddit.display_name)
-                        await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                print(qt_args)
+                word = None
+                transliterate = False
+                lemmatize = False
+                case_sensitive = False
+                try:
+                    for i, arg in enumerate(qt_args):
+                        if '-w' in arg.strip().lower():
+                            word = qt_args[i + 1]
+                            if "l" in arg:
+                                lemmatize = True
+                            if "c" in arg:
+                                case_sensitive = True
+                        if arg.strip().lower() == '-t':
+                            transliterate = True
+
+                    if word and transliterate:
+                        source = ' '.join(qt_args[4:]).lower().strip()
+                    elif word and not transliterate:
+                        source = ' '.join(qt_args[3:]).lower().strip()
+                    elif transliterate and not word:
+                        source = ' '.join(qt_args[2:]).lower().strip()
+                    elif not word and not transliterate:
+                        source = ' '.join(qt_args[1:]).lower().strip()
+                    if word:
+                        word = self.sanitize_user_input(word)
+
+                    if source not in self.authors_set:
+                        source = "the " + source.strip().lower()
+
+                    if transliterate:
+                        if source == "reddit":
+                            subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                            await self.send_in_chunks_if_needed(channel,
+                                                    f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                            return
+                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                        _, works_list = self.robot.show_author_works(source)
+                        qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
+                        self.quote_requestors[author] = qt_obj
+                        transliterated = transliteration.greek.transliterate(quote)
+                        await self.send_message(channel, transliterated)
                         return
-                    index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
-                    quote = re.sub(r"([?!])\s*\.", r"\1", quote)
-                    _, works_list = self.robot.show_author_works(source)
-                    qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
-                    self.quote_requestors[author] = qt_obj
-                    await self.send_message(channel, quote)
-            except discord.errors.HTTPException:
-                traceback.print_exc()
-                await self.send_message(channel, f"The passage is too long.")
-            except Exception as e:
-                traceback.print_exc()
-                if not source:
-                    await self.send_message(channel, "No person provided")
-                else:
-                    await self.send_message(channel, f"Could not find quotes matching criteria.")
-            return
+                    else:
+                        if source == "reddit":
+                            subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                            print(subreddit.display_name)
+                            await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                            return
+                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                        quote = re.sub(r"([?!])\s*\.", r"\1", quote)
+                        _, works_list = self.robot.show_author_works(source)
+                        qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
+                        self.quote_requestors[author] = qt_obj
+                        await self.send_message(channel, quote)
+                except discord.errors.HTTPException:
+                    traceback.print_exc()
+                    await self.send_message(channel, f"The passage is too long.")
+                except Exception as e:
+                    traceback.print_exc()
+                    if not source:
+                        await self.send_message(channel, "No person provided")
+                    else:
+                        await self.send_message(channel, f"Could not find quotes matching criteria.")
+                return
 
         # ==================================================================================================================================================
 
@@ -1020,23 +1030,6 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
-
-        # ==================================================================================================================================================
-
-        if content.strip().lower() in self.quotes_commands:
-            self.debug(channel, content)
-            person = self.quotes_commands[content.strip().lower()]
-            if person.strip().lower() == 'reddit' and message.author.id != BOT_OWNER:
-                await self.send_message(channel, "No.")
-                return
-            try:
-                await self.send_message(channel, self.robot.random_quote(person.lower()))[1]
-            except Exception as e:
-                traceback.print_exc()
-                if not person:
-                    await self.send_message(channel, "No person provided.")
-                else:
-                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(person)}.")
 
         # ==================================================================================================================================================
 
