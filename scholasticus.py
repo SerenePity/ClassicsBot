@@ -1221,6 +1221,16 @@ class Scholasticus(commands.Bot):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'join'):
+            args = shlex.split(content.lower())
+            if len(args) < 2:
+                return
+
+            if args[0] != 'join':
+                return
+
+            if '@' not in args[1]:
+                return
+
             if len(message.mentions) > 0 :
                 game_owner = message.mentions[0]
                 if game_owner == author:
