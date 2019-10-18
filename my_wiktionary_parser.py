@@ -558,6 +558,7 @@ def get_greek_grammar_forms(tries=0):
     if tries > 10:
         return [None, None]
     soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Ancient_Greek_non-lemma_forms").text)
+
     #print(soup)
     language_header = None
     headword = None
@@ -568,6 +569,7 @@ def get_greek_grammar_forms(tries=0):
             language_header = h2
             print("Language header: " + language_header.get_text())
             break
+    non_diacritic = soup.find_all(attrs={'id': 'firstHeading'})[0].get_text()
 
     for sibling in language_header.next_siblings:
         if isinstance(sibling, NavigableString):
@@ -588,7 +590,7 @@ def get_greek_grammar_forms(tries=0):
         headword_forms = [get_etymology(soup, 'Ancient Greek', headword)]
     if headword == None:
         return get_greek_grammar_forms(tries + 1)
-    return [headword.split('•')[0].strip(), headword_forms]
+    return [non_diacritic.strip(), headword_forms]
 
 def pretty(d, indent=0):
    ret = ""
