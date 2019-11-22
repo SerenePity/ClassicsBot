@@ -156,7 +156,7 @@ def get_etymology(language_header, language, word):
     if not language_header:
         return "Not found"
     next_siblings = language_header.next_siblings
-    #print(language_header)
+    print(language_header)
     if "Wiktionary does not yet have an entry for " in str(next_siblings):
         return "Not found."
     etymology = "Not found."
@@ -169,14 +169,37 @@ def get_etymology(language_header, language, word):
             continue
         if sibling.name == 'h2':
             break
-        if 'Etymology' in sibling.get_text():
+        if 'Etymology' in sibling.get_text() and "Richard Sears" not in sibling.get_text():
             etymology = []
             if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
                 return "Not found."
             try:
                 print(f"Next sibling: {sibling.nextSibling.nextSibling}")
-                if sibling.nextSibling.nextSibling.name == 'dl':
+                foundDL = False
+                if sibling.nextSibling.name == "dl":
+                    foundDL = True
+                    print("Found DL")
+                    print("Added to etymology: " + sibling.nextSibling.get_text())
+                    etymology.append(sibling.nextSibling.get_text())
+                    sibling = sibling.nextSibling
+                    while sibling.nextSibling.name == "dl":
+                        print("Added to etymology: " + sibling.nextSibling.nextSibling.get_text())
+                        etymology.append(sibling.nextSibling.get_text())
+                        sibling = sibling.nextSibling
+                if foundDL:
+                    break
+                if sibling.nextSibling.nextSibling.name == "dl":
+                    foundDL = True
+                    print("Found DL")
+                    print("Added to etymology: " + sibling.nextSibling.nextSibling.get_text())
                     etymology.append(sibling.nextSibling.nextSibling.get_text())
+                    sibling = sibling.nextSibling.nextSibling
+                    while sibling.nextSibling.nextSibling.name == "dl":
+                        print("Added to etymology: " + sibling.nextSibling.nextSibling.get_text())
+                        etymology.append(sibling.nextSibling.nextSibling.get_text())
+                        sibling = sibling.nextSibling
+                if foundDL:
+                    break
                 else:
                     ety_sect = sibling.findNextSibling('p')
                     etymology.append(ety_sect.get_text())
@@ -192,10 +215,13 @@ def get_etymology(language_header, language, word):
                     if finished_first_ety:
                         break
             except:
-                return "Not found."
+                traceback.print_exc()
+                continue
+            break
     #print(etymology)
     if etymology == "Not found.":
         return "Not found."
+    print("ETYMOLOGY: " + str(etymology))
     return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
 
 def get_definition(soup, language, include_examples=True):
