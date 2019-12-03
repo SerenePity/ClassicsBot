@@ -1188,6 +1188,7 @@ class RoboticRoman():
             print(f)
             print("Process function name: ")
             print(process_func.__name__)
+            f.seek(0)
             quotes_list = process_func(f.read())
             print("len: " + str(len(quotes_list)))
             #print(quotes_list)
