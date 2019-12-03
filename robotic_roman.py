@@ -1353,6 +1353,7 @@ class RoboticRoman():
         text = re.sub(r"(\w)\?([^\s])", r"\1? \2", text)
         text = re.sub(r"(\w)!([^\s])", r"\1! \2", text)
         text = re.sub(r"(\w):([^\s])", r"\1: \2", text)
+        text = text.replace("。.", "。").replace("？.", "？" ).replace("！.", "！")
         return text
 
     def pick_greek_quote(self):
