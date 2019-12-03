@@ -39,6 +39,7 @@ import roman
 
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
+CHINESE_TEXTS_PATH = "chinese_texts"
 GERMANIC_TEXTS_PATH = "germanic_texts"
 MODERN_HISTORIANS_PATH = "modern_historians"
 MODERN_PHILOSOPHERS_PATH = "modern_philosophers"
@@ -48,20 +49,20 @@ PARALLEL_TEXTS_PATH = "parallel"
 SUBREDDIT = 'copypasta'
 MAX_QUOTES_LENGTH = 1000
 MIN_QUOTES_LENGTH = 50
-QUOTES = ["\"", "'", "“", "\""]
+QUOTES = ["\"", "'", "“", "\"", "」", "「"]
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms", "St", "st"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
 PARALLEL_DELIMITERS = ["."]
-DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$', '‰': '\n'}
-REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...', '‰': '\n'}
+DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$', '。': '¡', '！': '±', '？': '∓', '‰': '\n'}
+REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...', '¡': '。', '±': '！', '∓': '？', '‰': '\n'}
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
-DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\|)"
+DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\||。|！|？|。」|！」|？」)"
 BIBLE_DELIMITERS = "[0-9\.?!\n]+[^:]"
 NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
 #BIBLE_DELIMITERS = " ([0-9\.?!]+)"
 ABSOLUTE_DELIMITER = "‰"
-DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", ABSOLUTE_DELIMITER]
+DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
@@ -156,6 +157,7 @@ class RoboticRoman():
 
         self.text_paths = [LATIN_TEXTS_PATH,
                             GREEK_TEXTS_PATH,
+                            CHINESE_TEXTS_PATH,
                             GERMANIC_TEXTS_PATH,
                             MODERN_HISTORIANS_PATH,
                             MODERN_PHILOSOPHERS_PATH,
@@ -172,25 +174,27 @@ class RoboticRoman():
 
         self.latin_quotes_dict = dict()
         self.greek_quotes_dict = dict()
+        self.chinese_quotes_dict = dict()
         self.germanic_quotes_dict = dict()
         self.historians_quotes_dict = dict()
         self.philosophers_quotes_dict = dict()
         self.literature_quotes_dict = dict()
         self.parallel_quotes_dict = dict()
 
-        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.germanic_quotes_dict,
+        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.chinese_quotes_dict, self.germanic_quotes_dict,
                                        self.historians_quotes_dict, self.philosophers_quotes_dict, self.literature_quotes_dict,
                                        self.parallel_quotes_dict]
 
         self.latin_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
+        self.chinese_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(CHINESE_TEXTS_PATH)]))
         self.germanic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
         self.historian_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_HISTORIANS_PATH)]))
         self.philosophy_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_PHILOSOPHERS_PATH)]))
         self.literature_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_LITERATURE_PATH)]))
         self.parallel_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(PARALLEL_TEXTS_PATH)]))
 
-        self.authors_collection = [self.latin_authors, self.greek_authors, self.germanic_authors, self.historian_authors, self.philosophy_authors, self.literature_authors, self.parallel_authors]
+        self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors, self.historian_authors, self.philosophy_authors, self.literature_authors, self.parallel_authors]
 
         self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
 
@@ -220,6 +224,7 @@ class RoboticRoman():
                                                                               "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
             (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
+            (format_color("Retrieve random Chinese quote ", "CSS"),          f"'{prefix}chinesequote'"),
             (format_color("List Germanic authors ", "CSS"),                  f"'{prefix}germanicauthors'"),
             (format_color("Retrieve random Germanic quote ", "CSS"),         f"'{prefix}germanicquote'"),
             (format_color("List available modern historians ", "CSS"),       f"'{prefix}modernhistorians'"),
@@ -1011,6 +1016,10 @@ class RoboticRoman():
         author = random.choice(list(self.latin_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
+    def pick_random_chinese_quote(self):
+        author = random.choice(list(self.chinese_quotes_dict.keys()))
+        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
+
     def flatten(self, array):
         return [item for sublist in array for item in sublist]
 
@@ -1112,7 +1121,7 @@ class RoboticRoman():
             return quote_index, quote, quotes_list
         return index, quote, quotes_list
 
-    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0):
+    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0, chinese=False):
         # print(', '.join([f.name for f in files]))
         print("Case_sensitive: " + str(case_sensitive))
         if tries > 2:
@@ -1132,7 +1141,10 @@ class RoboticRoman():
             else:
                 #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
                 #words = [f"{word} ", f" {word} ", f" {word}."]
-                regex_list.append(f"\\b{word}\\b")
+                if chinese:
+                    regex_list.append(f"{word}")
+                else:
+                    regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
             print(regex_list)
             search_quotes = []
@@ -1325,6 +1337,8 @@ class RoboticRoman():
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         elif person == 'gibbon':
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_mixed, word, lemmatize, case_sensitive)
+        elif person in self.chinese_authors:
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive, chinese=True)
         else:
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.sanitize(quote)), quotes_list

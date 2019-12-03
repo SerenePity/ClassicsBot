@@ -1061,6 +1061,11 @@ class Scholasticus(commands.Bot):
             await self.send_message(channel, self.robot.pick_random_latin_quote())
 
         # ==================================================================================================================================================
+        if content.lower().startswith(self.command_prefix + 'chinesequote'):
+            self.debug(channel, content)
+            await self.send_message(channel, self.robot.pick_random_chinese_quote())
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
             self.debug(channel, content)
