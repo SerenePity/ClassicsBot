@@ -1381,7 +1381,10 @@ class RoboticRoman():
             for work in works:
                 model.data(work.read())
             model.save(f"markov_models/{author}/{author}_markov.json")
-        return RoboticRoman.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
+        sentence = RoboticRoman.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
+        if author in self.chinese_authors:
+            sentence = re.sub(r'([\u4e00-\u9fff]) ', r'\1', sentence.replace('.', '。'))
+        return sentence
 
     def train_model(self, author, author_path):
         model = MarkovText()
