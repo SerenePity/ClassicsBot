@@ -221,7 +221,7 @@ class RoboticRoman():
             (format_color("List available Latin authors ", "CSS"),           f"'{prefix}latinauthors'"),
             (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
             (format_color("Transliterate input ", "CSS"),                    f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                                                                              "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
+                                                                              "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
             (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
             (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
             (format_color("Retrieve random Chinese quote ", "CSS"),          f"'{prefix}chinesequote'"),

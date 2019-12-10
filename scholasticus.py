@@ -6,6 +6,7 @@ import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
 import transliteration.middle_chinese
+import transliteration.old_chinese
 import transliteration.mandarin
 import transliteration.korean
 from transliterate import translit, get_available_language_codes
@@ -520,6 +521,8 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.coptic.transliterate(input)
                 elif language == '-unc':
                     transliterated = transliteration.latin_antique.transliterate(input)
+                elif language == '-oc':
+                    transliterated = transliteration.old_chinese.transliterate(input)
                 elif language == '-mc':
                     transliterated = transliteration.middle_chinese.transliterate(input)
                 elif language == '-mand':
@@ -543,7 +546,7 @@ class Scholasticus(commands.Bot):
                     transliterated = transliteration.korean.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
-                await self.send_message(channel, transliterated)
+                await self.send_in_chunks_if_needed(channel, transliterated)
                 return
             except Exception as e:
                 traceback.print_exc()
@@ -552,7 +555,7 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txend'):
+        if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txtend'):
             self.debug(channel, content)
             qt_obj = self.quote_requestors[author]
             del qt_obj
