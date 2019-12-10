@@ -30,7 +30,7 @@ def transliterate(text):
             pinyin, mc, oc, gloss = baxter_sagart.get_historical_chinese(char)
             if oc == 'n/a':
                 oc = get_old_chinese_from_wiktionary(char)
-            ret_array.append(oc.split(".")[-1].split(",")[0].strip())
+            ret_array.append(oc.split(",")[0].strip().replace(".", ""))
 
     ret_str = " ".join(ret_array)
     for char in baxter_sagart.punctuation:
