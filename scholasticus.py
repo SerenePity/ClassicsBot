@@ -503,6 +503,9 @@ class Scholasticus(commands.Bot):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'tr '):
+            if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
+                await self.send_message(message.channel, "Long Live Great Kurdistan! Happyfeet is lame.")
+                return
             self.debug(channel, content)
             try:
                 tr_args = shlex.split(content)
