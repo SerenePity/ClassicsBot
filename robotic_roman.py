@@ -641,8 +641,7 @@ class RoboticRoman():
         else:
             return [return_string]
 
-    def reddit_quote(self, subreddit):
-        subreddit_obj = self.reddit.subreddit(subreddit)
+    def reddit_quote(self, subreddit_obj):
         if subreddit_obj.over18:
             return "Cannot retrieve posts from an Over 18 subreddit."
         post = subreddit_obj.random()

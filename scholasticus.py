@@ -103,6 +103,17 @@ class Scholasticus(commands.Bot):
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
 
+    async def is_nsfw(self, channel: discord.Channel):
+        try:
+            _gid = channel.server.id
+        except AttributeError:
+            return False
+        data = await self.http.request(
+            discord.http.Route(
+                'GET', '/guilds/{guild_id}/channels', guild_id=_gid))
+        channeldata = [d for d in data if d['id'] == channel.id][0]
+        return channeldata['nsfw']
+
     async def on_ready(self):
         print('Logged on as', self.user)
         await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
@@ -466,11 +477,28 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'redditquote'):
+        """if content.lower().startswith(self.command_prefix + 'redditquote'):
             self.debug(channel, content)
             try:
                 subreddit = shlex.split(content.lower().strip())[1]
                 await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit))
+            except:
+                traceback.print_exc()
+                await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")"""
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'redditquote') or content.lower().startswith(self.command_prefix + 'git '):
+            self.debug(channel, content)
+            try:
+                subreddit = shlex.split(content.lower().strip())[1]
+                subreddit_obj = self.robot.reddit.subreddit(subreddit)
+                channel_nsfw = await self.is_nsfw(channel)
+                print(f"channel is nsfw: {channel_nsfw}")
+                if not channel_nsfw and subreddit_obj.over18:
+                    await self.send_message(channel, "Cannot retrieve posts from an Over 18 subreddit in this channel.")
+                else:
+                    await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit_obj))
             except:
                 traceback.print_exc()
                 await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
@@ -1147,6 +1175,12 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'modernauthors'):
             await self.send_message(channel, '```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.literature_quotes_dict.keys())]) + '```')
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'chineseauthors'):
+            await self.send_message(channel, '```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.chinese_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'greekgame'):
