@@ -1014,6 +1014,8 @@ class Scholasticus(commands.Bot):
             print(qt_args)
             try:
                 author = ' '.join(qt_args[1:]).lower().strip()
+                if author.strip() == '':
+                    return
                 to_transliterate = False
                 if author in self.robot.greek_authors:
                     to_transliterate = True
