@@ -531,9 +531,9 @@ class Scholasticus(commands.Bot):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'tr '):
-            if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
-                await self.send_message(message.channel, "Long Live Great Kurdistan! Happyfeet is lame.")
-                return
+            #if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
+            #    await self.send_message(message.channel, "Long Live Great Kurdistan! Happyfeet is lame.")
+            #   return
             self.debug(channel, content)
             try:
                 tr_args = shlex.split(content)
@@ -1020,7 +1020,11 @@ class Scholasticus(commands.Bot):
                 quote = self.robot.random_quote(author.lower())[1]
                 if to_transliterate:
                     quote = transliteration.greek.transliterate(quote)
-                await self.send_message(channel, owo.text_to_owo(quote))
+                output = owo.text_to_owo(quote)
+                if len(output.strip()) > 1:
+                    await self.send_message(channel, output)
+                else:
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
             except Exception as e:
                 traceback.print_exc()
                 if not author:
