@@ -244,8 +244,8 @@ class Scholasticus(commands.Bot):
             i, passage, _ = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
-            to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
-            passage = "name the " + to_lower(random.choice(grammar_game_set[1]).strip())
+            #to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
+            passage = "name the " + random.choice(grammar_game_set[1]).strip()
         else:
             passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)
@@ -256,7 +256,7 @@ class Scholasticus(commands.Bot):
         elif text_set == 'grammar':
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).")
         elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage.capitalize()}.")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}.")
         else:
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
 
@@ -1016,12 +1016,11 @@ class Scholasticus(commands.Bot):
                 author = ' '.join(qt_args[1:]).lower().strip()
                 if author.strip() == '':
                     return
-                to_transliterate = False
-                if author in self.robot.greek_authors:
-                    to_transliterate = True
                 quote = self.robot.random_quote(author.lower())[1]
-                if to_transliterate:
+                if author in self.robot.greek_authors or 'the ' + author.strip() in self.robot.greek_authors:
                     quote = transliteration.greek.transliterate(quote)
+                if author in self.robot.chinese_authors or 'the ' + author.strip() in self.robot.chinese_authors :
+                    quote = transliteration.mandarin.transliterate(quote)
                 output = owo.text_to_owo(quote)
                 if len(output.strip()) > 1:
                     await self.send_message(channel, output)
