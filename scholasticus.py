@@ -1011,7 +1011,7 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'owo'):
             self.debug(channel, content)
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
-            print(qt_args)
+            # print(qt_args)
             try:
                 author = ' '.join(qt_args[1:]).lower().strip()
                 if author.strip() == '':
