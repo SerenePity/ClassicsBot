@@ -650,8 +650,6 @@ class RoboticRoman():
         # print(post.selftext)
         if post.is_self and len(post.selftext) > 0:
             body = post.selftext
-            if len(body) > 2000:
-                body = body[:1995] + "..."
         elif post.url and len(post.url) > 0:
             body = post.url
         else:
