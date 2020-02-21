@@ -649,7 +649,7 @@ class RoboticRoman():
             return "This subreddit does not support random post retrieval."
         # print(post.selftext)
         if post.is_self and len(post.selftext) > 0:
-            body = post.selftext
+            body = post.selftext.replace('\n&#x200B;\n', ' ').replace('&#x200B', ' ')
         elif post.url and len(post.url) > 0:
             body = post.url
         else:
