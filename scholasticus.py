@@ -133,6 +133,15 @@ class Scholasticus(commands.Bot):
     def sanitize_user_input(self, text):
         return text.replace(',', '').replace('!', '').replace(':','').replace(';', '')
 
+    def language_format(self, language):
+        if not language:
+            return 'latin'
+        if language == 'greek':
+            return 'ancient greek'
+        if language == 'modern greek':
+            return 'greek'
+        return language
+
     async def process_guess(self, channel, player, content, word_game=False):
 
         try:
@@ -315,8 +324,7 @@ class Scholasticus(commands.Bot):
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
-                    if not language:
-                        language = 'latin'
+                    language = self.language_format(language)
                     definition = self.robot.get_and_format_word_defs(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -348,6 +356,7 @@ class Scholasticus(commands.Bot):
                     return
                 elif len(args) > 1:
                     language = ' '.join(args[1:])
+                    language = self.language_format(language)
                     word = self.robot.get_random_word(language)
                     print("SCHOLASTICUS WORD: " + word)
                     print("SCHOLASTICUS WORD: " + language)
@@ -377,8 +386,7 @@ class Scholasticus(commands.Bot):
                     word = ' '.join(args[1:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
-                    if not language:
-                        language = 'latin'
+                    language = self.language_format(language)
                     etymology = self.robot.get_word_etymology(word, language)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
@@ -404,8 +412,7 @@ class Scholasticus(commands.Bot):
             try:
                 if len(args) > 1:
                     language = re.search("([\w_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
-                    if not language:
-                        language ='latin'
+                    language = self.language_format(language)
                     word = ' '.join(args[1:])
                     print("Language: " + language)
                     print("word: " + word)
@@ -436,6 +443,16 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        if content.lower().startswith(self.command_prefix + 'char_origin'):
+            args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
+            char = args[1]
+            soup = my_wiktionary_parser.get_soup(char)
+            glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, list(char))
+            await self.send_message(channel, glyph_origin)
+            return
+
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'latin_grammar'):
             self.debug(channel, content)
             if "-m" in content.lower():
@@ -447,6 +464,8 @@ class Scholasticus(commands.Bot):
             else:
                 await self.start_game(channel, author, "grammar", "latin", None)
             return
+
+        # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
@@ -1204,8 +1223,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.lower().replace('“','"').replace('”','"'))
             if len(args) > 1:
                 language = ' '.join(args[1:]).strip()
-            else:
-                language = 'latin'
+                language = self.language_format(language)
             await self.start_game(channel, author, "word", word_language=language)
             return
 

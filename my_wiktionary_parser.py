@@ -831,7 +831,7 @@ def get_glyph_origin_multiple(soup, words):
 
 def get_glyph_origin(soup, c, tries=0, tradified=False):
     if tries > 1:
-        return ""
+        return "Could not find glyph origin"
     origin = []
     for h in soup.find_all('h3') + soup.find_all('h4'):
         #print("H3: " + str(h3))

@@ -36,7 +36,7 @@ import importlib
 import cached_quotes.gibbon.gibbon_footnotes
 import roman
 
-
+# Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 CHINESE_TEXTS_PATH = "chinese_texts"
@@ -46,24 +46,60 @@ MODERN_PHILOSOPHERS_PATH = "modern_philosophers"
 MODERN_LITERATURE_PATH = "modern_literature"
 PARALLEL_TEXTS_PATH = "parallel"
 
+# Default subreddit for reddit shenanigans
 SUBREDDIT = 'copypasta'
+
+# Maximum length of quote (counted in characters) from any given text
 MAX_QUOTES_LENGTH = 1000
+
+# Minimum length of quote retrieved from a given text
 MIN_QUOTES_LENGTH = 50
+
+# Different quotation marks used in various languages. Useful for sentence delimination.
 QUOTES = ["\"", "'", "“", "\"", "」", "「"]
+
+# List of abbreviated Roman praenomina, which often end with a period, which can artificially cut short a sentence.
 PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
+
+# Roman numerals also often end with a period, and must be dealt with in the like manner.
 ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
+
+# Roman praenomina, Roman numerals, and other common abbreviations that can interfere with proper sentence segmentation.
 ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms", "St", "st"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
+
+# Unused at the moment
 PARALLEL_DELIMITERS = ["."]
+
+""" List of sentence delimiters (such as periods, question marks, exclamation points, and other punctuation found in other 
+languages), mapped to placeholder delimiters so that that sentences below the minimum quote-length threshold can be added 
+to the following sentence (since two-word sentences are not very interesting"""
 DELIMTERS_MAP = {'.': '%', '?': '#', '!': '$', '。': '¡', '！': '±', '？': '∓', '‰': '\n'}
+
+# Reverse delimiter map to map the temporary sentence pseudo-delimiters back to their original characters in the final output
 REVERSE_DELIMITERS_MAP = {'%': '.', '#': '?', '$': '!', '^': '...', '¡': '。', '±': '！', '∓': '？', '‰': '\n'}
+
+# Regex expression of characters that need to be exterminated with extreme prejudice
 REGEX_SUB = re.compile(r"\[|\]|\(\)")
+
+# Regex listing sentence deliminators
 DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\||。|！|？|。」|！」|？」)"
+
+# Special deliminators for the Bible
 BIBLE_DELIMITERS = "[0-9\.?!\n]+[^:]"
-NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
+
+#NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
 #BIBLE_DELIMITERS = " ([0-9\.?!]+)"
+
+# Special deliminator that I occasionally manually insert into texts to force sentence or paragraph breaks
 ABSOLUTE_DELIMITER = "‰"
+
+# List of delimiters
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
+
+# List of Bible versions in all languages
 GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
+
+# The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my parallel Bible text module
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
 HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
@@ -74,8 +110,11 @@ GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'KLB']
 CHINESE = ['CCB', 'CCBT', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
+
+# Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
 
+# Does nothing at the moment. May be useful when Discord has better color support
 def format_color(text, color_type="yaml"):
     # Nothing for now
     return text + "\n"
@@ -214,51 +253,52 @@ class RoboticRoman():
                     print(author)
                     quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
-        self.commands = [(format_color("Get random quote by author ", "CSS"), f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                                                                              "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
-            (format_color("Generate markov sentence ", "CSS"),                f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
-                                                                              "\n\tNotes: -t to transliterate."),
-            (format_color("List available Latin authors ", "CSS"),           f"'{prefix}latinauthors'"),
-            (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
-            (format_color("Transliterate input ", "CSS"),                    f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                                                                              "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
-            (format_color("List Greek authors ", "CSS"),                     f"'{prefix}greekauthors'"),
-            (format_color("Retrieve random Greek quote ", "CSS"),            f"'{prefix}greekquote'"),
-            (format_color("Retrieve random Chinese quote ", "CSS"),          f"'{prefix}chinesequote'"),
-            (format_color("List Germanic authors ", "CSS"),                  f"'{prefix}germanicauthors'"),
-            (format_color("Retrieve random Germanic quote ", "CSS"),         f"'{prefix}germanicquote'"),
-            (format_color("List available modern historians ", "CSS"),       f"'{prefix}modernhistorians'"),
-            (format_color("Retrieve random (modern) historian's quote ", "CSS"), f"'{prefix}historianquote'"),
-            (format_color("List available modern philosophers ", "CSS"),     f"'{prefix}modernphilosophers'"),
-            (format_color("Retrieve random (modern) philosopher's quote ", "CSS"), f"'{prefix}philosopherquote'"),
-            (format_color("List available modern authors ", "CSS"),          f"'{prefix}modernauthors'"),
-            (format_color("Retrieve random (modern) authors's quote ", "CSS"), f"'{prefix}literaturequote'"),
-            (format_color("Retrieve random Latin quote ", "CSS"),            f"'{prefix}latinquote'"),
-            (format_color("Start grammar game ", "CSS"),                     f"'{prefix}<language>_grammar'"),
-            (format_color("Start Latin grammar game ", "CSS"),               f"'{prefix}latin_grammar [-m] (with macrons)'"),
-            (format_color("Start word game ", "CSS"),                        f"'{prefix}wordgame [<language>]'"),
-            (format_color("Guess answer ", "CSS"),                           f"'<answer>' | 'g(uess) <word>'"),
-            (format_color("End game ", "CSS"),                               f"'{prefix}giveup'"),
-            (format_color("Join game ", "CSS"),                              f"'{prefix}join <game owner>'"),
-            (format_color("Owify quote from author ", "CSS"),                f"'{prefix}owo <author>"),
-            (format_color("Get available Bible versions ", "CSS"),           f"'{prefix}bibleversions [<lang>]'"),
-            (format_color("Bible compare ", "CSS"),                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                              "\n\tNotes: add the prefix $ for transliteration."),
-            (format_color("Quote for parallel text ", "CSS"),                f"'{prefix}parallel <work/author>'"),
-            (format_color("Sources for parallel command ", "CSS"),           f"'{prefix}listparallel'"),
-            (format_color("Word definition (defaults to Latin) ", "CSS"),    f"'{prefix}<language>_def <word>'"),
-            (format_color("Word etymology (defaults to Latin) ", "CSS"),     f"'{prefix}<language>_ety <word>'"),
-            (format_color("Word entry (defaults to Latin) ", "CSS"),         f"'{prefix}<language>_word <word>'"),
-            (format_color("Random entry (defaults to Latin) ", "CSS"),       f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
-            (format_color("List texts to start from an author ", "CSS"),     f"'{prefix}textstart' | 'tstart'"),
-            (format_color("Start a text from an author ", "CSS"),            f"'{prefix}pick <number>'"),
-            (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}next [<number>]'"),
-            (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),         f"'{prefix}bef [<number>]'"),
-            (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),    f"'{prefix}surr <number> <number>'"),
-            (format_color("End text reading session ", "CSS"),               f"'{prefix}textend' | 'txend'"),
-            (format_color("Get Gibbon footnote", "CSS"),                     f"'{prefix}fn <footnote>' | '{prefix}fn <chapter> <footnote> [<ending footnote>]'"),
-            (format_color("Get current Gibbon chapter", "CSS"),              f"'{prefix}whatchapter'"),
-            (format_color("Help ", "CSS"),                                   f"'{prefix}helpme'")]
+        self.commands = [(format_color("Get random quote by author ", "CSS"),                                   f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
+                                                                                                                    "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
+            (format_color("Generate markov sentence ", "CSS"),                                                  f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
+                                                                                                                    "\n\tNotes: -t to transliterate."),
+            (format_color("List available Latin authors ", "CSS"),                                              f"'{prefix}latinauthors'"),
+            (format_color("Retrieve random Latin quote ", "CSS"),                                               f"'{prefix}latinquote'"),
+            (format_color("Transliterate input ", "CSS"),                                                       f"'{prefix}tr [-(language abbreviation)] <input>'" +
+                                                                                                                    "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
+            (format_color("List Greek authors ", "CSS"),                                                        f"'{prefix}greekauthors'"),
+            (format_color("Retrieve random Greek quote ", "CSS"),                                               f"'{prefix}greekquote'"),
+            (format_color("Retrieve random Chinese quote ", "CSS"),                                             f"'{prefix}chinesequote'"),
+            (format_color("List Germanic authors ", "CSS"),                                                     f"'{prefix}germanicauthors'"),
+            (format_color("Retrieve random Germanic quote ", "CSS"),                                            f"'{prefix}germanicquote'"),
+            (format_color("List available modern historians ", "CSS"),                                          f"'{prefix}modernhistorians'"),
+            (format_color("Retrieve random (modern) historian's quote ", "CSS"),                                f"'{prefix}historianquote'"),
+            (format_color("List available modern philosophers ", "CSS"),                                        f"'{prefix}modernphilosophers'"),
+            (format_color("Retrieve random (modern) philosopher's quote ", "CSS"),                              f"'{prefix}philosopherquote'"),
+            (format_color("List available modern authors ", "CSS"),                                             f"'{prefix}modernauthors'"),
+            (format_color("Retrieve random (modern) authors's quote ", "CSS"),                                  f"'{prefix}literaturequote'"),
+            (format_color("Retrieve random Latin quote ", "CSS"),                                               f"'{prefix}latinquote'"),
+            (format_color("Start grammar game ", "CSS"),                                                        f"'{prefix}<language>_grammar'"),
+            (format_color("Start Latin grammar game ", "CSS"),                                                  f"'{prefix}latin_grammar [-m] (with macrons)'"),
+            (format_color("Start word game ", "CSS"),                                                           f"'{prefix}wordgame [<language>]'"),
+            (format_color("Guess answer ", "CSS"),                                                              f"'{prefix}g <word>'"),
+            (format_color("End game ", "CSS"),                                                                  f"'{prefix}giveup'"),
+            (format_color("Join game ", "CSS"),                                                                 f"'{prefix}join <game owner>'"),
+            (format_color("Owify quote from author ", "CSS"),                                                   f"'{prefix}owo <author>"),
+            (format_color("Get available Bible versions ", "CSS"),                                              f"'{prefix}bibleversions [<lang>]'"),
+            (format_color("Bible compare ", "CSS"),                                                             f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+                                                                                                                    "\n\tNotes: add the prefix $ for transliteration."),
+            #(format_color("Quote for parallel text ", "CSS"),                                                   f"'{prefix}parallel <work/author>'"),
+            #(format_color("Sources for parallel command ", "CSS"),                                              f"'{prefix}listparallel'"),
+            (format_color("Get Chinese character origin ", "CSS"), f"'{prefix}char_origin <character>'"),
+            (format_color("Word definition (defaults to Latin) ", "CSS"),                                       f"'{prefix}<language>_def <word>'"),
+            (format_color("Word etymology (defaults to Latin) ", "CSS"),                                        f"'{prefix}<language>_ety <word>'"),
+            (format_color("Word entry (defaults to Latin) ", "CSS"),                                            f"'{prefix}<language>_word <word>'"),
+            (format_color("Random entry (defaults to Latin) ", "CSS"),                                          f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
+            (format_color("List texts to start from an author ", "CSS"),                                        f"'{prefix}textstart' | 'tstart'"),
+            (format_color("Start a text from an author ", "CSS"),                                               f"'{prefix}pick <number>'"),
+            (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),                 f"'{prefix}next [<number>]'"),
+            (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}bef [<number>]'"),
+            (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),      f"'{prefix}surr <number> <number>'"),
+            (format_color("End text reading session ", "CSS"),                                                  f"'{prefix}textend' | 'txend'"),
+            (format_color("Get Gibbon footnote", "CSS"),                                                        f"'{prefix}fn <footnote>' | '{prefix}fn <chapter> <footnote> [<ending footnote>]'"),
+            (format_color("Get current Gibbon chapter", "CSS"),                                                 f"'{prefix}whatchapter'"),
+            (format_color("Help ", "CSS"),                                                                      f"'{prefix}helpme'")]
 
     def sort_files(self, file):
         try:
