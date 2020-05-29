@@ -206,7 +206,7 @@ class RoboticRoman():
         self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
-        self.decliner = CollatinusDecliner()
+        #self.decliner = CollatinusDecliner()
         self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
                                   client_secret=os.environ['reddit_secret'],
                                   user_agent='user agent')
@@ -1094,14 +1094,15 @@ class RoboticRoman():
             word = self.remove_accents(word).lower() if not case_sensitive else word
             regex_list = []
             if lemmatize:
-                try:
+                pass
+                #try:
                     #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
-                    inflected = self.decliner.decline(word, flatten=True)
-                    for form in inflected:
-                        regex_list.append(f"\\b{form}\\b")
-                except:
-                    traceback.print_exc()
-                    return -1, "Unknown lemma.", []
+                    #inflected = self.decliner.decline(word, flatten=True)
+                    #for form in inflected:
+                        #regex_list.append(f"\\b{form}\\b")
+                #except:
+                    #traceback.print_exc()
+                    #return -1, "Unknown lemma.", []
             else:
                 #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
                 #words = [f"{word} ", f" {word} ", f" {word}."]
