@@ -136,9 +136,9 @@ class Scholasticus(commands.Bot):
     def language_format(self, language):
         if not language:
             return 'latin'
-        if language == 'greek':
+        if language.lower() == 'greek':
             return 'ancient greek'
-        if language == 'modern greek':
+        if language.lower().replace('_', ' ') == 'modern greek':
             return 'greek'
         return language
 
