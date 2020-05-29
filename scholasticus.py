@@ -1319,3 +1319,14 @@ class Scholasticus(commands.Bot):
             else:
                 await self.send_message(channel,
                                         f"{author.mention}, please specify the name of the player whose game you want to join.")
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'get_shuowen'):
+            args = shlex.split(content)
+            if len(args) > 1:
+                c = args[1]
+                explanation = self.robot.get_shuowen(c)
+                await self.send_message(channel, explanation)
+            else:
+                await self.send_message(channel, "You did not enter a character.")

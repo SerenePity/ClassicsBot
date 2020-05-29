@@ -894,3 +894,18 @@ def remove_macrons(text):
     for key in mapping.keys():
         text = text.replace(key, mapping[key])
     return text
+
+def get_shuowen(c):
+    unicode_pt = hex(ord(c))[2:]
+    char_url = "http://www.shuowenjiezi.com/result4.php?unicode=" + str(unicode_pt)
+    print(char_url)
+    soup = BeautifulSoup(requests.get(char_url).content)
+    # print(soup)
+    explanation = soup.find('div', attrs={'class': 'chinese'})
+    try:
+        for div in explanation.find_all("a", {'class': 'isAnyDuanzhu'}):
+            div.decompose()
+
+        return explanation.getText()
+    except:
+        return "Could not find character in Shuowen Jiezi."
