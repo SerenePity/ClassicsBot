@@ -287,6 +287,7 @@ class RoboticRoman():
             #(format_color("Sources for parallel command ", "CSS"),                                              f"'{prefix}listparallel'"),
             (format_color("Get Chinese character origin ", "CSS"),                                              f"'{prefix}char_origin <character>'"),
             (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),                        f"'{prefix}getshuowen <character>'"),
+            (format_color("Start Shuowen game", "CSS"),                                                         f"'{prefix}shuowengame'"),
             (format_color("Word definition (defaults to Latin) ", "CSS"),                                       f"'{prefix}<language>_def <word>'"),
             (format_color("Word etymology (defaults to Latin) ", "CSS"),                                        f"'{prefix}<language>_ety <word>'"),
             (format_color("Word entry (defaults to Latin) ", "CSS"),                                            f"'{prefix}<language>_word <word>'"),
@@ -1439,3 +1440,18 @@ class RoboticRoman():
         if not explanation:
             explanation = "Could not find glyph origin in Shuowen"
         return explanation
+
+    def shuowen_game(self):
+        char_id = str(random.randint(1, 9833))
+        char_url = "http://www.shuowenjiezi.com/result4.php?id=" + char_id
+        print(char_url)
+        soup = BeautifulSoup(requests.get(char_url).content)
+        # print(soup)
+        explanation = soup.find('div', attrs={'class': 'chinese'})
+        for div in explanation.find_all("a", {'class': 'isAnyDuanzhu'}):
+            div.decompose()
+        character = chr(int(
+            '0x' + soup.find('span', attrs={'id': 'radical0'})['onclick'].split(',')[0].split('(')[1].replace('\'', ''),
+            16))
+        pinyin = soup.find('span', attrs={'id': 'pinyin0'}).getText()
+        return character, explanation.getText(), pinyin

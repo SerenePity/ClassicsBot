@@ -46,7 +46,7 @@ class PlayerSession():
 
 class Game():
 
-    def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False, word_language='latin'):
+    def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False, word_language='latin', hint=None, is_shuowen_game=False):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -56,7 +56,9 @@ class Game():
         self.exited_players = set()
         self.is_word_game = is_word_game
         self.is_grammar_game = is_grammar_game
+        self.is_shuowen_game =  is_shuowen_game
         self.word_language = word_language
+        self.hint = hint
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
     def get_game_owner_sess(self):
@@ -76,6 +78,9 @@ class Game():
 
     def no_players_left(self):
         return all(not self.players_dict[player].game_on for player in self.players_dict)
+
+    def get_hint(self):
+        return self.hint
 
     def end_game(self):
         self.language = None
@@ -168,10 +173,10 @@ class Scholasticus(commands.Bot):
             return
         if self.games[game_owner].language in ['greek', 'latin']:
 
-            if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors:
+            if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors and guess != 'hint':
                 await self.send_message(channel, "You're playing a Greek game, but picked a Latin author! Try again.")
                 return
-            if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors:
+            if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors and guess != 'hint':
                 await self.send_message(channel, "You're playing a Latin game, but picked a Greek author! Try again.")
                 return
 
@@ -183,6 +188,10 @@ class Scholasticus(commands.Bot):
                 etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
                 await self.send_message(channel,
                                         f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
+            elif self.games[game_owner].is_shuowen_game:
+                hint = self.games[game_owner].get_hint()
+                await self.send_message(channel,
+                                        f"{player.mention}, you've sacrificed a guess to get the following Mandarin pinyin pronunciation of the word:\n\n{hint}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif not self.games[game_owner].is_word_game and guess.strip().lower() == "hint":
                 await self.send_message(channel, "No hints.")
             else:
@@ -212,7 +221,9 @@ class Scholasticus(commands.Bot):
         is_grammar_game = False
         grammar_game_set = []
         is_word_game = False
+        is_shuowen_game = False
         #print(text_set)
+        hint = None
         text_set = text_set.split('[')[0].strip()
         if game_owner in self.games and self.games[game_owner].game_on:
             repeat_text = "Okay, restarting game. "
@@ -240,6 +251,9 @@ class Scholasticus(commands.Bot):
             is_word_game = True
         elif text_set == 'latin':
             answer = random.choice(self.robot.latin_authors)
+        elif text_set == 'shuowen':
+            answer, passage, hint = self.robot.shuowen_game()
+            is_shuowen_game = True
         else:
             print("In other lang")
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
@@ -249,25 +263,31 @@ class Scholasticus(commands.Bot):
                 answer = my_wiktionary_parser.remove_macrons(answer)
             text_set = "otherlang"
 
-        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
+        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang', 'shuowen']:
             i, passage, _ = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
             #to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
             passage = "name the " + random.choice(grammar_game_set[1]).strip()
+            passage = passage[0].lower() + passage[1:]
         else:
-            passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language)
+            if text_set != 'shuowen':
+                passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
+        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language, hint=hint, is_shuowen_game=is_shuowen_game)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang"]:
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_")
+        instruction = "\n\nType g <answer> to guess your answer."
+
+        if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang", "shuowen"]:
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
         elif text_set == 'grammar':
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).{instruction}")
         elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}.")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}{instruction}")
+        elif text_set == 'shuowen':
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
         else:
-            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
 
 
     def end_game(self, game_owner):
@@ -467,7 +487,7 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar'):
+        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar') or content.lower().startswith(self.command_prefix + 'greek_grammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
             return
 
@@ -1219,6 +1239,12 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
+        if content.lower().startswith(self.command_prefix + 'shuowengame'):
+            await self.start_game(channel, author, "shuowen")
+            return
+
+        # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'wordgame'):
             args = shlex.split(content.lower().replace('“','"').replace('”','"'))
             if len(args) > 1:
@@ -1231,6 +1257,15 @@ class Scholasticus(commands.Bot):
 
         if content.lower().startswith(self.command_prefix + 'greekgame'):
             await self.start_game(channel, author, "greek")
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith('modern_greek_grammar'):
+            args = shlex.split(content.lower())
+            macrons = '-m' in content.lower()
+            language = 'greek'
+            await self.start_game(channel, author, language, macrons=macrons)
             return
 
         # ==================================================================================================================================================
