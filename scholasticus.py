@@ -1322,7 +1322,7 @@ class Scholasticus(commands.Bot):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'get_shuowen'):
+        if content.lower().startswith(self.command_prefix + 'getshuowen'):
             args = shlex.split(content)
             if len(args) > 1:
                 c = args[1]

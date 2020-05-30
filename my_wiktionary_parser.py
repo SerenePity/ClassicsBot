@@ -898,7 +898,7 @@ def remove_macrons(text):
 
 def get_shuowen(c):
     unicode_pt = hex(ord(c))[2:]
-    char_url = "http://www.shuowenjiezi.com/result4.php?unicode=" + str(unicode_pt)
+    char_url = "http://www.shuowenjiezi.com/result4.php?unicode=" + unicode_pt
     print(char_url)
     soup = BeautifulSoup(requests.get(char_url).content)
     # print(soup)

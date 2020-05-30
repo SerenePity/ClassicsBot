@@ -286,7 +286,7 @@ class RoboticRoman():
             #(format_color("Quote for parallel text ", "CSS"),                                                   f"'{prefix}parallel <work/author>'"),
             #(format_color("Sources for parallel command ", "CSS"),                                              f"'{prefix}listparallel'"),
             (format_color("Get Chinese character origin ", "CSS"),                                              f"'{prefix}char_origin <character>'"),
-            (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),                        f"'{prefix}get_shuowen <character>'"),
+            (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),                        f"'{prefix}getshuowen <character>'"),
             (format_color("Word definition (defaults to Latin) ", "CSS"),                                       f"'{prefix}<language>_def <word>'"),
             (format_color("Word etymology (defaults to Latin) ", "CSS"),                                        f"'{prefix}<language>_ety <word>'"),
             (format_color("Word entry (defaults to Latin) ", "CSS"),                                            f"'{prefix}<language>_word <word>'"),
