@@ -23,6 +23,7 @@ import praw
 
 MAX_TRIES = 5
 BOT_OWNER = '285179803819311106'
+PROBATIONARY_ID = '718551915964661872' # Test probationary role
 robot = RoboticRoman("")
 DISCORD_CHAR_LIMIT = 2000
 
@@ -324,6 +325,34 @@ class Scholasticus(commands.Bot):
     def debug(self, channel, content):
         print(f"Channel: {channel.id}")
         print(content)
+
+    async def on_member_update(self, before, after):
+        probationary_role = discord.utils.get(before.roles, id=PROBATIONARY_ID)
+        try:
+            if probationary_role in before.roles and probationary_role not in after.roles:
+                pm_channel = await self.start_private_message(after)
+                await self.send_message(pm_channel,
+                f"Welcome {after.mention} to the Latin server. In order to ensure an atmosphere agreeable to all, please be sure to observe the following rules:"
+
+                + "\n\n**I.** Treat others with respect at all times. Personal insults will not be tolerated. Tread carefully when discussing sensitive issues."
+
+                + "\n\n**II.** No slurs or hate speech. Do not hide hate speech under the pretense of humour. This is a place for people of all backgrounds."
+
+                + "\n\n**III.** Keep images and text generally SFW. If you wouldn't show it to your Latin teacher, do not show it to us."
+
+                + "\n\n**IV.** No spam. Do not abuse pings."
+
+                + "\n\nWe operate within a three-strikes system. You will be warned for your first three infractions, after which you will be automatically banned. In egregious cases, we may skip straight to the ban."
+
+                + "\n\nThe rules are enforced according to our discretion. Do not challenge a warning. If you're confused, you may contact an Imperator privately."
+
+                + "\n\n_If something in the chat concerns you, please ping the ***@Imperator*** role or message an Imperator directly._")
+        except:
+            traceback.print_exc()
+            owner = await self.get_user_info(BOT_OWNER)
+            owner_channel = await self.start_private_message(owner)
+            await self.send_message(owner_channel, "Failed to send message to " + after.name)
+
 
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
