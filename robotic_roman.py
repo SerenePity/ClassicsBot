@@ -391,6 +391,8 @@ class RoboticRoman():
             return defs
         except:
             defs = self.fetch_def_by_other_parser(word_input, language)
+            if not defs:
+                return "Not found"
             return defs[0]
         return defs
 

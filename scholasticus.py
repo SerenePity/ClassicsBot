@@ -233,15 +233,24 @@ class Scholasticus(commands.Bot):
         elif text_set == "nomacrongrammar":
             grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms(no_macrons=True)
             answer = grammar_game_set[0]
-            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            question = random.choice(grammar_game_set[1]).strip()
+            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
+            answer_def = robot.get_word_defs(lemma, 'latin', False)[0].split('\n')[0]
+            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "grammar":
             grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms()
             answer = grammar_game_set[0]
-            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            question = random.choice(grammar_game_set[1]).strip()
+            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
+            answer_def = robot.get_word_defs(lemma, 'latin', False)[0].split('\n')[0]
+            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "greekgrammar":
             grammar_game_set = my_wiktionary_parser.get_greek_grammar_forms()
             answer = grammar_game_set[0]
-            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            question = random.choice(grammar_game_set[1]).strip()
+            lemma = my_wiktionary_parser.remove_macrons(question.split(' (')[0].split(' of ')[-1]).replace('.', '')
+            answer_def = robot.get_word_defs(lemma, 'ancient greek', False)[0].split('\n')[0]
+            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "word":
             if "-l " in word_language:
                 word_language = word_language.replace("-l ", "")
@@ -259,7 +268,11 @@ class Scholasticus(commands.Bot):
             print("In other lang")
             grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
             answer = grammar_game_set[0]
-            passage = "Name the " + random.choice(grammar_game_set[1]).strip()
+            question = random.choice(grammar_game_set[1]).strip()
+            question = question[0].lower() + question[1:]
+            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
+            answer_def = robot.get_word_defs(lemma, text_set, False)[0].replace('\n', '')
+            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
             if not macrons:
                 answer = my_wiktionary_parser.remove_macrons(answer)
             text_set = "otherlang"
@@ -269,7 +282,7 @@ class Scholasticus(commands.Bot):
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
             #to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
-            passage = "name the " + random.choice(grammar_game_set[1]).strip()
+            passage = "name the " + random.choice(grammar_game_set[1]).strip() + ' [definition: ' + answer_def + ']'
             passage = passage[0].lower() + passage[1:]
         else:
             if text_set != 'shuowen':
