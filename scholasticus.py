@@ -1088,7 +1088,7 @@ class Scholasticus(commands.Bot):
             return
 
         # ==================================================================================================================================================
-
+        """
         if content.lower().startswith(self.command_prefix + 'owo'):
             self.debug(channel, content)
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
@@ -1113,7 +1113,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, "No person provided")
                 else:
                     await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
-
+        """
         # ==================================================================================================================================================
 
         if content.strip().lower().startswith(self.command_prefix + "markov"):
