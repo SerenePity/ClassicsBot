@@ -271,7 +271,8 @@ class Scholasticus(commands.Bot):
             question = random.choice(grammar_game_set[1]).strip()
             question = question[0].lower() + question[1:]
             lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_defs(lemma, text_set, False)[0].replace('\n', '')
+            answer_def = robot.get_word_defs(lemma, text_set, False)[0].split('\n')[0]
+            # print("Answer def:\n\n" + answer_def)
             passage = "Name the " + question + ' [definition: ' + answer_def + ']'
             if not macrons:
                 answer = my_wiktionary_parser.remove_macrons(answer)
