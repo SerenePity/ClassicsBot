@@ -262,7 +262,7 @@ def get_definition(soup, language, include_examples=True):
                 elif li.ul:
                     li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
                 li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
-    print(f"Definition: {definition}")
+    #print(f"Definition: {definition}")
     if 'This term needs a translation to English' in str(definition):
         print("Trying translingual")
         try:
@@ -467,10 +467,10 @@ def get_derivations(soup, language, misc=False):
                                 if header == "References":
                                     deriv_terms.append(old_dictify(sub_subling))
                                 elif header == 'Descendants' or header == 'Derived terms':
-                                    print(f"SubSubling: {sub_subling}")
-                                    print(language)
+                                    #print(f"SubSubling: {sub_subling}")
+                                    #print(language)
                                     parsed_descendants = parse_descendants(sub_subling, language)
-                                    print(f"FINAL: {parsed_descendants}")
+                                    #print(f"FINAL: {parsed_descendants}")
                                     deriv_terms.append(parsed_descendants.strip())
                                 else:
                                     deriv_terms.append(sub_subling.get_text().strip())

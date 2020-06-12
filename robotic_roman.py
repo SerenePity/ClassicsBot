@@ -422,7 +422,7 @@ class RoboticRoman():
                     s = None
                 child.decompose()
         try:
-            definition = self.get_and_format_word_defs(word, language)
+            definition = self.get_and_format_word_defs(word, language, include_examples=False)
         except:
             return self.get_full_entry(word, language, tries + 1)
         etymology = self.get_word_etymology(word, language)
@@ -550,7 +550,7 @@ class RoboticRoman():
         else:
             return string
 
-    def get_and_format_word_defs(self, word, language='latin', include_examples=True):
+    def get_and_format_word_defs(self, word, language='latin', include_examples=False):
         if language.lower() == 'tradchinese':
             word = tradify(word)
             language = 'chinese'

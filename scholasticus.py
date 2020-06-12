@@ -388,10 +388,10 @@ class Scholasticus(commands.Bot):
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     language = self.language_format(language)
-                    definition = self.robot.get_and_format_word_defs(word, language)
+                    definition = self.robot.get_and_format_word_defs(word, language, include_examples=False)
                 elif len(args) > 1:
                     word = ' '.join(args[1:])
-                    definition = self.robot.get_and_format_word_defs(word)
+                    definition = self.robot.get_and_format_word_defs(word, include_examples=False)
                 else:
                     definition = "Invalid arguments"
                 await self.send_in_chunks_if_needed(channel, definition)
@@ -421,8 +421,6 @@ class Scholasticus(commands.Bot):
                     language = ' '.join(args[1:])
                     language = self.language_format(language)
                     word = self.robot.get_random_word(language)
-                    print("SCHOLASTICUS WORD: " + word)
-                    print("SCHOLASTICUS WORD: " + language)
                     entry = self.robot.get_full_entry(word, language)
                     await self.send_in_chunks_if_needed(channel, entry)
                     return
