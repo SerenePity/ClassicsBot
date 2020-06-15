@@ -279,7 +279,7 @@ class RoboticRoman():
             (format_color("Guess answer ", "CSS"),                                                              f"'{prefix}g <word>'"),
             (format_color("End game ", "CSS"),                                                                  f"'{prefix}giveup'"),
             (format_color("Join game ", "CSS"),                                                                 f"'{prefix}join <game owner>'"),
-            (format_color("Owify quote from author ", "CSS"),                                                   f"'{prefix}owo <author>"),
+            #(format_color("Owify quote from author ", "CSS"),                                                   f"'{prefix}owo <author>"),
             (format_color("Get available Bible versions ", "CSS"),                                              f"'{prefix}bibleversions [<lang>]'"),
             (format_color("Bible compare ", "CSS"),                                                             f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
                                                                                                                     "\n\tNotes: add the prefix $ for transliteration."),

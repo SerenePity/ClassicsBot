@@ -175,10 +175,10 @@ class Scholasticus(commands.Bot):
         if self.games[game_owner].language in ['greek', 'latin']:
 
             if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors and guess != 'hint':
-                await self.send_message(channel, "You're playing a Greek game, but picked a Latin author! Try again.")
+                await self.send_message(channel, "You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
                 return
             if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors and guess != 'hint':
-                await self.send_message(channel, "You're playing a Latin game, but picked a Greek author! Try again.")
+                await self.send_message(channel, "You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
                 return
 
         self.games[game_owner].get_player_sess(player).tries += 1
