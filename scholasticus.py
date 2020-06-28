@@ -291,7 +291,7 @@ class Scholasticus(commands.Bot):
         self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language, hint=hint, is_shuowen_game=is_shuowen_game)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-        instruction = "\n\nType g <answer> to guess your answer."
+        instruction = "\n\nType g <answer> to guess your answer. Type giveup to give up."
 
         if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang", "shuowen"]:
             await self.send_message(channel, f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
