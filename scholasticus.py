@@ -380,7 +380,7 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
             self.debug(channel, content)
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
-            print(args)
+            #(args)
             try:
                 if len(args) > 1:
                     language = re.search("([(\w_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
@@ -425,14 +425,14 @@ class Scholasticus(commands.Bot):
                     await self.send_in_chunks_if_needed(channel, entry)
                     return
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 if 'proto-' in language.lower():
                     url = f"https://en.wiktionary.org/wiki/{word}"
                 else:
                     url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
 
@@ -457,11 +457,11 @@ class Scholasticus(commands.Bot):
                 await self.send_in_chunks_if_needed(channel, etymology)
                 return
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
 
@@ -475,8 +475,8 @@ class Scholasticus(commands.Bot):
                     language = re.search("([\w_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
                     language = self.language_format(language)
                     word = ' '.join(args[1:])
-                    print("Language: " + language)
-                    print("word: " + word)
+                    #print("Language: " + language)
+                    #print("word: " + word)
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)
@@ -488,11 +488,11 @@ class Scholasticus(commands.Bot):
                 await self.send_in_chunks_if_needed(channel, entry)
                 return
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "An error occurred while trying to retrieve the word entry.")
                 return
 
@@ -551,7 +551,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, self.robot.get_parallel_quote(person))
                     return
             except:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "Error. I do not have parallel texts for this person.")
                 return
 
@@ -580,7 +580,7 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit_obj))
             except:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
 
         # ==================================================================================================================================================
@@ -590,22 +590,22 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.lower())
             if len(args) > 1:
                 language = ' '.join(args[1:]).lower()
-                print(language)
+                #print(language)
                 ret_list = self.robot.get_available_bible_versions_lang(language)
                 try:
                     for version in ret_list:
                         await self.send_message(channel, version)
                 except discord.errors.HTTPException:
-                    traceback.print_exc()
+                    #traceback.print_exc()
                     await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
                 except:
-                    traceback.print_exc()
+                    #traceback.print_exc()
                     await self.send_message(channel, "Invalid language. Type '>bibleversions' for get available versions for all languages.")
             else:
                 try:
                     await self.send_message(channel, self.robot.get_available_bible_versions())
                 except discord.errors.HTTPException:
-                    traceback.print_exc()
+                    #traceback.print_exc()
                     await self.send_message(channel, f"Text is too long.")
 
         # ==================================================================================================================================================
@@ -660,7 +660,7 @@ class Scholasticus(commands.Bot):
                 await self.send_in_chunks_if_needed(channel, transliterated)
                 return
             except Exception as e:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, f"Error transliterating input.")
                 return
 
@@ -734,7 +734,7 @@ class Scholasticus(commands.Bot):
                 quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
             elif source.lower() == "mommsen":
                 if 'contents' in file.name:
-                    print("In contents")
+                    #print("In contents")
                     quotes = self.robot.get_passage_list_for_file(file, lambda x: [x])
                     await self.send_message(channel, quotes[0])
                     return
@@ -748,8 +748,8 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel, qt_obj.get_surrounding(after=1))
             except:
                 display, workslist = self.robot.show_author_works(source)
-                print("WORKSLIST:")
-                print(workslist)
+                #print("WORKSLIST:")
+                #print(workslist)
                 if workslist[index-1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
                     qt_obj = QuoteContext(source,
                                           [ q.rstrip('\n') for q in
@@ -773,8 +773,8 @@ class Scholasticus(commands.Bot):
                 if source not in self.authors_set:
                     source = "the " + source.strip().lower()
                 display, workslist = self.robot.show_author_works(source)
-                print("Display: " + str(display))
-                print("Workslist: " + str(workslist))
+                #print("Display: " + str(display))
+                #print("Workslist: " + str(workslist))
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
@@ -789,7 +789,7 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
             self.debug(channel, content)
             qt_args = shlex.split(content)
-            print(qt_args)
+            #print(qt_args)
             try:
                 if len(qt_args) > 1:
                     version = qt_args[1]
@@ -799,7 +799,7 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel ,translation)
 
             except Exception as e:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "Error retrieving verse.")
 
         # ==================================================================================================================================================
@@ -807,7 +807,7 @@ class Scholasticus(commands.Bot):
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
             self.debug(channel, content)
             qt_args = shlex.split(content)
-            print(qt_args)
+            #print(qt_args)
             try:
                 if len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
@@ -815,7 +815,7 @@ class Scholasticus(commands.Bot):
                     translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 2 and re.match(r"[0-9]+:[0-9]+", qt_args[2]):
                     verse = qt_args[1] + ' ' + qt_args[2]
-                    print("Verse: " + verse)
+                    #print("Verse: " + verse)
                     versions = qt_args[3:]
                     translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 1:
@@ -827,10 +827,10 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel ,translation)
                 return
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
             except Exception as e:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
 
@@ -851,7 +851,7 @@ class Scholasticus(commands.Bot):
                 qt_args = shlex.split(content.replace('“','"').replace('”','"'))
                 if qt_args[0].lower() != 'qt':
                     return
-                print(qt_args)
+                #print(qt_args)
                 word = None
                 transliterate = False
                 lemmatize = False
@@ -897,7 +897,7 @@ class Scholasticus(commands.Bot):
                     else:
                         if source == "reddit":
                             subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                            print(subreddit.display_name)
+                            #print(subreddit.display_name)
                             await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                             return
                         index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
@@ -921,7 +921,7 @@ class Scholasticus(commands.Bot):
 
         if content.lower().strip() == self.command_prefix + "whatchapter":
             self.debug(channel, content)
-            print("In whatchapter")
+            #print("In whatchapter")
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
             except:
@@ -1022,7 +1022,7 @@ class Scholasticus(commands.Bot):
                     #print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
                     await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
             return
 
@@ -1050,7 +1050,7 @@ class Scholasticus(commands.Bot):
                 else:
                     await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, f"Text is too long.")
             return
 
@@ -1082,7 +1082,7 @@ class Scholasticus(commands.Bot):
                     surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)
                     await self.send_in_chunks_if_needed(channel, surr_quotes)
             except discord.errors.HTTPException:
-                traceback.print_exc()
+                #traceback.print_exc()
                 await self.send_message(channel, f"The passage is too long.")
             return
 
@@ -1118,7 +1118,7 @@ class Scholasticus(commands.Bot):
         if content.strip().lower().startswith(self.command_prefix + "markov"):
             self.debug(channel, content)
             markov_args = shlex.split(content.replace('“','"').replace('”','"'))
-            print(markov_args)
+            #print(markov_args)
             try:
                 if (markov_args[1].strip() == '-t'):
                     author = ' '.join(markov_args[2:]).lower().strip()
@@ -1130,7 +1130,7 @@ class Scholasticus(commands.Bot):
                     await self.send_message(channel, self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
                     return
             except Exception as e:
-                traceback.print_exc()
+                #traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
@@ -1144,7 +1144,7 @@ class Scholasticus(commands.Bot):
             try:
                 await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
-                traceback.print_exc()
+                #traceback.print_exc()
                 if not author:
                     await self.send_message(channel, "No person provided")
                 else:
