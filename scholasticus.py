@@ -1,7 +1,10 @@
-from discord.ext import commands
+
 import discord
 import romanize3
 import re
+
+from discord import client
+
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
@@ -15,11 +18,9 @@ import random
 import time
 import robotic_roman
 import shlex
-from TextToOwO import owo
 import my_wiktionary_parser
 from robotic_roman import RoboticRoman
 from robotic_roman import QuoteContext
-import praw
 
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
@@ -93,9 +94,9 @@ class Game():
         self.exited_players = set()
         self.players_dict = dict()
 
-class Scholasticus(commands.Bot):
+class Scholasticus(discord.Client):
 
-    def __init__(self, prefix):
+    def __init__(self, prefix=""):
         super().__init__(command_prefix=prefix)
         self.robot = robot
         self.quotes_commands = dict()
@@ -105,6 +106,7 @@ class Scholasticus(commands.Bot):
         self.players_to_game_owners = dict()
         self.quote_requestors = dict()
         self.command_dict = dict()
+        self.command_prefix = prefix
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -120,7 +122,6 @@ class Scholasticus(commands.Bot):
         channeldata = [d for d in data if d['id'] == channel.id][0]
         return channeldata['nsfw']
 
-    @discord.client.event
     async def on_ready(self):
         print('Logged on as', self.user)
         await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
@@ -157,10 +158,10 @@ class Scholasticus(commands.Bot):
             else:
                 guess = content.strip()
         except:
-            await channel.send("You forgot to guess an answer.")
+            await self.send_message(channel, "You forgot to guess an answer.")
             return
         if guess.strip() == "":
-            await channel.send("You forgot to guess an answer.")
+            await self.send_message(channel, ("You forgot to guess an answer."))
             return
         print("Guess: " + guess)
         game_owner = self.players_to_game_owners[player]
@@ -176,10 +177,10 @@ class Scholasticus(commands.Bot):
         if self.games[game_owner].language in ['greek', 'latin']:
 
             if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors and guess != 'hint':
-                await channel.send("You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
+                await self.send_message(channel, "You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
                 return
             if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors and guess != 'hint':
-                await channel.send("You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
+                await self.send_message(channel, "You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
                 return
 
         self.games[game_owner].get_player_sess(player).tries += 1
@@ -195,9 +196,9 @@ class Scholasticus(commands.Bot):
                 await self.send_message(channel,
                                         f"{player.mention}, you've sacrificed a guess to get the following Mandarin pinyin pronunciation of the word:\n\n{hint}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif not self.games[game_owner].is_word_game and guess.strip().lower() == "hint":
-                await channel.send("No hints.")
+                await self.send_message(channel, "No hints.")
             else:
-                await channel.send(f"Wrong answer, {player.mention}, you have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
+                await self.send_message(channel, f"Wrong answer, {player.mention}, you have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
         else:
             self.games[game_owner].players_dict[player].end_game()
             if self.games[game_owner].no_players_left():
@@ -257,7 +258,7 @@ class Scholasticus(commands.Bot):
                 word_language = word_language.replace("-l ", "")
             answer = self.robot.get_random_word(word_language).strip()
             if answer == "Could not find lemma.":
-                await channel.send("Could not find an entry with an etymology. Please try again.")
+                await self.send_message(channel, "Could not find an entry with an etymology. Please try again.")
                 return
             is_word_game = True
         elif text_set == 'latin':
@@ -295,15 +296,15 @@ class Scholasticus(commands.Bot):
         instruction = "\n\nType g <answer> to guess your answer. Type giveup to give up."
 
         if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang", "shuowen"]:
-            await channel.send(f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
         elif text_set == 'grammar':
-            await channel.send(f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).{instruction}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).{instruction}")
         elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
-            await channel.send(f"{repeat_text}{game_owner.mention}, {passage}{instruction}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, {passage}{instruction}")
         elif text_set == 'shuowen':
-            await channel.send(f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
         else:
-            await channel.send(f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
+            await self.send_message(channel, f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
 
 
     def end_game(self, game_owner):
@@ -324,9 +325,9 @@ class Scholasticus(commands.Bot):
         if len(text) > DISCORD_CHAR_LIMIT:
             chunks = RoboticRoman.chunks(text, n)
             for chunk in chunks:
-                await channel.send(chunk)
+                await self.send_message(channel, chunk)
         else:
-            await channel.send(text)
+            await self.send_message(channel, text)
 
     def format_chapter_for_gibbon(self, chapter):
         if "chapter" not in chapter and chapter.lower() != "preface":
@@ -341,7 +342,6 @@ class Scholasticus(commands.Bot):
         print(f"Channel: {channel.id}")
         print(content)
 
-    @discord.client.event
     async def on_member_update(self, before, after):
         probationary_role = discord.utils.get(before.roles, id=PROBATIONARY_ID)
         try:
@@ -366,7 +366,6 @@ class Scholasticus(commands.Bot):
         except:
             traceback.print_exc()
 
-    @discord.client.event
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
@@ -398,10 +397,10 @@ class Scholasticus(commands.Bot):
             except discord.errors.HTTPException:
                 traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
-                await channel.send(f"The entry is too long. Here's the URL instead: {url}")
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 traceback.print_exc()
-                await channel.send("An error occurred while trying to retrieve the definition.")
+                await self.send_message(channel, "An error occurred while trying to retrieve the definition.")
                 return
 
         # ==================================================================================================================================================
@@ -429,10 +428,10 @@ class Scholasticus(commands.Bot):
                     url = f"https://en.wiktionary.org/wiki/{word}"
                 else:
                     url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
-                await channel.send(f"The entry is too long. Here's the URL instead: {url}")
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 #traceback.print_exc()
-                await channel.send("An error occurred while trying to retrieve the word.")
+                await self.send_message(channel, "An error occurred while trying to retrieve the word.")
                 return
 
         # ==================================================================================================================================================
@@ -458,10 +457,10 @@ class Scholasticus(commands.Bot):
             except discord.errors.HTTPException:
                 #traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
-                await channel.send(f"The entry is too long. Here's the URL instead: {url}")
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 #traceback.print_exc()
-                await channel.send("An error occurred while trying to retrieve the etymology.")
+                await self.send_message(channel, "An error occurred while trying to retrieve the etymology.")
                 return
 
         # ==================================================================================================================================================
@@ -489,16 +488,16 @@ class Scholasticus(commands.Bot):
             except discord.errors.HTTPException:
                 #traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
-                await channel.send(f"The entry is too long. Here's the URL instead: {url}")
+                await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
             except:
                 #traceback.print_exc()
-                await channel.send("An error occurred while trying to retrieve the word entry.")
+                await self.send_message(channel, "An error occurred while trying to retrieve the word entry.")
                 return
 
         if content.lower().startswith(self.command_prefix + 'listparallel'):
             self.debug(channel, content)
             parallel_list = '\n'.join(self.robot.parallel_authors)
-            await channel.send(parallel_list)
+            await self.send_message(channel, parallel_list)
             return
 
         # ==================================================================================================================================================
@@ -508,7 +507,7 @@ class Scholasticus(commands.Bot):
             char = args[1]
             soup = my_wiktionary_parser.get_soup(char)
             glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, list(char))
-            await channel.send(glyph_origin)
+            await self.send_message(channel, glyph_origin)
             return
 
         # ==================================================================================================================================================
@@ -543,15 +542,15 @@ class Scholasticus(commands.Bot):
                     #print("Matched num")
                     person = ' '.join(args[1:-1])
                     #print("PERSON: " + person)
-                    await channel.send(self.robot.get_parallel_quote(person, int(last_arg) - 1))
+                    await self.send_message(channel, self.robot.get_parallel_quote(person, int(last_arg) - 1))
                     return
                 else:
                     person = ' '.join(args[1:])
-                    await channel.send(self.robot.get_parallel_quote(person))
+                    await self.send_message(channel, self.robot.get_parallel_quote(person))
                     return
             except:
                 #traceback.print_exc()
-                await channel.send("Error. I do not have parallel texts for this person.")
+                await self.send_message(channel, "Error. I do not have parallel texts for this person.")
                 return
 
         # ==================================================================================================================================================
@@ -563,7 +562,7 @@ class Scholasticus(commands.Bot):
                 await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit))
             except:
                 traceback.print_exc()
-                await channel.send("Error. Subreddit possibly doesn't exist.")"""
+                await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")"""
 
         # ==================================================================================================================================================
 
@@ -575,12 +574,12 @@ class Scholasticus(commands.Bot):
                 channel_nsfw = await self.is_nsfw(channel)
                 print(f"channel is nsfw: {channel_nsfw}")
                 if not channel_nsfw and subreddit_obj.over18:
-                    await channel.send("Cannot retrieve posts from an Over 18 subreddit in this channel.")
+                    await self.send_message(channel, "Cannot retrieve posts from an Over 18 subreddit in this channel.")
                 else:
                     await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit_obj))
             except:
                 #traceback.print_exc()
-                await channel.send("Error. Subreddit possibly doesn't exist.")
+                await self.send_message(channel, "Error. Subreddit possibly doesn't exist.")
 
         # ==================================================================================================================================================
 
@@ -593,19 +592,19 @@ class Scholasticus(commands.Bot):
                 ret_list = self.robot.get_available_bible_versions_lang(language)
                 try:
                     for version in ret_list:
-                        await channel.send(version)
+                        await self.send_message(channel, version)
                 except discord.errors.HTTPException:
                     #traceback.print_exc()
-                    await channel.send(f"The entry is too long. Here's the URL instead: {url}")
+                    await self.send_message(channel, f"The entry is too long. Here's the URL instead: {url}")
                 except:
                     #traceback.print_exc()
-                    await channel.send("Invalid language. Type '>bibleversions' for get available versions for all languages.")
+                    await self.send_message(channel, "Invalid language. Type '>bibleversions' for get available versions for all languages.")
             else:
                 try:
-                    await channel.send(self.robot.get_available_bible_versions())
+                    await self.send_message(channel, self.robot.get_available_bible_versions())
                 except discord.errors.HTTPException:
                     #traceback.print_exc()
-                    await channel.send(f"Text is too long.")
+                    await self.send_message(channel, f"Text is too long.")
 
         # ==================================================================================================================================================
 
@@ -617,12 +616,12 @@ class Scholasticus(commands.Bot):
             try:
                 tr_args = shlex.split(content)
             except:
-                await channel.send("Error, no closing quotation. Please try to enclose the input within quotes.")
+                await self.send_message(channel, "Error, no closing quotation. Please try to enclose the input within quotes.")
                 return
             if len(tr_args) > 2:
                 language = tr_args[1].lower()
             else:
-                await channel.send("Invalid arguments.")
+                await self.send_message(channel, "Invalid arguments.")
             try:
                 input = ' '.join(tr_args[2:])
                 if language == '-heb':
@@ -660,7 +659,7 @@ class Scholasticus(commands.Bot):
                 return
             except Exception as e:
                 #traceback.print_exc()
-                await channel.send(f"Error transliterating input.")
+                await self.send_message(channel, f"Error transliterating input.")
                 return
 
         # ==================================================================================================================================================
@@ -683,7 +682,7 @@ class Scholasticus(commands.Bot):
             if not args[0].lower() == 'pick':
                 return
             if len(args) < 2:
-                await channel.send("You need to pick an index.")
+                await self.send_message(channel, "You need to pick an index.")
                 return
             index = 0
             qt_obj: QuoteContext = self.quote_requestors[author]
@@ -705,7 +704,7 @@ class Scholasticus(commands.Bot):
                     qt_obj.index = 0
                     qt_obj.after_index = 0
                     qt_obj.author = 'gibbon'
-                    await channel.send(qt_obj.get_surrounding(after=1, joiner=""))
+                    await self.send_message(channel, qt_obj.get_surrounding(after=1, joiner=""))
                 else:
                     quotes = module.quotes
                     qt_obj.works_list[index - 1] = module
@@ -713,7 +712,7 @@ class Scholasticus(commands.Bot):
                     qt_obj.index = 0
                     qt_obj.after_index = 0
                     qt_obj.author = 'gibbon'
-                    await channel.send(qt_obj.get_surrounding(after=1))
+                    await self.send_message(channel, qt_obj.get_surrounding(after=1))
                 return
 
             file = qt_obj.works_list[index - 1]
@@ -735,7 +734,7 @@ class Scholasticus(commands.Bot):
                 if 'contents' in file.name:
                     #print("In contents")
                     quotes = self.robot.get_passage_list_for_file(file, lambda x: [x])
-                    await channel.send(quotes[0])
+                    await self.send_message(channel, quotes[0])
                     return
                 else:
                     quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_text)
@@ -744,7 +743,7 @@ class Scholasticus(commands.Bot):
             qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             try:
-                await channel.send(qt_obj.get_surrounding(after=1))
+                await self.send_message(channel, qt_obj.get_surrounding(after=1))
             except:
                 display, workslist = self.robot.show_author_works(source)
                 #print("WORKSLIST:")
@@ -757,7 +756,7 @@ class Scholasticus(commands.Bot):
                 else:
                     qt_obj = QuoteContext(source, RoboticRoman._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
-                await channel.send(qt_obj.get_surrounding(after=1))
+                await self.send_message(channel, qt_obj.get_surrounding(after=1))
             return
 
         # ==================================================================================================================================================
@@ -766,7 +765,7 @@ class Scholasticus(commands.Bot):
             args = shlex.split(content.lower())
             self.debug(channel, content)
             if len(args) < 2:
-                await channel.send("You must provide an author or work.")
+                await self.send_message(channel, "You must provide an author or work.")
             else:
                 source = ' '.join(args[1:])
                 if source not in self.authors_set:
@@ -779,9 +778,9 @@ class Scholasticus(commands.Bot):
                 if len(display) > 2000:
                     parts = list(RoboticRoman.chunks(display.split('\n'), 10))
                     for part in parts:
-                        await channel.send(' '.join(part))
+                        await self.send_message(channel, ' '.join(part))
                 else:
-                    await channel.send(display)
+                    await self.send_message(channel, display)
 
         # ==================================================================================================================================================
 
@@ -795,11 +794,11 @@ class Scholasticus(commands.Bot):
                 else:
                     version = 'kjv'
                 translation = self.robot.ulfilas_translations(version)
-                await channel.send(translation)
+                await self.send_message(channel, translation)
 
             except Exception as e:
                 #traceback.print_exc()
-                await channel.send("Error retrieving verse.")
+                await self.send_message(channel, "Error retrieving verse.")
 
         # ==================================================================================================================================================
 
@@ -821,16 +820,16 @@ class Scholasticus(commands.Bot):
                     versions = qt_args[1:]
                     translation = self.robot.bible_compare_random_verses(versions)
                 else:
-                    await channel.send("Invalid arguments.")
+                    await self.send_message(channel, "Invalid arguments.")
                     return
-                await channel.send(translation)
+                await self.send_message(channel, translation)
                 return
             except discord.errors.HTTPException:
                 #traceback.print_exc()
-                await channel.send(f"Text is too long.")
+                await self.send_message(channel, f"Text is too long.")
             except Exception as e:
                 #traceback.print_exc()
-                await channel.send("Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
+                await self.send_message(channel, "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
 
         # ==================================================================================================================================================
@@ -844,7 +843,7 @@ class Scholasticus(commands.Bot):
                 _, works_list = self.robot.show_author_works(source)
                 qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
                 self.quote_requestors[author] = qt_obj
-                await channel.send(quote)
+                await self.send_message(channel, quote)
             else:
                 self.debug(channel, content)
                 qt_args = shlex.split(content.replace('“','"').replace('”','"'))
@@ -891,7 +890,7 @@ class Scholasticus(commands.Bot):
                         qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
                         self.quote_requestors[author] = qt_obj
                         transliterated = transliteration.greek.transliterate(quote)
-                        await channel.send(transliterated)
+                        await self.send_message(channel, transliterated)
                         return
                     else:
                         if source == "reddit":
@@ -904,16 +903,16 @@ class Scholasticus(commands.Bot):
                         _, works_list = self.robot.show_author_works(source)
                         qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
                         self.quote_requestors[author] = qt_obj
-                        await channel.send(quote)
+                        await self.send_message(channel, quote)
                 except discord.errors.HTTPException:
                     traceback.print_exc()
-                    await channel.send(f"The passage is too long.")
+                    await self.send_message(channel, f"The passage is too long.")
                 except Exception as e:
                     traceback.print_exc()
                     if not source:
-                        await channel.send("No person provided")
+                        await self.send_message(channel, "No person provided")
                     else:
-                        await channel.send(f"Could not find quotes matching criteria.")
+                        await self.send_message(channel, f"Could not find quotes matching criteria.")
                 return
 
         # ==================================================================================================================================================
@@ -924,16 +923,16 @@ class Scholasticus(commands.Bot):
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
             except:
-                await channel.send("You have not started reading anything yet.")
+                await self.send_message(channel, "You have not started reading anything yet.")
                 return
             if qt_obj.author != "gibbon":
-                await channel.send(f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
+                await self.send_message(channel, f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
                 return
             chapter = qt_obj.find_chapter_from_passage()
             if chapter == "Preface":
-                await channel.send(f"You are in the Preface in Volume 1")
+                await self.send_message(channel, f"You are in the Preface in Volume 1")
             else:
-                await channel.send(f"You are in {chapter}")
+                await self.send_message(channel, f"You are in {chapter}")
             return
 
         # ==================================================================================================================================================
@@ -953,7 +952,7 @@ class Scholasticus(commands.Bot):
                 try:
                     footnote_num = int(args[1])
                 except:
-                    await channel.send("Footnote number must be an integer.")
+                    await self.send_message(channel, "Footnote number must be an integer.")
                     return
                 footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
                 await self.send_in_chunks_if_needed(channel, footnote)
@@ -964,7 +963,7 @@ class Scholasticus(commands.Bot):
                 try:
                     footnote_num = int(args[2])
                 except:
-                    await channel.send("Footnote number must be an integer.")
+                    await self.send_message(channel, "Footnote number must be an integer.")
                     return
                 footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
                 await self.send_in_chunks_if_needed(channel, footnote)
@@ -974,20 +973,20 @@ class Scholasticus(commands.Bot):
                 try:
                     footnote_num = int(args[2])
                 except:
-                    await channel.send("Footnote number must be an integer.")
+                    await self.send_message(channel, "Footnote number must be an integer.")
                     return
                 try:
                     footnote_end = int(args[3])
                 except:
-                    await channel.send("Footnote number must be an integer.")
+                    await self.send_message(channel, "Footnote number must be an integer.")
                     return
                 if footnote_end - footnote_num > 4:
-                    await channel.send("For the sake of sanity, please retrieve only five footnotes at a time.")
+                    await self.send_message(channel, "For the sake of sanity, please retrieve only five footnotes at a time.")
                     return
                 footnote = self.robot.get_gibbon_footnote(chapter, footnote_num, footnote_end)
                 await self.send_in_chunks_if_needed(channel, footnote)
             else:
-                await channel.send("Wrong number of arguments. Type helpme for help.")
+                await self.send_message(channel, "Wrong number of arguments. Type helpme for help.")
                 return
             return
 
@@ -1003,10 +1002,10 @@ class Scholasticus(commands.Bot):
             else:
                 after = int(args[1])
                 if after < 1:
-                    await channel.send(f"You must pick a number greater than 0.")
+                    await self.send_message(channel, f"You must pick a number greater than 0.")
                     return
                 if after > 5:
-                    await channel.send(f"You must pick a number less than 6 to remain within Discord's character limit.")
+                    await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
@@ -1022,7 +1021,7 @@ class Scholasticus(commands.Bot):
                     await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
             except discord.errors.HTTPException:
                 #traceback.print_exc()
-                await channel.send(f"Text is too long.")
+                await self.send_message(channel, f"Text is too long.")
             return
 
         if content.lower().startswith(self.command_prefix + 'bef'):
@@ -1035,10 +1034,10 @@ class Scholasticus(commands.Bot):
             else:
                 before = int(args[1])
                 if before < 1:
-                    await channel.send(f"You must pick a number greater than 0.")
+                    await self.send_message(channel, f"You must pick a number greater than 0.")
                     return
                 if before > 5:
-                    await channel.send(f"You must pick a number less than 6 to remain within Discord's character limit.")
+                    await self.send_message(channel, f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
@@ -1050,7 +1049,7 @@ class Scholasticus(commands.Bot):
                     await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
             except discord.errors.HTTPException:
                 #traceback.print_exc()
-                await channel.send(f"Text is too long.")
+                await self.send_message(channel, f"Text is too long.")
             return
 
         # ==================================================================================================================================================
@@ -1082,7 +1081,7 @@ class Scholasticus(commands.Bot):
                     await self.send_in_chunks_if_needed(channel, surr_quotes)
             except discord.errors.HTTPException:
                 #traceback.print_exc()
-                await channel.send(f"The passage is too long.")
+                await self.send_message(channel, f"The passage is too long.")
             return
 
         # ==================================================================================================================================================
@@ -1102,15 +1101,15 @@ class Scholasticus(commands.Bot):
                     quote = transliteration.mandarin.transliterate(quote)
                 output = owo.text_to_owo(quote)
                 if len(output.strip()) > 1:
-                    await channel.send(output)
+                    await self.send_message(channel, output)
                 else:
-                    await channel.send(f"I do not have quotes for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
             except Exception as e:
                 traceback.print_exc()
                 if not author:
-                    await channel.send("No person provided")
+                    await self.send_message(channel, "No person provided")
                 else:
-                    await channel.send(f"I do not have quotes for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"I do not have quotes for {self.robot.format_name(author)}.")
         """
         # ==================================================================================================================================================
 
@@ -1122,18 +1121,18 @@ class Scholasticus(commands.Bot):
                 if (markov_args[1].strip() == '-t'):
                     author = ' '.join(markov_args[2:]).lower().strip()
                     transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower())).replace(robotic_roman.ABSOLUTE_DELIMITER, "")
-                    await channel.send(transliterated)
+                    await self.send_message(channel, transliterated)
                     return
                 else:
                     author = ' '.join(markov_args[1:]).strip().lower()
-                    await channel.send(self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
+                    await self.send_message(channel, self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
                     return
             except Exception as e:
                 #traceback.print_exc()
                 if not author:
-                    await channel.send("No person provided")
+                    await self.send_message(channel, "No person provided")
                 else:
-                    await channel.send(f"I do not have a Markov model for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
         # ==================================================================================================================================================
 
@@ -1141,47 +1140,47 @@ class Scholasticus(commands.Bot):
             self.debug(channel, content)
             author = self.markov_commands[content.strip().lower().replace('“','"').replace('”','"')]
             try:
-                await channel.send(self.robot.make_sentence(author.lower()))
+                await self.send_message(channel, self.robot.make_sentence(author.lower()))
             except Exception as e:
                 #traceback.print_exc()
                 if not author:
-                    await channel.send("No person provided")
+                    await self.send_message(channel, "No person provided")
                 else:
-                    await channel.send(f"I do not have a Markov model for {self.robot.format_name(author)}.")
+                    await self.send_message(channel, f"I do not have a Markov model for {self.robot.format_name(author)}.")
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'literaturequote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_literature_quote())
+            await self.send_message(channel, self.robot.pick_random_literature_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'historianquote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_historians_quote())
+            await self.send_message(channel, self.robot.pick_random_historians_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'philosopherquote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_philosopher_quote())
+            await self.send_message(channel, self.robot.pick_random_philosopher_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicquote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_germanic_quote())
+            await self.send_message(channel, self.robot.pick_random_germanic_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_latin_quote())
+            await self.send_message(channel, self.robot.pick_random_latin_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'chinesequote'):
             self.debug(channel, content)
-            await channel.send(self.robot.pick_random_chinese_quote())
+            await self.send_message(channel, self.robot.pick_random_chinese_quote())
 
         # ==================================================================================================================================================
 
@@ -1192,7 +1191,7 @@ class Scholasticus(commands.Bot):
             quote = self.robot.pick_greek_quote()
             if transliterate:
                 quote = transliteration.greek.transliterate(quote)
-            await channel.send(quote)
+            await self.send_message(channel, quote)
 
         # ==================================================================================================================================================
 
@@ -1200,14 +1199,14 @@ class Scholasticus(commands.Bot):
             self.debug(channel, content)
             args = shlex.split(content.lower())
             if len(args) < 2:
-                await channel.send("No argument provided")
+                await self.send_message(channel, "No argument provided")
                 return
             else:
                 try:
                     i = int(args[1])
                 except:
-                    await channel.send("Argument must be an integer.")
-                await channel.send(f"Type {self.command_dict[i]}")
+                    await self.send_message(channel, "Argument must be an integer.")
+                await self.send_message(channel, f"Type {self.command_dict[i]}")
 
         # ==================================================================================================================================================
 
@@ -1221,49 +1220,49 @@ class Scholasticus(commands.Bot):
                 ret.append(f"**{i+1}.** {desc}")
             lines = list(RoboticRoman.chunks(ret, 5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
-            await channel.send('Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
+            await self.send_message(channel, 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicauthors'):
             self.debug(channel, content)
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
             self.debug(channel, content)
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
             self.debug(channel, content)
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernphilosophers'):
             self.debug(channel, content)
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
+            await self.send_message(channel, '```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernhistorians'):
             self.debug(channel, content)
-            await channel.send('```yaml\n' + ', '.join(
+            await self.send_message(channel, '```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.historians_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernauthors'):
-            await channel.send('```yaml\n' + ', '.join(
+            await self.send_message(channel, '```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.literature_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'chineseauthors'):
-            await channel.send('```yaml\n' + ', '.join(
+            await self.send_message(channel, '```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.chinese_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
@@ -1332,10 +1331,10 @@ class Scholasticus(commands.Bot):
                     formatted = self.robot.format_name(game.answer)
                 del self.players_to_game_owners[author]
                 if game.no_players_left():
-                    await channel.send(f"{author.mention} has left the game. There are no players left. The answer was {formatted}.")
+                    await self.send_message(channel, f"{author.mention} has left the game. There are no players left. The answer was {formatted}.")
                     self.end_game(game_owner)
                 else:
-                    await channel.send(f"{author.mention} has left the game.")
+                    await self.send_message(channel, f"{author.mention} has left the game.")
             return
 
         # ==================================================================================================================================================
@@ -1350,7 +1349,7 @@ class Scholasticus(commands.Bot):
             elif game.game_on and channel == game.channel and response_content.startswith('g ') or response_content.startswith('guess '):
                 args = shlex.split(response_content)
                 if len(args) < 2:
-                    await channel.send("Please guess a word.")
+                    await self.send_message(channel, "Please guess a word.")
                     return
                 else:
                     guess = ' '.join(args[1:])
@@ -1377,18 +1376,18 @@ class Scholasticus(commands.Bot):
             if len(message.mentions) > 0 :
                 game_owner = message.mentions[0]
                 if game_owner == author:
-                    await channel.send("You cannot join your own game!")
+                    await self.send_message(channel, "You cannot join your own game!")
                     return
                 if game_owner not in self.games:
-                    await channel.send(f"{author.mention}, that person does not have a running game.")
+                    await self.send_message(channel, f"{author.mention}, that person does not have a running game.")
                     return
                 if self.games[game_owner].game_on:
                     if author in self.games[game_owner].exited_players:
-                        await channel.send("You cannot rejoin a game that you've exited")
+                        await self.send_message(channel, "You cannot rejoin a game that you've exited")
                         return
                     self.players_to_game_owners[author] = game_owner
                     self.games[game_owner].add_player(author)
-                    await channel.send(f"{author.mention} has joined the game started by {game_owner.mention}.")
+                    await self.send_message(channel, f"{author.mention} has joined the game started by {game_owner.mention}.")
                 else:
                     channel.send(f"{author.mention}, you attempted to join a game that doesn't exist.")
             else:
@@ -1402,6 +1401,6 @@ class Scholasticus(commands.Bot):
             if len(args) > 1:
                 c = args[1]
                 explanation = self.robot.get_shuowen(c)
-                await channel.send(explanation)
+                await self.send_message(channel, explanation)
             else:
-                await channel.send("You did not enter a character.")
+                await self.send_message(channel, "You did not enter a character.")
