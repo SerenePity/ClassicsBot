@@ -109,7 +109,7 @@ class Scholasticus(commands.Bot):
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
 
-    async def is_nsfw(self, channel: discord.Channel):
+    async def is_nsfw(self, channel):
         try:
             _gid = channel.server.id
         except AttributeError:
