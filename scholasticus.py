@@ -122,7 +122,7 @@ class Scholasticus(discord.Client):
 
     async def on_ready(self):
         print('Logged on as', self.user)
-        await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
+        activity = discord.Game(name="helpme for help", type=3)
         self.robot.load_all_models()
         for authors in self.robot.authors_collection:
             for author in authors:
