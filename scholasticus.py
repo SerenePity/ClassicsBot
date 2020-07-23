@@ -21,6 +21,8 @@ from robotic_roman import RoboticRoman
 from robotic_roman import QuoteContext
 import praw
 
+from run_bot import client
+
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
 PROBATIONARY_ID = 716979211549540403
@@ -120,6 +122,7 @@ class Scholasticus(commands.Bot):
         channeldata = [d for d in data if d['id'] == channel.id][0]
         return channeldata['nsfw']
 
+    @client.event
     async def on_ready(self):
         print('Logged on as', self.user)
         await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
@@ -340,6 +343,7 @@ class Scholasticus(commands.Bot):
         print(f"Channel: {channel.id}")
         print(content)
 
+    @client.event
     async def on_member_update(self, before, after):
         probationary_role = discord.utils.get(before.roles, id=PROBATIONARY_ID)
         try:
@@ -364,7 +368,7 @@ class Scholasticus(commands.Bot):
         except:
             traceback.print_exc()
 
-
+    @client.event
     async def on_message(self, message):
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
