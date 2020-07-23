@@ -25,6 +25,7 @@ PROBATIONARY_ID = 716979211549540403
 robot = RoboticRoman("")
 DISCORD_CHAR_LIMIT = 2000
 
+
 class PlayerSession():
 
     def __init__(self, player, answer, language, channel):
@@ -90,6 +91,7 @@ class Game():
         self.is_word_game = False
         self.exited_players = set()
         self.players_dict = dict()
+
 
 class Scholasticus(discord.Client):
 
@@ -167,8 +169,7 @@ class Scholasticus(discord.Client):
         print(f"Is grammargame {self.games[game_owner].is_grammar_game}")
         formatted_answer = self.robot.format_name(game_answer) if not (word_game or self.games[game_owner].is_grammar_game) else game_answer.split('/')[-1]
         if guess.lower() == game_answer.lower().split('/')[-1]:
-            await self.send_message(channel,
-                                    f"{player.mention}, correct! The answer is {formatted_answer}.")
+            await channel.send(f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
             return
         if self.games[game_owner].language in ['greek', 'latin']:
@@ -186,11 +187,11 @@ class Scholasticus(discord.Client):
             guesses_remaining = MAX_TRIES - self.games[game_owner].players_dict[player].tries
             if guess.strip().lower() == "hint" and self.games[game_owner].is_word_game:
                 etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
-                await self.send_message(channel,
+                await channel.send(
                                         f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif self.games[game_owner].is_shuowen_game:
                 hint = self.games[game_owner].get_hint()
-                await self.send_message(channel,
+                await channel.send(
                                         f"{player.mention}, you've sacrificed a guess to get the following Mandarin pinyin pronunciation of the word:\n\n{hint}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif not self.games[game_owner].is_word_game and guess.strip().lower() == "hint":
                 await channel.send("No hints.")
@@ -200,15 +201,15 @@ class Scholasticus(discord.Client):
             self.games[game_owner].players_dict[player].end_game()
             if self.games[game_owner].no_players_left():
                 if len(self.games[game_owner].players_dict) == 1:
-                    await self.send_message(channel,
+                    await channel.send(
                                     f"Sorry, {player.mention}, you've run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 else:
-                    await self.send_message(channel,
+                    await channel.send(
                                       f"Everybody has run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 self.end_game(game_owner)
                 #self.games[game_owner].end_game()
             else:
-                await self.send_message(channel,
+                await channel.send(
                                         f"Sorry, {player.mention}, you've run out of guesses! Better luck next time!")
                 self.games[game_owner].get_player_sess(player).end_game()
                 self.games[game_owner].exited_players.add(player)
@@ -1388,7 +1389,7 @@ class Scholasticus(discord.Client):
                 else:
                     channel.send(f"{author.mention}, you attempted to join a game that doesn't exist.")
             else:
-                await self.send_message(channel,
+                await channel.send(
                                         f"{author.mention}, please specify the name of the player whose game you want to join.")
 
         # ==================================================================================================================================================
