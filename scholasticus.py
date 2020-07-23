@@ -104,6 +104,7 @@ class Scholasticus(discord.Client):
         self.quote_requestors = dict()
         self.command_dict = dict()
         self.command_prefix = prefix
+        self.authors_set = set()
 
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
@@ -123,7 +124,6 @@ class Scholasticus(discord.Client):
         print('Logged on as', self.user)
         await self.change_presence(game=discord.Game(name=self.command_prefix + "helpme for help"))
         self.robot.load_all_models()
-        self.authors_set = set()
         for authors in self.robot.authors_collection:
             for author in authors:
                 self.authors_set.add(author)
