@@ -1,6 +1,5 @@
 git+git://github.com/Rapptz/discord.py
 git+git://github.com/dead-beef/markovchain.git
-git+git://github.com/praw-dev/praw.git
 git+git://github.com/Zenrac/TextToOwO.git
 beautifulsoup4==4.7.1
 romanize3

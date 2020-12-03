@@ -22,6 +22,10 @@ from robotic_roman import QuoteContext
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
 PROBATIONARY_ID = 716979211549540403
+POMERIUM_CHANNEL_ID = 716979999172853890
+LATIN_SERVER_ID = 596471999493308417
+POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
+POMERIUM_MESSAGE_THRESHOLD = 15
 robot = RoboticRoman("")
 DISCORD_CHAR_LIMIT = 2000
 
@@ -108,6 +112,7 @@ class Scholasticus(discord.Client):
         self.command_prefix = prefix
         self.authors_set = set()
 
+
     def sleep_for_n_seconds(self, n):
         time.sleep(n - ((time.time() - self.start_time) % n))
 
@@ -130,7 +135,7 @@ class Scholasticus(discord.Client):
             for author in authors:
                 self.authors_set.add(author)
 
-        self.authors_set.add('reddit')
+        # self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
         for author in self.authors_set:
             self.markov_commands[f"as {author.lower()} allegedly said:"] = author
@@ -341,6 +346,9 @@ class Scholasticus(discord.Client):
         print(content)
 
     async def on_member_update(self, before, after):
+        """
+        Send a message to new users when they are approved to join the server (i.e, when the "Newcomer" role is removed
+        """
         probationary_role = discord.utils.get(before.roles, id=PROBATIONARY_ID)
         try:
             if probationary_role in before.roles and probationary_role not in after.roles:
@@ -372,6 +380,19 @@ class Scholasticus(discord.Client):
         author = message.author
         channel = message.channel
         content = message.content
+
+        """
+        Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
+        length greater than 15 characters.
+        """
+        if channel.id == POMERIUM_CHANNEL_ID:
+            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content) > POMERIUM_MESSAGE_THRESHOLD:
+                try:
+                    pomerium_notifications_channel = self.get_channel(POMERIUM_CHANNEL_ID)
+                    await pomerium_notifications_channel.send(f"New user {author.name} has answered the Pomerium prompt. Please check the Pomerium to approve entry.")
+                except:
+                    traceback.print_exc()
+
 
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
             self.debug(channel, content)
@@ -564,6 +585,8 @@ class Scholasticus(discord.Client):
 
         # ==================================================================================================================================================
 
+        # Removed random reddit post command
+        """
         if content.lower().startswith(self.command_prefix + 'redditquote') or content.lower().startswith(self.command_prefix + 'git '):
             self.debug(channel, content)
             try:
@@ -578,7 +601,7 @@ class Scholasticus(discord.Client):
             except:
                 #traceback.print_exc()
                 await channel.send("Error. Subreddit possibly doesn't exist.")
-
+        """
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
@@ -878,11 +901,13 @@ class Scholasticus(discord.Client):
                         source = "the " + source.strip().lower()
 
                     if transliterate:
+                        """
                         if source == "reddit":
                             subreddit = self.robot.reddit.random_subreddit(nsfw=False)
                             await self.send_in_chunks_if_needed(channel,
                                                     f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                             return
+                        """
                         index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                         _, works_list = self.robot.show_author_works(source)
                         qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
@@ -891,11 +916,13 @@ class Scholasticus(discord.Client):
                         await channel.send(transliterated)
                         return
                     else:
+                        """
                         if source == "reddit":
                             subreddit = self.robot.reddit.random_subreddit(nsfw=False)
                             #print(subreddit.display_name)
                             await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                             return
+                        """
                         index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
                         quote = re.sub(r"([?!])\s*\.", r"\1", quote)
                         _, works_list = self.robot.show_author_works(source)

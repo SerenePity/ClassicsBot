@@ -207,9 +207,11 @@ class RoboticRoman():
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
         #self.decliner = CollatinusDecliner()
+        """
         self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
                                   client_secret=os.environ['reddit_secret'],
                                   user_agent='user agent')
+        """
 
         self.latin_quotes_dict = dict()
         self.greek_quotes_dict = dict()
@@ -685,6 +687,7 @@ class RoboticRoman():
         else:
             return [return_string]
 
+    """
     def reddit_quote(self, subreddit_obj):
         if subreddit_obj.over18:
             return "Cannot retrieve posts from an Over 18 subreddit."
@@ -699,6 +702,7 @@ class RoboticRoman():
         else:
             body = post.title
         return f"**{post.title}**\n{body}"
+    """
 
     def get_old_english_verse(self, verse):
         book = ''.join(verse.split(":")[0].split()[:-1]).lower()
@@ -1276,8 +1280,10 @@ class RoboticRoman():
 
     def get_quote_list(self, person, word, lemmatize=False, case_sensitive=False):
         print(person)
+        """
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
+        """
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
@@ -1345,9 +1351,10 @@ class RoboticRoman():
 
     def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
         print(person)
+        """
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
-
+        """
         if person.strip().lower() == 'gibbon':
             modules = self.map_person_to_dict('gibbon')['gibbon']
             i, quote, quotes_list = self.pick_quote_modular(modules, word, lemmatize, case_sensitive)
