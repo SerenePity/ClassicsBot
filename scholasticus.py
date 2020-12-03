@@ -324,6 +324,20 @@ class Scholasticus(discord.Client):
         except:
             False
 
+
+    async def send_truncate(self, channel, text):
+        """
+        Truncate if text is longer than the Discord character limit
+        :param channel: the channel to send the message in
+        :param text: the text to send
+        :return:
+        """
+        if len(text) > DISCORD_CHAR_LIMIT:
+            truncation_text = "... (text truncated)"
+            await channel.send(text[:1500] + truncation_text)
+        else:
+            await channel.send(text)
+
     async def send_in_chunks_if_needed(self, channel, text, n=2000):
         if len(text) > DISCORD_CHAR_LIMIT:
             chunks = RoboticRoman.chunks(text, n)
@@ -390,7 +404,7 @@ class Scholasticus(discord.Client):
             if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
                     pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n\n_{content}_\n\nPlease check the Pomerium to approve entry.")
+                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n\n_{content}_")
                 except:
                     traceback.print_exc()
 
@@ -503,7 +517,7 @@ class Scholasticus(discord.Client):
                     entry = self.robot.get_full_entry(word)
                 else:
                     entry = "Invalid arguments"
-                await self.send_in_chunks_if_needed(channel, entry)
+                await self.send_truncate(channel, entry)
                 return
             except discord.errors.HTTPException:
                 #traceback.print_exc()
