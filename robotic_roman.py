@@ -30,7 +30,6 @@ import random
 import os
 import re
 import string
-import praw
 import urllib.parse
 import importlib
 import cached_quotes.gibbon.gibbon_footnotes
