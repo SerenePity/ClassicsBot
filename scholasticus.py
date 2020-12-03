@@ -389,7 +389,7 @@ class Scholasticus(discord.Client):
             if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
                     pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    await pomerium_notifications_channel.send(f"New user {author.name} has answered the Pomerium prompt. Please check the Pomerium to approve entry.")
+                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n\n_{content}_\n\nPlease check the Pomerium to approve entry.")
                 except:
                     traceback.print_exc()
 
