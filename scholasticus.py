@@ -25,7 +25,7 @@ PROBATIONARY_ID = 716979211549540403
 POMERIUM_CHANNEL_ID = 716979999172853890
 LATIN_SERVER_ID = 596471999493308417
 POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
-POMERIUM_MESSAGE_THRESHOLD = 15
+POMERIUM_MESSAGE_THRESHOLD = 5
 robot = RoboticRoman("")
 DISCORD_CHAR_LIMIT = 2000
 
@@ -399,15 +399,14 @@ class Scholasticus(discord.Client):
         Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
         length greater than 15 characters.
         """
-
         if channel.id == POMERIUM_CHANNEL_ID:
-            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content) > POMERIUM_MESSAGE_THRESHOLD:
+            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
                     pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n\n_{content}_")
+                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n" +
+                                                              f"> {content}")
                 except:
                     traceback.print_exc()
-
 
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
             self.debug(channel, content)
