@@ -385,6 +385,7 @@ class Scholasticus(discord.Client):
         Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
         length greater than 15 characters.
         """
+
         if channel.id == POMERIUM_CHANNEL_ID:
             if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
