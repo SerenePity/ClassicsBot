@@ -32,6 +32,9 @@ DISCORD_CHAR_LIMIT = 2000
 
 class PlayerSession():
 
+    """
+    Class to simulate a player's game session
+    """
     def __init__(self, player, answer, language, channel):
         self.player = player
         self.answer = answer
@@ -50,6 +53,9 @@ class PlayerSession():
 
 class Game():
 
+    """
+    Class to simulate a game, which can be of multiple types
+    """
     def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False, word_language='latin', hint=None, is_shuowen_game=False):
         self.game_owner = game_owner
         self.game_on = True
@@ -69,24 +75,51 @@ class Game():
         return self.players_dict[self.game_owner]
 
     def add_player(self, player):
+        """
+        Add a player to the current game
+
+        :param player: the Member object of the player to be added
+        :return:
+        """
         self.players_dict[player] = PlayerSession(player, self.answer, self.language, self.channel)
 
     def get_player_sess(self, player):
+        """
+        Get the PlayerSession associated with the player
+
+        :param player: the Member object of the player whose PlayerSession is to be retrieved
+        :return: the PlayerSession associated with player
+        """
         return self.players_dict[player]
 
     def end_player_sess(self, player):
+        """
+        Ends the game for the given player
+
+        :param player: the player (of type Member) whose game session we want to end
+        :return:
+        """
         self.exited_players.add(player)
         if player in self.players_dict:
             self.players_dict[player].end_game()
         del self.players_dict[player]
 
     def no_players_left(self):
+        """
+        Check if there are no players left in the game
+        """
         return all(not self.players_dict[player].game_on for player in self.players_dict)
 
     def get_hint(self):
+        """
+        Return an answer hint
+        """
         return self.hint
 
     def end_game(self):
+        """
+        Ends the game session and resets all data members to default values
+        """
         self.language = None
         self.word_language = None
         self.answer = None
@@ -99,6 +132,9 @@ class Game():
 
 class Scholasticus(discord.Client):
 
+    """
+    Represents a bot connection that connects to Discord. Inherits from the discord.Client class.
+    """
     def __init__(self, prefix=""):
         super().__init__(command_prefix=prefix)
         self.robot = robot
@@ -113,10 +149,12 @@ class Scholasticus(discord.Client):
         self.authors_set = set()
 
 
-    def sleep_for_n_seconds(self, n):
-        time.sleep(n - ((time.time() - self.start_time) % n))
-
     async def is_nsfw(self, channel):
+        """
+        Check if a channel is NSFW
+        :param channel: a channel object
+        :return: True if the channel is NSFW, else False
+        """
         try:
             _gid = channel.server.id
         except AttributeError:
@@ -128,6 +166,9 @@ class Scholasticus(discord.Client):
         return channeldata['nsfw']
 
     async def on_ready(self):
+        """
+        Some methods to call when the bot has finished initializing
+        """
         print('Logged on as', self.user)
         activity = discord.Game(name="helpme for help", type=3)
         self.robot.load_all_models()
@@ -143,9 +184,17 @@ class Scholasticus(discord.Client):
         print('Done initializing')
 
     def sanitize_user_input(self, text):
+        """
+        Remove the ',', '!', ':', and ';' characters from a string
+        """
         return text.replace(',', '').replace('!', '').replace(':','').replace(';', '')
 
     def language_format(self, language):
+        """
+        Reformat language input. If no language is provided, default to "latin." If "greek" is provided, default to
+        "ancient greek". If "modern greek" or "modern_greek" is the input, default to "greek," as Modern Greek entries
+        are listed simply under "Greek" in Wiktionary. All input is case-insensitive.
+        """
         if not language:
             return 'latin'
         if language.lower() == 'greek':
@@ -155,7 +204,15 @@ class Scholasticus(discord.Client):
         return language
 
     async def process_guess(self, channel, player, content, word_game=False):
+        """
+        Process a guess in a game.
 
+        :param channel: the channel in which the guess was made
+        :param player: the player who made the guess
+        :param content: the guess itself
+        :param word_game: whether or not the current game is a word game--if it is, the guess is case-sensitive
+        :return: send a message in the channel informing the player of the outcome of their guess
+        """
         try:
             if not word_game:
                 guess = content.lower().strip()
@@ -165,7 +222,7 @@ class Scholasticus(discord.Client):
             await channel.send("You forgot to guess an answer.")
             return
         if guess.strip() == "":
-            await channel.send(("You forgot to guess an answer."))
+            await channel.send("You forgot to guess an answer.")
             return
         print("Guess: " + guess)
         game_owner = self.players_to_game_owners[player]
@@ -221,8 +278,16 @@ class Scholasticus(discord.Client):
                 del self.players_to_game_owners[player]
 
 
-    async def start_game(self, channel, game_owner, text_set, language='latin', word_language='latin', macrons=True):
+    async def start_game(self, channel, game_owner, text_set, word_language='latin', macrons=True):
+        """
+        Starts a new game and sends a message informing players that a game has been initialized.
 
+        :param channel: the channel in which the game is played
+        :param game_owner: the game "owner," which is the person who started the game
+        :param text_set: determines the type of game to be played
+        :param word_language: the game language, if it is a word game (e.g., Latin, Greek, Turkish, etc.) Defaults to Latin
+        :param macrons: boolean flag to indicate whether we care about macrons (for Ancient Greek and Latin word games)
+        """
         repeat_text = ""
         is_grammar_game = False
         grammar_game_set = []
@@ -311,6 +376,9 @@ class Scholasticus(discord.Client):
 
 
     def end_game(self, game_owner):
+        """
+        Ends the current game
+        """
         game = self.games[game_owner]
         for player in game.players_dict:
             if player in self.players_to_game_owners:
@@ -318,6 +386,9 @@ class Scholasticus(discord.Client):
         del self.games[game_owner]
 
     def is_int(self, n):
+        """
+        Check if a character can be converted into an integer
+        """
         try:
             n = int(n)
             return True
@@ -339,6 +410,12 @@ class Scholasticus(discord.Client):
             await channel.send(text)
 
     async def send_in_chunks_if_needed(self, channel, text, n=2000):
+        """
+        Send a message in chunks if it exceeds a certain length.
+        :param channel: the channel in which to send the message(s)
+        :param text: the text to be sent
+        :param n: the maximum size of each chunk, set by default to 2000, which is the maximum length of a Discord message
+        """
         if len(text) > DISCORD_CHAR_LIMIT:
             chunks = RoboticRoman.chunks(text, n)
             for chunk in chunks:
@@ -347,6 +424,11 @@ class Scholasticus(discord.Client):
             await channel.send(text)
 
     def format_chapter_for_gibbon(self, chapter):
+        """
+        Return the chapter title for Gibbon's Decline and Fall of the Roman Empire
+        :param chapter:
+        :return:
+        """
         if "chapter" not in chapter and chapter.lower() != "preface":
             chapter_number = re.findall(r"[0-9]+", chapter)
             if len(chapter_number) > 0:
@@ -387,6 +469,12 @@ class Scholasticus(discord.Client):
             traceback.print_exc()
 
     async def on_message(self, message):
+        """
+        Called when a message is created and sent
+
+        :param message:
+        :return:
+        """
         # potential for infinite loop if bot responds to itself
         if message.author == self.user:
             return

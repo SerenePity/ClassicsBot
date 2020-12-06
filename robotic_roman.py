@@ -121,6 +121,9 @@ def format_color(text, color_type="yaml"):
 QUOTE_RETRIEVAL_MAX_TRIES = 2
 
 class QuoteContext():
+    """
+    Models the context of a quote--the quote itself, as well as the sentences before and after it.
+    """
 
     def __init__(self, author, quotes, index, works_list):
         self.author = author
@@ -190,7 +193,9 @@ class QuoteContext():
         return "the preface"
 
 class RoboticRoman():
-
+    """
+    Class encapsulating various bot functionality
+    """
     def __init__(self, prefix):
 
         self.text_paths = [LATIN_TEXTS_PATH,
@@ -326,8 +331,14 @@ class RoboticRoman():
     def format_gibbon_module(self, w):
         return str(w).split("from")[0].replace("'","").replace("<module cached_quotes.gibbon.", "").replace("__", " ").replace("_", " ").strip().title()
 
-    def show_author_works(self, author, tries=0):
+    def show_author_works(self, author):
+        """
+        Display a list of works associated with an author
 
+        :param author: the name of the author
+        :return: "display_index" is a list of formatted strings to be displayed to the user, while "works" are the
+        actual works themselves in the format that can be used to retrieve passages from them
+        """
         author = author.lower()
 
         dic = self.map_person_to_dict(author)
@@ -346,6 +357,13 @@ class RoboticRoman():
         return display_index, works
 
     def fetch_def_by_other_parser(self, word_input, language):
+        """
+        An alternative parser for Wiktionary if the default one fails to retrieve the word definition
+
+        :param word_input: the word to be searched
+        :param language: the language in which to search for the word
+        :return: the definition of the word in the target language
+        """
         defs = []
         word = self.parser.fetch(word_input, language)
         for entry in word:
@@ -374,6 +392,14 @@ class RoboticRoman():
         return f"Reconstruction:{language.title()}/{word}".replace('*', '')
 
     def get_word_defs(self, word_input, language='latin', include_examples=True):
+        """
+        Get the definition of a word from Wiktionary in the target language
+
+        :param word_input: the word for which we wish to retrieve a list of definitions
+        :param language: the language in which to search for the word
+        :param include_examples: whether or not we want to include example usages of the word
+        :return: the definitions of the word as listed in Wiktionary
+        """
         defs = []
         try:
             soup = my_wiktionary_parser.get_soup(word_input)
@@ -398,6 +424,13 @@ class RoboticRoman():
         return defs
 
     def word_is_in_wiktionary(self, word, language):
+        """
+        Check whether a word is indexed by Wiktionary in the given lannguage
+
+        :param word: the word to look for
+        :param language: the target language in which to search for the word
+        :return: True if Wiktionary has an entry for the word in the given language, else return False
+        """
         url = f"https://en.wiktionary.org/wiki/{word}"
         print(url)
         print("Language: " + language)
@@ -405,6 +438,15 @@ class RoboticRoman():
         return soup and "does not yet have an entry" not in soup
 
     def get_full_entry(self, word=None, language='latin', tries=0):
+        """
+        Retrieve the entire formatted entry of a word, including the definition, the etymology, and other information
+        such as derivatives, if they are available on Wiktionary
+
+        :param word: the word for which we wish to retrieve the entry
+        :param language: the target language
+        :param tries: the number of times we have tried to obtain the entry, currently stopping if this value exceeds 1
+        :return: a formatted string containing word entry information retrieved from Wiktionary
+        """
         if tries > 1:
             return "Error retrieving entry"
         print("Language: " + language)
@@ -466,6 +508,13 @@ class RoboticRoman():
         return '\n' + return_str
 
     def get_derivatives(self, word, language='latin', misc=False):
+        """
+        Get the derivatives of a word from Wiktionary
+        :param word: the input word
+        :param language: the target language
+        :param misc: currently not used
+        :return:
+        """
         soup = my_wiktionary_parser.get_soup(word)
         my_wiktionary_parser.destroy_translations(soup)
         my_wiktionary_parser.destroy_latin_correlatives(soup)
@@ -483,6 +532,14 @@ class RoboticRoman():
             return found_word
 
     def get_word_etymology(self, word, language='latin', tries=0):
+        """
+        Get the etymology of a word from Wiktionary
+
+        :param word: the input word
+        :param language: the target language
+        :param tries: the number of tries; we stop if this number exceeds QUOTE_RETRIEVAL_MAX_TRIES
+        :return: the etymology of the word
+        """
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "No etymology found."
         if language.lower() == 'tradchinese':
@@ -505,6 +562,14 @@ class RoboticRoman():
             return "Not found."
 
     def get_random_word(self, language='latin', tries=0, category=None):
+        """
+        Retrieve a random word in the target language
+
+        :param language: the language from which we wish to retrieve a random word
+        :param tries: the number of tries; we stop if this number exceeds QUOTE_RETRIEVAL_MAX_TRIES
+        :param category: the category of the word--useful for, say, retrieving a random Latin verb
+        :return: a random word in the target language
+        """
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find lemma."
         if category:
@@ -536,6 +601,12 @@ class RoboticRoman():
         return urllib.parse.unquote(word).replace('_', ' ')
 
     def get_random_latin_lemma(self, tries=0):
+        """
+        Return a random Latin word in lemma form
+
+        :param tries: the number of tries; we stop if this number exceeds QUOTE_RETRIEVAL_MAX_TRIES
+        :return: a Latin word in lemma form, or an error message stating that we could not find a Latin lemma
+        """
         if tries > QUOTE_RETRIEVAL_MAX_TRIES:
             return "Could not find Latin lemma."
         lemma = random.choice(self.latin_lemmas)
@@ -552,6 +623,14 @@ class RoboticRoman():
             return string
 
     def get_and_format_word_defs(self, word, language='latin', include_examples=False):
+        """
+        Get the definitions of a word, and format them for output
+
+        :param word: the word for which we wish to retrieve definitions
+        :param language: the language in which we wish to search for the word
+        :param include_examples: whether or not to include word usage examples
+        :return: a formatted string displaying a numbered list of word definitions, each separated by a new line
+        """
         if language.lower() == 'tradchinese':
             word = tradify(word)
             language = 'chinese'
@@ -561,6 +640,9 @@ class RoboticRoman():
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
     def get_parallel_quote(self, author, line_num=-1):
+        """
+        Currently not used.
+        """
         author = author
         if line_num < 0:
             quote = self.random_quote(author)
@@ -655,6 +737,9 @@ class RoboticRoman():
         return ''.join(final_sentence)
 
     def ulfilas_translations(self, version='kjv'):
+        """
+        Currently not used
+        """
         try:
             quote = self.random_quote('ulfilas')
             verse = re.findall(r"[0-9]*\w+\s[0-9]+:[0-9]+", quote)[0]
@@ -675,9 +760,23 @@ class RoboticRoman():
             yield lst[i:i + n]
 
     def get_available_bible_versions(self):
+        """
+        Get a list of Bible versions in multiple languages from which we can retrieve passages for the sake of
+        linguistic comparison
+
+        :return: a formatted list of bible versions
+        """
         return ', '.join(sorted([f"{key.title()}" for key in bible_versions.versions], key=str.lower))
 
     def get_available_bible_versions_lang(self, lang):
+        """
+        Get a list of Bible versions in a specific language
+
+        :param lang: the language for which we wish to retrieve Bible versions
+        :return: a list of Bible versions (such as KJV for English) in the specified language. The return type is
+        a list, because the output can exceed 2000 characters, the maximum length of a Discord message, and thus
+        may need to be broken down into smaller chunks.
+        """
         versions = sorted(bible_versions.versions[lang.lower()], key=str.lower)
         return_string = f"{lang.title()}: {', '.join(versions)}"
         if len(return_string) >= 2000:
@@ -704,6 +803,13 @@ class RoboticRoman():
     """
 
     def get_old_english_verse(self, verse):
+        """
+        Retrieve a Bible passage from the Alfred the Great's Anglo-Saxon translation of the Vulgate
+
+        :param verse: the Bible verses (e.g.  Romans 3:23) for which we wish to retrieve the Old English translation.
+        Note that a range of verses, such as Matthew 6:9–13, is permitted.
+        :return:
+        """
         book = ''.join(verse.split(":")[0].split()[:-1]).lower()
         chapter = verse.split(':')[0].split()[-1].strip()
         verses = verse.split(':')[1].strip()
@@ -729,6 +835,14 @@ class RoboticRoman():
         return "Not found"
 
     def get_bible_verse_by_api(self, verse, version='kjv'):
+        """
+        Get a Bible verse using the getbible.net API
+
+        :param verse: the Bible verses (e.g.  Romans 3:23) that we wish to retrieve. Note that a range of verses, such
+        as Matthew 6:9–13, is permitted.
+        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
+        :return: the passage from the given version of the Bible covered by the input verses
+        """
         url = f"https://getbible.net/json?passage={verse}&version={version}"
         book = int(verse.split(':')[0].split()[-1])
         chapters = verse.split(':')[1]
@@ -755,6 +869,14 @@ class RoboticRoman():
         return passage
 
     def get_bible_verse_from_gateway(self, verse, version='kjv'):
+        """
+        Get a Bible verse from www.biblegateway.com.
+
+        :param verse: the Bible verses (e.g.  Romans 3:23) that we wish to retrieve. Note that a range of verses, such
+        as Matthew 6:9–13, is permitted.
+        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
+        :return: the passage from the given version of the Bible covered by the input verses
+        """
         url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
         response = requests.get(url)
         try:
@@ -782,6 +904,9 @@ class RoboticRoman():
         return passage.replace('\t', ' ')
 
     def get_wycliffe_verse(self, verse):
+        """
+        Get a verse from the Wycliffe Bible
+        """
         url = f"https://studybible.info/Wycliffe/{verse}"
         body = requests.get(url).text
         soup = BeautifulSoup(body)
@@ -790,6 +915,15 @@ class RoboticRoman():
         return re.sub(r"[\s]{2,}", "\n", passage.get_text().replace('Wycliffe', '').strip())
 
     def get_bible_verse(self, verse, version='kjv'):
+        """
+        Get a Bible verse from a given version. This implementation tries multiple sources until one is found which
+        can successfully retrieve the given verse in the given version.
+
+        :param verse: the Bible verses (e.g.  Romans 3:23) that we wish to retrieve. Note that a range of verses, such
+        as Matthew 6:9–13, is permitted.
+        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
+        :return: the passage from the given version of the Bible covered by the input verses
+        """
         translit = False
         middle_chinese = False
         if version[0] == '$':
@@ -841,14 +975,25 @@ class RoboticRoman():
         return passage.strip()
 
     def get_random_verse_by_testament(self, testament):
+        """
+        Get a random verse from either the Old Testament or the New Testament
+        :param testament: can be either "ot" or "nt"
+        :return: a random verse
+        """
         verses = open(f"bible_verses_{testament}.txt").read().split('|')
         return random.choice(verses).title()
 
     def get_gothic_verses_set(self):
+        """
+        Get a hash set of verses available in Ulfilas' Gothic translation of the Bible.
+        """
         text = open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8').read()
         return set([v.lower() for v in re.findall(r"\w+\s[0-9]+:[0-9]+", text)])
 
     def get_old_english_verses_set(self):
+        """
+        Get a hash set of verses available in Alfred's Old English translation of the Bible.
+        """
         final = []
         for book in self.old_english_dict.keys():
             chapters = self.old_english_dict[book].keys()
@@ -859,10 +1004,17 @@ class RoboticRoman():
         return set(final)
 
     def get_random_verse(self):
+        """
+        Get a random Bible verse.
+        """
         verses = open(f"bible_verses.txt").read().split('|')
         return random.choice(verses).title()
 
     def bible_compare_random_verses(self, versions: list):
+        """
+        Given a list of Bible versions, pick a random verse and return the translations of that verse offered
+        by each version.
+        """
         versions = [version.strip().lower() for version in versions]
         if 'gothic' in versions:
             verse = self.get_gothic_verse()
@@ -903,6 +1055,18 @@ class RoboticRoman():
         return '\n'.join(translations)
 
     def transliterate_verse(self, version, text, middle_chinese):
+        """
+        Given a Bible version and text, if the Bible version is in a list of language-specific Bible versions (such as
+        Russian Bibles or Chinese Bibles) for which transliteration is supported, transliterate the given text from the
+        source script to Latin characters
+
+        :param version: currently supports Coptic, Aramaic, Arabic, Greek, Russian, Armenian, Georgian, Korean, and
+        Chinese. We have an option of transliterating into Middle Chinese instead of Mandarinn if the version is Chinese.
+        :param text: the text we wish to transliterate.
+        :param middle_chinese: boolean flag to transliterate into Middle Chinese instead of Mandarin if the version is
+        a Chinese Bible translation
+        :return: the transliterated text, or the original text if it cannot be transliterated
+        """
         print("Version: " + version)
         if version in COPTIC:
             return transliteration.coptic.transliterate(text).lower()
@@ -919,9 +1083,9 @@ class RoboticRoman():
         if version in RUSSIAN:
             return text
         if version in ARMENIAN:
-            return translit(input, 'hy', reversed=True).replace('ւ', 'v')
+            return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
-            return translit(input, 'ka', reversed=True).replace('ჲ', 'y')
+            return translit(text, 'ka', reversed=True).replace('ჲ', 'y')
         if version == "uncial":
             return transliteration.latin_antique(text)
         if version in KOREAN:
@@ -933,6 +1097,14 @@ class RoboticRoman():
         return text
 
     def bible_compare(self, verse, versions: list):
+        """
+        Given a verse and a list of Bible versions, compare different renderings of the verse in the different versions
+
+        :param verse: the Bible verse (e.g. "2 Corinthians 6:10")
+        :param versions: a list of Bible versions (e.g. "KJV," "CCBT, etc.)
+        :return: a formatted string consisting of a new-line separated list of renderings of the same Bible verse in the
+        given versions
+        """
         try:
             translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in versions]
         except:
