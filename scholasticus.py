@@ -536,14 +536,14 @@ class Scholasticus(discord.Client):
 
                 if len(args) == 1:
                     word = self.robot.get_random_word('latin')
-                    await self.send_in_chunks_if_needed(channel, self.robot.get_full_entry(word, 'latin'))
+                    await self.send_truncate(channel, self.robot.get_full_entry(word, 'latin'))
                     return
                 elif len(args) > 1:
                     language = ' '.join(args[1:])
                     language = self.language_format(language)
                     word = self.robot.get_random_word(language)
                     entry = self.robot.get_full_entry(word, language)
-                    await self.send_in_chunks_if_needed(channel, entry)
+                    await self.send_truncate(channel, entry)
                     return
             except discord.errors.HTTPException:
                 #traceback.print_exc()
@@ -575,7 +575,7 @@ class Scholasticus(discord.Client):
                     etymology = self.robot.get_word_etymology(word)
                 else:
                     etymology = "Invalid arguments"
-                await self.send_in_chunks_if_needed(channel, etymology)
+                await self.send_truncate(channel, etymology)
                 return
             except discord.errors.HTTPException:
                 #traceback.print_exc()
