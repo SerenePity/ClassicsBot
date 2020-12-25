@@ -646,7 +646,7 @@ class RoboticRoman():
             language = 'chinese'
         word_defs = self.get_word_defs(word, language, include_examples)
         print(f"word_defs = {word_defs}")
-        if word_defs[0] == 'Could not find definition.':
+        if word_defs[0] in ['Could not find definition.', 'Not found.']:
             if word.istitle():
                 print("Trying lower")
                 return self.get_and_format_word_defs(word.lower(), language, tries=tries + 1)
