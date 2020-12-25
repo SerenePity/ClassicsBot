@@ -447,7 +447,7 @@ class RoboticRoman():
         :param tries: the number of times we have tried to obtain the entry, currently stopping if this value exceeds 1
         :return: a formatted string containing word entry information retrieved from Wiktionary
         """
-        if tries > 1:
+        if tries > 2:
             return "Error retrieving entry"
         print("Language: " + language)
         if not word:
@@ -468,6 +468,12 @@ class RoboticRoman():
             definition = self.get_and_format_word_defs(word, language, include_examples=False)
         except:
             return self.get_full_entry(word, language, tries + 1)
+        print(f"definition: {definition}")
+        if definition == "1. Not found.":
+            if word.istitle():
+                return self.get_full_entry(word.lower(), language, tries + 1)
+            if word.lower():
+                return self.get_full_entry(word.title(), language, tries + 1)
         etymology = self.get_word_etymology(word, language)
         if language.lower() == 'chinese':
             word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_historical_chinese_word(word)
@@ -491,14 +497,9 @@ class RoboticRoman():
             if not glyph_origin:
                 glyph_origin = "Not found."
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
-        else:
-            derives = self.get_derivatives(word, language, misc=True)
-            if derives == 'Not found.':
-                derives = ""
-            else:
-                derives = '\n\n' + derives
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}{derives}"
-            #print(return_str)
+
+        return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}"
+        #print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
         double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
         return_str = re.sub(double_derived_terms, "\n\n**", return_str)
@@ -551,6 +552,13 @@ class RoboticRoman():
         try:
             language_section, soup = my_wiktionary_parser.get_language_header(word, language)
             etymology = my_wiktionary_parser.get_etymology(language_section, language, word).replace(u'\xa0', u' ')
+            print(f"Etymology = {etymology}")
+            if etymology == "Not found":
+                if word.istitle():
+                    print("Trying lower")
+                    return self.get_word_etymology(word.lower(), language, tries + 1)
+                if word.lower():
+                    return self.get_word_etymology(word.title(), language, tries + 1)
             return etymology
         except:
             if language.lower() == 'chinese' or language.lower() == 'tradchinese':
@@ -622,7 +630,7 @@ class RoboticRoman():
         else:
             return string
 
-    def get_and_format_word_defs(self, word, language='latin', include_examples=False):
+    def get_and_format_word_defs(self, word, language='latin', include_examples=False, tries=0):
         """
         Get the definitions of a word, and format them for output
 
@@ -631,10 +639,19 @@ class RoboticRoman():
         :param include_examples: whether or not to include word usage examples
         :return: a formatted string displaying a numbered list of word definitions, each separated by a new line
         """
+        if tries > QUOTE_RETRIEVAL_MAX_TRIES:
+            return "1. Could not find definition."
         if language.lower() == 'tradchinese':
             word = tradify(word)
             language = 'chinese'
         word_defs = self.get_word_defs(word, language, include_examples)
+        print(f"word_defs = {word_defs}")
+        if word_defs[0] == 'Could not find definition.':
+            if word.istitle():
+                print("Trying lower")
+                return self.get_and_format_word_defs(word.lower(), language, tries=tries + 1)
+            if word.lower():
+                return self.get_and_format_word_defs(word.title(), language, tries=tries + 1)
         if isinstance(word_defs, str):
             word_defs = [word_defs]
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')

@@ -510,9 +510,6 @@ class Scholasticus(discord.Client):
                         word = self.robot.format_reconstructed(language, word)
                     language = self.language_format(language)
                     definition = self.robot.get_and_format_word_defs(word, language, include_examples=False)
-                elif len(args) > 1:
-                    word = ' '.join(args[1:])
-                    definition = self.robot.get_and_format_word_defs(word, include_examples=False)
                 else:
                     definition = "Invalid arguments"
                 await self.send_in_chunks_if_needed(channel, definition)
@@ -570,9 +567,6 @@ class Scholasticus(discord.Client):
                         word = self.robot.format_reconstructed(language, word)
                     language = self.language_format(language)
                     etymology = self.robot.get_word_etymology(word, language)
-                elif len(args) > 1:
-                    word = ' '.join(args[1:])
-                    etymology = self.robot.get_word_etymology(word)
                 else:
                     etymology = "Invalid arguments"
                 await self.send_truncate(channel, etymology)
@@ -601,9 +595,6 @@ class Scholasticus(discord.Client):
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)
-                elif len(args) > 1:
-                    word = ' '.join(args[1:])
-                    entry = self.robot.get_full_entry(word)
                 else:
                     entry = "Invalid arguments"
                 await self.send_truncate(channel, entry)
