@@ -997,15 +997,17 @@ class RoboticRoman():
         :param testament: can be either "ot" or "nt"
         :return: a random verse
         """
-        verses = open(f"bible_verses_{testament}.txt").read().split('|')
-        return random.choice(verses).title()
+        with open(f"bible_verses_{testament}.txt") as file:
+            verses = file.read().split('|')
+            return random.choice(verses).title()
 
     def get_gothic_verses_set(self):
         """
         Get a hash set of verses available in Ulfilas' Gothic translation of the Bible.
         """
-        text = open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8').read()
-        return set([v.lower() for v in re.findall(r"\w+\s[0-9]+:[0-9]+", text)])
+        with open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8') as file:
+            text = file.read()
+            return set([v.lower() for v in re.findall(r"\w+\s[0-9]+:[0-9]+", text)])
 
     def get_old_english_verses_set(self):
         """
@@ -1024,8 +1026,9 @@ class RoboticRoman():
         """
         Get a random Bible verse.
         """
-        verses = open(f"bible_verses.txt").read().split('|')
-        return random.choice(verses).title()
+        with open(f"bible_verses.txt") as file:
+            verses = file.read().split('|')
+            return random.choice(verses).title()
 
     def bible_compare_random_verses(self, versions: list):
         """
@@ -1143,8 +1146,9 @@ class RoboticRoman():
         return None
 
     def get_gothic_passage(self, verse):
-        text = open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8').read()
-        return re.findall(f"{verse} - (.*?)\|", text)[0]
+        with open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8') as file:
+            text = file.read()
+            return re.findall(f"{verse} - (.*?)\|", text)[0]
 
     def bible_compare_random(self, versions: list):
         if 'gothic' in [version.strip().lower() for version in versions]:
