@@ -1073,6 +1073,7 @@ class RoboticRoman():
         a Chinese Bible translation
         :return: the transliterated text, or the original text if it cannot be transliterated
         """
+        version = version.lower()
         print("Version: " + version)
         if version in COPTIC:
             return transliteration.coptic.transliterate(text).lower()
