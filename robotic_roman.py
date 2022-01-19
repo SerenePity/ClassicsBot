@@ -32,7 +32,6 @@ import re
 import string
 import urllib.parse
 import importlib
-import cached_quotes.gibbon.gibbon_footnotes
 import roman
 
 # Relative paths to files containing source texts
@@ -58,13 +57,25 @@ MIN_QUOTES_LENGTH = 50
 QUOTES = ["\"", "'", "“", "\"", "」", "「"]
 
 # List of abbreviated Roman praenomina, which often end with a period, which can artificially cut short a sentence.
-PRAENOMINA = ["C","L","M","P","Q","T","Ti","Sex","A","D","Cn","Sp","M","Ser","Ap","N","V", "K"]
+PRAENOMINA = ["C", "L", "M", "P", "Q", "T", "Ti", "Sex", "A", "D", "Cn", "Sp", "M", "Ser", "Ap", "N", "V", "K"]
 
 # Roman numerals also often end with a period, and must be dealt with in the like manner.
-ROMAN_NUMERALS = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","M"]
+ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI",
+                  "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII",
+                  "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX",
+                  "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII",
+                  "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV",
+                  "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI",
+                  "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI",
+                  "LXXXVII", "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII",
+                  "XCVIII", "XCIX", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM", "M"]
 
 # Roman praenomina, Roman numerals, and other common abbreviations that can interfere with proper sentence segmentation.
-ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos", "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr", "mr", "Mrs", "mrs", "Ms", "ms", "St", "st"] + ROMAN_NUMERALS + list(string.ascii_lowercase) + list(string.ascii_uppercase)
+ABBREVIATIONS = PRAENOMINA + [n.lower() for n in PRAENOMINA] + ["Kal", "kal", "K", "CAP", "COS", "cos", "Cos",
+                                                                "ann" "Mt", "mt", "viz", 'mss', 'MSS', "Dr", "dr", "Mr",
+                                                                "mr", "Mrs", "mrs", "Ms", "ms", "St",
+                                                                "st"] + ROMAN_NUMERALS + list(
+    string.ascii_lowercase) + list(string.ascii_uppercase)
 
 # Unused at the moment
 PARALLEL_DELIMITERS = ["."]
@@ -86,8 +97,8 @@ DELIMITERS_REGEX = "(\.\"|\.'|\.|\?|!|\^|\||。|！|？|。」|！」|？」)"
 # Special deliminators for the Bible
 BIBLE_DELIMITERS = "[0-9\.?!\n]+[^:]"
 
-#NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
-#BIBLE_DELIMITERS = " ([0-9\.?!]+)"
+# NOT_BIBLE_DELIMITERS = "[^0-9\.?!]+"
+# BIBLE_DELIMITERS = " ([0-9\.?!]+)"
 
 # Special deliminator that I occasionally manually insert into texts to force sentence or paragraph breaks
 ABSOLUTE_DELIMITER = "‰"
@@ -96,14 +107,27 @@ ABSOLUTE_DELIMITER = "‰"
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
 
 # List of Bible versions in all languages
-GETBIBLE_VERSIONS = set(['aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian', 'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic', 'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv', 'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian', 'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald', 'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic', 'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni', 'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori', 'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal', 'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq', 'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'])
+GETBIBLE_VERSIONS = {'aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian',
+                     'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic',
+                     'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv',
+                     'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian',
+                     'finnish1776', 'pyharaamattu1933', 'pyharaamattu1992', 'darby', 'ls1910', 'martin', 'ostervald',
+                     'georgian', 'elberfelder', 'elberfelder1905', 'luther1545', 'luther1912', 'schlachter', 'gothic',
+                     'moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf',
+                     'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'aleppo',
+                     'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'karoli', 'giovanni',
+                     'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori',
+                     'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal',
+                     'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq',
+                     'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'}
 
 # The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my parallel Bible text module
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
 HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
 ARABIC = ['arabicsv']
-GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort', 'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
+GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
+         'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
@@ -113,12 +137,15 @@ CHINESE = ['CCB', 'CCBT', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
 # Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
 
+
 # Does nothing at the moment. May be useful when Discord has better color support
 def format_color(text, color_type="yaml"):
     # Nothing for now
     return text + "\n"
 
+
 QUOTE_RETRIEVAL_MAX_TRIES = 2
+
 
 class QuoteContext():
     """
@@ -177,13 +204,13 @@ class QuoteContext():
         return ret_str.replace(ABSOLUTE_DELIMITER, "")
 
     def find_chapter_from_passage(self):
-        #print("Quote index: " + str(self.index))
-        #print(self.quotes)
+        # print("Quote index: " + str(self.index))
+        # print(self.quotes)
         for i in range(self.index, -1, -1):
             passage = self.quotes[i]
             if re.match(r"\*\*[0-9]+\.\*\*", passage):
                 return "the footnotes"
-            #print("Passage: " + passage)
+            # print("Passage: " + passage)
             chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
             if not chapter or len(chapter) == 0:
                 continue
@@ -192,25 +219,24 @@ class QuoteContext():
                 return "Chapter " + str(chapter_number)
         return "the preface"
 
+
 class RoboticRoman():
     """
     Class encapsulating various bot functionality
     """
+
     def __init__(self, prefix):
 
         self.text_paths = [LATIN_TEXTS_PATH,
-                            GREEK_TEXTS_PATH,
-                            CHINESE_TEXTS_PATH,
-                            GERMANIC_TEXTS_PATH,
-                            MODERN_HISTORIANS_PATH,
-                            MODERN_PHILOSOPHERS_PATH,
-                            MODERN_LITERATURE_PATH,
-                           PARALLEL_TEXTS_PATH]
+                           GREEK_TEXTS_PATH,
+                           CHINESE_TEXTS_PATH,
+                           GERMANIC_TEXTS_PATH,
+                           MODERN_LITERATURE_PATH]
 
         self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
         self.parser.set_default_language('latin')
-        #self.decliner = CollatinusDecliner()
+        # self.decliner = CollatinusDecliner()
         """
         self.reddit = praw.Reddit(client_id=os.environ['reddit_client_id'],
                                   client_secret=os.environ['reddit_secret'],
@@ -226,87 +252,78 @@ class RoboticRoman():
         self.literature_quotes_dict = dict()
         self.parallel_quotes_dict = dict()
 
-        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.chinese_quotes_dict, self.germanic_quotes_dict,
-                                       self.historians_quotes_dict, self.philosophers_quotes_dict, self.literature_quotes_dict,
+        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.chinese_quotes_dict,
+                                       self.germanic_quotes_dict,
+                                       self.historians_quotes_dict, self.philosophers_quotes_dict,
+                                       self.literature_quotes_dict,
                                        self.parallel_quotes_dict]
 
-        self.latin_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
-        self.greek_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
+        self.latin_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
+        self.greek_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.chinese_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(CHINESE_TEXTS_PATH)]))
-        self.germanic_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
-        self.historian_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_HISTORIANS_PATH)]))
-        self.philosophy_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_PHILOSOPHERS_PATH)]))
-        self.literature_authors = list(set([f.split('.')[0].replace('_',' ') for f in os.listdir(MODERN_LITERATURE_PATH)]))
-        self.parallel_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(PARALLEL_TEXTS_PATH)]))
+        self.germanic_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
+        self.literature_authors = list(
+            set([f.split('.')[0].replace('_', ' ') for f in os.listdir(MODERN_LITERATURE_PATH)]))
 
-        self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors, self.historian_authors, self.philosophy_authors, self.literature_authors, self.parallel_authors]
+        self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors,
+                                   self.literature_authors]
 
         self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
 
         self.quote_tries = 0
-        self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke, 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
+        self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke,
+                                 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
 
         for author_collection, quotes_dict, directory in self.zipped:
             print(directory)
             for author in author_collection:
-                if author == 'gibbon':
-                    if 'gibbon' not in quotes_dict:
-                        quotes_dict['gibbon'] = []
-                    for f in os.listdir("cached_quotes/gibbon"):
-                        if '__pycache__' not in f:
-                            quotes_dict[author].append(importlib.import_module(f"cached_quotes.gibbon.{f.split('/')[-1].replace('.py', '')}"))
-                else:
-                    print(author)
-                    quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in os.listdir(directory + "/" + author) if f.endswith('.txt')]
+                quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in
+                                       os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
-        self.commands = [(format_color("Get random quote by author ", "CSS"),                                   f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                                                                                                                    "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
-            (format_color("Generate markov sentence ", "CSS"),                                                  f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
-                                                                                                                    "\n\tNotes: -t to transliterate."),
-            (format_color("List available Latin authors ", "CSS"),                                              f"'{prefix}latinauthors'"),
-            (format_color("Retrieve random Latin quote ", "CSS"),                                               f"'{prefix}latinquote'"),
-            (format_color("Transliterate input ", "CSS"),                                                       f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                                                                                                                    "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
-            (format_color("List Greek authors ", "CSS"),                                                        f"'{prefix}greekauthors'"),
-            (format_color("Retrieve random Greek quote ", "CSS"),                                               f"'{prefix}greekquote'"),
-            (format_color("Retrieve random Chinese quote ", "CSS"),                                             f"'{prefix}chinesequote'"),
-            (format_color("List Germanic authors ", "CSS"),                                                     f"'{prefix}germanicauthors'"),
-            (format_color("Retrieve random Germanic quote ", "CSS"),                                            f"'{prefix}germanicquote'"),
-            (format_color("List available modern historians ", "CSS"),                                          f"'{prefix}modernhistorians'"),
-            (format_color("Retrieve random (modern) historian's quote ", "CSS"),                                f"'{prefix}historianquote'"),
-            (format_color("List available modern philosophers ", "CSS"),                                        f"'{prefix}modernphilosophers'"),
-            (format_color("Retrieve random (modern) philosopher's quote ", "CSS"),                              f"'{prefix}philosopherquote'"),
-            (format_color("List available modern authors ", "CSS"),                                             f"'{prefix}modernauthors'"),
-            (format_color("Retrieve random (modern) authors's quote ", "CSS"),                                  f"'{prefix}literaturequote'"),
-            (format_color("Retrieve random Latin quote ", "CSS"),                                               f"'{prefix}latinquote'"),
-            (format_color("Start grammar game ", "CSS"),                                                        f"'{prefix}<language>_grammar'"),
-            (format_color("Start Latin grammar game ", "CSS"),                                                  f"'{prefix}latin_grammar [-m] (with macrons)'"),
-            (format_color("Start word game ", "CSS"),                                                           f"'{prefix}wordgame [<language>]'"),
-            (format_color("Guess answer ", "CSS"),                                                              f"'{prefix}g <word>'"),
-            (format_color("End game ", "CSS"),                                                                  f"'{prefix}giveup'"),
-            (format_color("Join game ", "CSS"),                                                                 f"'{prefix}join <game owner>'"),
-            #(format_color("Owify quote from author ", "CSS"),                                                   f"'{prefix}owo <author>"),
-            (format_color("Get available Bible versions ", "CSS"),                                              f"'{prefix}bibleversions [<lang>]'"),
-            (format_color("Bible compare ", "CSS"),                                                             f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                                                                                                                    "\n\tNotes: add the prefix $ for transliteration."),
-            #(format_color("Quote for parallel text ", "CSS"),                                                   f"'{prefix}parallel <work/author>'"),
-            #(format_color("Sources for parallel command ", "CSS"),                                              f"'{prefix}listparallel'"),
-            (format_color("Get Chinese character origin ", "CSS"),                                              f"'{prefix}char_origin <character>'"),
-            (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),                        f"'{prefix}getshuowen <character>'"),
-            (format_color("Start Shuowen game", "CSS"),                                                         f"'{prefix}shuowengame'"),
-            (format_color("Word definition (defaults to Latin) ", "CSS"),                                       f"'{prefix}<language>_def <word>'"),
-            (format_color("Word etymology (defaults to Latin) ", "CSS"),                                        f"'{prefix}<language>_ety <word>'"),
-            (format_color("Word entry (defaults to Latin) ", "CSS"),                                            f"'{prefix}<language>_word <word>'"),
-            (format_color("Random entry (defaults to Latin) ", "CSS"),                                          f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
-            (format_color("List texts to start from an author ", "CSS"),                                        f"'{prefix}textstart' | 'tstart'"),
-            (format_color("Start a text from an author ", "CSS"),                                               f"'{prefix}pick <number>'"),
-            (format_color("Next passage(s) in current text (can be from qt or tstart)", "CSS"),                 f"'{prefix}next [<number>]'"),
-            (format_color("previous passage(s) in current text (can be from qt or tstart)", "CSS"),             f"'{prefix}bef [<number>]'"),
-            (format_color("Surrounding passages of current passag(e) (can be from qt or tstart) ", "CSS"),      f"'{prefix}surr <number> <number>'"),
-            (format_color("End text reading session ", "CSS"),                                                  f"'{prefix}textend' | 'txend'"),
-            (format_color("Get Gibbon footnote", "CSS"),                                                        f"'{prefix}fn <footnote>' | '{prefix}fn <chapter> <footnote> [<ending footnote>]'"),
-            (format_color("Get current Gibbon chapter", "CSS"),                                                 f"'{prefix}whatchapter'"),
-            (format_color("Help ", "CSS"),                                                                      f"'{prefix}helpme'")]
+        self.commands = [(format_color("Get random quote by author ", "CSS"),
+                          f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
+                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
+                         (format_color("Generate markov sentence ", "CSS"),
+                          f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
+                          "\n\tNotes: -t to transliterate."),
+                         (format_color("List available Latin authors ", "CSS"), f"'{prefix}latinauthors'"),
+                         (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
+                         (format_color("Transliterate input ", "CSS"),
+                          f"'{prefix}tr [-(language abbreviation)] <input>'" +
+                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
+                         (format_color("List Greek authors ", "CSS"), f"'{prefix}greekauthors'"),
+                         (format_color("Retrieve random Greek quote ", "CSS"), f"'{prefix}greekquote'"),
+                         (format_color("Retrieve random Chinese quote ", "CSS"), f"'{prefix}chinesequote'"),
+                         (format_color("List Germanic authors ", "CSS"), f"'{prefix}germanicauthors'"),
+                         (format_color("Retrieve random Germanic quote ", "CSS"), f"'{prefix}germanicquote'"),
+
+                         (format_color("List available modern authors ", "CSS"), f"'{prefix}modernauthors'"),
+                         (format_color("Retrieve random (modern) authors's quote ", "CSS"),
+                          f"'{prefix}literaturequote'"),
+                         (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
+                         (format_color("Start grammar game ", "CSS"), f"'{prefix}<language>_grammar'"),
+                         (format_color("Start Latin grammar game ", "CSS"),
+                          f"'{prefix}latin_grammar [-m] (with macrons)'"),
+                         (format_color("Start word game ", "CSS"), f"'{prefix}wordgame [<language>]'"),
+                         (format_color("Guess answer ", "CSS"), f"'{prefix}g <word>'"),
+                         (format_color("End game ", "CSS"), f"'{prefix}giveup'"),
+                         (format_color("Join game ", "CSS"), f"'{prefix}join <game owner>'"),
+                         (format_color("Get available Bible versions ", "CSS"), f"'{prefix}bibleversions [<lang>]'"),
+                         (format_color("Bible compare ", "CSS"),
+                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
+                          "\n\tNotes: add the prefix $ for transliteration."),
+                         (format_color("Get Chinese character origin ", "CSS"), f"'{prefix}char_origin <character>'"),
+                         (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),
+                          f"'{prefix}getshuowen <character>'"),
+                         (format_color("Start Shuowen game", "CSS"), f"'{prefix}shuowengame'"),
+                         (format_color("Word definition (defaults to Latin) ", "CSS"),
+                          f"'{prefix}<language>_def <word>'"),
+                         (format_color("Word etymology (defaults to Latin) ", "CSS"),
+                          f"'{prefix}<language>_ety <word>'"),
+                         (format_color("Word entry (defaults to Latin) ", "CSS"), f"'{prefix}<language>_word <word>'"),
+                         (format_color("Random entry (defaults to Latin) ", "CSS"),
+                          f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
+                         (format_color("Help ", "CSS"), f"'{prefix}helpme'")]
 
     def sort_files(self, file):
         try:
@@ -328,9 +345,6 @@ class RoboticRoman():
         else:
             return int(''.join(str(ord(c)) for c in x.split('_')[0]))
 
-    def format_gibbon_module(self, w):
-        return str(w).split("from")[0].replace("'","").replace("<module cached_quotes.gibbon.", "").replace("__", " ").replace("_", " ").strip().title()
-
     def show_author_works(self, author):
         """
         Display a list of works associated with an author
@@ -342,18 +356,9 @@ class RoboticRoman():
         author = author.lower()
 
         dic = self.map_person_to_dict(author)
-
-        if author.strip().lower() == 'gibbon':
-            modules = dic['gibbon']
-            works = sorted(modules, key=lambda x : RoboticRoman.display_sort(self.format_gibbon_module(x)))
-            display_works = [self.format_gibbon_module(w) for w in works]
-            print(', '.join(display_works))
-            display_index = '\n'.join([f"**{i+1}.** {str(e)}" for i,e in enumerate(display_works)])
-            return display_index, works
-
-        works = sorted(dic[author], key=lambda x : RoboticRoman.display_sort(x.name))
+        works = sorted(dic[author], key=lambda x: RoboticRoman.display_sort(x.name))
         work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
-        display_index = '\n'.join([f"**{i+1}.** {e}" for i,e in enumerate(work_names)])
+        display_index = '\n'.join([f"**{i + 1}.** {e}" for i, e in enumerate(work_names)])
         return display_index, works
 
     def fetch_def_by_other_parser(self, word_input, language):
@@ -420,8 +425,6 @@ class RoboticRoman():
             defs = self.fetch_def_by_other_parser(word_input, language)
             if not defs:
                 return "Not found"
-            return defs[0]
-        return defs
 
     def word_is_in_wiktionary(self, word, language):
         """
@@ -476,14 +479,17 @@ class RoboticRoman():
                 return self.get_full_entry(word.title(), language, tries + 1)
         etymology = self.get_word_etymology(word, language)
         if language.lower() == 'chinese':
-            word_header = self.get_word_header(word, language).strip() + "\n\n" + my_wiktionary_parser.get_historical_chinese_word(word)
+            word_header = self.get_word_header(word,
+                                               language).strip() + "\n\n" + my_wiktionary_parser.get_historical_chinese_word(
+                word)
         else:
             word_header = self.get_word_header(word, language).strip()
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
-            return_str = re.sub(r"(?<!\*)\*(?!\*)", "\\*", f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
+            return_str = re.sub(r"(?<!\*)\*(?!\*)", "\\*",
+                                f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
         elif language.lower() == 'chinese':
-            #print("WORD: " + word)
+            # print("WORD: " + word)
             gloss_section = ""
             if len(list(word)) > 1:
                 gloss = my_wiktionary_parser.get_wiktionary_glosses(soup)
@@ -499,7 +505,7 @@ class RoboticRoman():
             return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
 
         return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}"
-        #print(return_str)
+        # print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
         double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
         return_str = re.sub(double_derived_terms, "\n\n**", return_str)
@@ -546,8 +552,6 @@ class RoboticRoman():
         if language.lower() == 'tradchinese':
             word = tradify(word)
             language = 'chinese'
-        #word_entry = self.parser.fetch(word, language)
-        etymology = None
         print("Word: " + str(word))
         try:
             language_section, soup = my_wiktionary_parser.get_language_header(word, language)
@@ -587,8 +591,8 @@ class RoboticRoman():
             return word
         elif language.lower().strip() == 'chinese':
             url = random.choice([f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
-                   "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_chengyu",
-                   "https://en.wiktionary.org/wiki/Special:RandomInCategory/Mandarin_lemmas"])
+                                 "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_chengyu",
+                                 "https://en.wiktionary.org/wiki/Special:RandomInCategory/Mandarin_lemmas"])
             print(f"Chosen url: {url}")
 
         else:
@@ -656,25 +660,6 @@ class RoboticRoman():
             word_defs = [word_defs]
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
-    def get_parallel_quote(self, author, line_num=-1):
-        """
-        Currently not used.
-        """
-        author = author
-        if line_num < 0:
-            quote = self.random_quote(author)
-        else:
-            f = self.parallel_quotes_dict[author][0]
-            try:
-                quote = f.readlines()[line_num]
-            except:
-                f.seek(0)
-                return "Line number out of range."
-            f.seek(0)
-        quote = quote.replace('@', '\n')
-        quote = quote.replace(' () ', '\n\n')
-        return quote
-
     def _fix_unclosed_quotes(text):
         opened = False
         closed = False
@@ -726,7 +711,7 @@ class RoboticRoman():
         final_sentence = []
 
         unclosed_paren = False
-        for i,c in enumerate(text):
+        for i, c in enumerate(text):
             cur_sentence_len += 1
             if c in delimiters:
                 if cur_sentence_len < MIN_QUOTES_LENGTH or unclosed_paren:
@@ -769,7 +754,8 @@ class RoboticRoman():
             return quote + '\n' + translation
         except Exception as e:
             traceback.print_exc()
-        return "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api."
+        return "Verse not found. Please check that you have a valid Bible version by checking here " \
+               "https://www.biblegateway.com/versions, and here https://getbible.net/api. "
 
     def chunks(lst, n):
         """Yield successive n-sized chunks from l."""
@@ -1179,9 +1165,9 @@ class RoboticRoman():
         text = RoboticRoman._passage_deliminator(text)
         text = re.sub(r"[\n]{2,}|(\n+\s+){2,}|(\s+\n+){2,}", "\n\n", text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
-        return [re.sub(REGEX_SUB, '', t) + (first_pass[i+1] if first_pass[i+1] != '|' else '') for i,t in
+        return [re.sub(REGEX_SUB, '', t) + (first_pass[i + 1] if first_pass[i + 1] != '|' else '') for i, t in
                 enumerate(first_pass) if 'LIBRARY' not in t.upper()
-                and t.strip().replace('\n','') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
+                and t.strip().replace('\n', '') != '' and MIN_QUOTES_LENGTH < len(t) < MAX_QUOTES_LENGTH and
                 i < len(first_pass) - 1]
 
     def _process_parallel(text):
@@ -1198,11 +1184,12 @@ class RoboticRoman():
     def _process_holy_text(scripture):
         first_pass = re.sub(r"CAPUT\s*([0-9]+)", r"CAPUT \1:", scripture)
         second_pass = [s for s in re.split(r"(" + BIBLE_DELIMITERS + ")", first_pass)]
-        #print(second_pass)
-        third_pass = [re.sub(r"[0-9]+$", "", s.replace('\n', '').strip()) + " " + second_pass[i+1] if i + 1 < len(second_pass) and len(s.strip()) > 4 else None for i,s in enumerate(second_pass)]
-        #print(third_pass)
+        # print(second_pass)
+        third_pass = [re.sub(r"[0-9]+$", "", s.replace('\n', '').strip()) + " " + second_pass[i + 1] if i + 1 < len(
+            second_pass) and len(s.strip()) > 4 else None for i, s in enumerate(second_pass)]
+        # print(third_pass)
         return [re.sub(r"([0-9])+\s\.", "\1 ", s) for s in third_pass if s]
-        #return [s for s in re.split(BIBLE_DELIMITERS, RoboticRoman._replace_abbreviation_period(first_pass))
+        # return [s for s in re.split(BIBLE_DELIMITERS, RoboticRoman._replace_abbreviation_period(first_pass))
         #        if 'LATIN' not in s.upper() and 'LIBRARY' not in s.upper() and s.strip().replace('\n', '') != ''
         #        and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
 
@@ -1212,8 +1199,6 @@ class RoboticRoman():
         return text
 
     def load_all_models(self):
-        # self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
-        #self.quotes_collection
         for author, quotes_dict, text_path in self.zipped:
             self.load_quotes(quotes_dict, text_path, author)
         print("Finished loading models")
@@ -1225,7 +1210,6 @@ class RoboticRoman():
             if file.endswith('.txt'):
                 quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
-
     def format_name(self, author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
 
@@ -1235,10 +1219,6 @@ class RoboticRoman():
 
     def pick_random_literature_quote(self):
         author = random.choice(list(self.literature_quotes_dict.keys()))
-        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
-
-    def pick_random_historians_quote(self):
-        author = random.choice(list(self.historians_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
     def pick_random_philosopher_quote(self):
@@ -1274,7 +1254,8 @@ class RoboticRoman():
         quotes = []
         for i, quote in enumerate(file.read()):
             quotes.append(quote)
-            return i, quotes, self.find_multi_regex(regex, re.sub(r"[^\w0-9\s\n]", "", proces_func(quote), case_sensitive))
+            return i, quotes, self.find_multi_regex(regex,
+                                                    re.sub(r"[^\w0-9\s\n]", "", proces_func(quote), case_sensitive))
 
     def unpack(self, *lst):
         return lst
@@ -1295,17 +1276,17 @@ class RoboticRoman():
             regex_list = []
             if lemmatize:
                 pass
-                #try:
-                    #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
-                    #inflected = self.decliner.decline(word, flatten=True)
-                    #for form in inflected:
-                        #regex_list.append(f"\\b{form}\\b")
-                #except:
-                    #traceback.print_exc()
-                    #return -1, "Unknown lemma.", []
+                # try:
+                # words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
+                # inflected = self.decliner.decline(word, flatten=True)
+                # for form in inflected:
+                # regex_list.append(f"\\b{form}\\b")
+                # except:
+                # traceback.print_exc()
+                # return -1, "Unknown lemma.", []
             else:
-                #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
-                #words = [f"{word} ", f" {word} ", f" {word}."]
+                # words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
+                # words = [f"{word} ", f" {word} ", f" {word}."]
                 regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
             print(regex_list)
@@ -1323,7 +1304,9 @@ class RoboticRoman():
                     for chapter in module.footnotes:
                         quotes += [fn.lstrip() + '\n\n' for fn in module.footnotes[chapter]]
                 for p in quotes:
-                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
+                    search_target = self.find_multi_regex(regex_list,
+                                                          re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)),
+                                                          case_sensitive)
                     if search_target:
                         search_quotes.append(p)
                         quotes_list.append(p + "_found")
@@ -1333,7 +1316,8 @@ class RoboticRoman():
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
                 j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote_modular(modules, j.replace(word), lemmatize, case_sensitive,  tries + 1)
+                index, quote, quotes_list = self.pick_quote_modular(modules, j.replace(word), lemmatize, case_sensitive,
+                                                                    tries + 1)
                 if not search_quotes or len(search_quotes) == 0:
                     return -1, "Not found.", []
             else:
@@ -1342,7 +1326,7 @@ class RoboticRoman():
                     if quote.endswith("_found"):
                         return_values.append((i, quote.replace("_found", "")))
                 ret = random.choice(return_values)
-                #print("Return: " + str(ret))
+                # print("Return: " + str(ret))
                 return ret[0], ret[1], quotes_list
         else:
             vol_index = random.randint(0, len(modules) - 1)
@@ -1369,7 +1353,7 @@ class RoboticRoman():
             regex_list = []
             if lemmatize:
                 try:
-                    #words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
+                    # words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
                     inflected = self.decliner.decline(word, flatten=True)
                     for form in inflected:
                         regex_list.append(f"\\b{form}\\b")
@@ -1377,8 +1361,8 @@ class RoboticRoman():
                     traceback.print_exc()
                     return -1, "Unknown lemma.", []
             else:
-                #words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
-                #words = [f"{word} ", f" {word} ", f" {word}."]
+                # words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
+                # words = [f"{word} ", f" {word} ", f" {word}."]
                 if chinese:
                     regex_list.append(f"{word}")
                 else:
@@ -1398,7 +1382,9 @@ class RoboticRoman():
                 for j, p in enumerate(read_file):
                     j_index = j
                     all_quotes.append(p)
-                    search_target = self.find_multi_regex(regex_list, re.sub(r"[^\w,0-9\s\n]", "", self.remove_accents(p)), case_sensitive)
+                    search_target = self.find_multi_regex(regex_list,
+                                                          re.sub(r"[^\w,0-9\s\n]", "", self.remove_accents(p)),
+                                                          case_sensitive)
                     if search_target:
                         search_quotes.append(p)
                         quotes_list.append((j, p + "_found", i))
@@ -1409,33 +1395,24 @@ class RoboticRoman():
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
                 j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize, case_sensitive,  tries + 1)
+                index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize,
+                                                            case_sensitive, tries + 1)
                 if not quote:
                     return -1, "Not found.", []
             else:
                 return_values = []
                 for i, (j, quote, f_index) in enumerate(quotes_list):
                     if quote.endswith("_found"):
-                        return_values.append((j, quote.replace("_found", ""),  f_index))
+                        return_values.append((j, quote.replace("_found", ""), f_index))
                 ret = random.choice(return_values)
-                #print("Return: " + str(ret))
-                #print(f"QuotesList: {ret[2]}")
                 return ret[0], ret[1], read_files[ret[2]]
         else:
             f = random.choice(files)
-            print(f)
-            print("Process function name: ")
-            print(process_func.__name__)
             f.seek(0)
             quotes_list = process_func(f.read())
-            print("len: " + str(len(quotes_list)))
-            #print(quotes_list)
             index = i = random.choice(range(len(quotes_list)))
-            print("index: " + str(index))
             quote = quotes_list[index]
             f.seek(0)
-        print("Proces function name: ")
-        print(process_func.__name__)
         if process_func.__name__ == "_process_absolute":
             quote.replace(ABSOLUTE_DELIMITER, "")
             quotes_list = [q.replace(ABSOLUTE_DELIMITER, "") for q in quotes_list]
@@ -1455,14 +1432,8 @@ class RoboticRoman():
             files = self.greek_quotes_dict[person]
         elif "the " + person in self.greek_quotes_dict:
             files = self.greek_quotes_dict["the " + person]
-        elif person in self.off_topic_authors:
-            files = self.off_topic_quotes_dict[person]
-        elif 'the ' + person in self.off_topic_authors:
-            files = self.off_topic_quotes_dict['the ' + person]
-        elif 'parallel_' in person:
-            files = self.parallel_quotes_dict[person.replace('parallel_', '')]
         else:
-            if not person in self.latin_quotes_dict:
+            if person not in self.latin_quotes_dict:
                 person = "the " + person
             files = self.latin_quotes_dict[person]
         file = random.choice(files).read()
@@ -1471,11 +1442,6 @@ class RoboticRoman():
         return file.split('.')
 
     def get_quote_list(self, person, word, lemmatize=False, case_sensitive=False):
-        print(person)
-        """
-        if person.strip().lower() == 'reddit':
-            return self.reddit_quote(SUBREDDIT)
-        """
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
@@ -1523,7 +1489,8 @@ class RoboticRoman():
             if person == 'the bible':
                 i, quote = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
-                res = [(i,e) for i,e in enumerate(open({LATIN_TEXTS_PATH}//"phrases"//"phrases.txt").read().split("円"))]
+                res = [(i, e) for i, e in
+                       enumerate(open({LATIN_TEXTS_PATH} // "phrases" // "phrases.txt").read().split("円"))]
                 print(res)
                 index = random.randint(0, len(res))
                 i = index
@@ -1531,8 +1498,8 @@ class RoboticRoman():
                 return quote
             else:
                 i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
-
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ",
+                      RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
 
     def map_person_to_dict(self, person):
         for dic in self.quotes_dict_collection:
@@ -1540,17 +1507,12 @@ class RoboticRoman():
                 return dic
         return None
 
-
     def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
         print(person)
         """
         if person.strip().lower() == 'reddit':
             return self.reddit_quote(SUBREDDIT)
         """
-        if person.strip().lower() == 'gibbon':
-            modules = self.map_person_to_dict('gibbon')['gibbon']
-            i, quote, quotes_list = self.pick_quote_modular(modules, word, lemmatize, case_sensitive)
-            return i, quote, quotes_list
 
         quotes_dict = self.map_person_to_dict(person.lower())
         if not quotes_dict:
@@ -1566,13 +1528,17 @@ class RoboticRoman():
         person = person.lower().strip()
 
         if person == 'bush':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+                                                    case_sensitive)
         elif person == 'yogi berra':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+                                                    case_sensitive)
         elif person == 'the bible':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize,
+                                                    case_sensitive)
         elif person == 'phrases':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+                                                    case_sensitive)
         elif person == 'mommsen':
             files = [f for f in files if 'content' not in f.name]
             index_files = [f for f in files if 'content' in f.name]
@@ -1580,7 +1546,8 @@ class RoboticRoman():
         elif person == 'gibbon':
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_mixed, word, lemmatize, case_sensitive)
         elif person in self.chinese_authors:
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive, chinese=True)
+            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive,
+                                                    chinese=True)
         else:
             i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.sanitize(quote)), quotes_list
@@ -1594,7 +1561,7 @@ class RoboticRoman():
         text = re.sub(r"(\w)\?([^\s])", r"\1? \2", text)
         text = re.sub(r"(\w)!([^\s])", r"\1! \2", text)
         text = re.sub(r"(\w):([^\s])", r"\1: \2", text)
-        text = text.replace("。.", "。").replace("？.", "？" ).replace("！.", "！")
+        text = text.replace("。.", "。").replace("？.", "？").replace("！.", "！")
         return text
 
     def pick_greek_quote(self):
