@@ -131,8 +131,8 @@ GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', '
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
-KOREAN = ['korean', 'KLB']
-CHINESE = ['CCB', 'CCBT', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
+KOREAN = ['korean', 'klb']
+CHINESE = ['ccb', 'ccbt', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
 
 # Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
