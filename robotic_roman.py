@@ -1088,7 +1088,7 @@ class RoboticRoman():
         if version in GREEK:
             return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
-            return translit(text, 'ru')
+            return translit(text, 'ru', reversed=True)
         if version in ARMENIAN:
             return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
