@@ -1517,18 +1517,12 @@ class RoboticRoman():
         return None
 
     def random_quote(self, person, word=None, lemmatize=False, case_sensitive=False):
-        print(person)
-        """
-        if person.strip().lower() == 'reddit':
-            return self.reddit_quote(SUBREDDIT)
-        """
-
         quotes_dict = self.map_person_to_dict(person.lower())
         if not quotes_dict:
             person = "the " + person.lower().strip()
             quotes_dict = self.map_person_to_dict(person)
             if not quotes_dict:
-                return "Given author not availabe (yet)."
+                return "Given author not available yet."
         else:
             person = person.lower().strip()
 
