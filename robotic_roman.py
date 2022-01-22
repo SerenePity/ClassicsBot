@@ -941,6 +941,7 @@ class RoboticRoman():
             translit = True
             middle_chinese = True
         verse = verse.title()
+        passage = "Not found"
         if version.strip().lower() == 'wyc':
             try:
                 return self.get_wycliffe_verse(verse)
