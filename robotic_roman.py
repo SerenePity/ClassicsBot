@@ -4,7 +4,6 @@ from functools import reduce
 from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup, Tag
-from cltk.stem.latin.declension import CollatinusDecliner
 from wiktionaryparser import WiktionaryParser
 from latin_word_picker import word_picker
 import my_wiktionary_parser
