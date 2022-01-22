@@ -1097,8 +1097,6 @@ class RoboticRoman():
             return translit(text, 'uk', reversed=True)
         if version in SERBIAN:
             return cyrtranslit.to_latin(text)
-        if version in BULGARIAN:
-            return cyrtranslit.to_latin(text)
         if version in ARMENIAN:
             return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
