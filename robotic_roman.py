@@ -21,7 +21,6 @@ import transliteration.hebrew
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.korean
-import cyrtranslit
 from mafan import simplify, tradify
 from transliterate import translit, get_available_language_codes
 import traceback
@@ -1096,7 +1095,7 @@ class RoboticRoman():
         if version in UKRAINIAN:
             return translit(text, 'uk', reversed=True)
         if version in SERBIAN:
-            return cyrtranslit.to_latin(text)
+            return translit(text, 'sr', reversed=True)
         if version in ARMENIAN:
             return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
