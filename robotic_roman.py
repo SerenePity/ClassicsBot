@@ -21,6 +21,7 @@ import transliteration.hebrew
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.korean
+import cyrtranslit
 from mafan import simplify, tradify
 from transliterate import translit, get_available_language_codes
 import traceback
@@ -129,6 +130,9 @@ ARABIC = ['arabicsv']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
          'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
+UKRAINIAN = ['ukr', 'ukrainian', 'ukr-uk']
+BULGARIAN = ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg']
+SERBIAN = ['erv-sr']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
@@ -937,7 +941,6 @@ class RoboticRoman():
             translit = True
             middle_chinese = True
         verse = verse.title()
-        passage = "Not found"
         if version.strip().lower() == 'wyc':
             try:
                 return self.get_wycliffe_verse(verse)
@@ -1089,6 +1092,12 @@ class RoboticRoman():
             return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
             return translit(text, 'ru', reversed=True)
+        if version in UKRAINIAN:
+            return translit(text, 'uk', reversed=True)
+        if version in SERBIAN:
+            return cyrtranslit.to_latin(text)
+        if version in BULGARIAN:
+            return cyrtranslit.to_latin(text)
         if version in ARMENIAN:
             return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:

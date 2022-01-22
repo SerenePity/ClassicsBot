@@ -9,3 +9,4 @@ transliterate
 mafan
 roman
 hangul-romanize
+cyrtranslit
