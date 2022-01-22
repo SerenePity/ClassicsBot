@@ -129,6 +129,9 @@ ARABIC = ['arabicsv']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
          'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
+UKRAINIAN = ['ukr', 'ukrainian', 'ukr-uk']
+BULGARIAN = ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg']
+SERBIAN = ['erv-sr']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
@@ -1089,6 +1092,8 @@ class RoboticRoman():
             return transliteration.greek.transliterate(text)
         if version in RUSSIAN:
             return translit(text, 'ru', reversed=True)
+        if version in UKRAINIAN:
+            return translit(text, 'uk', reversed=True)
         if version in ARMENIAN:
             return translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
