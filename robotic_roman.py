@@ -1,7 +1,6 @@
 import unicodedata
 from functools import reduce
 
-#from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup, Tag
 from wiktionaryparser import WiktionaryParser
@@ -20,8 +19,8 @@ import transliteration.hebrew
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.korean
-from mafan import simplify, tradify
-from transliterate import translit, get_available_language_codes
+from mafan import tradify
+from transliterate import translit
 import traceback
 import requests
 import json
@@ -30,7 +29,6 @@ import os
 import re
 import string
 import urllib.parse
-import importlib
 import roman
 
 # Relative paths to files containing source texts
@@ -965,7 +963,7 @@ class RoboticRoman():
         except:
             traceback.print_exc()
             passage = "Not found"
-        return passage.strip()
+        return passage.strip().replace("Read full chapter", "").replace("\n", " ")
 
     def get_random_verse_by_testament(self, testament):
         """
