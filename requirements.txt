@@ -1,5 +1,4 @@
 git+git://github.com/Rapptz/discord.py
-git+git://github.com/dead-beef/markovchain.git
 beautifulsoup4==4.7.1
 romanize3
 cltk

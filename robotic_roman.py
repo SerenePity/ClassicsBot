@@ -938,13 +938,6 @@ class RoboticRoman():
             except:
                 traceback.print_exc()
                 return "Not found"
-        if version.strip().lower() == 'gothic':
-            try:
-                passage = self.get_gothic_passage(verse.title())
-                return passage
-            except:
-                passage = self.get_bible_verse_by_api(verse, version)
-                traceback.print_exc()
         try:
             if version.strip().lower() in GETBIBLE_VERSIONS:
                 try:
@@ -1125,11 +1118,6 @@ class RoboticRoman():
         except Exception as e:
             traceback.print_exc()
         return None
-
-    def get_gothic_passage(self, verse):
-        with open('off_topic_texts/ulfilas/gothic_bible.txt', encoding='utf8') as file:
-            text = file.read()
-            return re.findall(f"{verse} - (.*?)\|", text)[0]
 
     def bible_compare_random(self, versions: list):
         if 'gothic' in [version.strip().lower() for version in versions]:
