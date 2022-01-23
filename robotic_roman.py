@@ -746,22 +746,6 @@ class RoboticRoman():
         else:
             return [return_string]
 
-    """
-    def reddit_quote(self, subreddit_obj):
-        if subreddit_obj.over18:
-            return "Cannot retrieve posts from an Over 18 subreddit."
-        post = subreddit_obj.random()
-        if not post:
-            return "This subreddit does not support random post retrieval."
-        # print(post.selftext)
-        if post.is_self and len(post.selftext) > 0:
-            body = post.selftext.replace('\n&#x200B;\n', ' ').replace('&#x200B', ' ')
-        elif post.url and len(post.url) > 0:
-            body = post.url
-        else:
-            body = post.title
-        return f"**{post.title}**\n{body}"
-    """
 
     def get_old_english_verse(self, verse):
         """
