@@ -9,10 +9,9 @@ import transliteration.middle_chinese
 import transliteration.old_chinese
 import transliteration.mandarin
 import transliteration.korean
-from transliterate import translit, get_available_language_codes
+from transliterate import translit
 import traceback
 import random
-import time
 import robotic_roman
 import shlex
 import my_wiktionary_parser

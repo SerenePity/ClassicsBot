@@ -1,7 +1,7 @@
 import unicodedata
 from functools import reduce
 
-from cltk.stem.latin.j_v import JVReplacer
+#from cltk.stem.latin.j_v import JVReplacer
 from markovchain.text import MarkovText
 from bs4 import BeautifulSoup, Tag
 from wiktionaryparser import WiktionaryParser
@@ -38,9 +38,6 @@ LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 CHINESE_TEXTS_PATH = "chinese_texts"
 GERMANIC_TEXTS_PATH = "germanic_texts"
-MODERN_HISTORIANS_PATH = "modern_historians"
-MODERN_PHILOSOPHERS_PATH = "modern_philosophers"
-MODERN_LITERATURE_PATH = "modern_literature"
 PARALLEL_TEXTS_PATH = "parallel"
 
 # Default subreddit for reddit shenanigans
@@ -232,8 +229,7 @@ class RoboticRoman():
         self.text_paths = [LATIN_TEXTS_PATH,
                            GREEK_TEXTS_PATH,
                            CHINESE_TEXTS_PATH,
-                           GERMANIC_TEXTS_PATH,
-                           MODERN_LITERATURE_PATH]
+                           GERMANIC_TEXTS_PATH]
 
         self.latin_lemmas = [w.strip() for w in open('latin_lemmas.txt').readlines()]
         self.parser = WiktionaryParser()
@@ -264,11 +260,8 @@ class RoboticRoman():
         self.greek_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.chinese_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(CHINESE_TEXTS_PATH)]))
         self.germanic_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
-        self.literature_authors = list(
-            set([f.split('.')[0].replace('_', ' ') for f in os.listdir(MODERN_LITERATURE_PATH)]))
 
-        self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors,
-                                   self.literature_authors]
+        self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors]
 
         self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
 
@@ -332,11 +325,6 @@ class RoboticRoman():
             return int(''.join([s.strip() for s in file if s.isdigit()]))
         except:
             return hash(file)
-
-    def get_gibbon_footnote(self, chapter, footnote: int, footnote_end=None):
-        if footnote_end:
-            return '\n\n'.join(cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1:footnote_end])
-        return cached_quotes.gibbon.gibbon_footnotes.footnotes[chapter][footnote - 1]
 
     def display_sort(x):
         x = x.replace('.txt', '')
@@ -1075,41 +1063,41 @@ class RoboticRoman():
         a Chinese Bible translation
         :return: the transliterated text, or the original text if it cannot be transliterated
         """
-        version = version.lower()
-        print("Version: " + version)
+
         if version in COPTIC:
-            return transliteration.coptic.transliterate(text).lower()
+            text = transliteration.coptic.transliterate(text).lower()
         if version in ARAMAIC:
             r = romanize3.__dict__['syc']
-            return r.convert(text)
+            text = r.convert(text)
         if version in HEBREW:
-            return transliteration.hebrew.transliterate(text).lower()
+            text = transliteration.hebrew.transliterate(text).lower()
         if version in ARABIC:
             r = romanize3.__dict__['ara']
-            return r.convert(text)
+            text = r.convert(text)
         if version in GREEK:
-            return transliteration.greek.transliterate(text)
+            text = transliteration.greek.transliterate(text)
         if version in RUSSIAN:
-            return translit(text, 'ru')
+            text = translit(text, 'ru', reversed=True)
         if version in BULGARIAN:
-            return translit(text, 'bg')
+            text = translit(text, 'bg', reversed=True)
         if version in SERBIAN:
-            return translit(text, 'sr')
+            text = translit(text, 'sr', reversed=True)
         if version in UKRAINIAN:
-            return translit(text, 'uk')
+            text = translit(text, 'uk', reversed=True)
         if version in ARMENIAN:
-            return translit(text, 'hy', reversed=True).replace('ւ', 'v')
+            text = translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
-            return translit(text, 'ka', reversed=True).replace('ჲ', 'y')
+            text = translit(text, 'ka', reversed=True).replace('ჲ', 'y')
         if version == "uncial":
-            return transliteration.latin_antique(text)
+            text = transliteration.latin_antique(text)
         if version in KOREAN:
-            return transliteration.korean.transliterate(text)
+            text = transliteration.korean.transliterate(text)
         if version in CHINESE:
             if middle_chinese:
-                return transliteration.middle_chinese.transliterate(text)
-            return transliteration.mandarin.transliterate(text)
-        return text
+                text = transliteration.middle_chinese.transliterate(text)
+            else:
+                text = transliteration.mandarin.transliterate(text)
+        return text.replace("Read full chapter", "")
 
     def bible_compare(self, verse, versions: list):
         """
@@ -1324,8 +1312,8 @@ class RoboticRoman():
                 quotes_list.append("--------------------------EOF--------------------------")
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
-                j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote_modular(modules, j.replace(word), lemmatize, case_sensitive,
+                #j = JVReplacer()
+                index, quote, quotes_list = self.pick_quote_modular(modules, word, lemmatize, case_sensitive,
                                                                     tries + 1)
                 if not search_quotes or len(search_quotes) == 0:
                     return -1, "Not found.", []
@@ -1403,8 +1391,8 @@ class RoboticRoman():
                 f.seek(0)
             if len(search_quotes) == 0:
                 print("Search_quotes is 0")
-                j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote(files, process_func, j.replace(word), lemmatize,
+                #j = JVReplacer()
+                index, quote, quotes_list = self.pick_quote(files, process_func, word, lemmatize,
                                                             case_sensitive, tries + 1)
                 if not quote:
                     return -1, "Not found.", []
