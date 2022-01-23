@@ -200,22 +200,6 @@ class QuoteContext():
             ret_str = ret_str[:1998] + "..."
         return ret_str.replace(ABSOLUTE_DELIMITER, "")
 
-    def find_chapter_from_passage(self):
-        # print("Quote index: " + str(self.index))
-        # print(self.quotes)
-        for i in range(self.index, -1, -1):
-            passage = self.quotes[i]
-            if re.match(r"\*\*[0-9]+\.\*\*", passage):
-                return "the footnotes"
-            # print("Passage: " + passage)
-            chapter = re.findall(r"CHAPTER ([MDCLXVI]+)", passage)
-            if not chapter or len(chapter) == 0:
-                continue
-            else:
-                chapter_number = roman.fromRoman(chapter[0])
-                return "Chapter " + str(chapter_number)
-        return "the preface"
-
 
 class RoboticRoman():
     """
@@ -248,9 +232,12 @@ class RoboticRoman():
         self.literature_quotes_dict = dict()
         self.parallel_quotes_dict = dict()
 
-        self.quotes_dict_collection = [self.latin_quotes_dict, self.greek_quotes_dict, self.chinese_quotes_dict,
+        self.quotes_dict_collection = [self.latin_quotes_dict,
+                                       self.greek_quotes_dict,
+                                       self.chinese_quotes_dict,
                                        self.germanic_quotes_dict,
-                                       self.historians_quotes_dict, self.philosophers_quotes_dict,
+                                       self.historians_quotes_dict,
+                                       self.philosophers_quotes_dict,
                                        self.literature_quotes_dict,
                                        self.parallel_quotes_dict]
 
@@ -276,9 +263,6 @@ class RoboticRoman():
         self.commands = [(format_color("Get random quote by author ", "CSS"),
                           f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
                           "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
-                         (format_color("Generate markov sentence ", "CSS"),
-                          f"'{prefix}markov [-t] <author> | As <author> allegedly said:'" +
-                          "\n\tNotes: -t to transliterate."),
                          (format_color("List available Latin authors ", "CSS"), f"'{prefix}latinauthors'"),
                          (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
                          (format_color("Transliterate input ", "CSS"),
@@ -289,10 +273,6 @@ class RoboticRoman():
                          (format_color("Retrieve random Chinese quote ", "CSS"), f"'{prefix}chinesequote'"),
                          (format_color("List Germanic authors ", "CSS"), f"'{prefix}germanicauthors'"),
                          (format_color("Retrieve random Germanic quote ", "CSS"), f"'{prefix}germanicquote'"),
-
-                         (format_color("List available modern authors ", "CSS"), f"'{prefix}modernauthors'"),
-                         (format_color("Retrieve random (modern) authors's quote ", "CSS"),
-                          f"'{prefix}literaturequote'"),
                          (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
                          (format_color("Start grammar game ", "CSS"), f"'{prefix}<language>_grammar'"),
                          (format_color("Start Latin grammar game ", "CSS"),
@@ -364,12 +344,10 @@ class RoboticRoman():
                 defs.append(entry['definitions'][0]['text'])
             except:
                 soup = my_wiktionary_parser.get_soup(word_input)
-                print(f"https://en.wiktionary.org/wiki/{word_input}")
                 try:
                     defs = my_wiktionary_parser.get_definitions(soup, language)
                 except:
                     if language.lower == 'chinese' or language.lower == 'tradchinese':
-                        print(f"tradified: {tradify(word_input)}")
                         soup = my_wiktionary_parser.get_soup(tradify(word_input))
                         defs = my_wiktionary_parser.get_definitions(soup, language)
                         return defs
@@ -398,12 +376,10 @@ class RoboticRoman():
             soup = my_wiktionary_parser.get_soup(word_input)
             if "Wiktionary does not yet have an entry for " in str(soup):
                 return ["Not found."]
-            print(f"https://en.wiktionary.org/wiki/{word_input}")
             try:
                 defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
             except:
                 if language.lower() == 'chinese' or language.lower() == 'tradchinese':
-                    print(f"Tradified input: {tradify(word_input)}")
                     soup = my_wiktionary_parser.get_soup(tradify(word_input))
                     defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
             if defs[0] == 'Not found':
@@ -423,8 +399,6 @@ class RoboticRoman():
         :return: True if Wiktionary has an entry for the word in the given language, else return False
         """
         url = f"https://en.wiktionary.org/wiki/{word}"
-        print(url)
-        print("Language: " + language)
         soup = my_wiktionary_parser.get_soup(word)
         return soup and "does not yet have an entry" not in soup
 
@@ -440,7 +414,6 @@ class RoboticRoman():
         """
         if tries > 2:
             return "Error retrieving entry"
-        print("Language: " + language)
         if not word:
             word = self.get_random_word(language)
         if language.lower() == 'tradchinese':
@@ -452,14 +425,12 @@ class RoboticRoman():
         for child in soup.children:
             if isinstance(child, Tag) and child.find_all('a', text="Latin correlatives"):
                 for s in child.strings:
-                    print(s)
                     s = None
                 child.decompose()
         try:
             definition = self.get_and_format_word_defs(word, language, include_examples=False)
         except:
             return self.get_full_entry(word, language, tries + 1)
-        print(f"definition: {definition}")
         if definition == "1. Not found.":
             if word.istitle():
                 return self.get_full_entry(word.lower(), language, tries + 1)
