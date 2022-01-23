@@ -1039,9 +1039,9 @@ class RoboticRoman():
             text = transliteration.korean.transliterate(text)
         if version in CHINESE:
             if middle_chinese:
-                text = transliteration.middle_chinese.transliterate(text)
+                text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")
             else:
-                text = transliteration.mandarin.transliterate(text)
+                text = transliteration.mandarin.transliterate(text).replace("  ", " ")
         return text.replace("Read full chapter", "")
 
     def bible_compare(self, verse, versions: list):
