@@ -128,7 +128,7 @@ SERBIAN = ['erv-sr']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
-CHINESE = ['ccb', 'ccbt', 'ERV-ZH', 'cns', 'cnt', 'cus', 'cut']
+CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut']
 
 # Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
