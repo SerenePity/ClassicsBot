@@ -1,7 +1,6 @@
 import unicodedata
 from functools import reduce
 
-from markovchain.text import MarkovText
 from bs4 import BeautifulSoup, Tag
 from wiktionaryparser import WiktionaryParser
 from latin_word_picker import word_picker
