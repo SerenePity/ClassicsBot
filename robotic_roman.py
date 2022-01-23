@@ -120,7 +120,7 @@ ARAMAIC = ['peshitta']
 HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
 ARABIC = ['arabicsv']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
-         'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents']
+         'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'sblgnt']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
 UKRAINIAN = ['ukr', 'ukrainian', 'ukr-uk']
 BULGARIAN = ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg']
