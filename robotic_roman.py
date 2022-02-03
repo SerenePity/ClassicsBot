@@ -791,6 +791,8 @@ class RoboticRoman():
             chapters = [chapters]
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
+        if "NULL" in content:
+            return "Not found"
         verses = []
         try:
             for chapter in chapters:
@@ -889,7 +891,7 @@ class RoboticRoman():
                 try:
                     passage = self.get_bible_verse_by_api(verse, version)
                 except:
-                    passage = self.get_bible_verse_from_gateway(verse, version)
+                    passage = 'Not found'
                 if passage == 'Not found':
                     try:
                         passage = self.get_bible_verse_from_gateway(verse, version)
