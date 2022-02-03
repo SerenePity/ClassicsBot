@@ -160,7 +160,6 @@ class QuoteContext():
     def get_surrounding(self, before=None, after=None, joiner='.', tries=0):
         if tries > 1:
             return "Not found."
-        print("Index: " + str(self.index))
         quotes_list = []
         if before and after:
             if self.index > len(self.quotes) - 1:
@@ -226,19 +225,11 @@ class RoboticRoman():
         self.greek_quotes_dict = dict()
         self.chinese_quotes_dict = dict()
         self.germanic_quotes_dict = dict()
-        self.historians_quotes_dict = dict()
-        self.philosophers_quotes_dict = dict()
-        self.literature_quotes_dict = dict()
-        self.parallel_quotes_dict = dict()
 
         self.quotes_dict_collection = [self.latin_quotes_dict,
                                        self.greek_quotes_dict,
                                        self.chinese_quotes_dict,
-                                       self.germanic_quotes_dict,
-                                       self.historians_quotes_dict,
-                                       self.philosophers_quotes_dict,
-                                       self.literature_quotes_dict,
-                                       self.parallel_quotes_dict]
+                                       self.germanic_quotes_dict]
 
         self.latin_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(LATIN_TEXTS_PATH)]))
         self.greek_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
@@ -1008,6 +999,7 @@ class RoboticRoman():
         a Chinese Bible translation
         :return: the transliterated text, or the original text if it cannot be transliterated
         """
+        version = version.lower()
 
         if version in COPTIC:
             text = transliteration.coptic.transliterate(text).lower()
@@ -1499,40 +1491,6 @@ class RoboticRoman():
         author = random.choice(list(self.greek_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
-    def load_model(self, author):
-        return MarkovText.from_file(f"markov_models/{author}/{author}_markov.json")
-
-    def make_sentence(self, author):
-        if author.strip().lower() == 'reddit':
-            return "Just to be clear, I'm not a professional \"quote maker\". I'm just an atheist teenager who greatly " \
-                   "values his intelligence and scientific fact over any silly fiction book written 3,500 years ago. " \
-                   "That being said, I am open to any and all criticism.\n\n\"In this moment, I am euphoric. " \
-                   "Not because of any phony god's blessing. But because, I am englightened by my intelligence.\" - Aalewis"
-
-        if not os.path.exists(f"markov_models/{author.lower()}"):
-            print("Made directory")
-            os.mkdir(f"markov_models/{author.lower()}")
-
-        if not os.path.isfile(f"markov_models/{author.lower()}/{author.lower()}_markov.json"):
-            dic = self.map_person_to_dict(author)
-            works = dic[author]
-            model = MarkovText()
-            for work in works:
-                model.data(work.read())
-            model.save(f"markov_models/{author}/{author}_markov.json")
-        sentence = RoboticRoman.fix_crushed_punctuation(self.load_model(author)(max_length=MAX_QUOTES_LENGTH))
-        if author in self.chinese_authors:
-            sentence = re.sub(r'([\u4e00-\u9fff]) ', r'\1', sentence.replace('.', '。'))
-        return sentence
-
-    def train_model(self, author, author_path):
-        model = MarkovText()
-        for file in os.listdir(author_path):
-            with open(author_path + '/' + file, encoding="utf8") as fp:
-                model.data(fp.read())
-        if not os.path.exists(f"markov_models/{author}"):
-            os.mkdir(f"markov_models/{author}")
-        model.save(f"markov_models/{author}/{author}_markov.json")
 
     def get_shuowen(self, c):
         explanation = my_wiktionary_parser.get_shuowen(c)

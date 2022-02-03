@@ -436,9 +436,6 @@ class Scholasticus(discord.Client):
         else:
             return chapter.title()
 
-    def debug(self, channel, content):
-        print(f"Channel: {channel.id}")
-        print(content)
 
     async def on_member_update(self, before, after):
         """
@@ -498,7 +495,6 @@ class Scholasticus(discord.Client):
                     traceback.print_exc()
 
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
-            self.debug(channel, content)
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             #(args)
             try:
@@ -527,7 +523,7 @@ class Scholasticus(discord.Client):
         if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
             language = ""
-            self.debug(channel, content)
+            
             try:
 
                 if len(args) == 1:
@@ -556,8 +552,8 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_ety'):
-            args = shlex.split(content.replace('“','"').replace('”','"').strip())
-            self.debug(channel, content)
+            args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
+            
             try:
                 if len(args) > 1:
                     language = re.search("([\w_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
@@ -583,7 +579,7 @@ class Scholasticus(discord.Client):
 
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_word'):
             args = shlex.split(content.replace('“','"').replace('”','"').strip())
-            self.debug(channel, content)
+            
             try:
                 if len(args) > 1:
                     language = re.search("([\w_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
@@ -608,7 +604,7 @@ class Scholasticus(discord.Client):
                 return
 
         if content.lower().startswith(self.command_prefix + 'listparallel'):
-            self.debug(channel, content)
+            
             parallel_list = '\n'.join(self.robot.parallel_authors)
             await channel.send(parallel_list)
             return
@@ -626,7 +622,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latin_grammar'):
-            self.debug(channel, content)
+            
             if "-m" in content.lower():
                 macrons = True
             else:
@@ -646,7 +642,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'parallel'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower().strip())
             last_arg = args[-1].strip()
             #print("last_arg " + last_arg)
@@ -669,7 +665,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         """if content.lower().startswith(self.command_prefix + 'redditquote'):
-            self.debug(channel, content)
+            
             try:
                 subreddit = shlex.split(content.lower().strip())[1]
                 await self.send_in_chunks_if_needed(channel, self.robot.reddit_quote(subreddit))
@@ -682,7 +678,7 @@ class Scholasticus(discord.Client):
         # Removed random reddit post command
         """
         if content.lower().startswith(self.command_prefix + 'redditquote') or content.lower().startswith(self.command_prefix + 'git '):
-            self.debug(channel, content)
+            
             try:
                 subreddit = shlex.split(content.lower().strip())[1]
                 subreddit_obj = self.robot.reddit.subreddit(subreddit)
@@ -699,7 +695,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if len(args) > 1:
                 language = ' '.join(args[1:]).lower()
@@ -727,7 +723,7 @@ class Scholasticus(discord.Client):
             #if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
             #    await self.send_message(message.channel, "Long Live Great Kurdistan! Happyfeet is lame.")
             #   return
-            self.debug(channel, content)
+            
             try:
                 tr_args = shlex.split(content)
             except:
@@ -780,7 +776,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txtend'):
-            self.debug(channel, content)
+            
             qt_obj = self.quote_requestors[author]
             del qt_obj
             self.quote_requestors[author] = None
@@ -788,11 +784,11 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         def process_gibbon_footnots(self, file):
-            self.debug(channel, content)
+            
             return [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
 
         if content.lower().startswith(self.command_prefix + 'pick'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if not args[0].lower() == 'pick':
                 return
@@ -878,7 +874,7 @@ class Scholasticus(discord.Client):
 
         if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
-            self.debug(channel, content)
+            
             if len(args) < 2:
                 await channel.send("You must provide an author or work.")
             else:
@@ -900,7 +896,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
-            self.debug(channel, content)
+            
             qt_args = shlex.split(content)
             #print(qt_args)
             try:
@@ -918,7 +914,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
-            self.debug(channel, content)
+            
             qt_args = shlex.split(content)
             #print(qt_args)
             try:
@@ -960,7 +956,7 @@ class Scholasticus(discord.Client):
                 self.quote_requestors[author] = qt_obj
                 await channel.send(quote)
             else:
-                self.debug(channel, content)
+                
                 qt_args = shlex.split(content.replace('“','"').replace('”','"'))
                 if qt_args[0].lower() != 'qt':
                     return
@@ -1037,7 +1033,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().strip() == self.command_prefix + "whatchapter":
-            self.debug(channel, content)
+            
             #print("In whatchapter")
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
@@ -1057,7 +1053,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'fn'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if args[0].lower() != 'fn':
                 return
@@ -1112,7 +1108,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'next'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if args[0].lower() != 'next':
                 return
@@ -1144,7 +1140,7 @@ class Scholasticus(discord.Client):
             return
 
         if content.lower().startswith(self.command_prefix + 'bef'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if args[0].lower() != 'bef':
                 return
@@ -1174,7 +1170,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'surr'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if args[0].lower() != 'surr':
                 return
@@ -1206,7 +1202,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
         """
         if content.lower().startswith(self.command_prefix + 'owo'):
-            self.debug(channel, content)
+            
             qt_args = shlex.split(content.replace('“','"').replace('”','"'))
             # print(qt_args)
             try:
@@ -1233,7 +1229,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.strip().lower().startswith(self.command_prefix + "markov"):
-            self.debug(channel, content)
+            
             markov_args = shlex.split(content.replace('“','"').replace('”','"'))
             #print(markov_args)
             try:
@@ -1256,7 +1252,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.strip().lower() in self.markov_commands:
-            self.debug(channel, content)
+            
             author = self.markov_commands[content.strip().lower().replace('“','"').replace('”','"')]
             try:
                 await channel.send(self.robot.make_sentence(author.lower()))
@@ -1270,41 +1266,41 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'literaturequote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_literature_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'historianquote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_historians_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'philosopherquote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_philosopher_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicquote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_germanic_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'latinquote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_latin_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'chinesequote'):
-            self.debug(channel, content)
+            
             await channel.send(self.robot.pick_random_chinese_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             transliterate = len(args) > 1 and args[1] == '-t'
             quote = self.robot.pick_greek_quote()
@@ -1315,7 +1311,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'comm '):
-            self.debug(channel, content)
+            
             args = shlex.split(content.lower())
             if len(args) < 2:
                 await channel.send("No argument provided")
@@ -1330,7 +1326,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().strip() == self.command_prefix + 'helpme':
-            self.debug(channel, content)
+            
             help = self.robot.commands
             ret = []
             for i in range(len(help)):
@@ -1344,31 +1340,31 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicauthors'):
-            self.debug(channel, content)
+            
             await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            self.debug(channel, content)
+            
             await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
-            self.debug(channel, content)
+            
             await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernphilosophers'):
-            self.debug(channel, content)
+            
             await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernhistorians'):
-            self.debug(channel, content)
+            
             await channel.send('```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.historians_quotes_dict.keys())]) + '```')
 
