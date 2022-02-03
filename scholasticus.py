@@ -2,6 +2,7 @@
 import discord
 import romanize3
 import re
+from lang_trans.arabic import arabtex
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
@@ -751,8 +752,7 @@ class Scholasticus(discord.Client):
                     r = romanize3.__dict__['arm']
                     transliterated = r.convert(input)
                 elif language == '-arab':
-                    r = romanize3.__dict__['ara']
-                    transliterated = r.convert(input)
+                    transliterated = arabtex.transliterate(input)
                 elif language == '-syr':
                     r = romanize3.__dict__['syc']
                     transliterated = r.convert(input)

@@ -791,8 +791,8 @@ class RoboticRoman():
             chapters = [chapters]
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
-        if "NULL" in content:
-            return "Not found"
+        if "NULL" in response:
+            raise Exception(f'No content found in ${url}')
         verses = []
         try:
             for chapter in chapters:
