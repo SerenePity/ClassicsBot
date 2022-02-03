@@ -1,5 +1,6 @@
 git+git://github.com/Rapptz/discord.py
 beautifulsoup4==4.7.1
+lang_trans
 romanize3
 wiktionaryparser
 transliterate

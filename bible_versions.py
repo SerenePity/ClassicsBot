@@ -2,7 +2,7 @@ versions = {
 "afrikaans": ['Ou Vertaling (aov)'],
 "albanian": ['Albanian (albanian)', 'Albanian Bible (ALB)'],
 "amharic": ['Amharic NT (amharic)', 'Haile Selassie Amharic Bible (hsab)'],
-"arabic": ['Smith and Van Dyke (arabicsv)', 'Arabic Bible: Easy-to-Read Version (ERV-AR)', 'Ketab El Hayat (NAV)'],
+"arabic": ['Smith and Van Dyke (arabicsv)', 'Arabic Bible: Easy-to-Read Version (erv-ar)', 'Ketab El Hayat (nav)'],
 "awadhi": ["Awadhi Bible: Easy-to-Read Version (ERV-AWA)"],
 "aramaic": ['Peshitta NT (peshitta)'],
 "armenian": ['Eastern (Genesis Exodus Gospels) (easternarmenian)', 'Western NT (westernarmenian)'],

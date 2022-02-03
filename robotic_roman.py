@@ -11,6 +11,7 @@ import old_english_bible.luke
 import old_english_bible.mark
 import old_english_bible.matthew
 import romanize3
+from lang_trans.arabic import arabtex
 import transliteration.coptic
 import transliteration.latin_antique
 import transliteration.greek
@@ -118,7 +119,7 @@ GETBIBLE_VERSIONS = {'aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
 HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
-ARABIC = ['arabicsv']
+ARABIC = ['arabicsv', 'nav', 'erv-ar']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
          'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'sblgnt']
 RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
@@ -1009,8 +1010,7 @@ class RoboticRoman():
         if version in HEBREW:
             text = transliteration.hebrew.transliterate(text).lower()
         if version in ARABIC:
-            r = romanize3.__dict__['ara']
-            text = r.convert(text)
+            text = arabtex.transliterate(text)
         if version in GREEK:
             text = transliteration.greek.transliterate(text)
         if version in RUSSIAN:
