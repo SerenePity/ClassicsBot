@@ -113,7 +113,7 @@ GETBIBLE_VERSIONS = {'aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta
                      'riveduta', 'kabyle', 'korean', 'newvulgate', 'latvian', 'lithuanian', 'manxgaelic', 'maori',
                      'judson', 'bibelselskap', 'almeida', 'potawatomi', 'rom', 'cornilescu', 'makarij', 'synodal',
                      'zhuromsky', 'gaelic', 'valera', 'rv1858', 'sse', 'swahili', 'swedish', 'tagalog', 'tamajaq',
-                     'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa'}
+                     'thai', 'tnt', 'turkish', 'ukranian', 'uma', 'vietnamese', 'wolof', 'xhosa', 'nav', 'erv-ar'}
 
 # The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my parallel Bible text module
 COPTIC = ['bohairic', 'sahidic', 'coptic']
