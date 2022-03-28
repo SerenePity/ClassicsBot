@@ -916,14 +916,16 @@ class RoboticRoman():
         return passage.strip().replace("Read full chapter", "").replace("\n", " ")
 
     def get_cc_verses(self, book, verses):
-        if "-" in verses:
-            chapter = verses.split(" ")[1].split(":")[0].strip()
-            print("Chapter: " + chapter)
-            verse_range = verses.split(":")[1]
-            begin = int(verse_range.split("-")[0])
-            end = int(verse_range.split("-")[1]).split(" ")[0]
-            for verse in range(begin, end):
-                return self.get_cc_verse(book, chapter + ":" + verse)
+        chapter = verses.split(":")[0]
+        if '-' in verses:
+            verses_in_chapter = verses.split(":")[1].split(" ")[0]
+            verses_start = int(verses_in_chapter.split("-")[0])
+            verses_end = int(verses_in_chapter.split("-")[1])
+            retrieved_verses = []
+            for i in range(verses_start, verses_end + 1):
+                verse_to_get = f"{chapter}:{i}"
+                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}"))
+            return "\n".join(retrieved_verses)
         else:
             return self.get_cc_verse(book, verses)
 
