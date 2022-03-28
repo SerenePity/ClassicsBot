@@ -740,20 +740,6 @@ class RoboticRoman():
         else:
             return [return_string]
 
-    def get_cc_verse(self, book, verse):
-        chinese_book = english_to_cc[book.capitalize()]
-        print(f"Chinese book: {chinese_book}")
-
-        url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, "html.parser")
-
-        def remove_digits(s):
-            return ''.join([i for i in s if not i.isdigit()])
-
-        print(soup.find('span', {"id": verse}).parent.text)
-        return remove_digits(soup.find('span', {"id": id}).parent.text).strip()
-
     def get_old_english_verse(self, verse):
         """
         Retrieve a Bible passage from the Alfred the Great's Anglo-Saxon translation of the Vulgate
@@ -893,7 +879,7 @@ class RoboticRoman():
         verse = verse.title()
         if version.strip().lower() == 'cc':
             try:
-                return get_cc_verse(book, verse_numbers)
+                return self.get_cc_verses(book, verse_numbers)
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -928,6 +914,31 @@ class RoboticRoman():
             traceback.print_exc()
             passage = "Not found"
         return passage.strip().replace("Read full chapter", "").replace("\n", " ")
+
+    def get_cc_verses(self, book, verses):
+        if "-" in verses:
+            chapter = verses.split(" ")[1].split(":")[0].strip()
+            print("Chapter: " + chapter)
+            verse_range = verses.split(":")[1]
+            begin = int(verse_range.split("-")[0])
+            end = int(verse_range.split("-")[1]).split(" ")[0]
+            for verse in range(begin, end):
+                return self.get_cc_verse(book, chapter + ":" + verse)
+        else:
+            return self.get_cc_verse(book, verses)
+
+    def get_cc_verse(self, book, verse):
+        chinese_book = english_to_cc[book]
+        url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        def remove_digits(s):
+            return ''.join([i for i in s if not i.isdigit()])
+
+        passage = soup.find('span', {"id": verse}).parent.text
+
+        return remove_digits(passage).strip()
 
     def get_random_verse_by_testament(self, testament):
         """
