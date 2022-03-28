@@ -798,7 +798,7 @@ class RoboticRoman():
         try:
             for chapter in chapters:
                 verses.append(content['book'][0]['chapter'][chapter]['verse'].replace('\n', ''))
-            passage = ' '.join(verses)
+            passage = '\n'.join(verses)
         except:
             passage = "Not found"
             traceback.print_exc()
@@ -923,10 +923,13 @@ class RoboticRoman():
             verses_end = int(verses_in_chapter.split("-")[1])
             retrieved_verses = []
             for i in range(verses_start, verses_end + 1):
-                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}", translit))
+                retrieved_verses.append(remove_numbers(self.get_cc_verse(book, f"{chapter}:{i}", translit)))
             return "\n".join(retrieved_verses)
         else:
-            return self.get_cc_verse(book, verses, translit)
+            return remove_numbers(self.get_cc_verse(book, verses, translit))
+
+    def remove_numbers(self, text):
+        return ''.join([i for i in text if not i.isdigit()])
 
     def get_cc_verse(self, book, verse, translit):
         chinese_book = english_to_cc[book]
