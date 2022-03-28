@@ -30,6 +30,7 @@ import re
 import string
 import urllib.parse
 import roman
+from get_cc_passage import get_cc_passage
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -887,7 +888,7 @@ class RoboticRoman():
                 return "Not found"
         if version.strip.lower() == 'cc':
             try:
-                return self.get_cc_bible_verse(verse)
+                return self.get_cc_verse(verse)
             except:
                 traceback.print_exc()
                 return "Not found"
