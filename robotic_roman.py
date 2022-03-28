@@ -923,27 +923,23 @@ class RoboticRoman():
             verses_end = int(verses_in_chapter.split("-")[1])
             retrieved_verses = []
             for i in range(verses_start, verses_end + 1):
-                retrieved_verses.append(remove_numbers(self.get_cc_verse(book, f"{chapter}:{i}", translit)))
+                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}", translit))
             return "\n".join(retrieved_verses)
         else:
-            return remove_numbers(self.get_cc_verse(book, verses, translit))
-
-    def remove_numbers(self, text):
-        return ''.join([i for i in text if not i.isdigit()])
+            return self.get_cc_verse(book, verses, translit)
 
     def get_cc_verse(self, book, verse, translit):
-        chinese_book = english_to_cc[book]
+        chinese_book = english_to_cc[book.lower()]
         url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
         page = requests.get(url)
         soup = BeautifulSoup(page.content, "html.parser")
-
-        def remove_digits(s):
-            return ''.join([i for i in s if not i.isdigit()])
-
         passage = soup.find('span', {"id": verse}).parent.text
         if translit:
-            return transliteration.mandarin.transliterate(passage).replace("  ", " ").strip()
-        return remove_digits(passage).strip()
+            return self.remove_digits(transliteration.mandarin.transliterate(passage).replace("  ", " ").strip())
+        return self.remove_digits(passage).strip()
+
+    def remove_digits(self, s):
+        return ''.join([i for i in s if not i.isdigit()])
 
     def get_random_verse_by_testament(self, testament):
         """
