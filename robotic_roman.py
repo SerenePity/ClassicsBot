@@ -879,7 +879,7 @@ class RoboticRoman():
         verse = verse.title()
         if version.strip().lower() == 'cc':
             try:
-                return self.get_cc_verses(book.lower(), verse_numbers)
+                return self.get_cc_verses(book.lower(), verse_numbers, translit)
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -915,7 +915,7 @@ class RoboticRoman():
             passage = "Not found"
         return passage.strip().replace("Read full chapter", "").replace("\n", " ")
 
-    def get_cc_verses(self, book, verses):
+    def get_cc_verses(self, book, verses, translit):
         chapter = verses.split(":")[0]
         if '-' in verses:
             verses_in_chapter = verses.split(":")[1].split(" ")[0]
@@ -923,13 +923,12 @@ class RoboticRoman():
             verses_end = int(verses_in_chapter.split("-")[1])
             retrieved_verses = []
             for i in range(verses_start, verses_end + 1):
-                verse_to_get = f"{chapter}:{i}"
-                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}"))
+                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}", translit))
             return "\n".join(retrieved_verses)
         else:
-            return self.get_cc_verse(book, verses)
+            return self.get_cc_verse(book, verses, translit)
 
-    def get_cc_verse(self, book, verse):
+    def get_cc_verse(self, book, verse, translit):
         chinese_book = english_to_cc[book]
         url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
         page = requests.get(url)
@@ -939,7 +938,8 @@ class RoboticRoman():
             return ''.join([i for i in s if not i.isdigit()])
 
         passage = soup.find('span', {"id": verse}).parent.text
-
+        if translit:
+            return transliteration.mandarin.transliterate(passage).replace("  ", " ").strip()
         return remove_digits(passage).strip()
 
     def get_random_verse_by_testament(self, testament):
