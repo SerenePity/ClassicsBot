@@ -131,7 +131,7 @@ SERBIAN = ['erv-sr']
 GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
-CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut']
+CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']
 
 # Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
 ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
@@ -879,7 +879,7 @@ class RoboticRoman():
         verse = verse.title()
         if version.strip().lower() == 'cc':
             try:
-                return self.get_cc_verses(book, verse_numbers)
+                return self.get_cc_verses(book.lower(), verse_numbers)
             except:
                 traceback.print_exc()
                 return "Not found"
