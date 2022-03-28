@@ -176,6 +176,8 @@ class Scholasticus(discord.Client):
             for author in authors:
                 self.authors_set.add(author)
 
+        print(self.robot.get_bible_verse('genesis 1:1', "classical_chinese"))
+
         # self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
         for author in self.authors_set:

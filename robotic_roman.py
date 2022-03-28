@@ -31,6 +31,7 @@ import string
 import urllib.parse
 import roman
 from get_cc_passage import get_cc_verse
+from english_to_cc import english_to_cc
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -739,6 +740,19 @@ class RoboticRoman():
         else:
             return [return_string]
 
+    def get_cc_verse(self, book, verse):
+        chinese_book = english_to_cc[book.capitalize()]
+        print(f"Chinese book: {chinese_book}")
+
+        url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        def remove_digits(s):
+            return ''.join([i for i in s if not i.isdigit()])
+
+        print(soup.find('span', {"id": verse}).parent.text)
+        return remove_digits(soup.find('span', {"id": id}).parent.text).strip()
 
     def get_old_english_verse(self, verse):
         """
@@ -864,6 +878,9 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
+
+        book = verse.split(" ")[0]
+        verse_numbers = verse.split(" ")[1]
         translit = False
         middle_chinese = False
         if version[0] == '$':
@@ -874,6 +891,12 @@ class RoboticRoman():
             translit = True
             middle_chinese = True
         verse = verse.title()
+        if version.strip().lower() == 'classical_chinese':
+            try:
+                return get_cc_verse(book, verse_numbers)
+            except:
+                traceback.print_exc()
+                return "Not found"
         if version.strip().lower() == 'wyc':
             try:
                 return self.get_wycliffe_verse(verse)
@@ -883,12 +906,6 @@ class RoboticRoman():
         if version.strip().lower() == 'old_english':
             try:
                 return self.get_old_english_verse(verse)
-            except:
-                traceback.print_exc()
-                return "Not found"
-        if version.strip.lower() == 'cc':
-            try:
-                return get_cc_passage(verse)
             except:
                 traceback.print_exc()
                 return "Not found"
