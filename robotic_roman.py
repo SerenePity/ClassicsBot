@@ -888,7 +888,7 @@ class RoboticRoman():
         if version.strip.lower() == 'cc':
             try:
                 return self.get_cc_bible_verse(verse)
-            except
+            except:
                 traceback.print_exc()
                 return "Not found"
         try:
