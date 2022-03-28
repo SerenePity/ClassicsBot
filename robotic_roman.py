@@ -891,7 +891,7 @@ class RoboticRoman():
             translit = True
             middle_chinese = True
         verse = verse.title()
-        if version.strip().lower() == 'classical_chinese':
+        if version.strip().lower() == 'cc':
             try:
                 return get_cc_verse(book, verse_numbers)
             except:
