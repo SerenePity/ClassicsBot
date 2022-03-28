@@ -30,7 +30,7 @@ import re
 import string
 import urllib.parse
 import roman
-from get_cc_passage import get_cc_passage
+from get_cc_passage import get_cc_verse
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
