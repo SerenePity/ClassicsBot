@@ -11,6 +11,7 @@ versions = {
 "bulgarian": ['Bulgarian Bible (1940) (bulgarian1940)', '1940 Bulgarian Bible (BG1940)', 'Bulgarian Bible (BULG)', 'Bulgarian New Testament: Easy-to-Read Version (ERV-BG)'],
 "chamorro": ['(Psalms Gospels Acts) (chamorro)'],
 "chinese": ['NCV Simplified (cns)', 'NCV Traditional (cnt)', 'Union Simplified (cus)', 'Union Traditional (cut)', 'Chinese Contemporary Bible (Simplified) (CCB) ', 'Chinese Contemporary Bible (Traditional) (CCBT)', 'Chinese New Testament: Easy-to-Read Version (ERV-ZH)'],
+"classical_chinese": ['cc'],
 "coptic": ['Bohairic NT (bohairic)', 'New Testament (coptic)', 'Sahidic NT (sahidic)'],
 "croatian": ['Croatian (croatia)', 'Hrvatski Novi Zavjet'],
 "czech": ['Czech BKR (bkr)', 'Czech CEP (cep)', 'Czech KMS (kms)', 'Czech NKB (nkb)', 'Bible 21 (B21)', 'Slovo na cestu (SNC) NT'],

@@ -700,7 +700,6 @@ class Scholasticus(discord.Client):
             args = shlex.split(content.lower())
             if len(args) > 1:
                 language = ' '.join(args[1:]).lower()
-                #print(language)
                 ret_list = self.robot.get_available_bible_versions_lang(language)
                 try:
                     for version in ret_list:
