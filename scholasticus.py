@@ -1369,12 +1369,6 @@ class Scholasticus(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'modernauthors'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.literature_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-
         if content.lower().startswith(self.command_prefix + 'chineseauthors'):
             await channel.send('```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.chinese_quotes_dict.keys())]) + '```')
