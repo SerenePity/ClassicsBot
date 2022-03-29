@@ -262,6 +262,7 @@ class RoboticRoman():
                           f"'{prefix}tr [-(language abbreviation)] <input>'" +
                           "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
                          (format_color("List Greek authors ", "CSS"), f"'{prefix}greekauthors'"),
+                         (format_color("List Chinese authors ", "CSS"), f"'{prefix}chineseauthors'"),
                          (format_color("Retrieve random Greek quote ", "CSS"), f"'{prefix}greekquote'"),
                          (format_color("Retrieve random Chinese quote ", "CSS"), f"'{prefix}chinesequote'"),
                          (format_color("List Germanic authors ", "CSS"), f"'{prefix}germanicauthors'"),
@@ -1547,5 +1548,5 @@ class RoboticRoman():
         character = chr(int(
             '0x' + soup.find('span', attrs={'id': 'radical0'})['onclick'].split(',')[0].split('(')[1].replace('\'', ''),
             16))
-        pinyin = soup.find('span', attrs={'id': 'pinyin0'}).getText()
-        return character, explanation.getText(), pinyin
+        pinyin = soup.find('span', attrs={'id': 'rec1'}).text
+        return character, explanation.text, pinyin
