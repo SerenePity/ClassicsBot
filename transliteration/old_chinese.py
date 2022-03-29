@@ -30,7 +30,7 @@ def transliterate(text):
             pinyin, mc, oc, gloss = baxter_sagart.get_historical_chinese(char)
             if oc == 'n/a':
                 oc = get_old_chinese_from_wiktionary(char)
-            ret_array.append(oc.split(",")[0].strip().replace(".", ""))
+            ret_array.append(oc.split(",")[0].strip())
 
     ret_str = " ".join(ret_array)
     for char in baxter_sagart.punctuation:
@@ -40,11 +40,10 @@ def transliterate(text):
             ret_str = ret_str.replace(f" {char} ", f"{baxter_sagart.punctuation[char]} ")
         else:
             ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
-            ret_str = re.sub(r"\s*([:,\.\";!?])", r"\1", ret_str)
+            ret_str = re.sub(r"\s*([:\";!?])", r"\1", ret_str)
     print(ret_str)
     ret_str = ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "")\
         .replace("*", "").replace("「", "\"").replace("」", "\"").replace(" \"", "\"").replace(" ,", ",")\
-        .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"")\
-        .replace("[", "").replace("]", "").replace("-", "").replace("<", "").replace(">", "")
-    ret_str = re.sub("\(.+?\)", "", ret_str)
+        .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" ;", ";").replace(": \" ", ": \"")\
+        .replace("[", "").replace("]", "").replace("<", "").replace(">", "")
     return ret_str
