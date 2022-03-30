@@ -3,6 +3,9 @@ import discord
 import romanize3
 import re
 from lang_trans.arabic import arabtex
+from char_lookup import lookup_wikt
+
+import char_lookup.lookup_wikt
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.coptic
@@ -1512,3 +1515,11 @@ class Scholasticus(discord.Client):
                 await channel.send(explanation)
             else:
                 await channel.send("You did not enter a character.")
+
+# ==================================================================================================================================================
+        if content.lower().startswith(self.command_prefix + 'lookup'):
+            args = shlex.split(content)
+            source = args[1]
+            char = args[2]
+            if source == 'wikt':
+                await channel.send(lookup_wikt.combine_outputs(char))

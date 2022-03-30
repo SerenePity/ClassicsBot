@@ -1,10 +1,10 @@
 # coding=utf8
 import pprint
-from cached_antique_chinese import baxter_sagart
+from chinese_reconstructions import baxter_sagart
 
 import requests
 import re
-from mafan import simplify, tradify
+from mafan import tradify
 from bs4 import BeautifulSoup, NavigableString, Tag
 import traceback
 
@@ -16,9 +16,12 @@ PARTS_OF_SPEECH = [
     "Definitions", "Pronoun", "Prefix", "Suffix", "Infix", "Root"
 ]
 
-GRAMMAR_KEYWORDS = {'first-person', 'second-person', 'third-person', 'singular', 'plural', 'nominative', 'accusative', 'genitive',
-     'ablative', 'dative', 'vocative', 'locative', 'instrumental', 'masculine', 'feminine', 'neuter', 'indicative', 'subjunctive', 'perfect', 'imperfect',
-     'present', 'imperfect', 'aorist', 'mediopassive'}
+GRAMMAR_KEYWORDS = {'first-person', 'second-person', 'third-person', 'singular', 'plural', 'nominative', 'accusative',
+                    'genitive',
+                    'ablative', 'dative', 'vocative', 'locative', 'instrumental', 'masculine', 'feminine', 'neuter',
+                    'indicative', 'subjunctive', 'perfect', 'imperfect',
+                    'present', 'imperfect', 'aorist', 'mediopassive'}
+
 
 def format(ul):
     ret = ""
@@ -30,17 +33,19 @@ def format(ul):
                 ret += '\n' + (li.get_text() if li and isinstance(li, NavigableString) else "") + '\n'
     return ret
 
+
 def format_row(row, longest_len, is_line=False):
     vertical = "│"
     ret_str = vertical
     if is_line:
         return "├" + '┼'.join([(longest_len + 1) * "─" for i in range(len(row))]) + "┤"
-    for i,word in enumerate(row):
+    for i, word in enumerate(row):
         length = len(word)
         num_spaces = longest_len - length
-        ret_str += " " + word + " "*num_spaces + vertical
+        ret_str += " " + word + " " * num_spaces + vertical
 
     return ret_str
+
 
 def process_entry(h):
     colspan = None
@@ -64,22 +69,25 @@ def get_longest_in_col(table_array, col_num):
     print(f"Longest word in column {col_num} is {longest_word} with length {max_in_col}")
     return max_in_col
 
+
 def parse_table(table: Tag):
     table_array = []
     tbody = table.find_all('tbody')[0]
     row_soup = tbody.find_all('tr')
     max_cols = 0
     for row in row_soup:
-        row_cols = [col for col in row.find_all('th') if col.get_text().strip() != ""] + [col for col in row.find_all('td') if col.get_text().strip() != ""]
+        row_cols = [col for col in row.find_all('th') if col.get_text().strip() != ""] + [col for col in
+                                                                                          row.find_all('td') if
+                                                                                          col.get_text().strip() != ""]
         print(f"Row Cols of length {len(row_cols)}: {str(row_cols)}")
         if len(row_cols) > max_cols:
             max_cols = len(row_cols)
 
     print("Max cols: " + str(max_cols))
     longest_word_length = 0
-    #print("row_soup: " + str(row_soup))
-    #print("Length of row_soup: " + str(len(row_soup)))
-    for i,row in enumerate(row_soup):
+    # print("row_soup: " + str(row_soup))
+    # print("Length of row_soup: " + str(len(row_soup)))
+    for i, row in enumerate(row_soup):
         ths = row.find_all('th')
         tds = row.find_all('td')
         row_str = list(filter(lambda x: x[0], [process_entry(h) for h in ths] + [process_entry(h) for h in tds]))
@@ -88,13 +96,13 @@ def parse_table(table: Tag):
             for i in range(diff):
                 row_str.append((" ", None))
         can_append = True
-        for col,_ in row_str:
+        for col, _ in row_str:
             if "Notes:" in col:
                 can_append = False
         if can_append:
             table_array.append(row_str)
         if len(tds) == 0:
-            table_array.append([("‰", None)]*max_cols)
+            table_array.append([("‰", None)] * max_cols)
     for row in table_array:
         for word, colspan in row:
             print("Get length of: " + word + " - " + str(len(word)))
@@ -105,20 +113,23 @@ def parse_table(table: Tag):
     longest_word_length += 1
     pprint.pprint(table_array)
     max_word_in_col_dict = dict()
-    for i,row in enumerate(table_array):
+    for i, row in enumerate(table_array):
         for j in range(len(row)):
             longest_in_col = get_longest_in_col(table_array, j)
             max_word_in_col_dict[j] = longest_in_col
-    top_line = "┌" + '┬'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┐"
-    display_table = '\n'.join([format_row2(row, max_word_in_col_dict) if "‰" != row[0][0] else format_row2(row, max_word_in_col_dict, True) for i,row in enumerate(table_array)])
-    bottom_line = "└" + '┴'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┘"
+    top_line = "┌" + '┬'.join(["─" * (max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┐"
+    display_table = '\n'.join(
+        [format_row2(row, max_word_in_col_dict) if "‰" != row[0][0] else format_row2(row, max_word_in_col_dict, True)
+         for i, row in enumerate(table_array)])
+    bottom_line = "└" + '┴'.join(["─" * (max_word_in_col_dict[i] + 1) for i in range(max_cols)]) + "┘"
 
     return "```md\n" + top_line + "\n" + display_table + "\n" + bottom_line + "```"
 
-def format_row2(row, max_word_in_col_dict, is_line = False):
+
+def format_row2(row, max_word_in_col_dict, is_line=False):
     vertical = "│"
     if is_line and not any(i[1] for i in row):
-        return "├" + '┼'.join(["─"*(max_word_in_col_dict[i] + 1) for i in range(len(row))]) + "┤"
+        return "├" + '┼'.join(["─" * (max_word_in_col_dict[i] + 1) for i in range(len(row))]) + "┤"
     else:
         colspans = [r for r in row if r[1]]
         non_colspans = [r for r in row if not r[1]]
@@ -126,17 +137,20 @@ def format_row2(row, max_word_in_col_dict, is_line = False):
         print("Num of non-colspans: " + str(len(non_colspans)))
         ret_str = vertical
         if colspans:
-            for i,r in enumerate(row):
+            for i, r in enumerate(row):
                 word = r[0]
                 colspan = r[1]
                 if colspan:
-                    ret_str += (colspan) * (max_word_in_col_dict[i] * " ")[0:(colspan) * (max_word_in_col_dict[i] - len(word) + 1)] + " " + word
+                    ret_str += (colspan) * (max_word_in_col_dict[i] * " ")[
+                                           0:(colspan) * (max_word_in_col_dict[i] - len(word) + 1)] + " " + word
                     if i == len(row) - 1:
                         ret_str += (colspan) * (max_word_in_col_dict[i] * " ")[0:(colspan) + 1]
                 else:
-                    ret_str += (max_word_in_col_dict[i] - len(word) + 1)*" " + word + vertical
+                    ret_str += (max_word_in_col_dict[i] - len(word) + 1) * " " + word + vertical
         else:
-            ret_str = (vertical + vertical.join([(max_word_in_col_dict[i] - len(word) + 1)*" " + word for i, (word, colspan) in enumerate(row)]) + vertical)
+            ret_str = (vertical + vertical.join(
+                [(max_word_in_col_dict[i] - len(word) + 1) * " " + word for i, (word, colspan) in
+                 enumerate(row)]) + vertical)
         return ret_str
     """
     for i, (word, colspan) in enumerate(row):
@@ -151,6 +165,7 @@ def format_row2(row, max_word_in_col_dict, is_line = False):
             ret_str += word + (max_word_in_col_dict[i] - len(word) + 1)*" " + vertical
             #ret_str += vertical + vertical.join([word + (max_word_in_col_dict[i] + 1 - len(word))*" " for i, (word, colspan) in enumerate(row)]) + vertical
     return ret_str"""
+
 
 def get_etymology(language_header, language, word):
     if not language_header:
@@ -171,7 +186,9 @@ def get_etymology(language_header, language, word):
             break
         if 'Etymology' in sibling.get_text() and "Richard Sears" not in sibling.get_text():
             etymology = []
-            if isinstance(sibling.findNextSibling('div'), Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling('div').get_text():
+            if isinstance(sibling.findNextSibling('div'),
+                          Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling(
+                    'div').get_text():
                 return "Not found."
             try:
                 print(f"Next sibling: {sibling.nextSibling.nextSibling}")
@@ -218,21 +235,24 @@ def get_etymology(language_header, language, word):
                 traceback.print_exc()
                 continue
             break
-    #print(etymology)
+    # print(etymology)
     if etymology == "Not found.":
         return "Not found."
     print("ETYMOLOGY: " + str(etymology))
-    return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]", "simp.]\n").replace("[Pinyin]", "[Pinyin]\n")
+    return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]",
+                                                                                              "simp.]\n").replace(
+        "[Pinyin]", "[Pinyin]\n")
+
 
 def get_definition(soup, language, include_examples=True):
     print("In get definition")
-    #print("Part of speech: " + part_of_speech.title())
+    # print("Part of speech: " + part_of_speech.title())
     if "Wiktionary does not yet have an entry for " in str(soup):
         return "Not found."
     language_header = None
     definition = "Not found."
     for h2 in soup.find_all('h2'):
-        #print(h2)
+        # print(h2)
         if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             language_header = h2
             break
@@ -241,7 +261,7 @@ def get_definition(soup, language, include_examples=True):
             return get_definition(soup, 'mandarin', True)
         else:
             return "Could not find definition."
-    #print(language_header)
+    # print(language_header)
     if language.lower() == 'chinese':
         # print(f"Language header: {soup.get_text()}")
         variant_regex = re.match(re.compile(r"For pronunciation and definitions of . – see (.)"), soup.get_text())
@@ -249,7 +269,7 @@ def get_definition(soup, language, include_examples=True):
         if variant_regex:
             return get_definition(get_soup(variant_regex.group(1)), 'chinese', True)
     definition = language_header.findNextSibling('ol')
-    #print(definition)
+    # print(definition)
     if not include_examples:
         print("Removing examples")
         for ul in definition(["ul"]):
@@ -262,7 +282,7 @@ def get_definition(soup, language, include_examples=True):
                 elif li.ul:
                     li.ul.string = '\n'.join(["\t" + s for s in li.ul.get_text().split('\n')])
                 li.string = '\n'.join(['\t' + t for t in li.get_text().split('\n')])
-    #print(f"Definition: {definition}")
+    # print(f"Definition: {definition}")
     if 'This term needs a translation to English' in str(definition):
         print("Trying translingual")
         try:
@@ -271,8 +291,10 @@ def get_definition(soup, language, include_examples=True):
             return "Could not find definition."
     return definition
 
+
 def remove_example(li):
     li.ul.extract() if li.ul else li
+
 
 def get_word(soup, language, word):
     if "Wiktionary does not yet have an entry for " in str(soup):
@@ -295,32 +317,53 @@ def get_word(soup, language, word):
 
     return word
 
+
 def get_definitions(soup, language, include_examples=True):
     definitions = get_definition(soup, language, include_examples)
     if definitions == "Could not find definition.":
         return [definitions]
-    definitions = [li.get_text() if not (isinstance(li, NavigableString) or isinstance(li, str)) else li for li in definitions]
+    definitions = [li.get_text() if not (isinstance(li, NavigableString) or isinstance(li, str)) else li for li in
+                   definitions]
     return [d for d in definitions if d != None and d.strip() != ""]
+
 
 def get_soup(word):
     print(f"https://en.wiktionary.org/wiki/{word}")
-    return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text.replace("<!-->", ""))
+    return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text.replace("<!-->", ""),
+                         features="html.parser")
+
+
+def get_zhengchang(char):
+    soup = get_soup(char)
+    try:
+        return re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))
+    except:
+        try:
+            char = tradify(char)
+            soup = get_soup(char)
+            pronunciations = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))
+        except:
+            traceback.print_exc()
+            return "N/A"
+    return pronunciations
+
 
 def old_dictify(ul, level=0):
     return_str = ""
     for li in ul.find_all("li", recursive=False):
         key = next(li.strings)
         nukes = ' '.join([s.get_text() if isinstance(s, Tag) else s for s in li]).replace(key, "")
-        #print("Key: " + key + ", Nukes: " + nukes)
+        # print("Key: " + key + ", Nukes: " + nukes)
         if key.strip() == 'Carl Meissner; Henry William Auden (1894)':
             nukes = nukes.split(":")[0] + ":"
-        return_str +=  level*'\t\t' + key + " " + nukes + '\n'
+        return_str += level * '\t\t' + key + " " + nukes + '\n'
 
-        #print("Spans: " + str([s.text for s in li.find_all('span')]))
+        # print("Spans: " + str([s.text for s in li.find_all('span')]))
         ul2 = li.find("ul")
         if ul2:
-            return_str += '\t\t'*(level + 1) + old_dictify(ul2, level +  1).strip() + '\n'
+            return_str += '\t\t' * (level + 1) + old_dictify(ul2, level + 1).strip() + '\n'
     return return_str.strip()
+
 
 def dictify(ul, level=0):
     print("In Dictify")
@@ -332,23 +375,25 @@ def dictify(ul, level=0):
                 key = next(stripped)
             except:
                 key = ""
-            nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
+            nukes = ' '.join([s.text if isinstance(s, Tag) else s for s in
+                              li.find_all(name=['span', 'dl', 'cite', 'b', 'i', 'a', 'small'], recursive=False)])
             if not nukes:
                 continue
             if key.strip().lower() == nukes.split()[0].lower().strip():
                 key = nukes.strip()
                 nukes = ""
-            return_str += level*'\t\t' + key + " " + nukes + '\n'
+            return_str += level * '\t\t' + key + " " + nukes + '\n'
 
-            #print("Spans: " + str([s.text for s in li.find_all('span')]))
+            # print("Spans: " + str([s.text for s in li.find_all('span')]))
             ul2 = li.find("ul")
             if ul2:
-                return_str += '\t\t'*(level + 1) + dictify(ul2, level +  1).strip() + '\n'
+                return_str += '\t\t' * (level + 1) + dictify(ul2, level + 1).strip() + '\n'
     except:
         traceback.print_exc()
 
-    #print(return_str)
+    # print(return_str)
     return "Not found."
+
 
 def destroy_translations(soup):
     translations = soup.find_all(text="Translations")
@@ -366,7 +411,8 @@ def destroy_translations(soup):
         print("Destroying table")
         t.parent.parent.decompose()
         t.decompose()
-    #print("Soup Afterwards: " + str(soup))
+    # print("Soup Afterwards: " + str(soup))
+
 
 def destroy_latin_correlatives(soup):
     latin_correlatives_title = soup.find_all(text="Latin correlatives")
@@ -382,7 +428,8 @@ def destroy_latin_correlatives(soup):
     for t in soup.find_all('table', attrs={'class': 'wikitable'}):
         print("Destroying table")
         t.decompose()
-    #print("Soup Afterwards: " + str(soup))
+    # print("Soup Afterwards: " + str(soup))
+
 
 def has_unwanted_headers(header):
     unwanted_list = ['References', 'See also', 'Further reading']
@@ -391,6 +438,7 @@ def has_unwanted_headers(header):
             return True
     return False
 
+
 def has_wanted_text(text):
     wanted_list = ['Derived terms', 'Descendants', 'Pronunciation', 'Synonyms', 'Antonyms']
     for wanted in wanted_list:
@@ -398,8 +446,8 @@ def has_wanted_text(text):
             return True
     return False
 
-def get_derivations(soup, language, misc=False):
 
+def get_derivations(soup, language, misc=False):
     header_set = set()
 
     if "Wiktionary does not yet have an entry for " in str(soup):
@@ -410,7 +458,7 @@ def get_derivations(soup, language, misc=False):
     one_table_found = False
     language_header, _ = get_language_header_with_soup(soup, language)
     for sibling in language_header.next_siblings:
-        #print(f"Sibling: {sibling}")
+        # print(f"Sibling: {sibling}")
         if isinstance(sibling, Tag) and sibling.get_text().strip().replace("[edit]", "") in PARTS_OF_SPEECH:
             part_of_speech = sibling.get_text().strip().replace("[edit]", "")
             print("PART OF SPEECH: " + part_of_speech)
@@ -420,7 +468,7 @@ def get_derivations(soup, language, misc=False):
         if isinstance(sibling, Tag) and sibling.find_all('a', text="Latin correlatives"):
             print("FOUND CORRELATIVES")
             [a.decompose() for a in sibling.find_all('a', text="Latin correlatives")]
-            #print("Sibling at end: " + str(sibling))
+            # print("Sibling at end: " + str(sibling))
             break
         if isinstance(sibling, Tag) and sibling.has_attr('class') and sibling['class'] == "derivedterms":
             header = ""
@@ -438,13 +486,14 @@ def get_derivations(soup, language, misc=False):
                 derived_terms = '\n'.join(derived_terms)
             derivations.append(f"**{header}:**\n{derived_terms.replace('Derived terms', '')}")
         else:
-            if sibling.name in ['h3', 'h4', 'h5'] and sibling.get_text().strip().replace("[edit]", "") not in ['Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
+            if sibling.name in ['h3', 'h4', 'h5'] and sibling.get_text().strip().replace("[edit]", "") not in [
+                'Etymology', "Etymology 1" 'Pronunciation', "Conjugation"] + PARTS_OF_SPEECH:
                 header = sibling.get_text().replace("[edit]", "").strip()
                 if header.lower() in ["see also", "translations"]:
                     print("FOUND TRANSLATION")
                     header = ""
                     continue
-                #print("Sibling header: " + header)
+                # print("Sibling header: " + header)
 
                 if header in PARTS_OF_SPEECH:
                     part_of_speech = header.strip()
@@ -467,18 +516,18 @@ def get_derivations(soup, language, misc=False):
                                 if header == "References":
                                     deriv_terms.append(old_dictify(sub_subling))
                                 elif header == 'Descendants' or header == 'Derived terms':
-                                    #print(f"SubSubling: {sub_subling}")
-                                    #print(language)
+                                    # print(f"SubSubling: {sub_subling}")
+                                    # print(language)
                                     parsed_descendants = parse_descendants(sub_subling, language)
-                                    #print(f"FINAL: {parsed_descendants}")
+                                    # print(f"FINAL: {parsed_descendants}")
                                     deriv_terms.append(parsed_descendants.strip())
                                 else:
                                     deriv_terms.append(sub_subling.get_text().strip())
                             else:
-                                #print(sub_subling)
+                                # print(sub_subling)
                                 if part_of_speech in ["Noun", "Proper noun"
-                                                      #,"Pronoun", "Adjective", "Participle"
-                                                    ] \
+                                                      # ,"Pronoun", "Adjective", "Participle"
+                                                      ] \
                                         and language.lower() == 'latin':
                                     if not one_table_found:
                                         one_table_found = True
@@ -489,7 +538,7 @@ def get_derivations(soup, language, misc=False):
                                         deriv_terms.append("Table not found.")
                                         continue
                                     table_array = parse_table(table)
-                                    #print(table_array)
+                                    # print(table_array)
                                     deriv_terms.append(table_array)
                                 else:
                                     if "Table too large to print." not in deriv_terms:
@@ -500,6 +549,7 @@ def get_derivations(soup, language, misc=False):
                     deriv_terms.replace("Derived terms", "").strip()
                 derivations.append(f"**{header}:**\n{deriv_terms.strip()}")
     return '\n\n'.join(derivations).replace("Translations[edit]", "")
+
 
 def parse_descendants(ul, language, depth=0):
     ret_str = ""
@@ -526,8 +576,9 @@ def parse_descendants(ul, language, depth=0):
                     heading = heading[0].strip()
                 else:
                     heading = ""
-                entry = heading + ' '.join([span.get_text() for span in li.find_all('span', recursive=False)]).replace("( ", "(").replace(" )", ")").replace("“ ", "“").replace(" ”", "”")
-            #print(f"Depth: {depth}: {entry}")
+                entry = heading + ' '.join([span.get_text() for span in li.find_all('span', recursive=False)]).replace(
+                    "( ", "(").replace(" )", ")").replace("“ ", "“").replace(" ”", "”")
+            # print(f"Depth: {depth}: {entry}")
             ret_str += entry.replace("&lt;", "<") + '\n'
             if li.find_all('ul'):
                 print("Found nested list")
@@ -536,14 +587,17 @@ def parse_descendants(ul, language, depth=0):
     else:
         return ul.get_text().strip()
 
+
 def is_grammar_def(word):
     return any(w.lower() in GRAMMAR_KEYWORDS for w in word.lower().split())
+
 
 def get_latin_grammar_forms(no_macrons=False, tries=0):
     if tries > 10:
         return [None, None]
-    soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
-    #print(soup)
+    soup = BeautifulSoup(
+        requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Latin_non-lemma_forms").text)
+    # print(soup)
     language_header = None
     headword = None
     headword_forms = []
@@ -580,12 +634,14 @@ def get_latin_grammar_forms(no_macrons=False, tries=0):
     else:
         return [headword, headword_forms]
 
+
 def get_greek_grammar_forms(tries=0):
     if tries > 10:
         return [None, None]
-    soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Ancient_Greek_non-lemma_forms").text)
+    soup = BeautifulSoup(
+        requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/Ancient_Greek_non-lemma_forms").text)
 
-    #print(soup)
+    # print(soup)
     language_header = None
     headword = None
     headword_forms = []
@@ -618,24 +674,27 @@ def get_greek_grammar_forms(tries=0):
         return get_greek_grammar_forms(tries + 1)
     return [non_diacritic.strip(), headword_forms]
 
+
 def pretty(d, indent=0):
-   ret = ""
-   for key, value in d.items():
-      ret += ('\t' * indent + str(key))
-      if isinstance(value, dict):
-            n = pretty(value, indent+1)
+    ret = ""
+    for key, value in d.items():
+        ret += ('\t' * indent + str(key))
+        if isinstance(value, dict):
+            n = pretty(value, indent + 1)
             if n:
                 ret += n
 
-      else:
-          ret += '\t' * (indent+1) + str(value)
+        else:
+            ret += '\t' * (indent + 1) + str(value)
+
 
 def get_grammar_question(language, tries=0):
     if tries > 5:
         return [None, None]
     print(language)
-    soup = BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms").text)
-    #print(soup)
+    soup = BeautifulSoup(requests.get(
+        f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms").text)
+    # print(soup)
     print(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms")
     language_header = None
     headword = None
@@ -650,7 +709,7 @@ def get_grammar_question(language, tries=0):
         if h2.span and language.title() in [s.get_text().strip() for s in h2.find_all('span')]:
             if not language_header:
                 language_header = h2
-            #print("Language header: " + language_header.get_text())
+            # print("Language header: " + language_header.get_text())
             break
 
     for sibling in language_header.next_siblings:
@@ -678,33 +737,23 @@ def get_grammar_question(language, tries=0):
 def get_middle_chinese_only(soup, c):
     print("Middle Chinese only char: " + c)
 
-    #print("Middle Chinese soup: " + str(soup))
-    #matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
+    # print("Middle Chinese soup: " + str(soup))
+    # matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
     try:
-        middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
+        middle_chinese = \
+        soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
+            0].replace("/", "")
     except:
         try:
             c = tradify(c)
             soup = get_soup(c)
-            middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[0].replace("/", "")
+            middle_chinese = \
+            soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
+                0].replace("/", "")
         except:
             return "N/A"
     return middle_chinese
 
-def get_old_chinese_only_zhengchang(c, soup):
-    print("Old Chinese only char: " + c)
-    pronunciation = ""
-    try:
-        pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
-    except:
-        try:
-            c = tradify(c)
-            soup = get_soup(c)
-            pronunciation = re.findall(r"Shangfang\".*\"IPAchar\">/(.*?)/", str(soup))[0]
-        except:
-            traceback.print_exc()
-            return "N/A"
-    return pronunciation
 
 def get_language_header(word, language):
     soup = get_soup(word)
@@ -716,6 +765,7 @@ def get_language_header(word, language):
             return language_header, soup
     return None, soup
 
+
 def get_language_header_with_soup(soup, language):
     language_header = None
     for h2 in soup.find_all('h2'):
@@ -725,13 +775,15 @@ def get_language_header_with_soup(soup, language):
             return language_header, soup
     return None, soup
 
+
 def get_mandarin_pronunciation(soup):
     try:
         mandarin_pronunciation = soup.find_all('span', {'lang': 'cmn'}, recursive=True)[0].get_text()
     except:
         mandarin_pronunciation = soup.find_all(attrs={'class': 'Latn', 'lang': 'cmn'}, recursive=True)[0].get_text()
-    #mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
+    # mandarin_pronunciation = ''.join(re.findall(r"\(Pinyin\)\:\s*(.*?)\n", siblings))
     return mandarin_pronunciation
+
 
 def get_chinese_gloss(char):
     if char in baxter_sagart.reconstructions:
@@ -741,6 +793,7 @@ def get_chinese_gloss(char):
         return gloss
     else:
         return "gloss unavailable"
+
 
 def get_historical_chinese(char, tries=0):
     if tries > 1:
@@ -767,9 +820,10 @@ def get_historical_chinese(char, tries=0):
     except:
         return get_historical_chinese(tradify(char), tries + 1)
 
+
 def get_historical_chinese_word(word):
     language_header, soup = get_language_header(word, "Chinese")
-    #print(soup)
+    # print(soup)
     mandarin_word, mc_word, oc_bax_word, oc_zc_word = [], [], [], []
     for char in list(word):
         try:
@@ -791,22 +845,24 @@ def get_historical_chinese_word(word):
     pronunciation = '\n'.join([oc_pronunciation_bax, mc_pronunciation, mandarin_pronunciation])
     return pronunciation
 
+
 def get_wiktionary_glosses(soup):
-    gloss_table = soup.find_all('table', attrs={'style': "clear: right;margin: 1em;border-collapse: collapse;text-align: center"})
+    gloss_table = soup.find_all('table', attrs={
+        'style': "clear: right;margin: 1em;border-collapse: collapse;text-align: center"})
     gloss_list = []
     if gloss_table:
         gloss_table = gloss_table[0]
-        #ths = gloss_table.find_all('th', attrs={'style': "padding: 0.5em;border: 1px solid #aaa;background:#F5F5DC;font-weight: normal;font-size: 85%; width:60px"})
+        # ths = gloss_table.find_all('th', attrs={'style': "padding: 0.5em;border: 1px solid #aaa;background:#F5F5DC;font-weight: normal;font-size: 85%; width:60px"})
         char_row = gloss_table.find_all('tr')[1]
         gloss_row = gloss_table.find_all('tr')[0]
         ths = gloss_row.find_all('th')[1:]
-        chars = [td.get_text().replace('\n','') for td in char_row.find_all('td')]
+        chars = [td.get_text().replace('\n', '') for td in char_row.find_all('td')]
         print(f"WiktChars: {chars}")
         for th in ths:
             if th.find_all(attrs={'class': 'vsShow'}):
-                gloss_list.append(th.find_all(attrs={'class': 'vsShow'})[0].get_text().replace('\n',''))
+                gloss_list.append(th.find_all(attrs={'class': 'vsShow'})[0].get_text().replace('\n', ''))
             else:
-                gloss_list.append(th.get_text().replace('\n',''))
+                gloss_list.append(th.get_text().replace('\n', ''))
         print(print(f"WiktGloss: {gloss_list}"))
         if len(chars) == len(gloss_list):
             gloss_tuples = list(zip(chars, gloss_list))
@@ -816,8 +872,10 @@ def get_wiktionary_glosses(soup):
     else:
         return None
 
+
 def remove_duplicates(words):
     return list(dict.fromkeys(words).keys())
+
 
 def get_glyph_origin_multiple(soup, words):
     final = []
@@ -826,8 +884,9 @@ def get_glyph_origin_multiple(soup, words):
             continue
         char_soup = get_soup(c)
         print("Charlist mem: " + c)
-        final.append(f"**{i+1}.** {c}: {get_glyph_origin(char_soup, c)}")
+        final.append(f"**{i + 1}.** {c}: {get_glyph_origin(char_soup, c)}")
     return '\n\n'.join(final)
+
 
 def get_glyph_origin(soup, c, tries=0, tradified=False):
     if tries > 1:
@@ -835,9 +894,9 @@ def get_glyph_origin(soup, c, tries=0, tradified=False):
         return f"Shuowen explanation - {shuowen_explanation}"
     origin = []
     for h in soup.find_all('h3') + soup.find_all('h4'):
-        #print("H3: " + str(h3))
+        # print("H3: " + str(h3))
         if h.span and 'Glyph origin' in h.span.get_text():
-            #print("In glyph origin")
+            # print("In glyph origin")
             for sibling in h.next_siblings:
                 if sibling.name == 'p':
                     origin.append(sibling.get_text())
@@ -853,6 +912,7 @@ def get_glyph_origin(soup, c, tries=0, tradified=False):
     if tradified:
         return f"(Simplified form of {c}) - " + '\n'.join(origin).strip()
     return '\n'.join(origin).strip()
+
 
 mapping = {
     'Ā': 'A',
@@ -890,7 +950,8 @@ mapping = {
     'ῐ': 'ι',
     'Ῠ': 'Υ',
     'ῠ': 'υ'
-    }
+}
+
 
 def get_japanese_pronunciation(soup):
     tokyo_pronunciations = []
@@ -904,10 +965,12 @@ def get_japanese_pronunciation(soup):
         tokyo_pronunciations.append(pronunciation)
     return tokyo_pronunciations
 
+
 def remove_macrons(text):
     for key in mapping.keys():
         text = text.replace(key, mapping[key])
     return text
+
 
 def get_shuowen(c):
     unicode_pt = hex(ord(c))[2:]

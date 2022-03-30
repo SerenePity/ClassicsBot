@@ -1,4 +1,4 @@
-from cached_antique_chinese import baxter_sagart
+from chinese_reconstructions import baxter_sagart
 import re
 import my_wiktionary_parser
 from mafan import tradify
@@ -9,17 +9,19 @@ def get_old_chinese_from_wiktionary(char):
     soup = my_wiktionary_parser.get_soup(char)
     print(soup)
     try:
-        old_chinese = soup.find_all(attrs={"href": "https://en.wikipedia.org/wiki/Old_Chinese"})[0].findNextSibling("dl").get_text().replace("(Zhengzhang): ", "").replace("/", "")
+        old_chinese = soup.find_all(attrs={"href": "https://en.wikipedia.org/wiki/Old_Chinese"})[0].findNextSibling(
+            "dl").get_text().replace("(Zhengzhang): ", "").replace("/", "")
     except:
         traceback.print_exc()
         return char
     return old_chinese
 
+
 def is_chinese_char(texts):
     return re.search("[\u4e00-\u9FFF]", texts)
 
-def transliterate(text):
 
+def transliterate(text):
     ret_array = []
 
     for char in text:
@@ -42,8 +44,8 @@ def transliterate(text):
             ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
             ret_str = re.sub(r"\s*([:\";!?])", r"\1", ret_str)
     print(ret_str)
-    ret_str = ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "")\
-        .replace("*", "").replace("「", "\"").replace("」", "\"").replace(" \"", "\"").replace(" ,", ",")\
-        .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" ;", ";").replace(": \" ", ": \"")\
+    ret_str = ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "") \
+        .replace("*", "").replace("「", "\"").replace("」", "\"").replace(" \"", "\"").replace(" ,", ",") \
+        .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" ;", ";").replace(": \" ", ": \"") \
         .replace("[", "").replace("]", "").replace("<", "").replace(">", "")
     return ret_str

@@ -1,4 +1,4 @@
-from cached_antique_chinese import baxter_sagart
+from chinese_reconstructions import baxter_sagart
 import re
 import my_wiktionary_parser
 from mafan import tradify
