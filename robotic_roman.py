@@ -1540,7 +1540,7 @@ class RoboticRoman():
         char_id = str(random.randint(1, 9833))
         char_url = "http://www.shuowenjiezi.com/result4.php?id=" + char_id
         print(char_url)
-        soup = BeautifulSoup(requests.get(char_url).content)
+        soup = BeautifulSoup(requests.get(char_url).content, features="html.parser")
         # print(soup)
         explanation = soup.find('div', attrs={'class': 'chinese'})
         for div in explanation.find_all("a", {'class': 'isAnyDuanzhu'}):
