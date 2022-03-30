@@ -1,9 +1,10 @@
+import re
 import traceback
 
-from chinese_reconstructions import baxter_sagart
 from mafan import tradify
+
+from chinese_reconstructions import baxter_sagart
 from my_wiktionary_parser import get_soup
-import re
 
 
 def lookup_baxter_sagart(char):
@@ -34,9 +35,12 @@ def lookup_zhengchang(char):
 def output_baxter_sagart(char):
     r = lookup_baxter_sagart(char)
     defs = []
-    for mand, mc, oc, gloss in r:
-        defs.append(f'{oc} > {mc} > {mand}: {gloss}')
-    output = "\n".join(defs)
+    try:
+        for mand, mc, oc, gloss in r:
+            defs.append(f'{oc} > {mc} > {mand}: {gloss}')
+        output = "\n".join(defs)
+    except:
+        output = 'n/a'
     return (
         f'{char}\n'
         f'Baxter-Sagart:\n'
