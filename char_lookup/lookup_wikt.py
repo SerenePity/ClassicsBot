@@ -39,7 +39,7 @@ def output_baxter_sagart(char):
     output = "\n".join(defs)
     return (
         f'{char}\n'
-        f'Baxter=Sagart:\n'
+        f'Baxter-Sagart:\n'
         f'{output}'
     )
 
