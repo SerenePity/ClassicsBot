@@ -1,5 +1,6 @@
 discord
 beautifulsoup4
+chardet2==2.0.3
 lang_trans
 romanize3
 wiktionaryparser
