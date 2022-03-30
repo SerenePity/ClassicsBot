@@ -1,5 +1,5 @@
 discord
-beautifulsoup4==4.7.1
+beautifulsoup4
 lang_trans
 romanize3
 wiktionaryparser
