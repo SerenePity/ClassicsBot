@@ -1,17 +1,19 @@
-import requests
 from bs4 import BeautifulSoup
+import requests
 
 from bible_books_english_to_japanese import english_to_japanese
 
 
 def get_meiji_japanese_verses(book, verses):
     if "-" in verses:
-        chapter = verses.split(" ")[1].split(":")[0].strip()
+        chapter = verses.split(":")[0].strip()
         verse_range = verses.split(":")[1]
         begin = int(verse_range.split("-")[0])
         end = int(verse_range.split("-")[1])
+        passage = []
         for verse in range(begin, end):
-            return get_meiji_japanese_verse(book, chapter + ":" + verse)
+            passage.append(get_meiji_japanese_verse(book, chapter + ":" + str(verse)))
+        return "\n".join(passage)
     else:
         return get_meiji_japanese_verse(book, verses)
 

@@ -1,26 +1,24 @@
+import random
+import re
+import shlex
+import traceback
 
 import discord
-import romanize3
-import re
 from lang_trans.arabic import arabtex
-from char_lookup import lookup_wikt
+import romanize3
+from transliterate import translit
 
-import char_lookup.lookup_wikt
+from char_lookup import lookup_wikt
+import my_wiktionary_parser
+import robotic_roman
+from robotic_roman import QuoteContext, RoboticRoman
+import transliteration.coptic
 import transliteration.greek
 import transliteration.hebrew
-import transliteration.coptic
+import transliteration.korean
+import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.old_chinese
-import transliteration.mandarin
-import transliteration.korean
-from transliterate import translit
-import traceback
-import random
-import robotic_roman
-import shlex
-import my_wiktionary_parser
-from robotic_roman import RoboticRoman
-from robotic_roman import QuoteContext
 
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
@@ -34,10 +32,11 @@ DISCORD_CHAR_LIMIT = 2000
 
 
 class PlayerSession():
-
     """
     Class to simulate a player's game session
     """
+
+
     def __init__(self, player, answer, language, channel):
         self.player = player
         self.answer = answer
@@ -45,6 +44,7 @@ class PlayerSession():
         self.game_on = True
         self.language = language
         self.channel = channel
+
 
     def end_game(self):
         self.language = None
@@ -55,11 +55,13 @@ class PlayerSession():
 
 
 class Game():
-
     """
     Class to simulate a game, which can be of multiple types
     """
-    def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False, word_language='latin', hint=None, is_shuowen_game=False):
+
+
+    def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False,
+                 word_language='latin', hint=None, is_shuowen_game=False):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -69,13 +71,15 @@ class Game():
         self.exited_players = set()
         self.is_word_game = is_word_game
         self.is_grammar_game = is_grammar_game
-        self.is_shuowen_game =  is_shuowen_game
+        self.is_shuowen_game = is_shuowen_game
         self.word_language = word_language
         self.hint = hint
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
+
     def get_game_owner_sess(self):
         return self.players_dict[self.game_owner]
+
 
     def add_player(self, player):
         """
@@ -86,6 +90,7 @@ class Game():
         """
         self.players_dict[player] = PlayerSession(player, self.answer, self.language, self.channel)
 
+
     def get_player_sess(self, player):
         """
         Get the PlayerSession associated with the player
@@ -94,6 +99,7 @@ class Game():
         :return: the PlayerSession associated with player
         """
         return self.players_dict[player]
+
 
     def end_player_sess(self, player):
         """
@@ -107,17 +113,20 @@ class Game():
             self.players_dict[player].end_game()
         del self.players_dict[player]
 
+
     def no_players_left(self):
         """
         Check if there are no players left in the game
         """
         return all(not self.players_dict[player].game_on for player in self.players_dict)
 
+
     def get_hint(self):
         """
         Return an answer hint
         """
         return self.hint
+
 
     def end_game(self):
         """
@@ -134,10 +143,11 @@ class Game():
 
 
 class Scholasticus(discord.Client):
-
     """
     Represents a bot connection that connects to Discord. Inherits from the discord.Client class.
     """
+
+
     def __init__(self, prefix=""):
         super().__init__(command_prefix=prefix)
         self.robot = robot
@@ -168,6 +178,7 @@ class Scholasticus(discord.Client):
         channeldata = [d for d in data if d['id'] == channel.id][0]
         return channeldata['nsfw']
 
+
     async def on_ready(self):
         """
         Some methods to call when the bot has finished initializing
@@ -186,11 +197,13 @@ class Scholasticus(discord.Client):
             self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
 
+
     def sanitize_user_input(self, text):
         """
         Remove the ',', '!', ':', and ';' characters from a string
         """
-        return text.replace(',', '').replace('!', '').replace(':','').replace(';', '')
+        return text.replace(',', '').replace('!', '').replace(':', '').replace(';', '')
+
 
     def language_format(self, language):
         """
@@ -205,6 +218,7 @@ class Scholasticus(discord.Client):
         if language.lower().replace('_', ' ') == 'modern greek':
             return 'greek'
         return language
+
 
     async def process_guess(self, channel, player, content, word_game=False):
         """
@@ -232,7 +246,8 @@ class Scholasticus(discord.Client):
         game_answer = self.games[game_owner].answer.strip()
         print(f"Is wordgame {word_game}")
         print(f"Is grammargame {self.games[game_owner].is_grammar_game}")
-        formatted_answer = self.robot.format_name(game_answer) if not (word_game or self.games[game_owner].is_grammar_game) else game_answer.split('/')[-1]
+        formatted_answer = self.robot.format_name(game_answer) if not (
+                word_game or self.games[game_owner].is_grammar_game) else game_answer.split('/')[-1]
         if guess.lower() == game_answer.lower().split('/')[-1]:
             await channel.send(f"{player.mention}, correct! The answer is {formatted_answer}.")
             self.games[game_owner].end_game()
@@ -240,10 +255,12 @@ class Scholasticus(discord.Client):
         if self.games[game_owner].language in ['greek', 'latin']:
 
             if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors and guess != 'hint':
-                await channel.send("You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
+                await channel.send(
+                    "You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
                 return
             if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors and guess != 'hint':
-                await channel.send("You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
+                await channel.send(
+                    "You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
                 return
 
         self.games[game_owner].get_player_sess(player).tries += 1
@@ -253,29 +270,30 @@ class Scholasticus(discord.Client):
             if guess.strip().lower() == "hint" and self.games[game_owner].is_word_game:
                 etymology = self.robot.get_word_etymology(game_answer, self.games[game_owner].word_language).strip()
                 await channel.send(
-                                        f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
+                    f"{player.mention}, you've sacrificed a guess to get the following etymology of the word:\n\n{etymology}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif self.games[game_owner].is_shuowen_game:
                 hint = self.games[game_owner].get_hint()
                 await channel.send(
-                                        f"{player.mention}, you've sacrificed a guess to get the following Mandarin pinyin pronunciation of the word:\n\n{hint}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
+                    f"{player.mention}, you've sacrificed a guess to get the following Mandarin pinyin pronunciation of the word:\n\n{hint}\n\nYou now have have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
             elif not self.games[game_owner].is_word_game and guess.strip().lower() == "hint":
                 await channel.send("No hints.")
             else:
-                await channel.send(f"Wrong answer, {player.mention}, you have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
+                await channel.send(
+                    f"Wrong answer, {player.mention}, you have {guesses_remaining} {'guesses' if guesses_remaining > 1 else 'guess'} left.")
         else:
             self.games[game_owner].players_dict[player].end_game()
             if self.games[game_owner].no_players_left():
                 if len(self.games[game_owner].players_dict) == 1:
                     await channel.send(
-                                    f"Sorry, {player.mention}, you've run out of guesses. The answer was {formatted_answer}. Better luck next time!")
+                        f"Sorry, {player.mention}, you've run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 else:
                     await channel.send(
-                                      f"Everybody has run out of guesses. The answer was {formatted_answer}. Better luck next time!")
+                        f"Everybody has run out of guesses. The answer was {formatted_answer}. Better luck next time!")
                 self.end_game(game_owner)
-                #self.games[game_owner].end_game()
+                # self.games[game_owner].end_game()
             else:
                 await channel.send(
-                                        f"Sorry, {player.mention}, you've run out of guesses! Better luck next time!")
+                    f"Sorry, {player.mention}, you've run out of guesses! Better luck next time!")
                 self.games[game_owner].get_player_sess(player).end_game()
                 self.games[game_owner].exited_players.add(player)
                 del self.players_to_game_owners[player]
@@ -296,7 +314,7 @@ class Scholasticus(discord.Client):
         grammar_game_set = []
         is_word_game = False
         is_shuowen_game = False
-        #print(text_set)
+        # print(text_set)
         hint = None
         text_set = text_set.split('[')[0].strip()
         if game_owner in self.games and self.games[game_owner].game_on:
@@ -355,27 +373,31 @@ class Scholasticus(discord.Client):
             i, passage, _ = self.robot.random_quote(answer)
         elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
             is_grammar_game = True
-            #to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
+            # to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
             passage = "name the " + random.choice(grammar_game_set[1]).strip() + ' [definition: ' + answer_def + ']'
             passage = passage[0].lower() + passage[1:]
         else:
             if text_set != 'shuowen':
                 passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game, word_language=word_language, hint=hint, is_shuowen_game=is_shuowen_game)
+        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game,
+                                      word_language=word_language, hint=hint, is_shuowen_game=is_shuowen_game)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
         instruction = "\n\nType g <answer> to guess your answer. Type giveup to give up."
 
         if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang", "shuowen"]:
-            await channel.send(f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
+            await channel.send(
+                f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
         elif text_set == 'grammar':
             await channel.send(f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).{instruction}")
         elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
             await channel.send(f"{repeat_text}{game_owner.mention}, {passage}{instruction}")
         elif text_set == 'shuowen':
-            await channel.send(f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
+            await channel.send(
+                f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
         else:
-            await channel.send(f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
+            await channel.send(
+                f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
 
 
     def end_game(self, game_owner):
@@ -387,6 +409,7 @@ class Scholasticus(discord.Client):
             if player in self.players_to_game_owners:
                 del self.players_to_game_owners[player]
         del self.games[game_owner]
+
 
     def is_int(self, n):
         """
@@ -412,6 +435,7 @@ class Scholasticus(discord.Client):
         else:
             await channel.send(text)
 
+
     async def send_in_chunks_if_needed(self, channel, text, n=2000):
         """
         Send a message in chunks if it exceeds a certain length.
@@ -425,6 +449,7 @@ class Scholasticus(discord.Client):
                 await channel.send(chunk)
         else:
             await channel.send(text)
+
 
     def format_chapter_for_gibbon(self, chapter):
         """
@@ -450,23 +475,24 @@ class Scholasticus(discord.Client):
             if probationary_role in before.roles and probationary_role not in after.roles:
                 pm_channel = await self.start_private_message(after)
                 await self.send_message(pm_channel,
-                f"Welcome {after.mention} to the Latin server. In order to ensure an atmosphere agreeable to all, please be sure to observe the following rules:"
+                                        f"Welcome {after.mention} to the Latin server. In order to ensure an atmosphere agreeable to all, please be sure to observe the following rules:"
 
-                + "\n\n**I.** Treat others with respect at all times. Personal insults will not be tolerated. Tread carefully when discussing sensitive issues."
+                                        + "\n\n**I.** Treat others with respect at all times. Personal insults will not be tolerated. Tread carefully when discussing sensitive issues."
 
-                + "\n\n**II.** No slurs or hate speech. Do not hide hate speech under the pretense of humour. This is a place for people of all backgrounds."
+                                        + "\n\n**II.** No slurs or hate speech. Do not hide hate speech under the pretense of humour. This is a place for people of all backgrounds."
 
-                + "\n\n**III.** Keep images and text generally SFW. If you wouldn't show it to your Latin teacher, do not show it to us."
+                                        + "\n\n**III.** Keep images and text generally SFW. If you wouldn't show it to your Latin teacher, do not show it to us."
 
-                + "\n\n**IV.** No spam. Do not abuse pings."
+                                        + "\n\n**IV.** No spam. Do not abuse pings."
 
-                + "\n\nWe operate within a three-strikes system. You will be warned for your first three infractions, after which you will be automatically banned. In egregious cases, we may skip straight to the ban."
+                                        + "\n\nWe operate within a three-strikes system. You will be warned for your first three infractions, after which you will be automatically banned. In egregious cases, we may skip straight to the ban."
 
-                + "\n\nThe rules are enforced according to our discretion. Do not challenge a warning. If you're confused, you may contact an Imperator privately."
+                                        + "\n\nThe rules are enforced according to our discretion. Do not challenge a warning. If you're confused, you may contact an Imperator privately."
 
-                + "\n\n_If something in the chat concerns you, please ping the ***@Imperator*** role or message an Imperator directly._")
+                                        + "\n\n_If something in the chat concerns you, please ping the ***@Imperator*** role or message an Imperator directly._")
         except:
             traceback.print_exc()
+
 
     async def on_message(self, message):
         """
@@ -488,19 +514,21 @@ class Scholasticus(discord.Client):
         length greater than 15 characters.
         """
         if channel.id == POMERIUM_CHANNEL_ID:
-            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(content.split()) > POMERIUM_MESSAGE_THRESHOLD:
+            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(
+                    content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
                     pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
                     newlines = content.split('\n')
                     content_str = '\n'.join(['> ' + line for line in newlines])
-                    await pomerium_notifications_channel.send(f"New user {author.mention} has answered the Pomerium prompt:\n" +
-                                                              content_str)
+                    await pomerium_notifications_channel.send(
+                        f"New user {author.mention} has answered the Pomerium prompt:\n" +
+                        content_str)
                 except:
                     traceback.print_exc()
 
         if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
-            args = shlex.split(content.replace('“','"').replace('”','"').strip())
-            #(args)
+            args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
+            # (args)
             try:
                 if len(args) > 1:
                     language = re.search("([(\w_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
@@ -524,10 +552,11 @@ class Scholasticus(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(self.command_prefix + 'randomword'):
-            args = shlex.split(content.replace('“','"').replace('”','"').strip())
+        if content.lower().startswith(self.command_prefix + 'randword') or content.lower().startswith(
+                self.command_prefix + 'randomword'):
+            args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
             language = ""
-            
+
             try:
 
                 if len(args) == 1:
@@ -542,14 +571,14 @@ class Scholasticus(discord.Client):
                     await self.send_truncate(channel, entry)
                     return
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 if 'proto-' in language.lower():
                     url = f"https://en.wiktionary.org/wiki/{word}"
                 else:
                     url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await channel.send(f"The entry is too long. Here's the URL instead: {url}")
             except:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the word.")
                 return
 
@@ -557,7 +586,7 @@ class Scholasticus(discord.Client):
 
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_ety'):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
-            
+
             try:
                 if len(args) > 1:
                     language = re.search("([\w_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
@@ -571,26 +600,27 @@ class Scholasticus(discord.Client):
                 await self.send_truncate(channel, etymology)
                 return
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await channel.send(f"The entry is too long. Here's the URL instead: {url}")
             except:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the etymology.")
                 return
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_word'):
-            args = shlex.split(content.replace('“','"').replace('”','"').strip())
-            
+            args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
+
             try:
                 if len(args) > 1:
-                    language = re.search("([\w_\-]+?)_word", args[0].replace(':','').lower()).group(1).replace('_', ' ')
+                    language = re.search("([\w_\-]+?)_word", args[0].replace(':', '').lower()).group(1).replace('_',
+                                                                                                                ' ')
                     language = self.language_format(language)
                     word = ' '.join(args[1:])
-                    #print("Language: " + language)
-                    #print("word: " + word)
+                    # print("Language: " + language)
+                    # print("word: " + word)
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)
@@ -599,16 +629,15 @@ class Scholasticus(discord.Client):
                 await self.send_truncate(channel, entry)
                 return
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await channel.send(f"The entry is too long. Here's the URL instead: {url}")
             except:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the word entry.")
                 return
 
         if content.lower().startswith(self.command_prefix + 'listparallel'):
-            
             parallel_list = '\n'.join(self.robot.parallel_authors)
             await channel.send(parallel_list)
             return
@@ -626,7 +655,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latin_grammar'):
-            
+
             if "-m" in content.lower():
                 macrons = True
             else:
@@ -639,22 +668,23 @@ class Scholasticus(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar') or content.lower().startswith(self.command_prefix + 'greek_grammar'):
+        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar') or content.lower().startswith(
+                self.command_prefix + 'greek_grammar'):
             await self.start_game(channel, author, "greekgrammar", "greek", None)
             return
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'parallel'):
-            
+
             args = shlex.split(content.lower().strip())
             last_arg = args[-1].strip()
-            #print("last_arg " + last_arg)
+            # print("last_arg " + last_arg)
             try:
                 if self.is_int(last_arg):
-                    #print("Matched num")
+                    # print("Matched num")
                     person = ' '.join(args[1:-1])
-                    #print("PERSON: " + person)
+                    # print("PERSON: " + person)
                     await channel.send(self.robot.get_parallel_quote(person, int(last_arg) - 1))
                     return
                 else:
@@ -662,7 +692,7 @@ class Scholasticus(discord.Client):
                     await channel.send(self.robot.get_parallel_quote(person))
                     return
             except:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send("Error. I do not have parallel texts for this person.")
                 return
 
@@ -699,7 +729,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
-            
+
             args = shlex.split(content.lower())
             if len(args) > 1:
                 language = ' '.join(args[1:]).lower()
@@ -708,25 +738,26 @@ class Scholasticus(discord.Client):
                     for version in ret_list:
                         await channel.send(version)
                 except discord.errors.HTTPException:
-                    #traceback.print_exc()
+                    # traceback.print_exc()
                     await channel.send(f"The entry is too long. Here's the URL instead: {url}")
                 except:
-                    #traceback.print_exc()
-                    await channel.send("Invalid language. Type '>bibleversions' for get available versions for all languages.")
+                    # traceback.print_exc()
+                    await channel.send(
+                        "Invalid language. Type '>bibleversions' for get available versions for all languages.")
             else:
                 try:
                     await channel.send(self.robot.get_available_bible_versions())
                 except discord.errors.HTTPException:
-                    #traceback.print_exc()
+                    # traceback.print_exc()
                     await channel.send(f"Text is too long.")
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'tr '):
-            #if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
+            # if message.author.id == '506033040288645131' or message.server.id == '580907126499835925':
             #    await self.send_message(message.channel, "Long Live Great Kurdistan! Happyfeet is lame.")
             #   return
-            
+
             try:
                 tr_args = shlex.split(content)
             except:
@@ -771,26 +802,28 @@ class Scholasticus(discord.Client):
                 await self.send_in_chunks_if_needed(channel, transliterated)
                 return
             except Exception as e:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send(f"Error transliterating input.")
                 return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(self.command_prefix + 'txtend'):
-            
+        if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(
+                self.command_prefix + 'txtend'):
             qt_obj = self.quote_requestors[author]
             del qt_obj
             self.quote_requestors[author] = None
 
+
         # ==================================================================================================================================================
 
         def process_gibbon_footnots(self, file):
-            
+
             return [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
 
+
         if content.lower().startswith(self.command_prefix + 'pick'):
-            
+
             args = shlex.split(content.lower())
             if not args[0].lower() == 'pick':
                 return
@@ -845,7 +878,7 @@ class Scholasticus(discord.Client):
                 quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
             elif source.lower() == "mommsen":
                 if 'contents' in file.name:
-                    #print("In contents")
+                    # print("In contents")
                     quotes = self.robot.get_passage_list_for_file(file, lambda x: [x])
                     await channel.send(quotes[0])
                     return
@@ -859,24 +892,27 @@ class Scholasticus(discord.Client):
                 await channel.send(qt_obj.get_surrounding(after=1))
             except:
                 display, workslist = self.robot.show_author_works(source)
-                #print("WORKSLIST:")
-                #print(workslist)
-                if workslist[index-1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
+                # print("WORKSLIST:")
+                # print(workslist)
+                if workslist[index - 1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
                     qt_obj = QuoteContext(source,
-                                          [ q.rstrip('\n') for q in
-                                            RoboticRoman._process_absolute(open(workslist[index - 1].name, encoding='utf8').read())
-                                          ], 0, workslist)
+                                          [q.rstrip('\n') for q in
+                                           RoboticRoman._process_absolute(
+                                               open(workslist[index - 1].name, encoding='utf8').read())
+                                           ], 0, workslist)
                 else:
-                    qt_obj = QuoteContext(source, RoboticRoman._process_text(open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
+                    qt_obj = QuoteContext(source, RoboticRoman._process_text(
+                        open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 await channel.send(qt_obj.get_surrounding(after=1))
             return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(self.command_prefix + 'tstart'):
+        if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(
+                self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
-            
+
             if len(args) < 2:
                 await channel.send("You must provide an author or work.")
             else:
@@ -884,8 +920,8 @@ class Scholasticus(discord.Client):
                 if source not in self.authors_set:
                     source = "the " + source.strip().lower()
                 display, workslist = self.robot.show_author_works(source)
-                #print("Display: " + str(display))
-                #print("Workslist: " + str(workslist))
+                # print("Display: " + str(display))
+                # print("Workslist: " + str(workslist))
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
@@ -898,9 +934,9 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'ulfilas'):
-            
+
             qt_args = shlex.split(content)
-            #print(qt_args)
+            # print(qt_args)
             try:
                 if len(qt_args) > 1:
                     version = qt_args[1]
@@ -910,15 +946,15 @@ class Scholasticus(discord.Client):
                 await channel.send(translation)
 
             except Exception as e:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send("Error retrieving verse.")
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
-            
+
             qt_args = shlex.split(content)
-            #print(qt_args)
+            # print(qt_args)
             try:
                 if len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
@@ -926,7 +962,7 @@ class Scholasticus(discord.Client):
                     translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 2 and re.match(r"[0-9]+:[0-9]+", qt_args[2]):
                     verse = qt_args[1] + ' ' + qt_args[2]
-                    #print("Verse: " + verse)
+                    # print("Verse: " + verse)
                     versions = qt_args[3:]
                     translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 1:
@@ -938,11 +974,12 @@ class Scholasticus(discord.Client):
                 await channel.send(translation)
                 return
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send(f"Text is too long.")
             except Exception as e:
-                #traceback.print_exc()
-                await channel.send("Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
+                # traceback.print_exc()
+                await channel.send(
+                    "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
 
         # ==================================================================================================================================================
@@ -958,11 +995,11 @@ class Scholasticus(discord.Client):
                 self.quote_requestors[author] = qt_obj
                 await channel.send(quote)
             else:
-                
-                qt_args = shlex.split(content.replace('“','"').replace('”','"'))
+
+                qt_args = shlex.split(content.replace('“', '"').replace('”', '"'))
                 if qt_args[0].lower() != 'qt':
                     return
-                #print(qt_args)
+                # print(qt_args)
                 word = None
                 transliterate = False
                 lemmatize = False
@@ -1000,7 +1037,8 @@ class Scholasticus(discord.Client):
                                                     f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                             return
                         """
-                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize,
+                                                                            case_sensitive=case_sensitive)
                         _, works_list = self.robot.show_author_works(source)
                         qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
                         self.quote_requestors[author] = qt_obj
@@ -1015,7 +1053,8 @@ class Scholasticus(discord.Client):
                             await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
                             return
                         """
-                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize, case_sensitive=case_sensitive)
+                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize,
+                                                                            case_sensitive=case_sensitive)
                         quote = re.sub(r"([?!])\s*\.", r"\1", quote)
                         _, works_list = self.robot.show_author_works(source)
                         qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
@@ -1035,15 +1074,16 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().strip() == self.command_prefix + "whatchapter":
-            
-            #print("In whatchapter")
+
+            # print("In whatchapter")
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
             except:
                 await channel.send("You have not started reading anything yet.")
                 return
             if qt_obj.author != "gibbon":
-                await channel.send(f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
+                await channel.send(
+                    f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
                 return
             chapter = qt_obj.find_chapter_from_passage()
             if chapter == "Preface":
@@ -1055,7 +1095,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'fn'):
-            
+
             args = shlex.split(content.lower())
             if args[0].lower() != 'fn':
                 return
@@ -1063,7 +1103,8 @@ class Scholasticus(discord.Client):
                 try:
                     qt_obj: QuoteContext = self.quote_requestors[author]
                 except:
-                    await self.send_message("The current command form assumes that you are reading Gibbon and are trying to retrieve a footnote from a passage you have just read, but htis does not appear to be the case.")
+                    await self.send_message(
+                        "The current command form assumes that you are reading Gibbon and are trying to retrieve a footnote from a passage you have just read, but htis does not appear to be the case.")
                     return
                 chapter = qt_obj.find_chapter_from_passage()
                 try:
@@ -1110,7 +1151,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'next'):
-            
+
             args = shlex.split(content.lower())
             if args[0].lower() != 'next':
                 return
@@ -1122,7 +1163,8 @@ class Scholasticus(discord.Client):
                     await channel.send(f"You must pick a number greater than 0.")
                     return
                 if after > 5:
-                    await channel.send(f"You must pick a number less than 6 to remain within Discord's character limit.")
+                    await channel.send(
+                        f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
@@ -1132,17 +1174,20 @@ class Scholasticus(discord.Client):
                     await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(after=after, joiner=""))
                 elif qt_obj.author.lower() == 'the bible':
                     await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1",
-                                                            self.quote_requestors[author].get_surrounding(after=after)))
+                                                                        self.quote_requestors[author].get_surrounding(
+                                                                            after=after)))
                 else:
-                    #print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", self.quote_requestors[author].get_surrounding(after=after)))
+                    # print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1",
+                                                                        self.quote_requestors[author].get_surrounding(
+                                                                            after=after)))
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send(f"Text is too long.")
             return
 
         if content.lower().startswith(self.command_prefix + 'bef'):
-            
+
             args = shlex.split(content.lower())
             if args[0].lower() != 'bef':
                 return
@@ -1154,7 +1199,8 @@ class Scholasticus(discord.Client):
                     await channel.send(f"You must pick a number greater than 0.")
                     return
                 if before > 5:
-                    await channel.send(f"You must pick a number less than 6 to remain within Discord's character limit.")
+                    await channel.send(
+                        f"You must pick a number less than 6 to remain within Discord's character limit.")
                     return
             try:
                 qt_obj: QuoteContext = self.quote_requestors[author]
@@ -1163,16 +1209,17 @@ class Scholasticus(discord.Client):
                 elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
                     await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(before=before, joiner=""))
                 else:
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1", qt_obj.get_surrounding(before=before)))
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1",
+                                                                        qt_obj.get_surrounding(before=before)))
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send(f"Text is too long.")
             return
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'surr'):
-            
+
             args = shlex.split(content.lower())
             if args[0].lower() != 'surr':
                 return
@@ -1191,13 +1238,15 @@ class Scholasticus(discord.Client):
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
                     await self.send_in_chunks_if_needed(channel, surr_quotes)
                 elif qt_obj.author.lower() == 'the bible':
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1", qt_obj.get_surrounding(before=before, after=after)))
+                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1",
+                                                                        qt_obj.get_surrounding(before=before,
+                                                                                               after=after)))
                 else:
                     surr_quotes = qt_obj.get_surrounding(before=before, after=after)
                     surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)
                     await self.send_in_chunks_if_needed(channel, surr_quotes)
             except discord.errors.HTTPException:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 await channel.send(f"The passage is too long.")
             return
 
@@ -1231,21 +1280,23 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.strip().lower().startswith(self.command_prefix + "markov"):
-            
-            markov_args = shlex.split(content.replace('“','"').replace('”','"'))
-            #print(markov_args)
+
+            markov_args = shlex.split(content.replace('“', '"').replace('”', '"'))
+            # print(markov_args)
             try:
                 if (markov_args[1].strip() == '-t'):
                     author = ' '.join(markov_args[2:]).lower().strip()
-                    transliterated = transliteration.greek.transliterate(self.robot.make_sentence(author.lower())).replace(robotic_roman.ABSOLUTE_DELIMITER, "")
+                    transliterated = transliteration.greek.transliterate(
+                        self.robot.make_sentence(author.lower())).replace(robotic_roman.ABSOLUTE_DELIMITER, "")
                     await channel.send(transliterated)
                     return
                 else:
                     author = ' '.join(markov_args[1:]).strip().lower()
-                    await channel.send(self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
+                    await channel.send(
+                        self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
                     return
             except Exception as e:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 if not author:
                     await channel.send("No person provided")
                 else:
@@ -1254,12 +1305,12 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.strip().lower() in self.markov_commands:
-            
-            author = self.markov_commands[content.strip().lower().replace('“','"').replace('”','"')]
+
+            author = self.markov_commands[content.strip().lower().replace('“', '"').replace('”', '"')]
             try:
                 await channel.send(self.robot.make_sentence(author.lower()))
             except Exception as e:
-                #traceback.print_exc()
+                # traceback.print_exc()
                 if not author:
                     await channel.send("No person provided")
                 else:
@@ -1268,41 +1319,35 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'literaturequote'):
-            
             await channel.send(self.robot.pick_random_literature_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'historianquote'):
-            
             await channel.send(self.robot.pick_random_historians_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'philosopherquote'):
-            
             await channel.send(self.robot.pick_random_philosopher_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicquote'):
-            
             await channel.send(self.robot.pick_random_germanic_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'latinquote'):
-            
             await channel.send(self.robot.pick_random_latin_quote())
 
         # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'chinesequote'):
-            
             await channel.send(self.robot.pick_random_chinese_quote())
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
-            
+
             args = shlex.split(content.lower())
             transliterate = len(args) > 1 and args[1] == '-t'
             quote = self.robot.pick_greek_quote()
@@ -1313,7 +1358,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'comm '):
-            
+
             args = shlex.split(content.lower())
             if len(args) < 2:
                 await channel.send("No argument provided")
@@ -1328,45 +1373,45 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().strip() == self.command_prefix + 'helpme':
-            
+
             help = self.robot.commands
             ret = []
             for i in range(len(help)):
                 desc = help[i][0].strip()
-                self.command_dict[i+1] = command = help[i][1]
-                ret.append(f"**{i+1}.** {desc}")
+                self.command_dict[i + 1] = command = help[i][1]
+                ret.append(f"**{i + 1}.** {desc}")
             lines = list(RoboticRoman.chunks(ret, 5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
-            await channel.send('Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
+            await channel.send(
+                'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'germanicauthors'):
-            
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
+            await channel.send('```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
+            await channel.send('```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
-            
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
+            await channel.send('```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernphilosophers'):
-            
-            await channel.send('```yaml\n' + ', '.join([self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
+            await channel.send('```yaml\n' + ', '.join(
+                [self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'modernhistorians'):
-            
             await channel.send('```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.historians_quotes_dict.keys())]) + '```')
 
@@ -1396,7 +1441,7 @@ class Scholasticus(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'wordgame'):
-            args = shlex.split(content.lower().replace('“','"').replace('”','"'))
+            args = shlex.split(content.lower().replace('“', '"').replace('”', '"'))
             if len(args) > 1:
                 language = ' '.join(args[1:]).strip()
                 language = self.language_format(language)
@@ -1442,7 +1487,8 @@ class Scholasticus(discord.Client):
                     formatted = self.robot.format_name(game.answer)
                 del self.players_to_game_owners[author]
                 if game.no_players_left():
-                    await channel.send(f"{author.mention} has left the game. There are no players left. The answer was {formatted}.")
+                    await channel.send(
+                        f"{author.mention} has left the game. There are no players left. The answer was {formatted}.")
                     self.end_game(game_owner)
                 else:
                     await channel.send(f"{author.mention} has left the game.")
@@ -1450,14 +1496,15 @@ class Scholasticus(discord.Client):
 
         # ==================================================================================================================================================
 
-        if author in self.players_to_game_owners :
+        if author in self.players_to_game_owners:
             game_owner = self.players_to_game_owners[author]
             game = self.games[game_owner]
             response_content = content.lower().strip()
             if game.game_on and response_content in self.authors_set and channel == game.channel:
                 if game.players_dict[author].game_on and game.players_dict[author].tries < MAX_TRIES:
                     await self.process_guess(channel, author, content)
-            elif game.game_on and channel == game.channel and response_content.startswith('g ') or response_content.startswith('guess '):
+            elif game.game_on and channel == game.channel and response_content.startswith(
+                    'g ') or response_content.startswith('guess '):
                 args = shlex.split(response_content)
                 if len(args) < 2:
                     await channel.send("Please guess a word.")
@@ -1484,7 +1531,7 @@ class Scholasticus(discord.Client):
             if '@' not in args[1]:
                 return
 
-            if len(message.mentions) > 0 :
+            if len(message.mentions) > 0:
                 game_owner = message.mentions[0]
                 if game_owner == author:
                     await channel.send("You cannot join your own game!")
@@ -1503,7 +1550,7 @@ class Scholasticus(discord.Client):
                     channel.send(f"{author.mention}, you attempted to join a game that doesn't exist.")
             else:
                 await channel.send(
-                                        f"{author.mention}, please specify the name of the player whose game you want to join.")
+                    f"{author.mention}, please specify the name of the player whose game you want to join.")
 
         # ==================================================================================================================================================
 
@@ -1516,7 +1563,7 @@ class Scholasticus(discord.Client):
             else:
                 await channel.send("You did not enter a character.")
 
-# ==================================================================================================================================================
+        # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'lookup'):
             args = shlex.split(content)
             source = args[1]

@@ -9,3 +9,4 @@ mafan
 roman
 hangul-romanize
 requests
+yitizi

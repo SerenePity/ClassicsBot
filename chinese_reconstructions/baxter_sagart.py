@@ -77,7 +77,6 @@ punctuation = {
 }
 
 def get_historical_chinese(char):
-    print(f"character: {char}")
     if char in punctuation:
         converted = punctuation[char]
         return converted, converted, converted, converted
