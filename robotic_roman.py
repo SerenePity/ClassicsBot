@@ -896,8 +896,6 @@ class RoboticRoman():
         :return: the passage from the given version of the Bible covered by the input verses
         """
 
-        book = verse.split(" ")[0]
-        verse_numbers = verse.split(" ")[1]
         middle_chinese = False
         old_chinese = False
         translit = False
@@ -913,6 +911,14 @@ class RoboticRoman():
             translit = False
             old_chinese = True
         verse = verse.title()
+        print(verse)
+        if len(verse.split(" ")) == 3:
+            book = " ".join(verse.split()[:2])
+            verse_numbers = verse.split(2)
+        else:
+            book = verse.split(" ")[0]
+            verse_numbers = verse.split(" ")[1]
+        print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
                 return get_meiji_japanese_verses(book.lower(), verse_numbers)
@@ -1023,6 +1029,7 @@ class RoboticRoman():
         else:
             verse = self.get_random_verse()
         try:
+            print(f"Verse: {verse}, versions: {versions}")
             translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in versions]
             if "Not found" in ' '.join([t.split(' - ')[1].strip() for t in translations]):
                 verse = self.get_random_verse_by_testament("nt")
