@@ -15,8 +15,9 @@ def get_middle_chinese_from_wiktionary(char):
         return get_middle_chinese_from_wiktionary(regular_form)
     try:
         middle_chinese = \
-        soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
-            0].replace("/", "")
+            soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
+                0] \
+                .replace("/", "")
     except:
         return char
     return middle_chinese
