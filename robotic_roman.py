@@ -1,37 +1,37 @@
+import json
+import os
+import random
+import re
+import string
+import traceback
 import unicodedata
+import urllib.parse
 from functools import reduce
 
+import requests
+import romanize3
 from bs4 import BeautifulSoup, Tag
+from lang_trans.arabic import arabtex
+from mafan import tradify
+from transliterate import translit
 from wiktionaryparser import WiktionaryParser
-from latin_word_picker import word_picker
-import my_wiktionary_parser
+
 import bible_versions
+import my_wiktionary_parser
 import old_english_bible.john
 import old_english_bible.luke
 import old_english_bible.mark
 import old_english_bible.matthew
-import romanize3
-from lang_trans.arabic import arabtex
 import transliteration.coptic
-import transliteration.latin_antique
 import transliteration.greek
 import transliteration.hebrew
+import transliteration.korean
+import transliteration.latin_antique
 import transliteration.mandarin
 import transliteration.middle_chinese
-import transliteration.korean
-from mafan import tradify
-from transliterate import translit
-import traceback
-import requests
-import json
-import random
-import os
-import re
-import string
-import urllib.parse
-import roman
-from get_cc_passage import get_cc_verse
-from english_to_cc import english_to_cc
+from classical_chinese_bible import get_cc_verses
+from latin_word_picker import word_picker
+from meiji_japanese_bible import get_meiji_japanese_verses
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -878,9 +878,15 @@ class RoboticRoman():
             translit = True
             middle_chinese = True
         verse = verse.title()
+        if version.strip().lower() == 'meiji':
+            try:
+                return get_meiji_japanese_verses(book.lower(), verse_numbers)
+            except:
+                traceback.print_exc()
+                return "Not found"
         if version.strip().lower() == 'cc':
             try:
-                return self.get_cc_verses(book.lower(), verse_numbers, translit)
+                return get_cc_verses(book.lower(), verse_numbers, translit)
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -916,31 +922,6 @@ class RoboticRoman():
             passage = "Not found"
         return passage.strip().replace("Read full chapter", "").replace("\n", " ")
 
-    def get_cc_verses(self, book, verses, translit):
-        chapter = verses.split(":")[0]
-        if '-' in verses:
-            verses_in_chapter = verses.split(":")[1].split(" ")[0]
-            verses_start = int(verses_in_chapter.split("-")[0])
-            verses_end = int(verses_in_chapter.split("-")[1])
-            retrieved_verses = []
-            for i in range(verses_start, verses_end + 1):
-                retrieved_verses.append(self.get_cc_verse(book, f"{chapter}:{i}", translit))
-            return "\n".join(retrieved_verses)
-        else:
-            return self.get_cc_verse(book, verses, translit)
-
-    def get_cc_verse(self, book, verse, translit):
-        chinese_book = english_to_cc[book.lower()]
-        url = f"https://zh.wikisource.org/wiki/%E8%81%96%E7%B6%93_(%E6%96%87%E7%90%86%E5%92%8C%E5%90%88)/{chinese_book}"
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, "html.parser")
-        passage = soup.find('span', {"id": verse}).parent.text
-        if translit:
-            return self.remove_digits(transliteration.mandarin.transliterate(passage).replace("  ", " ").strip())
-        return self.remove_digits(passage).strip()
-
-    def remove_digits(self, s):
-        return ''.join([i for i in s if not i.isdigit()])
 
     def get_random_verse_by_testament(self, testament):
         """

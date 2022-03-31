@@ -1,6 +1,7 @@
 import requests
-from bs4 import BeautifulSoup, Tag
-from english_to_cc import english_to_cc
+from bs4 import BeautifulSoup
+
+from bible_books_english_to_cc import english_to_cc
 
 
 def get_cc_verses(book, verses, translit=False):
@@ -9,11 +10,11 @@ def get_cc_verses(book, verses, translit=False):
         verse_range = verses.split(":")[1]
         begin = int(verse_range.split("-")[0])
         end = int(verse_range.split("-")[1])
-        end = int(verse_range.split("-")[1])
         for verse in range(begin, end):
             return get_cc_verse(book, chapter + ":" + verse)
     else:
         return get_cc_verse(book, verses, translit)
+
 
 def get_cc_verse(book, verse, translit=False):
     chinese_book = english_to_cc[book.lower()]
@@ -23,8 +24,10 @@ def get_cc_verse(book, verse, translit=False):
 
     def remove_digits(s):
         return ''.join([i for i in s if not i.isdigit()])
+
     passage = soup.find('span', {"id": verse}).parent.text
 
     return remove_digits(passage).strip()
 
 
+print(get_cc_verses('genesis', '1:1'))
