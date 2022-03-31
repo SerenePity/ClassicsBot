@@ -42,7 +42,6 @@ def transliterate(text):
         else:
             ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
             ret_str = re.sub(r"\s*([:,\.\";!?])", r"\1", ret_str)
-    print(ret_str)
     return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"").replace(
         "」", "\""
         ).replace(" \"", "\"") \

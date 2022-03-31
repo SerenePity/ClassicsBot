@@ -1,13 +1,19 @@
-from chinese_reconstructions import baxter_sagart
 import re
-import my_wiktionary_parser
-from mafan import tradify
 import traceback
+
+from mafan import tradify
+
+from chinese_reconstructions import baxter_sagart
+import my_wiktionary_parser
 
 
 def get_old_chinese_from_wiktionary(char):
     soup = my_wiktionary_parser.get_soup(char)
-    print(soup)
+    if 'is  a variant' in soup.text:
+        soup_bytes = str(soup).encode('utf-8')
+        regular_form_pattern = re.compile(r"<i>a variant.*form of <span.*?>(.?)</span>")
+        regular_form = re.search(regular_form_pattern, soup_bytes.decode('utf-8')).group(1)
+        return get_old_chinese_from_wiktionary(regular_form)
     try:
         old_chinese = soup.find_all(attrs={"href": "https://en.wikipedia.org/wiki/Old_Chinese"})[0].findNextSibling(
             "dl").get_text().replace("(Zhengzhang): ", "").replace("/", "")
@@ -43,7 +49,6 @@ def transliterate(text):
         else:
             ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
             ret_str = re.sub(r"\s*([:\";!?])", r"\1", ret_str)
-    print(ret_str)
     ret_str = ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "") \
         .replace("*", "").replace("「", "\"").replace("」", "\"").replace(" \"", "\"").replace(" ,", ",") \
         .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" ;", ";").replace(": \" ", ": \"") \

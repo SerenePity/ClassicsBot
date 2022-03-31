@@ -1,12 +1,13 @@
 # coding=utf8
 import pprint
-from chinese_reconstructions import baxter_sagart
-
-import requests
 import re
-from mafan import tradify
-from bs4 import BeautifulSoup, NavigableString, Tag
 import traceback
+
+from bs4 import BeautifulSoup, NavigableString, Tag
+from mafan import tradify
+import requests
+
+from chinese_reconstructions import baxter_sagart
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -14,7 +15,7 @@ PARTS_OF_SPEECH = [
     "Letter", "Character", "Phrase", "Proverb", "Particle", "Idiom", "Participle",
     "Symbol", "Syllable", "Numeral", "Initialism", "Interjection",
     "Definitions", "Pronoun", "Prefix", "Suffix", "Infix", "Root"
-]
+    ]
 
 GRAMMAR_KEYWORDS = {'first-person', 'second-person', 'third-person', 'singular', 'plural', 'nominative', 'accusative',
                     'genitive',
@@ -328,7 +329,6 @@ def get_definitions(soup, language, include_examples=True):
 
 
 def get_soup(word):
-    print(f"https://en.wiktionary.org/wiki/{word}")
     return BeautifulSoup(requests.get(f"https://en.wiktionary.org/wiki/{word}").text.replace("<!-->", ""),
                          features="html.parser")
 

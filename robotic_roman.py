@@ -898,15 +898,20 @@ class RoboticRoman():
 
         book = verse.split(" ")[0]
         verse_numbers = verse.split(" ")[1]
-        translit = False
         middle_chinese = False
+        old_chinese = False
+        translit = False
         if version[0] == '$':
             version = ''.join(version[1:])
             translit = True
         if version[0] == '#':
             version = ''.join(version[1:])
-            translit = True
+            translit = False
             middle_chinese = True
+        if version[0] == '&':
+            version = ''.join(version[1:])
+            translit = False
+            old_chinese = True
         verse = verse.title()
         if version.strip().lower() == 'meiji':
             try:
@@ -916,7 +921,7 @@ class RoboticRoman():
                 return "Not found"
         if version.strip().lower() == 'cc':
             try:
-                return get_cc_verses(book.lower(), verse_numbers, translit)
+                return get_cc_verses(book.lower(), verse_numbers, translit, middle_chinese, old_chinese)
             except:
                 traceback.print_exc()
                 return "Not found"
