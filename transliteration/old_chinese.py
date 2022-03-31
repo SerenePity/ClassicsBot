@@ -16,7 +16,7 @@ def get_old_chinese_from_wiktionary(char):
         return get_old_chinese_from_wiktionary(regular_form)
     try:
         old_chinese = soup.find_all(attrs={"href": "https://en.wikipedia.org/wiki/Old_Chinese"})[0].findNextSibling(
-            "dl").get_text().replace("(Zhengzhang): ", "").replace("/", "")
+            "dl").get_text().replace("(Zhengzhang): ", "").replace("(Baxter–Sagart): ", "").replace("/", "")
     except:
         traceback.print_exc()
         return char
