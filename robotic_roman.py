@@ -103,7 +103,8 @@ ABSOLUTE_DELIMITER = "‰"
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
 
 # List of Bible versions in all languages
-GETBIBLE_VERSIONS = {'aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian', 'westernarmenian',
+GETBIBLE_VERSIONS = {'aov', 'albanian', "vulgate", 'amharic', 'hsab', 'arabicsv', 'peshitta', 'easternarmenian',
+                     'westernarmenian',
                      'basque', 'breton', 'bulgarian1940', 'chamorro', 'cns', 'cnt', 'cus', 'cut', 'bohairic', 'coptic',
                      'sahidic', 'croatia', 'bkr', 'cep', 'kms', 'nkb', 'danish', 'statenvertaling', 'kjv', 'akjv',
                      'asv', 'basicenglish', 'douayrheims', 'wb', 'weymouth', 'web', 'ylt', 'esperanto', 'estonian',
@@ -120,6 +121,7 @@ GETBIBLE_VERSIONS = {'aov', 'albanian', 'amharic', 'hsab', 'arabicsv', 'peshitta
 # The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my parallel Bible text module
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
+LATIN = ["vulgate", "newvulgates"]
 HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
 ARABIC = ['arabicsv', 'nav', 'erv-ar']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
@@ -258,12 +260,15 @@ class RoboticRoman():
 
         self.commands = [(format_color("Get random quote by author ", "CSS"),
                           f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
+                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' \
+                          will search by word lemma rather than regex."),
                          (format_color("List available Latin authors ", "CSS"), f"'{prefix}latinauthors'"),
                          (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
                          (format_color("Transliterate input ", "CSS"),
                           f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
+                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, oc -> Old Chinese, mc -> \
+                          Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> \
+                          Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
                          (format_color("List Greek authors ", "CSS"), f"'{prefix}greekauthors'"),
                          (format_color("List Chinese authors ", "CSS"), f"'{prefix}chineseauthors'"),
                          (format_color("Retrieve random Greek quote ", "CSS"), f"'{prefix}greekquote'"),
@@ -451,7 +456,8 @@ class RoboticRoman():
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
             return_str = re.sub(r"(?<!\*)\*(?!\*)", "\\*",
-                                f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
+                                f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}"
+                                f"\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
         elif language.lower() == 'chinese':
             # print("WORD: " + word)
             gloss_section = ""
@@ -466,9 +472,11 @@ class RoboticRoman():
                 glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, word)
             if not glyph_origin:
                 glyph_origin = "Not found."
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
+                         f"**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
 
-        return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}"
+        return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
+                     f"**Etymology:**\n{etymology.strip()}"
         # print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
         double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
@@ -800,7 +808,7 @@ class RoboticRoman():
         return "Not found"
 
 
-    def get_bible_verse_by_api(self, verse, version='kjv'):
+    def get_bible_verse_by_api(self, book_and_verse, version='kjv'):
         """
         Get a Bible verse using the getbible.net API
 
@@ -809,31 +817,38 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
-        url = f"https://getbible.net/json?passage={verse}&version={version}"
-        book = int(verse.split(':')[0].split()[-1])
-        chapters = verse.split(':')[1]
-        if '-' in chapters:
-            begin = int(chapters.replace(' ', '').split('-')[0])
-            end = int(chapters.replace(' ', '').split('-')[1])
-            chapters = [str(i) for i in range(begin, end + 1)]
-        else:
-            chapters = [chapters]
+
+        print(f"Getting {book_and_verse} in {version} from API")
+        url = f"https://getbible.net/json?passage={book_and_verse}&version={version}"
         response = requests.get(url).text.replace(');', '').replace('(', '')
         content = json.loads(response)
-        if "NULL" in response:
+        if not content:
             raise Exception(f'No content found in ${url}')
         verses = []
+        verse_range = None
+        if len(book_and_verse.split()) == 2:
+            verse_range = book_and_verse.split()[1].split(":")[1]
+        elif len(book_and_verse.split()) == 3:
+            verse_range = book_and_verse.split()[2].split(":")[1]
+        if '-' in verse_range:
+            begin = int(verse_range.split('-')[0])
+            end = int(verse_range.split('-')[1]) + 1
+        else:
+            begin = int(verse_range)
+            end = int(verse_range) + 1
+        verse_range = range(begin, end)
         try:
-            for chapter in chapters:
-                verses.append(content['book'][0]['chapter'][chapter]['verse'].replace('\n', ''))
+            for verse_nr in verse_range:
+                verses.append(
+                    content['book'][0]['chapter'][str(verse_nr)]["verse"].replace('\n', '').replace(' ;', ';').replace(
+                        ' :', ':').replace(' ?', '?'))
             passage = '\n'.join(verses)
         except:
             passage = "Not found"
             traceback.print_exc()
-        if version.strip().lower() == 'gothic':
-            passage = re.sub(r"\[\w+\]\s", '', passage)
         if not passage or len(passage.strip()) == 0:
             passage = "Not found"
+        print(f"Passage from API: {passage}")
         return passage
 
 
@@ -846,10 +861,11 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
+        print(f"Getting {version} from Gateway")
         url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
         response = requests.get(url)
         try:
-            soup = BeautifulSoup(response.text)
+            soup = BeautifulSoup(response.text, features="html.parser")
             passage = soup.find('div', {'class': 'result-text-style-normal'})
             if passage.h1:
                 passage.h1.extract()
@@ -863,14 +879,12 @@ class RoboticRoman():
             footnotes = passage.find('div', {'class': 'footnotes'})
             if footnotes:
                 passage.find('div', {'class': 'footnotes'}).extract()
-            passage = passage.get_text()
-            passage = re.sub(r"^\s*[0-9]+\s*", "", passage)
-            passage = re.sub(r"\s*[0-9]+\s*", "\n", passage)
-            passage = re.sub(r"[\s]{2,}", "\n", passage)
-            passage = re.sub(r"[0-9]+(\w)", "\1", passage)
+            passage = passage.get_text().replace("  ", "")
+            print(passage)
+            verses = re.split(r'\d+\s', passage)[1:]
+            return "\n".join(verses)
         except:
-            passage = "Not found"
-        return passage.replace('\t', ' ')
+            return "Not found"
 
 
     def get_wycliffe_verse(self, verse):
@@ -895,7 +909,8 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
-
+        passage = "Not found"
+        print(f"bibleversion: {version}")
         middle_chinese = False
         old_chinese = False
         translit = False
@@ -911,14 +926,12 @@ class RoboticRoman():
             translit = False
             old_chinese = True
         verse = verse.title()
-        print(verse)
         if len(verse.split(" ")) == 3:
             book = " ".join(verse.split()[:2])
             verse_numbers = verse.split(2)
         else:
             book = verse.split(" ")[0]
             verse_numbers = verse.split(" ")[1]
-        print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
                 return get_meiji_japanese_verses(book.lower(), verse_numbers)
@@ -945,23 +958,20 @@ class RoboticRoman():
                 return "Not found"
         try:
             if version.strip().lower() in GETBIBLE_VERSIONS:
-                try:
-                    passage = self.get_bible_verse_by_api(verse, version)
-                except:
-                    passage = 'Not found'
+                passage = self.get_bible_verse_by_api(verse, version)
                 if passage == 'Not found':
                     try:
+                        print(f"API for {version} failed, trying Gateway")
                         passage = self.get_bible_verse_from_gateway(verse, version)
+                        return passage
                     except:
                         passage = "Not found"
-            else:
-                passage = self.get_bible_verse_from_gateway(verse, version)
             if translit:
                 passage = self.transliterate_verse(version, passage, middle_chinese)
         except:
             traceback.print_exc()
             passage = "Not found"
-        return passage.strip().replace("Read full chapter", "").replace("\n", " ")
+        return passage.replace("Read full chapter", "")
 
 
     def get_random_verse_by_testament(self, testament):
@@ -1091,8 +1101,6 @@ class RoboticRoman():
             text = translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
             text = translit(text, 'ka', reversed=True).replace('ჲ', 'y')
-        if version == "uncial":
-            text = transliteration.latin_antique(text)
         if version in KOREAN:
             text = transliteration.korean.transliterate(text)
         if version in CHINESE:
