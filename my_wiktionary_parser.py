@@ -1,5 +1,4 @@
 # coding=utf8
-import pprint
 import re
 import traceback
 
@@ -112,7 +111,6 @@ def parse_table(table: Tag):
                 longest_word_length = length
     print("Longest length: " + str(longest_word_length))
     longest_word_length += 1
-    pprint.pprint(table_array)
     max_word_in_col_dict = dict()
     for i, row in enumerate(table_array):
         for j in range(len(row)):
@@ -863,7 +861,6 @@ def get_wiktionary_glosses(soup):
                 gloss_list.append(th.find_all(attrs={'class': 'vsShow'})[0].get_text().replace('\n', ''))
             else:
                 gloss_list.append(th.get_text().replace('\n', ''))
-        print(print(f"WiktGloss: {gloss_list}"))
         if len(chars) == len(gloss_list):
             gloss_tuples = list(zip(chars, gloss_list))
             return '\n'.join([f"{c}: {g}" for c, g in gloss_tuples])
@@ -957,10 +954,7 @@ def get_japanese_pronunciation(soup):
     tokyo_pronunciations = []
     tokyo_dialect = soup.find_all(attrs={"title": "w:Tokyo dialect"})
     for pronunciation in tokyo_dialect:
-        print(pronunciation)
-        print(pronunciation.parent)
         surrounding = pronunciation.parent.parent
-        print(surrounding)
         pronunciation = surrounding.find_all('samp', recursive=True)[0].get_text()
         tokyo_pronunciations.append(pronunciation)
     return tokyo_pronunciations

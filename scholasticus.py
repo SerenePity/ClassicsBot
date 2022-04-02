@@ -953,6 +953,10 @@ class Scholasticus(discord.Client):
 
             qt_args = shlex.split(content)
             try:
+                if qt_args[1].lower() == "song of songs" or " ".join(qt_args[:3]).lower() == "song of songs":
+                    verse = f"song of songs {qt_args[3]}"
+                    versions = qt_args[4:]
+                    translation = self.robot.bible_compare(verse, versions)
                 if len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
                     versions = qt_args[4:]
