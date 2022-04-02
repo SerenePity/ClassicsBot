@@ -121,4 +121,4 @@ def transliterate(text):
         array = tit_tat.split()
         mod_array = ''.join(test_each(array))
         verses.append(mod_array)
-    return "".join(verses)
+    return "\n".join(verses)
