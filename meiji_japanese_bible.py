@@ -1,3 +1,5 @@
+import re
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -14,9 +16,7 @@ def get_meiji_japanese_verses(book, verses):
         print(f"Book: {book}, Chapter: {chapter}, Begin: {begin}, End: {end}")
         for verse in range(begin, end):
             passage.append(get_meiji_japanese_verse(book, chapter + ":" + str(verse)))
-        return "\n".join(passage)
-    else:
-        return get_meiji_japanese_verse(book, verses)
+        return re.sub(r"^\n", "", "\n".join(passage))
 
 
 def remove_digits(s):

@@ -187,7 +187,7 @@ def get_etymology(language_header, language, word):
             etymology = []
             if isinstance(sibling.findNextSibling('div'),
                           Tag) and 'This entry lacks etymological information.' in sibling.findNextSibling(
-                    'div').get_text():
+                'div').get_text():
                 return "Not found."
             try:
                 print(f"Next sibling: {sibling.nextSibling.nextSibling}")
@@ -739,15 +739,16 @@ def get_middle_chinese_only(soup, c):
     # matcher = r"title=\"w:Middle Chinese\">Middle Chinese</a>: <span style=\"font-size:[0-9]+%\"><span class=\"IPA\">/(.*?)/</span>"
     try:
         middle_chinese = \
-        soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
-            0].replace("/", "")
+            soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
+                0].replace("/", "")
     except:
         try:
             c = tradify(c)
             soup = get_soup(c)
             middle_chinese = \
-            soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
-                0].replace("/", "")
+                soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(
+                    ",")[
+                    0].replace("/", "")
         except:
             return "N/A"
     return middle_chinese
@@ -912,42 +913,42 @@ def get_glyph_origin(soup, c, tries=0, tradified=False):
 
 
 mapping = {
-    'Ā': 'A',
-    'Ē': 'E',
-    'Ī': 'I',
-    'Ō': 'O',
-    'Ū': 'U',
-    'Ȳ': 'Y',
-    'ā': 'a',
-    'ē': 'e',
-    'ī': 'i',
-    'ō': 'o',
-    'ū': 'u',
-    'ȳ': 'y',
-    'Ă': 'A',
-    'Ĕ': 'E',
-    'Ĭ': 'I',
-    'Ŏ': 'O',
-    'Ŭ': 'U',
-    'ă': 'a',
-    'ĕ': 'e',
-    'ĭ': 'i',
-    'ŏ': 'o',
-    'ŭ': 'u',
-    'Ᾱ': 'Α',
-    'ᾱ': 'α',
+    'Ā':  'A',
+    'Ē':  'E',
+    'Ī':  'I',
+    'Ō':  'O',
+    'Ū':  'U',
+    'Ȳ':  'Y',
+    'ā':  'a',
+    'ē':  'e',
+    'ī':  'i',
+    'ō':  'o',
+    'ū':  'u',
+    'ȳ':  'y',
+    'Ă':  'A',
+    'Ĕ':  'E',
+    'Ĭ':  'I',
+    'Ŏ':  'O',
+    'Ŭ':  'U',
+    'ă':  'a',
+    'ĕ':  'e',
+    'ĭ':  'i',
+    'ŏ':  'o',
+    'ŭ':  'u',
+    'Ᾱ':  'Α',
+    'ᾱ':  'α',
     'ɛ̄': 'ε',
-    'Ῑ': 'Ι',
-    'ῑ': 'ι',
-    'Ῡ': 'Υ',
-    'ῡ': 'υ',
-    'Ᾰ': 'Α',
-    'ᾰ': 'α',
-    'Ῐ': 'I',
-    'ῐ': 'ι',
-    'Ῠ': 'Υ',
-    'ῠ': 'υ'
-}
+    'Ῑ':  'Ι',
+    'ῑ':  'ι',
+    'Ῡ':  'Υ',
+    'ῡ':  'υ',
+    'Ᾰ':  'Α',
+    'ᾰ':  'α',
+    'Ῐ':  'I',
+    'ῐ':  'ι',
+    'Ῠ':  'Υ',
+    'ῠ':  'υ'
+    }
 
 
 def get_japanese_pronunciation(soup):

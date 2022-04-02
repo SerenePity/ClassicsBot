@@ -19,6 +19,7 @@ from wiktionaryparser import WiktionaryParser
 import bible_versions
 from bible_versions import all_versions
 from classical_chinese_bible import get_cc_verses
+import gateway_abbreviations
 from getbible_books_to_numbers import mapping
 from latin_word_picker import word_picker
 from meiji_japanese_bible import get_meiji_japanese_verses
@@ -33,6 +34,7 @@ import transliteration.hebrew
 import transliteration.korean
 import transliteration.mandarin
 import transliteration.middle_chinese
+import transliteration.old_chinese
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -853,7 +855,7 @@ class RoboticRoman():
         return passage
 
 
-    def get_bible_verse_from_gateway(self, verse, version='kjv'):
+    def get_bible_verse_from_gateway(self, book_and_verse, version='kjv'):
         """
         Get a Bible verse from www.biblegateway.com.
 
@@ -862,14 +864,53 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
-        print(f"Getting {version} from Gateway")
-        url = f"https://www.biblegateway.com/passage/?search={verse}&version={version}&src=tools"
+        url = f"https://www.biblegateway.com/passage/?search={book_and_verse.replace(' ', '%20')}&version={version}&src=tools"
+        print(f"Gateway URL: {url}")
         response = requests.get(url)
+        soup = BeautifulSoup(requests.get(url).text.replace("<!-->", ""),
+                             features="html.parser")
+        # print(soup.prettify())
+        chapter = None
+        book = None
+        if len(book_and_verse.split(" ")) == 4:
+            book = "Song of Songs"
+            chapter = book_and_verse.split(" ")[3].split(":")[0]
+        elif len(book_and_verse.split(" ")) == 3:
+            book = " ".join(book_and_verse[:2])
+            chapter = book_and_verse[2].split(":")[0]
+        elif len(book_and_verse.split(" ")) == 2:
+            book = book_and_verse.split(" ")[0]
+            chapter = book_and_verse.split(" ")[1].split(":")[0]
+        response = requests.get(url)
+        if response.status_code == 401:
+            raise Exception(f'No content found in ${url}')
+        verse_range = None
+        verses = []
+
+        if book.lower() == "song of songs":
+            verse_range = book_and_verse.split(" ")[3].split(":")[1]
+        if len(book_and_verse.split()) == 2:
+            verse_range = book_and_verse.split()[1].split(":")[1]
+        elif len(book_and_verse.split()) == 3:
+            verse_range = book_and_verse.split()[2].split(":")[1]
+        if '-' in verse_range:
+            begin = int(verse_range.split('-')[0])
+            end = int(verse_range.split('-')[1]) + 1
+        else:
+            begin = int(verse_range)
+            end = int(verse_range) + 1
+        verse_range = range(begin, end)
+        print(verse_range)
         try:
-            soup = BeautifulSoup(response.text, features="html.parser")
-            passage = soup.find_all('span', {'class': f'text {verse.title().replace(" ", "-").replace(":", "-")}'})[
-                0].get_text()
-            return passage
+            for verse_nr in verse_range:
+                book_abbreviation = gateway_abbreviations.abbreviations[book.lower()]
+                print(
+                    f"Rows for verse {verse_nr}: {[x.get_text() for x in soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]}")
+                verse_rows = [re.sub(r"[1-9]*\xa0", "", x.get_text()) for x in
+                              soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]
+                verses.extend(verse_rows)
+            print(verses)
+            return "\n".join(verses)
         except:
             return "Not found"
 
@@ -950,13 +991,13 @@ class RoboticRoman():
             print(f"Getting version: {version.strip().lower()}")
             if version.strip().lower() in all_versions:
                 try:
-                    passage = self.get_bible_verse_by_api(verse, version)
+                    passage = self.get_bible_verse_by_api(verse, version).lstrip()
                 except:
                     try:
                         print(f"API for {version} failed, trying Gateway")
                         passage = self.get_bible_verse_from_gateway(verse, version)
                         print(f"Gateway passage: {passage}")
-                        return passage
+                        return passage.lstrip()
                     except:
                         passage = "Not found"
             if translit:
@@ -1056,7 +1097,7 @@ class RoboticRoman():
         return '\n'.join(translations)
 
 
-    def transliterate_verse(self, version, text, middle_chinese):
+    def transliterate_verse(self, version, text, middle_chinese, old_chinese):
         """
         Given a Bible version and text, if the Bible version is in a list of language-specific Bible versions (such as
         Russian Bibles or Chinese Bibles) for which transliteration is supported, transliterate the given text from the
@@ -1099,6 +1140,8 @@ class RoboticRoman():
         if version in CHINESE:
             if middle_chinese:
                 text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")
+            elif old_chinese:
+                text = transliteration.old_chinese.transliterate(text).replace("  ", " ")
             else:
                 text = transliteration.mandarin.transliterate(text).replace("  ", " ")
         return text.replace("Read full chapter", "")
