@@ -326,21 +326,21 @@ class Scholasticus(discord.Client):
             answer = grammar_game_set[0]
             question = random.choice(grammar_game_set[1]).strip()
             lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_defs(lemma, 'latin', False)[0].split('\n')[0]
+            answer_def = robot.get_word_definitions(lemma, 'latin', False)[0].split('\n')[0]
             passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "grammar":
             grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms()
             answer = grammar_game_set[0]
             question = random.choice(grammar_game_set[1]).strip()
             lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_defs(lemma, 'latin', False)[0].split('\n')[0]
+            answer_def = robot.get_word_definitions(lemma, 'latin', False)[0].split('\n')[0]
             passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "greekgrammar":
             grammar_game_set = my_wiktionary_parser.get_greek_grammar_forms()
             answer = grammar_game_set[0]
             question = random.choice(grammar_game_set[1]).strip()
             lemma = my_wiktionary_parser.remove_macrons(question.split(' (')[0].split(' of ')[-1]).replace('.', '')
-            answer_def = robot.get_word_defs(lemma, 'ancient greek', False)[0].split('\n')[0]
+            answer_def = robot.get_word_definitions(lemma, 'ancient greek', False)[0].split('\n')[0]
             passage = "Name the " + question + ' [definition: ' + answer_def + ']'
         elif text_set == "word":
             if "-l " in word_language:
@@ -362,7 +362,7 @@ class Scholasticus(discord.Client):
             question = random.choice(grammar_game_set[1]).strip()
             question = question[0].lower() + question[1:]
             lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_defs(lemma, text_set, False)[0].split('\n')[0]
+            answer_def = robot.get_word_definitions(lemma, text_set, False)[0].split('\n')[0]
             # print("Answer def:\n\n" + answer_def)
             passage = "Name the " + question + ' [definition: ' + answer_def + ']'
             if not macrons:
@@ -444,7 +444,7 @@ class Scholasticus(discord.Client):
         :param n: the maximum size of each chunk, set by default to 2000, which is the maximum length of a Discord message
         """
         if len(text) > DISCORD_CHAR_LIMIT:
-            chunks = RoboticRoman.chunks(text, n)
+            chunks = RoboticRoman.chunks(n)
             for chunk in chunks:
                 await channel.send(chunk)
         else:
@@ -923,7 +923,7 @@ class Scholasticus(discord.Client):
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
-                    parts = list(RoboticRoman.chunks(display.split('\n'), 10))
+                    parts = list(RoboticRoman.chunks(10))
                     for part in parts:
                         await channel.send(' '.join(part))
                 else:
@@ -1378,7 +1378,7 @@ class Scholasticus(discord.Client):
                 desc = help[i][0].strip()
                 self.command_dict[i + 1] = command = help[i][1]
                 ret.append(f"**{i + 1}.** {desc}")
-            lines = list(RoboticRoman.chunks(ret, 5))
+            lines = list(RoboticRoman.chunks(5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
             await channel.send(
                 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
@@ -1556,7 +1556,7 @@ class Scholasticus(discord.Client):
             args = shlex.split(content)
             if len(args) > 1:
                 c = args[1]
-                explanation = self.robot.get_shuowen(c)
+                explanation = self.robot.get_shuowen_char_etymology(c)
                 await channel.send(explanation)
             else:
                 await channel.send("You did not enter a character.")
