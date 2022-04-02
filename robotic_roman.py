@@ -31,7 +31,6 @@ import transliteration.coptic
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.korean
-import transliteration.latin_antique
 import transliteration.mandarin
 import transliteration.middle_chinese
 
@@ -829,6 +828,7 @@ class RoboticRoman():
             traceback.print_exc()
         if not passage or len(passage.strip()) == 0:
             passage = "Not found"
+        print(passage)
         return passage
 
 
@@ -914,6 +914,7 @@ class RoboticRoman():
         :return: the passage from the given version of the Bible covered by the input verses
         """
         print(f"bibleversion: {version}")
+        passage = "Not Found"
         middle_chinese = False
         old_chinese = False
         translit = False
@@ -965,15 +966,18 @@ class RoboticRoman():
             if version.strip().lower() in all_versions:
                 try:
                     passage = self.get_bible_verse_by_api(verse, version)
+                    if translit:
+                        passage = self.transliterate_verse(version, passage, middle_chinese, old_chinese)
+                    return passage
                 except:
                     print(f"API for {version} failed, trying Gateway")
                     passage = self.get_bible_verse_from_gateway(verse, version)
-            if translit:
-                passage = self.transliterate_verse(version, passage, middle_chinese)
+                    if translit:
+                        passage = self.transliterate_verse(version, passage, middle_chinese, old_chinese)
         except:
             traceback.print_exc()
             passage = "Not found"
-        return "\n".join(passage)
+        return passage
 
 
     def get_random_verse_by_testament(self, testament):
@@ -1065,7 +1069,7 @@ class RoboticRoman():
         return '\n'.join(translations)
 
 
-    def transliterate_verse(self, version, text, middle_chinese):
+    def transliterate_verse(self, version, text, middle_chinese, old_chinese):
         """
         Given a Bible version and text, if the Bible version is in a list of language-specific Bible versions (such as
         Russian Bibles or Chinese Bibles) for which transliteration is supported, transliterate the given text from the
@@ -1086,7 +1090,7 @@ class RoboticRoman():
             r = romanize3.__dict__['syc']
             text = r.convert(text)
         if version in HEBREW:
-            text = transliteration.hebrew.transliterate(text).lower()
+            text = transliteration.hebrew.transliterate(text)
         if version in ARABIC:
             text = arabtex.transliterate(text)
         if version in GREEK:
@@ -1110,6 +1114,8 @@ class RoboticRoman():
         if version in CHINESE:
             if middle_chinese:
                 text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")
+            if old_chinese:
+                text = transliteration.old_chinese.transliterate(text).replace("  ", " ")
             else:
                 text = transliteration.mandarin.transliterate(text).replace("  ", " ")
         return text.replace("Read full chapter", "")

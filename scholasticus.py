@@ -773,8 +773,6 @@ class Scholasticus(discord.Client):
                     transliterated = transliteration.hebrew.transliterate(input)
                 elif language == '-cop':
                     transliterated = transliteration.coptic.transliterate(input)
-                elif language == '-unc':
-                    transliterated = transliteration.latin_antique.transliterate(input)
                 elif language == '-oc':
                     transliterated = transliteration.old_chinese.transliterate(input)
                 elif language == '-mc':
