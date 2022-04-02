@@ -22,12 +22,11 @@ def get_middle_chinese_from_wiktionary(char):
         return char
     return middle_chinese
 
-
 def is_chinese_char(texts):
     return re.search("[\u4e00-\u9FFF]", texts)
 
-
 def transliterate(text):
+
     ret_array = []
 
     for char in text:

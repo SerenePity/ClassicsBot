@@ -20,7 +20,6 @@ import bible_versions
 from bible_versions import all_versions
 from classical_chinese_bible import get_cc_verses
 import gateway_abbreviations
-from getbible_books_to_numbers import mapping
 from latin_word_picker import word_picker
 from meiji_japanese_bible import get_meiji_japanese_verses
 import my_wiktionary_parser
@@ -32,9 +31,9 @@ import transliteration.coptic
 import transliteration.greek
 import transliteration.hebrew
 import transliteration.korean
+import transliteration.latin_antique
 import transliteration.mandarin
 import transliteration.middle_chinese
-import transliteration.old_chinese
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -105,12 +104,11 @@ ABSOLUTE_DELIMITER = "‰"
 # List of delimiters
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
 
-# List of Bible versions in all languages
-
-# The below are versions of the Bible that can be transliterated
+# The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my parallel Bible text module
 COPTIC = ['bohairic', 'sahidic', 'coptic']
 ARAMAIC = ['peshitta']
-HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex', 'hhh']
+LATIN = ["vulgate", "newvulgates"]
+HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
 ARABIC = ['arabicsv', 'nav', 'erv-ar']
 GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
          'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'sblgnt']
@@ -241,21 +239,19 @@ class RoboticRoman():
                                  'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
 
         for author_collection, quotes_dict, directory in self.zipped:
+            print(directory)
             for author in author_collection:
                 quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in
                                        os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
         self.commands = [(format_color("Get random quote by author ", "CSS"),
                           f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' \
-                          will search by word lemma rather than regex."),
+                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding 'l' will search by word lemma rather than regex."),
                          (format_color("List available Latin authors ", "CSS"), f"'{prefix}latinauthors'"),
                          (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
                          (format_color("Transliterate input ", "CSS"),
                           f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, oc -> Old Chinese, mc -> \
-                          Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> \
-                          Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
+                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
                          (format_color("List Greek authors ", "CSS"), f"'{prefix}greekauthors'"),
                          (format_color("List Chinese authors ", "CSS"), f"'{prefix}chineseauthors'"),
                          (format_color("Retrieve random Greek quote ", "CSS"), f"'{prefix}greekquote'"),
@@ -443,8 +439,7 @@ class RoboticRoman():
         if 'proto' in language.lower():
             derives = self.get_derivatives(word, language, misc=False)
             return_str = re.sub(r"(?<!\*)\*(?!\*)", "\\*",
-                                f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}"
-                                f"\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
+                                f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{derives}")
         elif language.lower() == 'chinese':
             # print("WORD: " + word)
             gloss_section = ""
@@ -459,11 +454,9 @@ class RoboticRoman():
                 glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, word)
             if not glyph_origin:
                 glyph_origin = "Not found."
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
-                         f"**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
+            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
 
-        return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
-                     f"**Etymology:**\n{etymology.strip()}"
+        return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n**Etymology:**\n{etymology.strip()}"
         # print(return_str)
         return_str = re.sub(r"\.mw-parser-output.*", "", return_str)
         double_derived_terms = re.compile(r"[\w\s]+\[edit\].*?\*\*", re.DOTALL)
@@ -805,30 +798,15 @@ class RoboticRoman():
         :return: the passage from the given version of the Bible covered by the input verses
         """
 
-        book = None
-        chapter = None
-        print(f"Book and verse: {book_and_verse}")
-        if len(book_and_verse.split(" ")) == 4:
-            book = "Song of Songs"
-            chapter = book_and_verse.split(" ")[3].split(":")[0]
-        if len(book_and_verse.split(" ")) == 3:
-            book = " ".join(book_and_verse[:2])
-            chapter = book_and_verse[2].split(":")[0]
-        if len(book_and_verse.split(" ")) == 2:
-            book = book_and_verse.split(" ")[0]
-            print(f"Book: {book}")
-            chapter = book_and_verse.split(" ")[1].split(":")[0]
-        url = f"https://getbible.net/v2/{version}/{mapping[book]}/{chapter}.json"
-        print(f"Getting {book_and_verse} in {version} from API: {url}")
-        response = requests.get(url)
-        print(response.status_code)
-        if response.status_code == 401:
+        print(f"Getting {book_and_verse} in {version} from API")
+        url = f"https://getbible.net/json?passage={book_and_verse}&version={version}"
+        response = requests.get(url).text.replace(');', '').replace('(', '')
+        content = json.loads(response)
+        if "NULL" in response:
             raise Exception(f'No content found in ${url}')
-        json_response = json.loads(response.content)
+        print(f"Dictionary: {content}")
         verses = []
         verse_range = None
-        if book.lower() == "song of songs":
-            verse_range = book_and_verse.split(" ")[3].split(":")[1]
         if len(book_and_verse.split()) == 2:
             verse_range = book_and_verse.split()[1].split(":")[1]
         elif len(book_and_verse.split()) == 3:
@@ -840,12 +818,11 @@ class RoboticRoman():
             begin = int(verse_range)
             end = int(verse_range) + 1
         verse_range = range(begin, end)
-        print(f"Verse range: begin - {begin}, end - {end}")
         try:
             for verse_nr in verse_range:
                 verses.append(
-                    json_response['verses'][verse_nr]['text'].replace('\n', '').replace(' ;', ';').replace(
-                        ' :', ':').replace(' ?', '?').replace("  ", " "))
+                    content['book'][0]['chapter'][str(verse_nr)]["verse"].replace('\n', '').replace(' ;', ';').replace(
+                        ' :', ':').replace(' ?', '?'))
             passage = '\n'.join(verses)
         except:
             passage = "Not found"
@@ -869,7 +846,6 @@ class RoboticRoman():
         response = requests.get(url)
         soup = BeautifulSoup(requests.get(url).text.replace("<!-->", ""),
                              features="html.parser")
-        # print(soup.prettify())
         chapter = None
         book = None
         if len(book_and_verse.split(" ")) == 4:
@@ -908,9 +884,9 @@ class RoboticRoman():
                     f"Rows for verse {verse_nr}: {[x.get_text() for x in soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]}")
                 verse_rows = [re.sub(r"[1-9]*\xa0", "", x.get_text()) for x in
                               soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]
-                verses.extend(verse_rows)
-            print(verses)
-            return "\n".join(verses)
+                row = " ".join(verse_rows)
+                verses.append(row)
+            return verses
         except:
             return "Not found"
 
@@ -937,8 +913,7 @@ class RoboticRoman():
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
-        passage = "Not found"
-        print(f"bibleversion: {version}, verse: {verse}")
+        print(f"bibleversion: {version}")
         middle_chinese = False
         old_chinese = False
         translit = False
@@ -954,24 +929,23 @@ class RoboticRoman():
             translit = False
             old_chinese = True
         verse = verse.title()
-        if "song of songs" in verse.lower():
-            book = "song of songs"
-            book_verses = verse.split(" ")[3]
-        elif len(verse.split(" ")) == 3:
-            book = " ".join(verse.split(" ")[:2])
-            book_verses = verse.split(" ")[2]
+        print(verse)
+        if len(verse.split(" ")) == 3:
+            book = " ".join(verse.split()[:2])
+            verse_numbers = verse.split(2)
         else:
             book = verse.split(" ")[0]
-            book_verses = verse.split(" ")[1]
+            verse_numbers = verse.split(" ")[1]
+        print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
-                return get_meiji_japanese_verses(book.lower(), book_verses)
+                return get_meiji_japanese_verses(book.lower(), verse_numbers)
             except:
                 traceback.print_exc()
                 return "Not found"
         if version.strip().lower() == 'cc':
             try:
-                return get_cc_verses(book.lower(), book_verses, translit, middle_chinese, old_chinese)
+                return get_cc_verses(book.lower(), verse_numbers, translit, middle_chinese, old_chinese)
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -988,24 +962,18 @@ class RoboticRoman():
                 traceback.print_exc()
                 return "Not found"
         try:
-            print(f"Getting version: {version.strip().lower()}")
             if version.strip().lower() in all_versions:
                 try:
-                    passage = self.get_bible_verse_by_api(verse, version).lstrip()
+                    passage = self.get_bible_verse_by_api(verse, version)
                 except:
-                    try:
-                        print(f"API for {version} failed, trying Gateway")
-                        passage = self.get_bible_verse_from_gateway(verse, version)
-                        print(f"Gateway passage: {passage}")
-                        return passage.lstrip()
-                    except:
-                        passage = "Not found"
+                    print(f"API for {version} failed, trying Gateway")
+                    passage = self.get_bible_verse_from_gateway(verse, version)
             if translit:
                 passage = self.transliterate_verse(version, passage, middle_chinese)
         except:
             traceback.print_exc()
             passage = "Not found"
-        return passage.replace("Read full chapter", "")
+        return "\n".join(passage)
 
 
     def get_random_verse_by_testament(self, testament):
@@ -1097,7 +1065,7 @@ class RoboticRoman():
         return '\n'.join(translations)
 
 
-    def transliterate_verse(self, version, text, middle_chinese, old_chinese):
+    def transliterate_verse(self, version, text, middle_chinese):
         """
         Given a Bible version and text, if the Bible version is in a list of language-specific Bible versions (such as
         Russian Bibles or Chinese Bibles) for which transliteration is supported, transliterate the given text from the
@@ -1135,13 +1103,13 @@ class RoboticRoman():
             text = translit(text, 'hy', reversed=True).replace('ւ', 'v')
         if version in GEORGIAN:
             text = translit(text, 'ka', reversed=True).replace('ჲ', 'y')
+        if version == "uncial":
+            text = transliteration.latin_antique(text)
         if version in KOREAN:
             text = transliteration.korean.transliterate(text)
         if version in CHINESE:
             if middle_chinese:
                 text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")
-            elif old_chinese:
-                text = transliteration.old_chinese.transliterate(text).replace("  ", " ")
             else:
                 text = transliteration.mandarin.transliterate(text).replace("  ", " ")
         return text.replace("Read full chapter", "")
@@ -1355,7 +1323,7 @@ class RoboticRoman():
                 # words = [f"{word} ", f" {word} ", f" {word}."]
                 regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
-
+            print(regex_list)
             search_quotes = []
             quotes_list = []
             all_quotes = []
@@ -1435,6 +1403,7 @@ class RoboticRoman():
                 else:
                     regex_list.append(f"\\b{word}\\b")
                 # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
+            print(regex_list)
             search_quotes = []
             quotes_list = []
             all_quotes = []
@@ -1487,6 +1456,8 @@ class RoboticRoman():
 
 
     def get_passage_list_for_file(self, file, process_func):
+        print(file)
+        print(process_func)
         passage_list = process_func(file.read())
         if process_func.__name__ == "_process_absolute":
             passage_list = [w.replace(ABSOLUTE_DELIMITER, "") for w in passage_list]
@@ -1558,6 +1529,7 @@ class RoboticRoman():
             elif person == 'phrases':
                 res = [(i, e) for i, e in
                        enumerate(open({LATIN_TEXTS_PATH} // "phrases" // "phrases.txt").read().split("円"))]
+                print(res)
                 index = random.randint(0, len(res))
                 i = index
                 quote = res[i]

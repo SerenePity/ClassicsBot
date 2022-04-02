@@ -773,6 +773,8 @@ class Scholasticus(discord.Client):
                     transliterated = transliteration.hebrew.transliterate(input)
                 elif language == '-cop':
                     transliterated = transliteration.coptic.transliterate(input)
+                elif language == '-unc':
+                    transliterated = transliteration.latin_antique.transliterate(input)
                 elif language == '-oc':
                     transliterated = transliteration.old_chinese.transliterate(input)
                 elif language == '-mc':
@@ -952,11 +954,8 @@ class Scholasticus(discord.Client):
         if content.lower().startswith(self.command_prefix + 'biblecompare'):
 
             qt_args = shlex.split(content)
+            # print(qt_args)
             try:
-                if qt_args[1].lower() == "song of songs" or " ".join(qt_args[:3]).lower() == "song of songs":
-                    verse = f"song of songs {qt_args[3]}"
-                    versions = qt_args[4:]
-                    translation = self.robot.bible_compare(verse, versions)
                 if len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
                     versions = qt_args[4:]

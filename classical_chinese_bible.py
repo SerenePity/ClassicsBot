@@ -12,7 +12,6 @@ def remove_digits(s):
 
 
 def get_cc_verses(book, verses, translit=False, middle_chinese=False, old_chinese=False):
-    print(f"Book: {book}, verses: {verses}")
     if "-" in verses:
         chapter = verses.split(":")[0].strip()
         verse_range = verses.split(":")[1]
