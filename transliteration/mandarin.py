@@ -2,7 +2,8 @@ import re
 
 from mafan import tradify
 
-from chinese_reconstructions import baxter_sagart, cjk_punctuations
+from chinese_reconstructions.baxter_sagart.parser import get_reconstruction
+from chinese_reconstructions.cjk_punctuations import puncutation_dict
 import my_wiktionary_parser
 
 
@@ -27,11 +28,11 @@ def transliterate(text):
     for char in text:
         if not is_chinese_char(char):
             ret_array.append("‰" + char + "‰")
-        if char in cjk_punctuations.puncutation_dict:
-            return cjk_punctuations.puncutation_dict[char]
+        if char in puncutation_dict:
+            return puncutation_dict[char]
         else:
             char = tradify(char)
-            pinyin, mc, oc_bax, gloss = baxter_sagart.parser.get_reconstruction(char)
+            pinyin, mc, oc_bax, gloss = get_reconstruction(char)
             if pinyin == 'n/a':
                 pinyin = get_pinyin_from_wiktionary(char).split(",")[0].strip()
             ret_array.append(pinyin)

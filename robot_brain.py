@@ -17,6 +17,7 @@ from transliterate import translit
 from wiktionaryparser import WiktionaryParser
 
 from bible_compare import bible_versions, gateway_abbreviations, getbible_books_to_numbers
+from bible_compare.bible_versions import lang_to_versions
 from bible_compare.classical_chinese_bible import get_cc_verses
 from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
 from latin_word_picker import word_picker
@@ -828,7 +829,7 @@ class RobotBrain:
             print(f"Could not find verse {book_and_verse} from v2 API")
             return None
         json_response = json.loads(response.content)
-        verse_range = self.get_verse_range(book, )
+        verse_range = self.get_verse_range(book, book_and_verse)
         verses = []
         for verse_nr in verse_range:
             verses.append(json_response['verses'][verse_nr]['text'].replace('\n', '').replace(' ;', ';').replace(
@@ -864,7 +865,6 @@ class RobotBrain:
         """
         url = f"https://www.biblegateway.com/passage/?search={book_and_verse.replace(' ', '%20')}&version={version}&src=tools"
         print(f"Gateway URL: {url}")
-        response = requests.get(url)
         soup = BeautifulSoup(requests.get(url).text.replace("<!-->", ""),
                              features="html.parser")
         chapter = None
@@ -878,12 +878,8 @@ class RobotBrain:
         elif len(book_and_verse.split(" ")) == 2:
             book = book_and_verse.split(" ")[0]
             chapter = book_and_verse.split(" ")[1].split(":")[0]
-        response = requests.get(url)
-        if response.status_code == 401:
-            raise Exception(f'No content found in ${url}')
         verse_range = None
         verses = []
-
         if book.lower() == "song of songs":
             verse_range = book_and_verse.split(" ")[3].split(":")[1]
         if len(book_and_verse.split()) == 2:
@@ -900,13 +896,9 @@ class RobotBrain:
         try:
             for verse_nr in verse_range:
                 book_abbreviation = gateway_abbreviations.abbreviations[book.lower()]
-                print(
-                    f"Rows for verse {verse_nr}: {[x.get_text() for x in soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]}")
                 verse_rows = [re.sub(r"[1-9]*\xa0", "", x.get_text()) for x in
                               soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]
-                row = " ".join(verse_rows)
-                verses.append(row)
-            passage = "\n".join(verses)
+            passage = "\n".join(verse_rows)
             if not passage:
                 return "Not found"
         except:
@@ -935,7 +927,19 @@ class RobotBrain:
         :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
-        print(f"bibleversion: {version}")
+
+        original_version = version
+        raw_version = version.lower().replace("$", "").replace("#", "").replace("&", "")
+        if raw_version not in bible_versions.all_versions:
+            language = version.replace("$", "").replace("#", "").replace("&", "")
+            if '$' in original_version:
+                version = f'${version}'
+            print(f"Getting a version from {language}")
+            version = lang_to_versions[language.lower()][0]
+            if '$' in original_version:
+                version = f"${version}"
+            print(f"Using {version} for {language}")
+        print(f"version: {version}")
         passage = "Not Found"
         middle_chinese = False
         old_chinese = False
@@ -984,11 +988,10 @@ class RobotBrain:
             except:
                 traceback.print_exc()
                 return "Not found"
-        if version.strip().lower() in bible_versions.all_versions:
-            passage = self.get_bible_verse_by_api(verse, version)
-            if not passage:
-                print(f"API for {version} failed, trying Gateway")
-                passage = self.get_bible_verse_from_gateway(verse, version)
+        passage = self.get_bible_verse_by_api(verse, version)
+        if not passage:
+            print(f"API for {version} failed, trying Gateway")
+            passage = self.get_bible_verse_from_gateway(verse, version)
         if translit:
             passage = self.transliterate_verse(version, passage, middle_chinese, old_chinese)
         return passage.strip()

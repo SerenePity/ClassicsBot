@@ -961,6 +961,7 @@ class ClassicsBot(discord.Client):
                     verse = qt_args[1] + ' ' + qt_args[2]
                     # print("Verse: " + verse)
                     versions = qt_args[3:]
+                    print(f"verse: {verse}, versions: {', '.join(versions)}")
                     translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 1:
                     versions = qt_args[1:]
