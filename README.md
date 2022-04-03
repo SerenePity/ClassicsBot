@@ -1,4 +1,4 @@
-# HypatiaBot
+# Classics Bot
 
 Bot for various tasks on the Latin server.
 
