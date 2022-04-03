@@ -1,7 +1,7 @@
 import os
-import scholasticus
+
+import classics_bot
 
 token = os.environ['token']
-client = scholasticus.Scholasticus("")
+client = classics_bot.ClassicsBot("")
 client.run(token)
-

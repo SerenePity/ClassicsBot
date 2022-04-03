@@ -3,7 +3,7 @@ import traceback
 
 from mafan import tradify
 
-from chinese_reconstructions import baxter_sagart
+from chinese_reconstructions import baxter_sagart, cjk_punctuations
 import my_wiktionary_parser
 
 
@@ -19,6 +19,7 @@ def get_old_chinese_from_wiktionary(char):
             "dl").get_text().replace("(Zhengzhang): ", "").replace("(Baxter–Sagart): ", "").replace("/", "") \
             .split(", ")[0].split('\n')[0]
     except:
+        print(f"Failed to transliterate {char}")
         traceback.print_exc()
         return char
     print(f'Old Chinese for {char}: {old_chinese}')
@@ -35,24 +36,16 @@ def transliterate(text):
     for char in text:
         if not is_chinese_char(char):
             ret_array.append("‰" + char + "‰")
+        if char in cjk_punctuations.puncutation_dict:
+            ret_array.append(cjk_punctuations.puncutation_dict[char])
         else:
             char = tradify(char)
-            pinyin, mc, oc, gloss = baxter_sagart.get_historical_chinese(char)
-            if oc == 'n/a':
-                oc = get_old_chinese_from_wiktionary(char)
-            ret_array.append(oc.split(",")[0].strip())
+            pinyin, mc, oc_bax, gloss = baxter_sagart.parser.get_reconstruction(char)
+            if oc_bax == 'n/a':
+                oc_bax = get_old_chinese_from_wiktionary(char)
+            ret_array.append(oc_bax)
 
     ret_str = " ".join(ret_array)
-    for char in baxter_sagart.punctuation:
-        if baxter_sagart.punctuation[char] == "«":
-            ret_str = ret_str.replace(f" {char} ", f" {baxter_sagart.punctuation[char]}")
-        elif baxter_sagart.punctuation[char] == "»":
-            ret_str = ret_str.replace(f" {char} ", f"{baxter_sagart.punctuation[char]} ")
-        else:
-            ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
-            ret_str = re.sub(r"\s*([:\";!?])", r"\1", ret_str)
-    ret_str = ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "") \
-        .replace("*", "").replace("「", "\"").replace("」", "\"").replace(" \"", "\"").replace(" ,", ",") \
-        .replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" ;", ";").replace(": \" ", ": \"") \
-        .replace("[", "").replace("]", "").replace("<", "").replace(">", "")
-    return ret_str
+    return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"") \
+        .replace("」", "\"").replace(" \"", "\"").replace(" ,", ",").replace(" :", ": ").replace(" ?", "?") \
+        .replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"")

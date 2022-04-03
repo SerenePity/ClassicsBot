@@ -1,8 +1,9 @@
 import re
+import traceback
 
 from mafan import tradify
 
-from chinese_reconstructions import baxter_sagart
+from chinese_reconstructions import baxter_sagart, cjk_punctuations
 import my_wiktionary_parser
 
 
@@ -14,11 +15,11 @@ def get_middle_chinese_from_wiktionary(char):
         regular_form = re.search(regular_form_pattern, soup_bytes.decode('utf-8')).group(1)
         return get_middle_chinese_from_wiktionary(regular_form)
     try:
-        middle_chinese = \
-            soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling.get_text().split(",")[
-                0] \
-                .replace("/", "")
+        middle_chinese = soup.find_all("a", attrs={"title": "w:Middle Chinese"})[0].next_sibling.next_sibling \
+            .get_text().split(",")[0].replace("/", "")
     except:
+        print(f"Failed to transliterate {char}")
+        traceback.print_exc()
         return char
     return middle_chinese
 
@@ -33,24 +34,15 @@ def transliterate(text):
     for char in text:
         if not is_chinese_char(char):
             ret_array.append("‰" + char + "‰")
+        if char in cjk_punctuations.puncutation_dict:
+            return cjk_punctuations.puncutation_dict[char]
         else:
             char = tradify(char)
-            pinyin, mc, oc_bax, gloss = baxter_sagart.get_historical_chinese(char)
+            pinyin, mc, oc_bax, gloss = baxter_sagart.parser.get_reconstruction(char)
             if mc == 'n/a':
-                mc = get_middle_chinese_from_wiktionary(char)
-            ret_array.append(mc)
-
+                pinyin = get_middle_chinese_from_wiktionary(char).split(",")[0].strip()
+            ret_array.append(pinyin)
     ret_str = " ".join(ret_array)
-    for char in baxter_sagart.punctuation:
-        if baxter_sagart.punctuation[char] == "«":
-            ret_str = ret_str.replace(f" {char} ", f" {baxter_sagart.punctuation[char]}")
-        elif baxter_sagart.punctuation[char] == "»":
-            ret_str = ret_str.replace(f" {char} ", f"{baxter_sagart.punctuation[char]} ")
-        else:
-            ret_str = ret_str.replace(f"{char}", f"{baxter_sagart.punctuation[char]}")
-            ret_str = re.sub(r"\s*([:,\.\";!?])", r"\1", ret_str)
-    return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"").replace(
-        "」", "\"").replace(" \"", "\"") \
-        .replace(" ,", ",").replace(" :", ": ").replace(" ?", "?").replace(" !", "!").replace(" .", ".").replace(" ;",
-                                                                                                                 ";").replace(
-        ": \" ", ": \"")
+    return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"") \
+        .replace("」", "\"").replace(" \"", "\"").replace(" ,", ",").replace(" :", ": ").replace(" ?", "?") \
+        .replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"")

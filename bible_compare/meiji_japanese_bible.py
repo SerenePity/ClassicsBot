@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-from bible_books_english_to_japanese import english_to_japanese
+from bible_compare.bible_books_english_to_japanese import english_to_japanese
 
 
 def get_meiji_japanese_verses(book, verses):

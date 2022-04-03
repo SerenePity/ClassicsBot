@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 from mafan import tradify
 import requests
 
-from chinese_reconstructions import baxter_sagart
+from chinese_reconstructions import baxter_sagart, cjk_punctuations
+from chinese_reconstructions.special_chars import special_chars
 
 PARTS_OF_SPEECH = [
     "Noun", "Verb", "Adjective", "Adverb", "Determiner",
@@ -878,13 +879,12 @@ def remove_duplicates(words):
     return list(dict.fromkeys(words).keys())
 
 
-def get_glyph_origin_multiple(soup, words):
+def get_glyph_origin_multiple(words):
     final = []
     for i, c in enumerate(remove_duplicates(words)):
-        if c in baxter_sagart.punctuation:
+        if c in special_chars or c in cjk_punctuations.puncutation_dict:
             continue
         char_soup = get_soup(c)
-        print("Charlist mem: " + c)
         final.append(f"**{i + 1}.** {c}: {get_glyph_origin(char_soup, c)}")
     return '\n\n'.join(final)
 

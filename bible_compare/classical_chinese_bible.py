@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-from bible_books_english_to_cc import english_to_cc
+from bible_compare.bible_books_english_to_cc import english_to_cc
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.old_chinese

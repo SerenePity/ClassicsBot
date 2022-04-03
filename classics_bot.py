@@ -10,8 +10,7 @@ from transliterate import translit
 
 from char_lookup import lookup_wikt
 import my_wiktionary_parser
-import robotic_roman
-from robotic_roman import QuoteContext, RoboticRoman
+from robot_brain import QuoteContext, RobotBrain
 import transliteration.coptic
 import transliteration.greek
 import transliteration.hebrew
@@ -27,7 +26,7 @@ POMERIUM_CHANNEL_ID = 716979999172853890
 LATIN_SERVER_ID = 596471999493308417
 POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
 POMERIUM_MESSAGE_THRESHOLD = 3
-robot = RoboticRoman("")
+robot = RobotBrain("")
 DISCORD_CHAR_LIMIT = 2000
 
 
@@ -142,7 +141,7 @@ class Game():
         self.players_dict = dict()
 
 
-class Scholasticus(discord.Client):
+class ClassicsBot(discord.Client):
     """
     Represents a bot connection that connects to Discord. Inherits from the discord.Client class.
     """
@@ -444,7 +443,7 @@ class Scholasticus(discord.Client):
         :param n: the maximum size of each chunk, set by default to 2000, which is the maximum length of a Discord message
         """
         if len(text) > DISCORD_CHAR_LIMIT:
-            chunks = RoboticRoman.chunks(n)
+            chunks = RobotBrain.chunks(n)
             for chunk in chunks:
                 await channel.send(chunk)
         else:
@@ -865,13 +864,13 @@ class Scholasticus(discord.Client):
                 file = qt_obj.works_list[index - 1]
             file.seek(0)
             if source == 'the bible':
-                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_holy_text)
+                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_holy_text)
             elif source.lower() == "joyce":
-                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_basic)
+                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_basic)
             elif source.lower() == "bush" or source.lower() == "yogi berra":
-                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_absolute)
+                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_absolute)
             elif source.lower() == "jaspers":
-                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_basic)
+                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_basic)
             elif source.lower() == "gibbon" and 'footnotes' in file.name:
                 quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
             elif source.lower() == "mommsen":
@@ -881,9 +880,9 @@ class Scholasticus(discord.Client):
                     await channel.send(quotes[0])
                     return
                 else:
-                    quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_text)
+                    quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_text)
             else:
-                quotes = self.robot.get_passage_list_for_file(file, RoboticRoman._process_text)
+                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_text)
             qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
             self.quote_requestors[author] = qt_obj
             try:
@@ -895,11 +894,11 @@ class Scholasticus(discord.Client):
                 if workslist[index - 1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
                     qt_obj = QuoteContext(source,
                                           [q.rstrip('\n') for q in
-                                           RoboticRoman._process_absolute(
+                                           RobotBrain._process_absolute(
                                                open(workslist[index - 1].name, encoding='utf8').read())
                                            ], 0, workslist)
                 else:
-                    qt_obj = QuoteContext(source, RoboticRoman._process_text(
+                    qt_obj = QuoteContext(source, RobotBrain._process_text(
                         open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 await channel.send(qt_obj.get_surrounding(after=1))
@@ -923,7 +922,7 @@ class Scholasticus(discord.Client):
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
-                    parts = list(RoboticRoman.chunks(10))
+                    parts = list(RobotBrain.chunks(10))
                     for part in parts:
                         await channel.send(' '.join(part))
                 else:
@@ -1378,7 +1377,7 @@ class Scholasticus(discord.Client):
                 desc = help[i][0].strip()
                 self.command_dict[i + 1] = command = help[i][1]
                 ret.append(f"**{i + 1}.** {desc}")
-            lines = list(RoboticRoman.chunks(5))
+            lines = list(RobotBrain.chunks(5))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
             await channel.send(
                 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))

@@ -16,12 +16,10 @@ import romanize3
 from transliterate import translit
 from wiktionaryparser import WiktionaryParser
 
-import bible_versions
-from classical_chinese_bible import get_cc_verses
-import gateway_abbreviations
-import getbible_books_to_numbers
+from bible_compare import bible_versions, gateway_abbreviations, getbible_books_to_numbers
+from bible_compare.classical_chinese_bible import get_cc_verses
+from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
 from latin_word_picker import word_picker
-from meiji_japanese_bible import get_meiji_japanese_verses
 import my_wiktionary_parser
 import old_english_bible.john
 import old_english_bible.luke
@@ -193,7 +191,7 @@ class QuoteContext():
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
             quotes_list = self.quotes[old_after:self.after_index]
-        ret_str = RoboticRoman.sanitize(joiner.join(quotes_list)).replace("_found", "").split(EOF)[0] \
+        ret_str = RobotBrain.sanitize(joiner.join(quotes_list)).replace("_found", "").split(EOF)[0] \
             .replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
@@ -216,7 +214,7 @@ def word_is_in_wiktionary(word):
     return soup and "does not yet have an entry" not in soup
 
 
-class RoboticRoman:
+class RobotBrain:
     """
     Class encapsulating various bot functionality
     """
@@ -331,7 +329,7 @@ class RoboticRoman:
         author = author.lower()
 
         dic = self.map_person_to_dict(author)
-        works = sorted(dic[author], key=lambda x: RoboticRoman.display_sort(x.name))
+        works = sorted(dic[author], key=lambda x: RobotBrain.display_sort(x.name))
         work_names = [work.name.replace('.txt', '').replace('_', ' ').title().split('/')[-1] for work in works]
         display_index = '\n'.join([f"**{i + 1}.** {e}" for i, e in enumerate(work_names)])
         return display_index, works
@@ -452,7 +450,7 @@ class RoboticRoman:
                     gloss = my_wiktionary_parser.get_wiktionary_glosses(my_wiktionary_parser.get_soup(tradify(word)))
                 gloss_section = f"**Gloss:**\n{gloss}\n\n"
                 print("In Muliple")
-                glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(soup, list(word))
+                glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(list(word))
             else:
                 glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, word)
             if not glyph_origin:
@@ -728,7 +726,7 @@ class RoboticRoman:
         versions = sorted(bible_versions.versions[lang.lower()], key=str.lower)
         return_string = f"{lang.title()}: {', '.join(versions)}"
         if len(return_string) >= 2000:
-            chunks = RoboticRoman.chunks(10)
+            chunks = RobotBrain.chunks(10)
             return [lang.title() + ":"] + [f"{', '.join(chunk)}" for chunk in chunks]
         else:
             return [return_string]
@@ -964,7 +962,7 @@ class RoboticRoman:
         print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
-                return get_meiji_japanese_verses(book.lower(), verse_numbers)
+                return get_meiji_japanese_verses(book.lower(), verse_numbers).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -976,13 +974,13 @@ class RoboticRoman:
                 return "Not found"
         if version.strip().lower() == 'wyc':
             try:
-                return self.get_wycliffe_verse(verse)
+                passage = self.get_wycliffe_verse(verse).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
         if version.strip().lower() == 'old_english':
             try:
-                return self.get_old_english_verse(verse)
+                passage = self.get_old_english_verse(verse).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -993,7 +991,7 @@ class RoboticRoman:
                 passage = self.get_bible_verse_from_gateway(verse, version)
         if translit:
             passage = self.transliterate_verse(version, passage, middle_chinese, old_chinese)
-        return passage
+        return passage.strip()
 
 
     def get_random_verse_by_testament(self, testament):
@@ -1184,13 +1182,13 @@ class RoboticRoman:
 
 
     def _process_basic(text):
-        return ['. '.join(s) + '.' for s in list(RoboticRoman.chunks(3))]
+        return ['. '.join(s) + '.' for s in list(RobotBrain.chunks(3))]
 
 
     def _process_mixed(text):
         if ABSOLUTE_DELIMITER in text:
-            return RoboticRoman._process_absolute(text=text)
-        return RoboticRoman._process_text(text)
+            return RobotBrain._process_absolute(text=text)
+        return RobotBrain._process_text(text)
 
 
     def _process_absolute(text):
@@ -1199,8 +1197,8 @@ class RoboticRoman:
 
 
     def _process_text(text):
-        text = RoboticRoman._replace_abbreviation_period(text.replace('...', '^'))
-        text = RoboticRoman._passage_deliminator(text)
+        text = RobotBrain._replace_abbreviation_period(text.replace('...', '^'))
+        text = RobotBrain._passage_deliminator(text)
         text = re.sub(r"[\n]{2,}|(\n+\s+){2,}|(\s+\n+){2,}", "\n\n", text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
         return [re.sub(REGEX_SUB, '', t) + (first_pass[i + 1] if first_pass[i + 1] != '|' else '') for i, t in
@@ -1492,11 +1490,11 @@ class RoboticRoman:
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
                     return quote
                 else:
                     self.quote_tries = 0
@@ -1504,11 +1502,11 @@ class RoboticRoman:
         elif "the " + person in self.greek_quotes_dict:
             files = self.greek_quotes_dict["the " + person]
             try:
-                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
                     return i, quote
                 else:
                     self.quote_tries = 0
@@ -1518,7 +1516,7 @@ class RoboticRoman:
                 person = "the " + person
             files = self.latin_quotes_dict[person]
             if person == 'the bible':
-                i, quote = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RobotBrain._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
                 res = [(i, e) for i, e in
                        enumerate(open(f"{LATIN_TEXTS_PATH}/phrases/phrases.txt").read().split("円"))]
@@ -1527,9 +1525,9 @@ class RoboticRoman:
                 quote = res[i]
                 return quote
             else:
-                i, quote = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
         return re.sub(r"^[\s]*[\n]+[\s]*", " ",
-                      RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote)))
+                      RobotBrain.fix_crushed_punctuation(RobotBrain._replace_placeholders(quote)))
 
 
     def map_person_to_dict(self, person):
@@ -1554,33 +1552,33 @@ class RoboticRoman:
         person = person.lower().strip()
 
         if person == 'bush':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_absolute, word, lemmatize,
                                                     case_sensitive)
         elif person == 'yogi berra':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_absolute, word, lemmatize,
                                                     case_sensitive)
         elif person == 'the bible':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_holy_text, word, lemmatize,
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_holy_text, word, lemmatize,
                                                     case_sensitive)
         elif person == 'phrases':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_absolute, word, lemmatize,
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_absolute, word, lemmatize,
                                                     case_sensitive)
         elif person == 'mommsen':
             files = [f for f in files if 'content' not in f.name]
             index_files = [f for f in files if 'content' in f.name]
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
         elif person == 'gibbon':
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_mixed, word, lemmatize, case_sensitive)
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_mixed, word, lemmatize, case_sensitive)
         elif person in self.chinese_authors:
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive,
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive,
                                                     chinese=True)
         else:
-            i, quote, quotes_list = self.pick_quote(files, RoboticRoman._process_text, word, lemmatize, case_sensitive)
-        return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RoboticRoman.sanitize(quote)), quotes_list
+            i, quote, quotes_list = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
+        return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RobotBrain.sanitize(quote)), quotes_list
 
 
     def sanitize(self, quote):
-        return RoboticRoman.fix_crushed_punctuation(RoboticRoman._replace_placeholders(quote))
+        return RobotBrain.fix_crushed_punctuation(RobotBrain._replace_placeholders(quote))
 
 
     def fix_crushed_punctuation(text):
