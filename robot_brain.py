@@ -16,9 +16,10 @@ import romanize3
 from transliterate import translit
 from wiktionaryparser import WiktionaryParser
 
-from bible_compare import bible_versions, gateway_abbreviations, getbible_books_to_numbers
+from bible_compare import bible_versions, getbible_books_to_numbers
 from bible_compare.bible_versions import lang_to_versions
 from bible_compare.classical_chinese_bible import get_cc_verses
+from bible_compare.gateway_abbreviations import abbreviations
 from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
 from latin_word_picker import word_picker
 import my_wiktionary_parser
@@ -781,20 +782,22 @@ class RobotBrain:
 
 
     def get_verse_range(self, book, book_and_verse):
+        print(f"Book: {book}, Book and Verse: {book_and_verse}")
         verse_range = None
         if book.lower() == "song of songs":
             verse_range = book_and_verse.split(" ")[3].split(":")[1]
-        if len(book_and_verse.split()) == 2:
-            verse_range = book_and_verse.split()[1].split(":")[1]
+        elif len(book_and_verse.split()) == 2:
+            verse_range = book_and_verse.split(" ")[1].split(":")[1]
         elif len(book_and_verse.split()) == 3:
             verse_range = book_and_verse.split()[2].split(":")[1]
+        print(verse_range)
         if '-' in verse_range:
             begin = int(verse_range.split('-')[0])
             end = int(verse_range.split('-')[1]) + 1
         else:
             begin = int(verse_range)
             end = int(verse_range) + 1
-        return range(begin, end)
+        return [v for v in range(begin, end)]
 
 
     def get_bible_verse_by_api_v1(self, book_and_verse, version='kjv'):
@@ -867,6 +870,7 @@ class RobotBrain:
         print(f"Gateway URL: {url}")
         soup = BeautifulSoup(requests.get(url).text.replace("<!-->", ""),
                              features="html.parser")
+        print(soup.prettify())
         chapter = None
         book = None
         if len(book_and_verse.split(" ")) == 4:
@@ -878,29 +882,21 @@ class RobotBrain:
         elif len(book_and_verse.split(" ")) == 2:
             book = book_and_verse.split(" ")[0]
             chapter = book_and_verse.split(" ")[1].split(":")[0]
-        verse_range = None
-        verses = []
-        if book.lower() == "song of songs":
-            verse_range = book_and_verse.split(" ")[3].split(":")[1]
-        if len(book_and_verse.split()) == 2:
-            verse_range = book_and_verse.split()[1].split(":")[1]
-        elif len(book_and_verse.split()) == 3:
-            verse_range = book_and_verse.split()[2].split(":")[1]
-        if '-' in verse_range:
-            begin = int(verse_range.split('-')[0])
-            end = int(verse_range.split('-')[1]) + 1
-        else:
-            begin = int(verse_range)
-            end = int(verse_range) + 1
-        verse_range = range(begin, end)
+            print(f"Book: {book}, chapter: {chapter}")
+        verse_range = self.get_verse_range(book.lower(), book_and_verse)
+        print(f'Verses to parse: {verse_range}')
+        book_abbreviation = abbreviations[book.lower()]
+        print(f"Book abbreviation: {book_abbreviation}")
         try:
+            verse_rows = []
             for verse_nr in verse_range:
-                book_abbreviation = gateway_abbreviations.abbreviations[book.lower()]
-                verse_rows = [re.sub(r"[1-9]*\xa0", "", x.get_text()) for x in
-                              soup.find_all('span', {'class': f'{book_abbreviation}-{chapter}-{verse_nr}'})]
+                print(f"Verse num: {verse_nr}")
+                verse_rows.extend([x.get_text() for x in soup.find_all('span', {'class': f'text {book_abbreviation}-'
+                                                                                         f'{chapter}-{verse_nr}'})])
             passage = "\n".join(verse_rows)
             if not passage:
                 return "Not found"
+            return passage
         except:
             return "Not found"
 
