@@ -119,6 +119,6 @@ def transliterate(text):
         print(verse)
         tit_tat = tit_for_tat(verse)
         array = tit_tat.split()
-        mod_array = ''.join(test_each(array))
+        mod_array = ' '.join(test_each(array))
         verses.append(mod_array)
     return "\n".join(verses)
