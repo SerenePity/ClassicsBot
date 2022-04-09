@@ -914,7 +914,7 @@ class RobotBrain:
         """
         url = f"https://studybible.info/Wycliffe/{verse}"
         body = requests.get(url).text
-        soup = BeautifulSoup(body)
+        soup = BeautifulSoup(body, features="html.parser")
         passage = soup.find_all("div", {"class": "passage row Wycliffe"})[0]
         [s.extract() for s in soup('sup')]
         return re.sub(r"[\s]{2,}", "\n", passage.get_text().replace('Wycliffe', '').strip())
