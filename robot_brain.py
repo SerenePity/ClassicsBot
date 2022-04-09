@@ -920,6 +920,11 @@ class RobotBrain:
         return re.sub(r"[\s]{2,}", "\n", passage.get_text().replace('Wycliffe', '').strip())
 
 
+    def get_bible_verse_studybible(self, verse, version='kjv'):
+        url = f"https://studybible.info/{version}/{verse}"
+        pass
+
+
     def get_bible_verse(self, verse, version='kjv'):
         """
         Get a Bible verse from a given version. This implementation tries multiple sources until one is found which
@@ -943,7 +948,6 @@ class RobotBrain:
                 version = f"${version}"
             print(f"Using {version} for {language}")
         print(f"version: {version}")
-        passage = "Not Found"
         middle_chinese = False
         old_chinese = False
         translit = False
@@ -981,13 +985,13 @@ class RobotBrain:
                 return "Not found"
         if version.strip().lower() == 'wyc':
             try:
-                passage = self.get_wycliffe_verse(verse).strip()
+                return self.get_wycliffe_verse(verse).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
         if version.strip().lower() == 'old_english':
             try:
-                passage = self.get_old_english_verse(verse).strip()
+                return self.get_old_english_verse(verse).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
