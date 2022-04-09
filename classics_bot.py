@@ -8,6 +8,7 @@ from lang_trans.arabic import arabtex
 import romanize3
 from transliterate import translit
 
+from bible_compare.int_prefixed_books import get_int_prefix_book
 from char_lookup import lookup_wikt
 import my_wiktionary_parser
 from robot_brain import QuoteContext, RobotBrain
@@ -30,7 +31,7 @@ robot = RobotBrain("")
 DISCORD_CHAR_LIMIT = 2000
 
 
-class PlayerSession():
+class PlayerSession:
     """
     Class to simulate a player's game session
     """
@@ -53,7 +54,7 @@ class PlayerSession():
         self.channel = None
 
 
-class Game():
+class Game:
     """
     Class to simulate a game, which can be of multiple types
     """
@@ -141,6 +142,7 @@ class Game():
         self.players_dict = dict()
 
 
+# noinspection PyTypeHints
 class ClassicsBot(discord.Client):
     """
     Represents a bot connection that connects to Discord. Inherits from the discord.Client class.
@@ -191,9 +193,6 @@ class ClassicsBot(discord.Client):
 
         # self.authors_set.add('reddit')
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
-        for author in self.authors_set:
-            self.markov_commands[f"as {author.lower()} allegedly said:"] = author
-            self.quotes_commands[f"as {author.lower()} said:"] = author
         print('Done initializing')
 
 
@@ -443,7 +442,7 @@ class ClassicsBot(discord.Client):
         :param n: the maximum size of each chunk, set by default to 2000, which is the maximum length of a Discord message
         """
         if len(text) > DISCORD_CHAR_LIMIT:
-            chunks = RobotBrain.chunks(n)
+            chunks = RobotBrain.chunks(text, n)
             for chunk in chunks:
                 await channel.send(chunk)
         else:
@@ -728,7 +727,6 @@ class ClassicsBot(discord.Client):
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'bibleversions'):
-
             args = shlex.split(content.lower())
             if len(args) > 1:
                 language = ' '.join(args[1:]).lower()
@@ -814,98 +812,6 @@ class ClassicsBot(discord.Client):
 
         # ==================================================================================================================================================
 
-        def process_gibbon_footnots(self, file):
-
-            return [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
-
-
-        if content.lower().startswith(self.command_prefix + 'pick'):
-
-            args = shlex.split(content.lower())
-            if not args[0].lower() == 'pick':
-                return
-            if len(args) < 2:
-                await channel.send("You need to pick an index.")
-                return
-            index = 0
-            qt_obj: QuoteContext = self.quote_requestors[author]
-            source = qt_obj.author
-
-            try:
-                index = int(args[1])
-            except:
-                channel.send("Index must be an integer.")
-                return
-            if source.lower().strip() == 'gibbon':
-                module = qt_obj.works_list[index - 1]
-                if 'footnotes' in module.__file__:
-                    quotes = []
-                    for chapter in module.footnotes:
-                        quotes += [fn + '\n\n' for fn in module.footnotes[chapter]]
-                    qt_obj.works_list[index - 1] = module
-                    qt_obj.quotes = quotes
-                    qt_obj.index = 0
-                    qt_obj.after_index = 0
-                    qt_obj.author = 'gibbon'
-                    await channel.send(qt_obj.get_surrounding(after=1, joiner=""))
-                else:
-                    quotes = module.quotes
-                    qt_obj.works_list[index - 1] = module
-                    qt_obj.quotes = quotes
-                    qt_obj.index = 0
-                    qt_obj.after_index = 0
-                    qt_obj.author = 'gibbon'
-                    await channel.send(qt_obj.get_surrounding(after=1))
-                return
-
-            file = qt_obj.works_list[index - 1]
-            if file.closed:
-                qt_obj.works_list[index - 1] = open(file.name)
-                file = qt_obj.works_list[index - 1]
-            file.seek(0)
-            if source == 'the bible':
-                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_holy_text)
-            elif source.lower() == "joyce":
-                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_basic)
-            elif source.lower() == "bush" or source.lower() == "yogi berra":
-                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_absolute)
-            elif source.lower() == "jaspers":
-                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_basic)
-            elif source.lower() == "gibbon" and 'footnotes' in file.name:
-                quotes = [q.rstrip('\n') for q in file.read().split(robotic_roman.ABSOLUTE_DELIMITER)]
-            elif source.lower() == "mommsen":
-                if 'contents' in file.name:
-                    # print("In contents")
-                    quotes = self.robot.get_passage_list_for_file(file, lambda x: [x])
-                    await channel.send(quotes[0])
-                    return
-                else:
-                    quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_text)
-            else:
-                quotes = self.robot.get_passage_list_for_file(file, RobotBrain._process_text)
-            qt_obj = QuoteContext(source, quotes, 0, works_list=qt_obj.works_list)
-            self.quote_requestors[author] = qt_obj
-            try:
-                await channel.send(qt_obj.get_surrounding(after=1))
-            except:
-                display, workslist = self.robot.show_author_works(source)
-                # print("WORKSLIST:")
-                # print(workslist)
-                if workslist[index - 1].name == 'modern_historians/gibbon/footnotes_from_gibbon.txt':
-                    qt_obj = QuoteContext(source,
-                                          [q.rstrip('\n') for q in
-                                           RobotBrain._process_absolute(
-                                               open(workslist[index - 1].name, encoding='utf8').read())
-                                           ], 0, workslist)
-                else:
-                    qt_obj = QuoteContext(source, RobotBrain._process_text(
-                        open(workslist[index - 1].name, encoding='utf8').read()), 0, workslist)
-                self.quote_requestors[author] = qt_obj
-                await channel.send(qt_obj.get_surrounding(after=1))
-            return
-
-        # ==================================================================================================================================================
-
         if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(
                 self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
@@ -922,7 +828,7 @@ class ClassicsBot(discord.Client):
                 qt_obj = QuoteContext(source, [], 0, workslist)
                 self.quote_requestors[author] = qt_obj
                 if len(display) > 2000:
-                    parts = list(RobotBrain.chunks(10))
+                    parts = list(RobotBrain.chunks(display, 10))
                     for part in parts:
                         await channel.send(' '.join(part))
                 else:
@@ -952,23 +858,24 @@ class ClassicsBot(discord.Client):
 
             qt_args = shlex.split(content)
             # print(qt_args)
+            arg_str = " ".join(qt_args)
+            int_prefixed_book = get_int_prefix_book(arg_str)
             try:
-                if len(qt_args) > 4 and self.is_int(qt_args[1]):
+                if int_prefixed_book:
+                    verse = int_prefixed_book + ' ' + qt_args[3]
+                    versions = qt_args[4:]
+                elif len(qt_args) > 4 and self.is_int(qt_args[1]):
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
                     versions = qt_args[4:]
-                    translation = self.robot.bible_compare(verse, versions)
                 elif len(qt_args) > 2 and re.match(r"[0-9]+:[0-9]+", qt_args[2]):
                     verse = qt_args[1] + ' ' + qt_args[2]
                     # print("Verse: " + verse)
                     versions = qt_args[3:]
-                    print(f"verse: {verse}, versions: {', '.join(versions)}")
-                    translation = self.robot.bible_compare(verse, versions)
-                elif len(qt_args) > 1:
-                    versions = qt_args[1:]
-                    translation = self.robot.bible_compare_random_verses(versions)
                 else:
                     await channel.send("Invalid arguments.")
                     return
+                print(f"Getting verse: {verse}, for {', '.join(versions)}")
+                translation = self.robot.bible_compare(verse, versions)
                 await channel.send(translation)
                 return
             except discord.errors.HTTPException:
@@ -1070,185 +977,6 @@ class ClassicsBot(discord.Client):
                 return
 
         # ==================================================================================================================================================
-
-        if content.lower().strip() == self.command_prefix + "whatchapter":
-
-            # print("In whatchapter")
-            try:
-                qt_obj: QuoteContext = self.quote_requestors[author]
-            except:
-                await channel.send("You have not started reading anything yet.")
-                return
-            if qt_obj.author != "gibbon":
-                await channel.send(
-                    f"This utility if only for finding which chapter of Gibbon's Decline and Fall you are reading.")
-                return
-            chapter = qt_obj.find_chapter_from_passage()
-            if chapter == "Preface":
-                await channel.send(f"You are in the Preface in Volume 1")
-            else:
-                await channel.send(f"You are in {chapter}")
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'fn'):
-
-            args = shlex.split(content.lower())
-            if args[0].lower() != 'fn':
-                return
-            if len(args) == 2:
-                try:
-                    qt_obj: QuoteContext = self.quote_requestors[author]
-                except:
-                    await self.send_message(
-                        "The current command form assumes that you are reading Gibbon and are trying to retrieve a footnote from a passage you have just read, but htis does not appear to be the case.")
-                    return
-                chapter = qt_obj.find_chapter_from_passage()
-                try:
-                    footnote_num = int(args[1])
-                except:
-                    await channel.send("Footnote number must be an integer.")
-                    return
-                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
-                await self.send_in_chunks_if_needed(channel, footnote)
-                return
-            if len(args) == 3:
-                chapter = args[1].title()
-                chapter = self.format_chapter_for_gibbon(chapter)
-                try:
-                    footnote_num = int(args[2])
-                except:
-                    await channel.send("Footnote number must be an integer.")
-                    return
-                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num)
-                await self.send_in_chunks_if_needed(channel, footnote)
-            elif len(args) == 4:
-                chapter = args[1].title()
-                chapter = self.format_chapter_for_gibbon(chapter)
-                try:
-                    footnote_num = int(args[2])
-                except:
-                    await channel.send("Footnote number must be an integer.")
-                    return
-                try:
-                    footnote_end = int(args[3])
-                except:
-                    await channel.send("Footnote number must be an integer.")
-                    return
-                if footnote_end - footnote_num > 4:
-                    await channel.send("For the sake of sanity, please retrieve only five footnotes at a time.")
-                    return
-                footnote = self.robot.get_gibbon_footnote(chapter, footnote_num, footnote_end)
-                await self.send_in_chunks_if_needed(channel, footnote)
-            else:
-                await channel.send("Wrong number of arguments. Type helpme for help.")
-                return
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'next'):
-
-            args = shlex.split(content.lower())
-            if args[0].lower() != 'next':
-                return
-            if len(args) < 2:
-                after = 1
-            else:
-                after = int(args[1])
-                if after < 1:
-                    await channel.send(f"You must pick a number greater than 0.")
-                    return
-                if after > 5:
-                    await channel.send(
-                        f"You must pick a number less than 6 to remain within Discord's character limit.")
-                    return
-            try:
-                qt_obj: QuoteContext = self.quote_requestors[author]
-                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(after=after, joiner=""))
-                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
-                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(after=after, joiner=""))
-                elif qt_obj.author.lower() == 'the bible':
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1",
-                                                                        self.quote_requestors[author].get_surrounding(
-                                                                            after=after)))
-                else:
-                    # print(f"QuotesAtServiceLayer: {self.quote_requestors[author].quotes}")
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1",
-                                                                        self.quote_requestors[author].get_surrounding(
-                                                                            after=after)))
-            except discord.errors.HTTPException:
-                # traceback.print_exc()
-                await channel.send(f"Text is too long.")
-            return
-
-        if content.lower().startswith(self.command_prefix + 'bef'):
-
-            args = shlex.split(content.lower())
-            if args[0].lower() != 'bef':
-                return
-            if len(args) < 2:
-                before = 1
-            else:
-                before = int(args[1])
-                if before < 1:
-                    await channel.send(f"You must pick a number greater than 0.")
-                    return
-                if before > 5:
-                    await channel.send(
-                        f"You must pick a number less than 6 to remain within Discord's character limit.")
-                    return
-            try:
-                qt_obj: QuoteContext = self.quote_requestors[author]
-                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(before=before, joiner=""))
-                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
-                    await self.send_in_chunks_if_needed(channel, qt_obj.get_surrounding(before=before, joiner=""))
-                else:
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"([?!])\s*\.", r"\1",
-                                                                        qt_obj.get_surrounding(before=before)))
-            except discord.errors.HTTPException:
-                # traceback.print_exc()
-                await channel.send(f"Text is too long.")
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'surr'):
-
-            args = shlex.split(content.lower())
-            if args[0].lower() != 'surr':
-                return
-            if len(args) < 3:
-                before = 1
-                after = 1
-            else:
-                before = int(args[1])
-                after = int(args[2])
-            try:
-                qt_obj: QuoteContext = self.quote_requestors[author]
-                if qt_obj.author.lower() in robotic_roman.ABSOLUTE_DELIMITER_AUTHORS:
-                    surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
-                    await self.send_in_chunks_if_needed(channel, surr_quotes)
-                elif qt_obj.author.lower() == 'gibbon' and 'footnotes' in qt_obj.find_chapter_from_passage():
-                    surr_quotes = qt_obj.get_surrounding(before=before, after=after, joiner="")
-                    await self.send_in_chunks_if_needed(channel, surr_quotes)
-                elif qt_obj.author.lower() == 'the bible':
-                    await self.send_in_chunks_if_needed(channel, re.sub(r"[\.](\w)", r"\1",
-                                                                        qt_obj.get_surrounding(before=before,
-                                                                                               after=after)))
-                else:
-                    surr_quotes = qt_obj.get_surrounding(before=before, after=after)
-                    surr_quotes = re.sub(r"([?!])\s*\.", r"\1", surr_quotes)
-                    await self.send_in_chunks_if_needed(channel, surr_quotes)
-            except discord.errors.HTTPException:
-                # traceback.print_exc()
-                await channel.send(f"The passage is too long.")
-            return
-
-        # ==================================================================================================================================================
         """
         if content.lower().startswith(self.command_prefix + 'owo'):
             
@@ -1275,66 +1003,7 @@ class ClassicsBot(discord.Client):
                 else:
                     await channel.send(f"I do not have quotes for {self.robot.format_name(author)}.")
         """
-        # ==================================================================================================================================================
 
-        if content.strip().lower().startswith(self.command_prefix + "markov"):
-
-            markov_args = shlex.split(content.replace('“', '"').replace('”', '"'))
-            # print(markov_args)
-            try:
-                if (markov_args[1].strip() == '-t'):
-                    author = ' '.join(markov_args[2:]).lower().strip()
-                    transliterated = transliteration.greek.transliterate(
-                        self.robot.make_sentence(author.lower())).replace(robotic_roman.ABSOLUTE_DELIMITER, "")
-                    await channel.send(transliterated)
-                    return
-                else:
-                    author = ' '.join(markov_args[1:]).strip().lower()
-                    await channel.send(
-                        self.robot.make_sentence(author.lower()).replace(robotic_roman.ABSOLUTE_DELIMITER, ""))
-                    return
-            except Exception as e:
-                # traceback.print_exc()
-                if not author:
-                    await channel.send("No person provided")
-                else:
-                    await channel.send(f"I do not have a Markov model for {self.robot.format_name(author)}.")
-
-        # ==================================================================================================================================================
-
-        if content.strip().lower() in self.markov_commands:
-
-            author = self.markov_commands[content.strip().lower().replace('“', '"').replace('”', '"')]
-            try:
-                await channel.send(self.robot.make_sentence(author.lower()))
-            except Exception as e:
-                # traceback.print_exc()
-                if not author:
-                    await channel.send("No person provided")
-                else:
-                    await channel.send(f"I do not have a Markov model for {self.robot.format_name(author)}.")
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'literaturequote'):
-            await channel.send(self.robot.pick_random_literature_quote())
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'historianquote'):
-            await channel.send(self.robot.pick_random_historians_quote())
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'philosopherquote'):
-            await channel.send(self.robot.pick_random_philosopher_quote())
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'germanicquote'):
-            await channel.send(self.robot.pick_random_germanic_quote())
-
-        # ==================================================================================================================================================
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await channel.send(self.robot.pick_random_latin_quote())
 
@@ -1378,16 +1047,10 @@ class ClassicsBot(discord.Client):
                 desc = help[i][0].strip()
                 self.command_dict[i + 1] = command = help[i][1]
                 ret.append(f"**{i + 1}.** {desc}")
-            lines = list(RobotBrain.chunks(5))
+            lines = list(RobotBrain.chunks(ret, 10))
             print('Pick the number to see the command:\n' + '\n'.join(ret))
             await channel.send(
                 'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'germanicauthors'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 
@@ -1400,18 +1063,6 @@ class ClassicsBot(discord.Client):
         if content.lower().startswith(self.command_prefix + 'greekauthors'):
             await channel.send('```yaml\n' + ', '.join(
                 [self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'modernphilosophers'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.philosophers_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'modernhistorians'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.historians_quotes_dict.keys())]) + '```')
 
         # ==================================================================================================================================================
 

@@ -193,7 +193,7 @@ class QuoteContext():
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
             quotes_list = self.quotes[old_after:self.after_index]
-        ret_str = RobotBrain.sanitize(joiner.join(quotes_list)).replace("_found", "").split(EOF)[0] \
+        ret_str = RobotBrain.sanitize().replace("_found", "").split(EOF)[0] \
             .replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
@@ -310,7 +310,8 @@ class RobotBrain:
                          (format_color("Help ", "CSS"), f"'{prefix}helpme'")]
 
 
-    def display_sort(self, x):
+    @staticmethod
+    def display_sort(x):
         x = x.replace('.txt', '')
 
         m = re.findall(r"[0-9]+", x)
@@ -471,7 +472,8 @@ class RobotBrain:
         return '\n' + return_str
 
 
-    def get_derivatives(self, word, language='latin', misc=False):
+    @staticmethod
+    def get_derivatives(word, language='latin', misc=False):
         """
         Get the derivatives of a word from Wiktionary
         :param word: the input word
@@ -485,7 +487,8 @@ class RobotBrain:
         return my_wiktionary_parser.get_derivations(soup, language, misc)
 
 
-    def get_word_header(self, word, language):
+    @staticmethod
+    def get_word_header(word, language):
         try:
             soup = my_wiktionary_parser.get_soup(word)
             found_word = my_wiktionary_parser.get_word(soup, language, word)
@@ -584,11 +587,12 @@ class RobotBrain:
             return lemma.replace('_', ' ')
 
 
-    def case_transform(self, string, to_lower):
+    @staticmethod
+    def case_transform(s, to_lower):
         if to_lower:
-            return string.lower()
+            return s.lower()
         else:
-            return string
+            return s
 
 
     def get_and_format_word_defs(self, word, language='latin', include_examples=False, tries=0):
@@ -706,7 +710,8 @@ class RobotBrain:
             yield lst[i:i + n]
 
 
-    def get_available_bible_versions(self):
+    @staticmethod
+    def get_available_bible_versions():
         """
         Get a list of Bible versions in multiple languages from which we can retrieve passages for the sake of
         linguistic comparison
@@ -716,7 +721,8 @@ class RobotBrain:
         return ', '.join(sorted([f"{key.title()}" for key in bible_versions.versions], key=str.lower))
 
 
-    def get_available_bible_versions_lang(self, lang):
+    @staticmethod
+    def get_available_bible_versions_lang(lang):
         """
         Get a list of Bible versions in a specific language
 
@@ -728,7 +734,7 @@ class RobotBrain:
         versions = sorted(bible_versions.versions[lang.lower()], key=str.lower)
         return_string = f"{lang.title()}: {', '.join(versions)}"
         if len(return_string) >= 2000:
-            chunks = RobotBrain.chunks(10)
+            chunks = RobotBrain.chunks(versions, 10)
             return [lang.title() + ":"] + [f"{', '.join(chunk)}" for chunk in chunks]
         else:
             return [return_string]
@@ -767,7 +773,8 @@ class RobotBrain:
         return "Not found"
 
 
-    def get_book_and_chapter(self, book_and_verse):
+    @staticmethod
+    def get_book_and_chapter(book_and_verse):
         if len(book_and_verse.split(" ")) == 4:
             book = "Song of Songs"
             chapter = book_and_verse.split(" ")[3].split(":")[0]
@@ -781,7 +788,8 @@ class RobotBrain:
         return book, chapter
 
 
-    def get_verse_range(self, book, book_and_verse):
+    @staticmethod
+    def get_verse_range(book, book_and_verse):
         print(f"Book: {book}, Book and Verse: {book_and_verse}")
         verse_range = None
         if book.lower() == "song of songs":
@@ -901,7 +909,8 @@ class RobotBrain:
             return "Not found"
 
 
-    def get_wycliffe_verse(self, verse):
+    @staticmethod
+    def get_wycliffe_verse(verse):
         """
         Get a verse from the Wycliffe Bible
         """
@@ -993,7 +1002,8 @@ class RobotBrain:
         return passage.strip()
 
 
-    def get_random_verse_by_testament(self, testament):
+    @staticmethod
+    def get_random_verse_by_testament(testament):
         """
         Get a random verse from either the Old Testament or the New Testament
         :param testament: can be either "ot" or "nt"
@@ -1206,7 +1216,8 @@ class RobotBrain:
                 i < len(first_pass) - 1]
 
 
-    def splitkeepsep(self, s, sep):
+    @staticmethod
+    def splitkeepsep(s, sep):
         return reduce(lambda acc, elem: acc[:-1] + [acc[-1] + elem] if re.match(elem, sep) else acc + [elem],
                       re.split("(%s)" % re.escape(sep), s), [])
 
@@ -1244,22 +1255,13 @@ class RobotBrain:
                 quotes_dict[author].append(open(f"{author_path}/{file}", encoding='utf8'))
 
 
-    def format_name(self, author):
+    @staticmethod
+    def format_name(author):
         return author.title().replace('Of ', 'of ').replace('The ', 'the ').replace(' De ', ' de ')
 
 
     def pick_quote_generic(self, quote_dict):
         author = random.choice(list(quote_dict.keys()))
-        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
-
-
-    def pick_random_literature_quote(self):
-        author = random.choice(list(self.literature_quotes_dict.keys()))
-        return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
-
-
-    def pick_random_philosopher_quote(self):
-        author = random.choice(list(self.philosophers_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
 
@@ -1278,11 +1280,13 @@ class RobotBrain:
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
 
 
-    def flatten(self, array):
+    @staticmethod
+    def flatten(array):
         return [item for sublist in array for item in sublist]
 
 
-    def find_multi_regex(self, regexes, passage, case_sensitive):
+    @staticmethod
+    def find_multi_regex(regexes, passage, case_sensitive):
         if not case_sensitive:
             passage = passage.lower()
         generic_re = re.compile('|'.join(regexes))
@@ -1301,11 +1305,13 @@ class RobotBrain:
                                                     re.sub(r"[^\w0-9\s\n]", "", proces_func(quote), case_sensitive))
 
 
-    def unpack(self, *lst):
+    @staticmethod
+    def unpack(*lst):
         return lst
 
 
-    def remove_accents(self, input_str):
+    @staticmethod
+    def remove_accents(input_str):
         if isinstance(input_str, bytes) or isinstance(input_str, bytearray):
             input_str = input_str.decode('utf8')
         nfkd_form = unicodedata.normalize('NFKD', input_str)
@@ -1391,8 +1397,6 @@ class RobotBrain:
 
 
     def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0, chinese=False):
-        # print(', '.join([f.name for f in files]))
-        print(f"Case sensitivity for pick_quote: f{case_sensitive}")
         if tries > 2:
             return -1, "Not found.", []
         if word:
@@ -1576,7 +1580,8 @@ class RobotBrain:
         return i, re.sub(r"^[\s]*[\n]+[\s]*", " ", RobotBrain.sanitize(quote)), quotes_list
 
 
-    def sanitize(self, quote):
+    @staticmethod
+    def sanitize(quote):
         return RobotBrain.fix_crushed_punctuation(RobotBrain._replace_placeholders(quote))
 
 
