@@ -463,9 +463,12 @@ class ClassicsBot(discord.Client):
                 except:
                     traceback.print_exc()
 
-        if content.lower().startswith(self.command_prefix + 'defn'):
+        if content.lower().startswith(self.command_prefix + 'getdef'):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
             try:
+                if len(args) < 3:
+                    await channel.send("Error: you must specify a language to get the word definition(s)")
+                    return
                 if len(args) > 1:
                     language = args[1]
                     word = ' '.join(args[2:])
@@ -521,13 +524,16 @@ class ClassicsBot(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_ety'):
+        if content.lower().startswith(self.command_prefix + "getety"):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
 
             try:
+                if len(args) < 3:
+                    await channel.send("Error: you must specify a language to get the word etymology")
+                    return
                 if len(args) > 1:
-                    language = re.search("([\w_\-]+)_ety", args[0].lower()).group(1).replace('_', ' ')
-                    word = ' '.join(args[1:])
+                    language = args[1]
+                    word = ' '.join(args[2:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     language = self.language_format(language)
@@ -548,17 +554,17 @@ class ClassicsBot(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix) and content.split()[0].lower().endswith('_word'):
+        if content.lower().startswith(self.command_prefix + "getentry"):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
 
             try:
+                if len(args) < 3:
+                    await channel.send("Error: you must specify a language to get the word entry")
+                    return
                 if len(args) > 1:
-                    language = re.search("([\w_\-]+?)_word", args[0].replace(':', '').lower()).group(1).replace('_',
-                                                                                                                ' ')
+                    language = args[1]
                     language = self.language_format(language)
-                    word = ' '.join(args[1:])
-                    # print("Language: " + language)
-                    # print("word: " + word)
+                    word = ' '.join(args[2:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     entry = self.robot.get_full_entry(word, language)

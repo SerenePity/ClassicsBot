@@ -302,9 +302,9 @@ class RobotBrain:
                           "https://en.wikipedia.org/wiki/Shuowen_Jiezi)", "CSS"),
              f"`{prefix}getshuowen <character>`"),
             (format_color("Start Shuowen game", "CSS"), f"`{prefix}shuowengame`"),
-            (format_color("Word definition", "CSS"), f"`{prefix}<language>_def <word>`"),
-            (format_color("Word etymology", "CSS"), f"`{prefix}<language>_ety <word>`"),
-            (format_color("Word entry ", "CSS"), f"`{prefix}<language>_word <word>`"),
+            (format_color("Word definition", "CSS"), f"`{prefix}getdef <language> <word>`"),
+            (format_color("Word etymology", "CSS"), f"`{prefix}getety <language> <word>`"),
+            (format_color("Word entry ", "CSS"), f"`{prefix}getentry <language> <word>`"),
             (format_color("Random entry (defaults to Latin) ", "CSS"),
              f"`{prefix}randword [language]' | '{prefix}randomword [language]`"),
             (format_color("Help ", "CSS"), f"`{prefix}helpme`")]
