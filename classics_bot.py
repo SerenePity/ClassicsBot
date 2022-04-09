@@ -463,13 +463,12 @@ class ClassicsBot(discord.Client):
                 except:
                     traceback.print_exc()
 
-        if content.lower().startswith(self.command_prefix) and content.lower().split()[0].endswith('_def'):
+        if content.lower().startswith(self.command_prefix + 'defn'):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
-            # (args)
             try:
                 if len(args) > 1:
-                    language = re.search("([(\w_\-)]+)_def", args[0].lower()).group(1).replace('_', ' ')
-                    word = ' '.join(args[1:])
+                    language = args[1]
+                    word = ' '.join(args[2:])
                     if 'proto-' in language:
                         word = self.robot.format_reconstructed(language, word)
                     language = self.language_format(language)

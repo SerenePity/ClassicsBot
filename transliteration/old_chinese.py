@@ -45,8 +45,7 @@ def transliterate(text):
             if oc_bax == 'n/a':
                 oc_bax = get_old_chinese_from_wiktionary(char)
             ret_array.append(oc_bax)
-
-    ret_str = " ".join(ret_array)
+    ret_str = " ".join([r.replace("*", "") for r in ret_array])
     return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"") \
         .replace("」", "\"").replace(" \"", "\"").replace(" ,", ",").replace(" :", ": ").replace(" ?", "?") \
         .replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"")

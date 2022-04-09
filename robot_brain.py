@@ -128,7 +128,6 @@ ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
 EOF = "--------------------------EOF--------------------------"
 
 CHINESE_WORD_CHOICES = ["https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
-                        "https://en.wiktionary.org/wiki/Special:RandomInCategory/Chinese_chengyu",
                         "https://en.wiktionary.org/wiki/Special:RandomInCategory/Mandarin_lemmas"]
 
 
@@ -197,22 +196,6 @@ class QuoteContext():
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
         return ret_str.replace(ABSOLUTE_DELIMITER, "")
-
-
-def sort_files(file):
-    try:
-        return int(''.join([s.strip() for s in file if s.isdigit()]))
-    except:
-        return hash(file)
-
-
-def format_reconstructed(language, word):
-    return f"Reconstruction:{language.title()}/{word}".replace('*', '')
-
-
-def word_is_in_wiktionary(word):
-    soup = my_wiktionary_parser.get_soup(word)
-    return soup and "does not yet have an entry" not in soup
 
 
 class RobotBrain:
@@ -289,10 +272,13 @@ class RobotBrain:
                                                                     f"\n\t\t**-t**: transliterate the quote."),
             (format_color("Retrieve a random Chinese quote ", "CSS"), f"`{prefix}chinesequote`"),
             (format_color("Retrieve a random Germanic quote ", "CSS"), f"`{prefix}germanicquote`"),
-            (format_color("Start grammar game ", "CSS"), f"`{prefix}grammargame [-m] <language>`"
-                                                         f"\n\tOptions:"
-                                                         f"\n\t\t**-m**: require correct macrons."),
-            (format_color("Start word game ", "CSS"), f"`{prefix}wordgame <language>`"),
+            (format_color("Start a grammar game ", "CSS"), f"`{prefix}grammargame [-m] <language>`"
+                                                           f"\n\tOptions:"
+                                                           f"\n\t\t**-m**: require correct macrons."),
+            (format_color("Start a word game (where you'll guess the word based on its definition)", "CSS"),
+             f"`{prefix}wordgame <language>`"),
+            (format_color("Start a text game (where you'll guess the author based on a piece of text) ", "CSS"),
+             f"`{prefix}textgame <language>`"),
             (format_color("Guess answer ", "CSS"), f"`{prefix}g <word>`"),
             (format_color("End game ", "CSS"), f"`{prefix}giveup`"),
             (format_color("Join game ", "CSS"), f"`{prefix}join <game owner>`"),
@@ -310,7 +296,8 @@ class RobotBrain:
              "Old English translation, for example, has only the Gospels."
              "\n\tExample: `biblecompare Genesis 1:1-3 $lxx vulgate hebrew`"),
             (
-            format_color("Get Chinese character origin from Wiktionary ", "CSS"), f"`{prefix}char_origin <character>`"),
+                format_color("Get Chinese character origin from Wiktionary ", "CSS"),
+                f"`{prefix}char_origin <character>`"),
             (format_color("Get Chinese character origin from the [Shuowen Jiezi]("
                           "https://en.wikipedia.org/wiki/Shuowen_Jiezi)", "CSS"),
              f"`{prefix}getshuowen <character>`"),
@@ -465,14 +452,14 @@ class RobotBrain:
                 if not gloss:
                     gloss = my_wiktionary_parser.get_wiktionary_glosses(my_wiktionary_parser.get_soup(tradify(word)))
                 gloss_section = f"**Gloss:**\n{gloss}\n\n"
-                print("In Muliple")
+                print("In multiple")
                 glyph_origin = my_wiktionary_parser.get_glyph_origin_multiple(list(word))
             else:
                 glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, word)
             if not glyph_origin:
                 glyph_origin = "Not found."
-            return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
-                         f"**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
+            return f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
+                   f"**Etymology:**\n{etymology.strip()}\n\n{gloss_section}**Glyph Origin:**\n{glyph_origin}"
 
         return_str = f"{word_header}\n\n**Language:** {language.title()}\n\n**Definition:**\n{definition}\n\n" \
                      f"**Etymology:**\n{etymology.strip()}"
@@ -633,6 +620,25 @@ class RobotBrain:
         if isinstance(word_defs, str):
             word_defs = [word_defs]
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
+
+
+    @staticmethod
+    def sort_files(file):
+        try:
+            return int(''.join([s.strip() for s in file if s.isdigit()]))
+        except:
+            return hash(file)
+
+
+    @staticmethod
+    def format_reconstructed(language, word):
+        return f"Reconstruction:{language.title()}/{word}".replace('*', '')
+
+
+    @staticmethod
+    def word_is_in_wiktionary(word):
+        soup = my_wiktionary_parser.get_soup(word)
+        return soup and "does not yet have an entry" not in soup
 
 
     @staticmethod

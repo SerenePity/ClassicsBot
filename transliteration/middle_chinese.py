@@ -41,8 +41,8 @@ def transliterate(text):
             char = tradify(char)
             pinyin, mc, oc_bax, gloss = get_reconstruction(char)
             if mc == 'n/a':
-                pinyin = get_middle_chinese_from_wiktionary(char).split(",")[0].strip()
-            ret_array.append(pinyin)
+                mc = get_middle_chinese_from_wiktionary(char)
+            ret_array.append(mc)
     ret_str = " ".join(ret_array)
     return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"") \
         .replace("」", "\"").replace(" \"", "\"").replace(" ,", ",").replace(" :", ": ").replace(" ?", "?") \
