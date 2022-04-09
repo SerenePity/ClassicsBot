@@ -690,13 +690,14 @@ def pretty(d, indent=0):
 
 
 def get_grammar_question(language, tries=0):
+    print(f"Language in grammar question: {language}")
     if tries > 5:
         return [None, None]
-    print(language)
     soup = BeautifulSoup(requests.get(
         f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms").text)
     # print(soup)
-    print(f"https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms")
+    print(
+        f"Getting non-lemma form from https://en.wiktionary.org/wiki/Special:RandomInCategory/{language.title()}_non-lemma_forms")
     language_header = None
     headword = None
     headword_forms = []

@@ -231,9 +231,7 @@ def tit_for_tat(text):
 
 def transliterate(text):
     verses = []
-    print(text)
     for verse in text.split("\n"):
-        print(verse)
         tit_tat = tit_for_tat(verse)
         array = tit_tat.split()
         mod_array = ' '.join(test_each(array))

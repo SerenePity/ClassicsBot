@@ -297,105 +297,52 @@ class ClassicsBot(discord.Client):
                 del self.players_to_game_owners[player]
 
 
-    async def start_game(self, channel, game_owner, text_set, word_language='latin', macrons=True):
-        """
-        Starts a new game and sends a message informing players that a game has been initialized.
+    async def start_game(self, channel, game_owner, language, is_text_game=False, is_word_game=False,
+                         is_grammar_game=False, is_shuowen_game=False, macrons=False):
 
-        :param channel: the channel in which the game is played
-        :param game_owner: the game "owner," which is the person who started the game
-        :param text_set: determines the type of game to be played
-        :param word_language: the game language, if it is a word game (e.g., Latin, Greek, Turkish, etc.) Defaults to Latin
-        :param macrons: boolean flag to indicate whether we care about macrons (for Ancient Greek and Latin word games)
-        """
-        repeat_text = ""
-        is_grammar_game = False
-        grammar_game_set = []
-        is_word_game = False
-        is_shuowen_game = False
-        # print(text_set)
-        hint = None
-        text_set = text_set.split('[')[0].strip()
-        if game_owner in self.games and self.games[game_owner].game_on:
-            repeat_text = "Okay, restarting game. "
-        if text_set == "ancientgreek":
-            answer = random.choice(self.robot.greek_authors)
-        elif text_set == "nomacrongrammar":
-            grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms(no_macrons=True)
-            answer = grammar_game_set[0]
-            question = random.choice(grammar_game_set[1]).strip()
-            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_definitions(lemma, 'latin', False)[0].split('\n')[0]
-            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
-        elif text_set == "grammar":
-            grammar_game_set = my_wiktionary_parser.get_latin_grammar_forms()
-            answer = grammar_game_set[0]
-            question = random.choice(grammar_game_set[1]).strip()
-            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_definitions(lemma, 'latin', False)[0].split('\n')[0]
-            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
-        elif text_set == "greekgrammar":
-            grammar_game_set = my_wiktionary_parser.get_greek_grammar_forms()
-            answer = grammar_game_set[0]
-            question = random.choice(grammar_game_set[1]).strip()
-            lemma = my_wiktionary_parser.remove_macrons(question.split(' (')[0].split(' of ')[-1]).replace('.', '')
-            answer_def = robot.get_word_definitions(lemma, 'ancient greek', False)[0].split('\n')[0]
-            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
-        elif text_set == "word":
-            if "-l " in word_language:
-                word_language = word_language.replace("-l ", "")
-            answer = self.robot.get_random_word(word_language).strip()
-            if answer == "Could not find lemma.":
-                await channel.send("Could not find an entry with an etymology. Please try again.")
-                return
-            is_word_game = True
-        elif text_set == 'latin':
-            answer = random.choice(self.robot.latin_authors)
-        elif text_set == 'shuowen':
-            answer, passage, hint = self.robot.shuowen_game()
-            is_shuowen_game = True
-        else:
-            print("In other lang")
-            grammar_game_set = my_wiktionary_parser.get_grammar_question(text_set)
-            answer = grammar_game_set[0]
-            question = random.choice(grammar_game_set[1]).strip()
-            question = question[0].lower() + question[1:]
-            lemma = my_wiktionary_parser.remove_macrons(question.split(' ')[-1]).replace('.', '')
-            answer_def = robot.get_word_definitions(lemma, text_set, False)[0].split('\n')[0]
-            # print("Answer def:\n\n" + answer_def)
-            passage = "Name the " + question + ' [definition: ' + answer_def + ']'
-            if not macrons:
-                answer = my_wiktionary_parser.remove_macrons(answer)
-            text_set = "otherlang"
-
-        if text_set not in ['word', 'grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang', 'shuowen']:
-            i, passage, _ = self.robot.random_quote(answer)
-        elif text_set in ['grammar', 'greekgrammar', 'nomacrongrammar', 'otherlang']:
-            is_grammar_game = True
-            # to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
-            passage = "name the " + random.choice(grammar_game_set[1]).strip() + ' [definition: ' + answer_def + ']'
-            passage = passage[0].lower() + passage[1:]
-        else:
-            if text_set != 'shuowen':
-                passage = self.robot.get_and_format_word_defs(answer, word_language, include_examples=False)
-        self.games[game_owner] = Game(game_owner, answer, text_set, channel, is_word_game, is_grammar_game,
-                                      word_language=word_language, hint=hint, is_shuowen_game=is_shuowen_game)
-        self.players_to_game_owners[game_owner] = game_owner
-        print("Answer: " + answer)
         instruction = "\n\nType g <answer> to guess your answer. Type giveup to give up."
-
-        if text_set not in ["word", "grammar", "greekgrammar", "nomacrongrammar", "otherlang", "shuowen"]:
+        repeat_text = ""
+        answer = ""
+        hint = None
+        if game_owner in self.games and self.games[game_owner].game_on:
+            repeat_text = "Okay, restarting game."
+        if is_text_game:
+            if language == "greek":
+                answer = random.choice(self.robot.greek_authors)
+            elif language == "latin":
+                answer = random.choice(self.robot.latin_authors)
+            elif language == "chinese":
+                answer = random.choice(self.robot.chinese_authors)
+            _, passage, _ = self.robot.random_quote(answer)
             await channel.send(
                 f"{repeat_text}{game_owner.mention}, name the author or source of the following passage:\n\n_{passage}_{instruction}")
-        elif text_set == 'grammar':
-            await channel.send(f"{repeat_text}{game_owner.mention}, {passage} (note: macrons needed).{instruction}")
-        elif text_set == 'greekgrammar' or text_set == 'nomacrongrammar' or text_set == 'otherlang':
-            await channel.send(f"{repeat_text}{game_owner.mention}, {passage}{instruction}")
-        elif text_set == 'shuowen':
+        elif is_grammar_game:
+            grammar_game_set = my_wiktionary_parser.get_grammar_question(language)
+            answer = grammar_game_set[0]
+            grammar_question = random.choice(grammar_game_set[1]).strip()
+            grammar_question = grammar_question[0].lower() + grammar_question[1:]
+            lemma = my_wiktionary_parser.remove_macrons(grammar_question.split(' ')[-1]).replace('.', '')
+            answer_def = robot.get_word_definitions(lemma, language, False)[0].split('\n')[0]
+            # print("Answer def:\n\n" + answer_def)
+            question = "Name the " + grammar_question + ' [definition: ' + answer_def + ']'
+            if not macrons:
+                answer = my_wiktionary_parser.remove_macrons(answer)
+            await channel.send(
+                f"{repeat_text}{game_owner.mention}, {question}{instruction}")
+        elif is_word_game:
+            answer = self.robot.get_random_word(language).strip()
+            definition = self.robot.get_and_format_word_defs(answer, language, include_examples=False)
+            await channel.send(
+                f"{repeat_text}{game_owner.mention}, name the {language.title()} word (in lemma form) with the "
+                f"following definitions:\n\n{definition}{instruction}")
+        elif is_shuowen_game:
+            answer, passage, hint = self.robot.shuowen_game()
             await channel.send(
                 f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
-        else:
-            await channel.send(
-                f"{repeat_text}{game_owner.mention}, state the {word_language.title()} word (in lemma form) with the following definitions:\n\n{passage}{instruction}")
+        self.games[game_owner] = Game(game_owner, answer, language, channel, is_word_game, is_grammar_game,
+                                      word_language=language, hint=hint)
+        self.players_to_game_owners[game_owner] = game_owner
+        print("Answer: " + answer)
 
 
     def end_game(self, game_owner):
@@ -409,18 +356,8 @@ class ClassicsBot(discord.Client):
         del self.games[game_owner]
 
 
-    def is_int(self, n):
-        """
-        Check if a character can be converted into an integer
-        """
-        try:
-            n = int(n)
-            return True
-        except:
-            False
-
-
-    async def send_truncate(self, channel, text):
+    @staticmethod
+    async def send_truncate(channel, text):
         """
         Truncate if text is longer than the Discord character limit
         :param channel: the channel to send the message in
@@ -465,6 +402,7 @@ class ClassicsBot(discord.Client):
 
 
     async def on_member_update(self, before, after):
+        # FIXME: not entirely sure this works anymore.
         """
         Send a message to new users when they are approved to join the server (i.e, when the "Newcomer" role is removed
         """
@@ -473,21 +411,22 @@ class ClassicsBot(discord.Client):
             if probationary_role in before.roles and probationary_role not in after.roles:
                 pm_channel = await self.start_private_message(after)
                 await self.send_message(pm_channel,
-                                        f"Welcome {after.mention} to the Latin server. In order to ensure an atmosphere agreeable to all, please be sure to observe the following rules:"
-
-                                        + "\n\n**I.** Treat others with respect at all times. Personal insults will not be tolerated. Tread carefully when discussing sensitive issues."
-
-                                        + "\n\n**II.** No slurs or hate speech. Do not hide hate speech under the pretense of humour. This is a place for people of all backgrounds."
-
-                                        + "\n\n**III.** Keep images and text generally SFW. If you wouldn't show it to your Latin teacher, do not show it to us."
-
-                                        + "\n\n**IV.** No spam. Do not abuse pings."
-
-                                        + "\n\nWe operate within a three-strikes system. You will be warned for your first three infractions, after which you will be automatically banned. In egregious cases, we may skip straight to the ban."
-
-                                        + "\n\nThe rules are enforced according to our discretion. Do not challenge a warning. If you're confused, you may contact an Imperator privately."
-
-                                        + "\n\n_If something in the chat concerns you, please ping the ***@Imperator*** role or message an Imperator directly._")
+                                        f"Welcome {after.mention} to the Latin server. In order to ensure an "
+                                        f"atmosphere agreeable to all, please be sure to observe the following rules: "
+                                        "\n\n**I.** Treat others with respect at all times. Personal insults will "
+                                        "not be tolerated. Tread carefully when discussing sensitive issues. "
+                                        "\n\n**II.** No slurs or hate speech. Do not hide hate speech under the "
+                                        "pretense of humour. This is a place for people of all backgrounds. "
+                                        "\n\n**III.** Keep images and text generally SFW. If you wouldn't show it "
+                                        "to your Latin teacher, do not show it to us. "
+                                        "\n\n**IV.** No spam. Do not abuse pings."
+                                        "\n\nWe operate within a three-strikes system. You will be warned for your "
+                                        "first three infractions, after which you will be automatically banned. In "
+                                        "egregious cases, we may skip straight to the ban. "
+                                        "\n\nThe rules are enforced according to our discretion. Do not challenge a "
+                                        "warning. If you're confused, you may contact an Imperator privately. "
+                                        "\n\n_If something in the chat concerns you, please ping the "
+                                        "***@Imperator*** role or message an Imperator directly._")
         except:
             traceback.print_exc()
 
@@ -579,6 +518,7 @@ class ClassicsBot(discord.Client):
                 # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the word.")
                 return
+            return
 
         # ==================================================================================================================================================
 
@@ -605,6 +545,7 @@ class ClassicsBot(discord.Client):
                 # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the etymology.")
                 return
+            return
 
         # ==================================================================================================================================================
 
@@ -634,10 +575,6 @@ class ClassicsBot(discord.Client):
                 # traceback.print_exc()
                 await channel.send("An error occurred while trying to retrieve the word entry.")
                 return
-
-        if content.lower().startswith(self.command_prefix + 'listparallel'):
-            parallel_list = '\n'.join(self.robot.parallel_authors)
-            await channel.send(parallel_list)
             return
 
         # ==================================================================================================================================================
@@ -649,50 +586,6 @@ class ClassicsBot(discord.Client):
             glyph_origin = my_wiktionary_parser.get_glyph_origin(soup, list(char))
             await channel.send(glyph_origin)
             return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'latin_grammar'):
-
-            if "-m" in content.lower():
-                macrons = True
-            else:
-                macrons = False
-            if not macrons:
-                await self.start_game(channel, author, "nomacrongrammar", "latin", None)
-            else:
-                await self.start_game(channel, author, "grammar", "latin", None)
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'ancient_greek_grammar') or content.lower().startswith(
-                self.command_prefix + 'greek_grammar'):
-            await self.start_game(channel, author, "greekgrammar", "greek", None)
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'parallel'):
-
-            args = shlex.split(content.lower().strip())
-            last_arg = args[-1].strip()
-            # print("last_arg " + last_arg)
-            try:
-                if self.is_int(last_arg):
-                    # print("Matched num")
-                    person = ' '.join(args[1:-1])
-                    # print("PERSON: " + person)
-                    await channel.send(self.robot.get_parallel_quote(person, int(last_arg) - 1))
-                    return
-                else:
-                    person = ' '.join(args[1:])
-                    await channel.send(self.robot.get_parallel_quote(person))
-                    return
-            except:
-                # traceback.print_exc()
-                await channel.send("Error. I do not have parallel texts for this person.")
-                return
 
         # ==================================================================================================================================================
 
@@ -766,6 +659,8 @@ class ClassicsBot(discord.Client):
                 await channel.send("Invalid arguments.")
             try:
                 input = ' '.join(tr_args[2:])
+                if language == '-gre':
+                    transliterated = transliteration.greek.transliterate(input)
                 if language == '-heb':
                     transliterated = transliteration.hebrew.transliterate(input)
                 elif language == '-cop':
@@ -803,15 +698,16 @@ class ClassicsBot(discord.Client):
 
         # ==================================================================================================================================================
 
+        # Consider removing.
         if content.lower().startswith(self.command_prefix + 'textend') or content.lower().startswith(
                 self.command_prefix + 'txtend'):
-            qt_obj = self.quote_requestors[author]
-            del qt_obj
+            del self.quote_requestors[author]
             self.quote_requestors[author] = None
-
+            return
 
         # ==================================================================================================================================================
 
+        # Consider removing.
         if content.lower().startswith(self.command_prefix + 'textstart') or content.lower().startswith(
                 self.command_prefix + 'tstart'):
             args = shlex.split(content.lower())
@@ -833,24 +729,7 @@ class ClassicsBot(discord.Client):
                         await channel.send(' '.join(part))
                 else:
                     await channel.send(display)
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'ulfilas'):
-
-            qt_args = shlex.split(content)
-            # print(qt_args)
-            try:
-                if len(qt_args) > 1:
-                    version = qt_args[1]
-                else:
-                    version = 'kjv'
-                translation = self.robot.ulfilas_translations(version)
-                await channel.send(translation)
-
-            except Exception as e:
-                # traceback.print_exc()
-                await channel.send("Error retrieving verse.")
+            return
 
         # ==================================================================================================================================================
 
@@ -864,7 +743,7 @@ class ClassicsBot(discord.Client):
                 if int_prefixed_book:
                     verse = int_prefixed_book + ' ' + qt_args[3]
                     versions = qt_args[4:]
-                elif len(qt_args) > 4 and self.is_int(qt_args[1]):
+                elif len(qt_args) > 4 and qt_args[1].isdigit():
                     verse = ' '.join([qt_args[1], qt_args[2], qt_args[3]])
                     versions = qt_args[4:]
                 elif len(qt_args) > 2 and re.match(r"[0-9]+:[0-9]+", qt_args[2]):
@@ -886,95 +765,82 @@ class ClassicsBot(discord.Client):
                 await channel.send(
                     "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
                 return
+            return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'qt') or content.lower().strip() in self.quotes_commands:
-            if content.lower().startswith("as") and content.lower().endswith("said:"):
-                source = self.quotes_commands[content.lower().strip()]
-                index, quote, quotes_list = self.robot.random_quote(source.lower(), None, False,
-                                                                    case_sensitive=False)
-                quote = re.sub(r"([?!])\s*\.", r"\1", quote)
-                _, works_list = self.robot.show_author_works(source)
-                qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
-                self.quote_requestors[author] = qt_obj
-                await channel.send(quote)
-            else:
-
-                qt_args = shlex.split(content.replace('“', '"').replace('”', '"'))
-                if qt_args[0].lower() != 'qt':
-                    return
-                # print(qt_args)
-                word = None
-                transliterate = False
-                lemmatize = False
-                case_sensitive = False
-                try:
-                    for i, arg in enumerate(qt_args):
-                        if '-w' in arg.strip().lower():
-                            word = qt_args[i + 1]
-                            if "l" in arg:
-                                lemmatize = True
-                            if "c" in arg:
-                                case_sensitive = True
-                        if arg.strip().lower() == '-t':
-                            transliterate = True
-
-                    if word and transliterate:
-                        source = ' '.join(qt_args[4:]).lower().strip()
-                    elif word and not transliterate:
-                        source = ' '.join(qt_args[3:]).lower().strip()
-                    elif transliterate and not word:
-                        source = ' '.join(qt_args[2:]).lower().strip()
-                    elif not word and not transliterate:
-                        source = ' '.join(qt_args[1:]).lower().strip()
-                    if word:
-                        word = self.sanitize_user_input(word)
-
-                    if source not in self.authors_set:
-                        source = "the " + source.strip().lower()
-
-                    if transliterate:
-                        """
-                        if source == "reddit":
-                            subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                            await self.send_in_chunks_if_needed(channel,
-                                                    f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
-                            return
-                        """
-                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize,
-                                                                            case_sensitive=case_sensitive)
-                        _, works_list = self.robot.show_author_works(source)
-                        qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list)
-                        self.quote_requestors[author] = qt_obj
-                        transliterated = transliteration.greek.transliterate(quote)
-                        await channel.send(transliterated)
-                        return
-                    else:
-                        """
-                        if source == "reddit":
-                            subreddit = self.robot.reddit.random_subreddit(nsfw=False)
-                            #print(subreddit.display_name)
-                            await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
-                            return
-                        """
-                        index, quote, quotes_list = self.robot.random_quote(source.lower(), word, lemmatize,
-                                                                            case_sensitive=case_sensitive)
-                        quote = re.sub(r"([?!])\s*\.", r"\1", quote)
-                        _, works_list = self.robot.show_author_works(source)
-                        qt_obj = QuoteContext(source.lower(), quotes_list, index + 1, works_list=works_list)
-                        self.quote_requestors[author] = qt_obj
-                        await channel.send(quote)
-                except discord.errors.HTTPException:
-                    traceback.print_exc()
-                    await channel.send(f"The passage is too long.")
-                except Exception as e:
-                    traceback.print_exc()
-                    if not source:
-                        await channel.send("No person provided")
-                    else:
-                        await channel.send(f"Could not find quotes matching criteria.")
+        if content.lower().startswith(self.command_prefix + 'qt'):
+            qt_args = shlex.split(content.replace('“', '"').replace('”', '"'))
+            if qt_args[0].lower() != 'qt':
                 return
+            # print(qt_args)
+            word = None
+            transliterate = False
+            lemmatize = False
+            case_sensitive = False
+            author_of_quote = ""
+            try:
+                for i, arg in enumerate(qt_args):
+                    if '-w' in arg.strip().lower():
+                        word = qt_args[i + 1]
+                        if "l" in arg:
+                            lemmatize = True
+                        if "c" in arg:
+                            case_sensitive = True
+                    if arg.strip().lower() == '-t':
+                        transliterate = True
+
+                if word and transliterate:
+                    author_of_quote = ' '.join(qt_args[4:]).lower().strip()
+                    word = self.sanitize_user_input(word)
+                elif word and not transliterate:
+                    author_of_quote = ' '.join(qt_args[3:]).lower().strip()
+                elif transliterate and not word:
+                    author_of_quote = ' '.join(qt_args[2:]).lower().strip()
+                elif not word and not transliterate:
+                    author_of_quote = ' '.join(qt_args[1:]).lower().strip()
+
+                if transliterate:
+                    """
+                    if source == "reddit":
+                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                        await self.send_in_chunks_if_needed(channel,
+                                                f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                        return
+                    """
+                    index, quote, quotes_list = self.robot.random_quote(author_of_quote.lower(), word, lemmatize,
+                                                                        case_sensitive=case_sensitive)
+                    _, works_list = self.robot.show_author_works(author_of_quote)
+                    qt_obj = QuoteContext(author_of_quote.lower(), quotes_list, index + 1, works_list)
+                    self.quote_requestors[author] = qt_obj
+                    transliterated = transliteration.greek.transliterate(quote)
+                    await channel.send(transliterated)
+                    return
+                else:
+                    """
+                    if source == "reddit":
+                        subreddit = self.robot.reddit.random_subreddit(nsfw=False)
+                        #print(subreddit.display_name)
+                        await self.send_in_chunks_if_needed(channel, f"From r/{subreddit.display_name}:\n{robot.reddit_quote(subreddit.display_name)}")
+                        return
+                    """
+                    index, quote, quotes_list = self.robot.random_quote(author_of_quote.lower(), word, lemmatize,
+                                                                        case_sensitive=case_sensitive)
+                    quote = re.sub(r"([?!])\s*\.", r"\1", quote)
+                    _, works_list = self.robot.show_author_works(author_of_quote)
+                    qt_obj = QuoteContext(author_of_quote.lower(), quotes_list, index + 1, works_list=works_list)
+                    self.quote_requestors[author] = qt_obj
+                    await channel.send(quote)
+            except discord.errors.HTTPException:
+                traceback.print_exc()
+                await channel.send(f"The passage is too long.")
+            except Exception as e:
+                traceback.print_exc()
+                if not author_of_quote:
+                    await channel.send("No person provided")
+                else:
+                    await channel.send(f"Could not find quotes matching criteria.")
+            return
 
         # ==================================================================================================================================================
         """
@@ -1006,21 +872,30 @@ class ClassicsBot(discord.Client):
 
         if content.lower().startswith(self.command_prefix + 'latinquote'):
             await channel.send(self.robot.pick_random_latin_quote())
+            return
 
         # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'chinesequote'):
             await channel.send(self.robot.pick_random_chinese_quote())
+            return
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'greekquote'):
-
             args = shlex.split(content.lower())
             transliterate = len(args) > 1 and args[1] == '-t'
             quote = self.robot.pick_greek_quote()
             if transliterate:
                 quote = transliteration.greek.transliterate(quote)
             await channel.send(quote)
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'germanicquote'):
+            await channel.send(self.robot.pick_random_germanic_quote())
+            return
 
         # ==================================================================================================================================================
 
@@ -1036,55 +911,56 @@ class ClassicsBot(discord.Client):
                 except:
                     await channel.send("Argument must be an integer.")
                 await channel.send(f"Type {self.command_dict[i]}")
-
-        # ==================================================================================================================================================
-
-        if content.lower().strip() == self.command_prefix + 'helpme':
-
-            help = self.robot.commands
-            ret = []
-            for i in range(len(help)):
-                desc = help[i][0].strip()
-                self.command_dict[i + 1] = command = help[i][1]
-                ret.append(f"**{i + 1}.** {desc}")
-            lines = list(RobotBrain.chunks(ret, 10))
-            print('Pick the number to see the command:\n' + '\n'.join(ret))
-            await channel.send(
-                'Enter \'comm <number>\' to see the command:\n' + '\n'.join(['\t'.join(lst) for lst in lines]))
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'latinauthors'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'greekauthors'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-
-        if content.lower().startswith(self.command_prefix + 'chineseauthors'):
-            await channel.send('```yaml\n' + ', '.join(
-                [self.robot.format_name(a) for a in sorted(self.robot.chinese_quotes_dict.keys())]) + '```')
-
-        # ==================================================================================================================================================
-        if content.lower().startswith(self.command_prefix + 'greekgame'):
-            await self.start_game(channel, author, "ancientgreek")
             return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'latingame'):
-            await self.start_game(channel, author, "latin")
+        if content.lower().strip() == self.command_prefix + 'helpme':
+            help_list = self.robot.commands
+            bot_commands = ['Arguments in <> are required, while those in [] are optional']
+            for i in range(len(help_list)):
+                desc = help_list[i][0].strip()
+                command_format = help_list[i][1].strip()
+                self.command_dict[i + 1] = help_list[i][1]
+                bot_commands.append(f"**{i + 1}.** *{desc}*: {command_format}")
+            bot_commands_text = '\n'.join(bot_commands)
+            embed = discord.Embed(title='Classics Bot Usage Guide',
+                                  description=bot_commands_text)
+            await channel.send(embed=embed)
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'latinauthors'):
+            await channel.send(
+                f"```{', '.join([self.robot.format_name(a) for a in sorted(self.robot.latin_quotes_dict.keys())])}```")
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'greekauthors'):
+            await channel.send(
+                f"```{', '.join([self.robot.format_name(a) for a in sorted(self.robot.greek_quotes_dict.keys())])}```")
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'chineseauthors'):
+            await channel.send(
+                f"```{', '.join([self.robot.format_name(a) for a in sorted(self.robot.chinese_quotes_dict.keys())])}```")
+            return
+
+        # ==================================================================================================================================================
+
+        if content.lower().startswith(self.command_prefix + 'germanicauthors'):
+            await channel.send(
+                f"```{', '.join([self.robot.format_name(a) for a in sorted(self.robot.germanic_quotes_dict.keys())])}```")
             return
 
         # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'shuowengame'):
-            await self.start_game(channel, author, "shuowen")
+            await self.start_game(channel, author, "chinese", is_shuowen_game=True)
             return
 
         # ==================================================================================================================================================
@@ -1094,31 +970,28 @@ class ClassicsBot(discord.Client):
             if len(args) > 1:
                 language = ' '.join(args[1:]).strip()
                 language = self.language_format(language)
-            await self.start_game(channel, author, "word", word_language=language)
+            await self.start_game(channel, author, language, is_word_game=True)
             return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'greekgame'):
-            await self.start_game(channel, author, "greek")
+        if content.lower().startswith(self.command_prefix + 'textgame'):
+            args = shlex.split(content.lower().replace('“', '"').replace('”', '"'))
+            if len(args) > 1:
+                language = ' '.join(args[1:]).strip()
+                language = self.language_format(language)
+                await self.start_game(channel, author, language, is_text_game=True)
+                return
             return
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith('modern_greek_grammar'):
+        if content.lower().startswith('grammargame'):
             args = shlex.split(content.lower())
             macrons = '-m' in content.lower()
-            language = 'greek'
-            await self.start_game(channel, author, language, macrons=macrons)
-            return
-
-        # ==================================================================================================================================================
-
-        if content.lower().endswith('_grammar') or content.lower().endswith('_grammar -m'):
-            args = shlex.split(content.lower())
-            macrons = '-m' in content.lower()
-            language = content.lower().split('_grammar')[0].replace('_', ' ')
-            await self.start_game(channel, author, language, macrons=macrons)
+            language = ' '.join(args[1:]).strip()
+            language = self.language_format(language)
+            await self.start_game(channel, author, language, is_grammar_game=True, macrons=macrons)
             return
 
         # ==================================================================================================================================================
@@ -1166,8 +1039,9 @@ class ClassicsBot(discord.Client):
                         else:
                             await self.process_guess(channel, author, guess, False)
                 return
+            return
 
-        # ==================================================================================================================================================
+            # ==================================================================================================================================================
 
         if content.lower().startswith(self.command_prefix + 'join'):
             args = shlex.split(content.lower())
@@ -1200,6 +1074,7 @@ class ClassicsBot(discord.Client):
             else:
                 await channel.send(
                     f"{author.mention}, please specify the name of the player whose game you want to join.")
+            return
 
         # ==================================================================================================================================================
 
@@ -1211,11 +1086,14 @@ class ClassicsBot(discord.Client):
                 await channel.send(explanation)
             else:
                 await channel.send("You did not enter a character.")
+            return
 
         # ==================================================================================================================================================
+
         if content.lower().startswith(self.command_prefix + 'lookup'):
             args = shlex.split(content)
             source = args[1]
             char = args[2]
             if source == 'wikt':
                 await channel.send(lookup_wikt.combine_outputs(char))
+            return

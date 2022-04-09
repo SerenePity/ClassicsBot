@@ -21,12 +21,12 @@ from bible_compare.bible_versions import lang_to_versions
 from bible_compare.classical_chinese_bible import get_cc_verses
 from bible_compare.gateway_abbreviations import abbreviations
 from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
+import bible_compare.old_english_bible.john
+import bible_compare.old_english_bible.luke
+import bible_compare.old_english_bible.mark
+import bible_compare.old_english_bible.matthew
 from latin_word_picker import word_picker
 import my_wiktionary_parser
-import old_english_bible.john
-import old_english_bible.luke
-import old_english_bible.mark
-import old_english_bible.matthew
 import transliteration.coptic
 import transliteration.greek
 import transliteration.hebrew
@@ -40,7 +40,6 @@ LATIN_TEXTS_PATH = "latin_texts"
 GREEK_TEXTS_PATH = "greek_texts"
 CHINESE_TEXTS_PATH = "chinese_texts"
 GERMANIC_TEXTS_PATH = "germanic_texts"
-PARALLEL_TEXTS_PATH = "parallel"
 
 # Default subreddit for reddit shenanigans
 SUBREDDIT = 'copypasta'
@@ -136,7 +135,7 @@ CHINESE_WORD_CHOICES = ["https://en.wiktionary.org/wiki/Special:RandomInCategory
 # Does nothing at the moment. May be useful when Discord has better color support
 def format_color(text, color_type="yaml"):
     # Nothing for now
-    return text + "\n"
+    return text
 
 
 QUOTE_RETRIEVAL_MAX_TRIES = 2
@@ -193,7 +192,7 @@ class QuoteContext():
                 self.after_index = self.after_index + after
                 print("After index: " + str(self.after_index))
             quotes_list = self.quotes[old_after:self.after_index]
-        ret_str = RobotBrain.sanitize().replace("_found", "").split(EOF)[0] \
+        ret_str = RobotBrain.sanitize(joiner.join(quotes_list)).replace("_found", "").split(EOF)[0] \
             .replace('. .', '. ').replace('..', '. ')
         if len(ret_str) >= 2000:
             ret_str = ret_str[:1998] + "..."
@@ -253,61 +252,75 @@ class RobotBrain:
         self.greek_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GREEK_TEXTS_PATH)]))
         self.chinese_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(CHINESE_TEXTS_PATH)]))
         self.germanic_authors = list(set([f.split('.')[0].replace('_', ' ') for f in os.listdir(GERMANIC_TEXTS_PATH)]))
-
         self.authors_collection = [self.latin_authors, self.greek_authors, self.chinese_authors, self.germanic_authors]
 
         self.zipped = zip(self.authors_collection, self.quotes_dict_collection, self.text_paths)
 
         self.quote_tries = 0
-        self.old_english_dict = {'jn': old_english_bible.john.john, 'lk': old_english_bible.luke.luke,
-                                 'mk': old_english_bible.mark.mark, 'mt': old_english_bible.matthew.matthew}
+        self.old_english_dict = {'jn': bible_compare.old_english_bible.john.john,
+                                 'lk': bible_compare.old_english_bible.luke.luke,
+                                 'mk': bible_compare.old_english_bible.mark.mark,
+                                 'mt': bible_compare.old_english_bible.matthew.matthew}
 
         for author_collection, quotes_dict, directory in self.zipped:
             for author in author_collection:
                 quotes_dict[author] = [open('/'.join([directory, author, f]), encoding='utf8') for f in
                                        os.listdir(directory + "/" + author) if f.endswith('.txt')]
 
-        self.commands = [(format_color("Get random quote by author ", "CSS"),
-                          f"'{prefix}qt [-t (transliterate)] [-w[l][c] <regex search>] <author> | As <author> said:'" +
-                          "\n\tNotes: adding 'c' to the -w option will make your search case-sensitive, and adding "
-                          "'l' will search by word lemma rather than regex."),
-                         (format_color("List available Latin authors ", "CSS"), f"'{prefix}latinauthors'"),
-                         (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
-                         (format_color("Transliterate input ", "CSS"),
-                          f"'{prefix}tr [-(language abbreviation)] <input>'" +
-                          "\n\tNotes: Greek by default, heb -> Hebrew, cop -> Coptic, unc -> Uncial, oc -> Old "
-                          "Chinese, mc -> Middle Chinese, mand -> Mandarin, aram -> Aramaic, arab -> Arabic, "
-                          "syr -> Syriac, arm -> Armenian, geo -> Georgian, rus -> Russian, kor -> Hangul"),
-                         (format_color("List Greek authors ", "CSS"), f"'{prefix}greekauthors'"),
-                         (format_color("List Chinese authors ", "CSS"), f"'{prefix}chineseauthors'"),
-                         (format_color("Retrieve random Greek quote ", "CSS"), f"'{prefix}greekquote'"),
-                         (format_color("Retrieve random Chinese quote ", "CSS"), f"'{prefix}chinesequote'"),
-                         (format_color("List Germanic authors ", "CSS"), f"'{prefix}germanicauthors'"),
-                         (format_color("Retrieve random Germanic quote ", "CSS"), f"'{prefix}germanicquote'"),
-                         (format_color("Retrieve random Latin quote ", "CSS"), f"'{prefix}latinquote'"),
-                         (format_color("Start grammar game ", "CSS"), f"'{prefix}<language>_grammar'"),
-                         (format_color("Start Latin grammar game ", "CSS"),
-                          f"'{prefix}latin_grammar [-m] (with macrons)'"),
-                         (format_color("Start word game ", "CSS"), f"'{prefix}wordgame [<language>]'"),
-                         (format_color("Guess answer ", "CSS"), f"'{prefix}g <word>'"),
-                         (format_color("End game ", "CSS"), f"'{prefix}giveup'"),
-                         (format_color("Join game ", "CSS"), f"'{prefix}join <game owner>'"),
-                         (format_color("Get available Bible versions ", "CSS"), f"'{prefix}bibleversions [<lang>]'"),
-                         (format_color("Bible compare ", "CSS"),
-                          f"'{prefix}biblecompare [<verse>] [$]<translation1> [$]<translation2>'" +
-                          "\n\tNotes: add the prefix $ for transliteration."),
-                         (format_color("Get Chinese character origin ", "CSS"), f"'{prefix}char_origin <character>'"),
-                         (format_color("Get Chinese character origin from the Shuowen Jiezi", "CSS"),
-                          f"'{prefix}getshuowen <character>'"),
-                         (format_color("Start Shuowen game", "CSS"), f"'{prefix}shuowengame'"),
-                         (format_color("Word definition (defaults to Latin) ", "CSS"),
-                          f"'{prefix}<language>_def <word>'"),
-                         (format_color("Word etymology (defaults to Latin) ", "CSS"),
-                          f"'{prefix}<language>_ety <word>'"),
-                         (format_color("Word entry (defaults to Latin) ", "CSS"), f"'{prefix}<language>_word <word>'"),
-                         (format_color("Random entry (defaults to Latin) ", "CSS"),
-                          f"'{prefix}randword [<language>]' | '{prefix}randomword [<language>]'"),
-                         (format_color("Help ", "CSS"), f"'{prefix}helpme'")]
+        self.commands = [
+            (format_color("Get random quote by author ", "CSS"), f"`{prefix}qt [-t] [-w[c] <regex>] <author>`" +
+             "\n\tOptions:"
+             "\n\t\t**-t**: transliterate the quote."
+             "\n\t\t**-w**: search for a quote containing an expression matching the supplied regex. Add 'c' to make "
+             "your search case-sensitive"
+             "\n\tExample: `qt -w Marc.* Livy`"),
+            (format_color("Transliterate input ", "CSS"), f"`{prefix}tr [-<language>] <input>`" +
+             "\n\tNotes: Current transliteration options are -gre (Greek), -heb (Hebrew), -cop (Coptic), -oc (Old "
+             "Chinese), -mc (Middle Chinese), -mand (Mandarin), -aram (Aramaic), -arab (Arabic), -syr (Syriac), "
+             "-arm (Armenian), -geo (Georgian), -rus (Russian), -kor (Korean) "
+             "\n\tExample: `tr -rus \"я не умею читать кириллицу\"`"),
+            (format_color("List Latin authors ", "CSS"), f"`{prefix}latinauthors`"),
+            (format_color("List Greek authors ", "CSS"), f"`{prefix}greekauthors`"),
+            (format_color("List Chinese authors ", "CSS"), f"`{prefix}chineseauthors`"),
+            (format_color("List Germanic authors ", "CSS"), f"`{prefix}chineseauthors`"),
+            (format_color("Retrieve a random Latin quote ", "CSS"), f"`{prefix}latinquote`"),
+            (format_color("Retrieve a random Greek quote ", "CSS"), f"`{prefix}greekquote [-t]`"
+                                                                    f"\n\tOptions:"
+                                                                    f"\n\t\t**-t**: transliterate the quote."),
+            (format_color("Retrieve a random Chinese quote ", "CSS"), f"`{prefix}chinesequote`"),
+            (format_color("Retrieve a random Germanic quote ", "CSS"), f"`{prefix}germanicquote`"),
+            (format_color("Start grammar game ", "CSS"), f"`{prefix}grammargame [-m] <language>`"
+                                                         f"\n\tOptions:"
+                                                         f"\n\t\t**-m**: require correct macrons."),
+            (format_color("Start word game ", "CSS"), f"`{prefix}wordgame <language>`"),
+            (format_color("Guess answer ", "CSS"), f"`{prefix}g <word>`"),
+            (format_color("End game ", "CSS"), f"`{prefix}giveup`"),
+            (format_color("Join game ", "CSS"), f"`{prefix}join <game owner>`"),
+            (format_color("Get available Bible versions", "CSS"), f"`{prefix}bibleversions [language]`"
+                                                                  f"\n\tNotes: Type `bibleversions` to get a list of "
+                                                                  f"languages for which Bible translations are "
+                                                                  f"available, and `bibleversions [language]` to get "
+                                                                  f"a list of Bible translations for a particular "
+                                                                  f"language"),
+            (format_color("Compare bible versions ", "CSS"),
+             f"`{prefix}biblecompare <verses> [$]<translation1> [$]<translation2> ...`" +
+             "\n\tNotes: The translation options can be a specific Bible translation, such as the KJV, or a language, "
+             "such as Japanese, which will use a default translation. These can be mixed freely. Note also that some "
+             "translations contain only the Old or New Testament, while others may be missing entire books--Aelfric's "
+             "Old English translation, for example, has only the Gospels."
+             "\n\tExample: `biblecompare Genesis 1:1-3 $lxx vulgate hebrew`"),
+            (
+            format_color("Get Chinese character origin from Wiktionary ", "CSS"), f"`{prefix}char_origin <character>`"),
+            (format_color("Get Chinese character origin from the [Shuowen Jiezi]("
+                          "https://en.wikipedia.org/wiki/Shuowen_Jiezi)", "CSS"),
+             f"`{prefix}getshuowen <character>`"),
+            (format_color("Start Shuowen game", "CSS"), f"`{prefix}shuowengame`"),
+            (format_color("Word definition", "CSS"), f"`{prefix}<language>_def <word>`"),
+            (format_color("Word etymology", "CSS"), f"`{prefix}<language>_ety <word>`"),
+            (format_color("Word entry ", "CSS"), f"`{prefix}<language>_word <word>`"),
+            (format_color("Random entry (defaults to Latin) ", "CSS"),
+             f"`{prefix}randword [language]' | '{prefix}randomword [language]`"),
+            (format_color("Help ", "CSS"), f"`{prefix}helpme`")]
 
 
     @staticmethod
@@ -622,6 +635,7 @@ class RobotBrain:
         return '\n'.join([f"{i + 1}. {e.strip()}" for i, e in enumerate(word_defs)]).replace(u'\xa0', u' ')
 
 
+    @staticmethod
     def _fix_unclosed_quotes(text):
         opened = False
         closed = False
@@ -640,35 +654,10 @@ class RobotBrain:
         return text
 
 
-    def _passage_parallel_deliminator(text, delimiters=PARALLEL_DELIMITERS):
-        cur_sentence_len = 0
-        prev_delimiter_pos = 0
-        prev_delimiter = ""
-        final_sentence = []
-
-        for i, c in enumerate(text):
-            cur_sentence_len += 1
-            if c in delimiters:
-                if cur_sentence_len < MIN_QUOTES_LENGTH:
-                    prev_delimiter_pos = i
-                    prev_delimiter = c
-                    final_sentence.append(DELIMTERS_MAP[c])
-                elif cur_sentence_len > MAX_QUOTES_LENGTH:
-                    final_sentence.append(DELIMTERS_MAP[c])
-                    final_sentence[prev_delimiter_pos] = prev_delimiter
-                    prev_delimiter = c
-                    prev_delimiter_pos = i
-                    cur_sentence_len = i - prev_delimiter_pos
-                else:
-                    cur_sentence_len = 0
-                    final_sentence.append(c)
-            else:
-                final_sentence.append(c)
-
-        return ''.join(final_sentence)
-
-
-    def _passage_deliminator(text, delimiters=DELIMITERS):
+    @staticmethod
+    def _passage_deliminator(text, delimiters=None):
+        if delimiters is None:
+            delimiters = DELIMITERS
         cur_sentence_len = 0
         prev_delimiter_pos = 0
         prev_delimiter = ""
@@ -775,6 +764,7 @@ class RobotBrain:
 
     @staticmethod
     def get_book_and_chapter(book_and_verse):
+        book, chapter = "", ""
         if len(book_and_verse.split(" ")) == 4:
             book = "Song of Songs"
             chapter = book_and_verse.split(" ")[3].split(":")[0]
@@ -843,7 +833,7 @@ class RobotBrain:
         verse_range = self.get_verse_range(book, book_and_verse)
         verses = []
         for verse_nr in verse_range:
-            verses.append(json_response['verses'][verse_nr]['text'].replace('\n', '').replace(' ;', ';').replace(
+            verses.append(json_response['verses'][verse_nr - 1]['text'].replace('\n', '').replace(' ;', ';').replace(
                 ' :', ':').replace(' ?', '?').replace("  ", " "))
         return '\n'.join(verses)
 
@@ -852,10 +842,11 @@ class RobotBrain:
         """
         Get a Bible verse using the getbible.net API
 
-        :param verse: the Bible verses (e.g.  Romans 3:23) that we wish to retrieve. Note that a range of verses, such
-        as Matthew 6:9–13, is permitted.
-        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
-        :return: the passage from the given version of the Bible covered by the input verses
+        :param book_and_verse: the Bible verses (e.g. Romans 3:23) that we wish to retrieve. Note that a range of
+        verses, such as Matthew 6:9–13, is permitted.
+        :param version: the version of the Bible, such as the KJV or
+        the Vulgate, from which we wish to retrieve the verse(s) :return: the passage from the given version of the
+        Bible covered by the input verses
         """
 
         passage = self.get_bible_verse_by_api_v2(book_and_verse, version)
@@ -869,9 +860,10 @@ class RobotBrain:
         """
         Get a Bible verse from www.biblegateway.com.
 
-        :param verse: the Bible verses (e.g.  Romans 3:23) that we wish to retrieve. Note that a range of verses, such
-        as Matthew 6:9–13, is permitted.
-        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the verse(s)
+        :param book_and_verse: the Bible verses (e.g. Romans 3:23) that we wish to retrieve. Note that a range of
+        verses, such as Matthew 6:9–13, is permitted.
+        :param version: the version of the Bible, such as the KJV or the Vulgate, from which we wish to retrieve the
+        verse(s)
         :return: the passage from the given version of the Bible covered by the input verses
         """
         url = f"https://www.biblegateway.com/passage/?search={book_and_verse.replace(' ', '%20')}&version={version}&src=tools"
@@ -1184,29 +1176,34 @@ class RobotBrain:
         return self.bible_compare(verse, versions)
 
 
+    @staticmethod
     def _replace_placeholders(text):
         for key in REVERSE_DELIMITERS_MAP:
             text = text.replace(key, REVERSE_DELIMITERS_MAP[key])
         return text
 
 
+    @staticmethod
     def _process_basic(text):
-        return ['. '.join(s) + '.' for s in list(RobotBrain.chunks(3))]
+        return ['. '.join(s) + '.' for s in list(RobotBrain.chunks(text, 3))]
 
 
+    @staticmethod
     def _process_mixed(text):
         if ABSOLUTE_DELIMITER in text:
-            return RobotBrain._process_absolute(text=text)
+            return RobotBrain._process_absolute(text)
         return RobotBrain._process_text(text)
 
 
+    @staticmethod
     def _process_absolute(text):
         splitted = text.split(ABSOLUTE_DELIMITER)
         return [w.replace(ABSOLUTE_DELIMITER, "") for w in splitted]
 
 
+    @staticmethod
     def _process_text(text):
-        text = RobotBrain._replace_abbreviation_period(text.replace('...', '^'))
+        text = RobotBrain._replace_abbreviation_period(text)
         text = RobotBrain._passage_deliminator(text)
         text = re.sub(r"[\n]{2,}|(\n+\s+){2,}|(\s+\n+){2,}", "\n\n", text)
         first_pass = [s for s in re.split(DELIMITERS_REGEX, text)]
@@ -1222,6 +1219,7 @@ class RobotBrain:
                       re.split("(%s)" % re.escape(sep), s), [])
 
 
+    @staticmethod
     def _process_holy_text(scripture):
         first_pass = re.sub(r"CAPUT\s*([0-9]+)", r"CAPUT \1:", scripture)
         second_pass = [s for s in re.split(r"(" + BIBLE_DELIMITERS + ")", first_pass)]
@@ -1235,6 +1233,7 @@ class RobotBrain:
         #        and MIN_QUOTES_LENGTH < len(s) < MAX_QUOTES_LENGTH]
 
 
+    @staticmethod
     def _replace_abbreviation_period(text):
         for abbreviations in ABBREVIATIONS:
             text = text.replace(" " + abbreviations + '.', " " + abbreviations + '%')
@@ -1297,12 +1296,14 @@ class RobotBrain:
             return None
 
 
-    def matching_quote(self, file, regex, case_sensitive, proces_func):
+    @staticmethod
+    def matching_quote(file, regex, case_sensitive, proces_func):
         quotes = []
         for i, quote in enumerate(file.read()):
             quotes.append(quote)
-            return i, quotes, self.find_multi_regex(regex,
-                                                    re.sub(r"[^\w0-9\s\n]", "", proces_func(quote), case_sensitive))
+            return i, quotes, RobotBrain.find_multi_regex(regex,
+                                                          re.sub(r"[^\w0-9\s\n]", "", proces_func(quote),
+                                                                 case_sensitive))
 
 
     @staticmethod
@@ -1318,87 +1319,7 @@ class RobotBrain:
         return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
-    def pick_quote_modular(self, modules, word=None, lemmatize=False, case_sensitive=False, tries=0):
-        # print(', '.join([f.name for f in files]))
-        print("Case_sensitive: " + str(case_sensitive))
-        if tries > 2:
-            return -1, "Not found.", []
-        if word:
-            word = self.remove_accents(word).lower() if not case_sensitive else word
-            regex_list = []
-            if lemmatize:
-                pass
-                # try:
-                # words = self.flatten([[f"{word} ", f" {word} ", f" {word}."] for word in self.decliner.decline(word, flatten=True)])
-                # inflected = self.decliner.decline(word, flatten=True)
-                # for form in inflected:
-                # regex_list.append(f"\\b{form}\\b")
-                # except:
-                # traceback.print_exc()
-                # return -1, "Unknown lemma.", []
-            else:
-                # words = ['|'.join([f"(^{word}\\b+?)", f"(\\b{word}\\b+?)", f"(\\b{word}\\.)"])]
-                # words = [f"{word} ", f" {word} ", f" {word}."]
-                regex_list.append(f"\\b{word}\\b")
-                # words = [r"(\s" + word + r"\s|^" + word + r"|\s" + word + r"\.)"]
-
-            search_quotes = []
-            quotes_list = []
-            all_quotes = []
-            for module in modules:
-                # print([re.sub(r"[^a-z0-9\s\n]", "", p.lower()) for p in process_func(f.read())])
-                quotes = []
-                print(f"Module file: {module.__file__}")
-                if 'footnotes' not in module.__file__:
-                    quotes = module.quotes
-                else:
-                    quotes = []
-                    for chapter in module.footnotes:
-                        quotes += [fn.lstrip() + '\n\n' for fn in module.footnotes[chapter]]
-                for p in quotes:
-                    search_target = self.find_multi_regex(regex_list,
-                                                          re.sub(r"[^\w0-9\s\n]", "", self.remove_accents(p)),
-                                                          case_sensitive)
-                    if search_target:
-                        search_quotes.append(p)
-                        quotes_list.append(p + "_found")
-                    else:
-                        quotes_list.append(p)
-                quotes_list.append(EOF)
-            if len(search_quotes) == 0:
-                print("Search_quotes is 0")
-                # j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote_modular(modules, word, lemmatize, case_sensitive,
-                                                                    tries + 1)
-                if not search_quotes or len(search_quotes) == 0:
-                    return -1, "Not found.", []
-            else:
-                return_values = []
-                for i, quote in enumerate(quotes_list):
-                    if quote.endswith("_found"):
-                        return_values.append((i, quote.replace("_found", "")))
-                ret = random.choice(return_values)
-                # print("Return: " + str(ret))
-                return ret[0], ret[1], quotes_list
-        else:
-            vol_index = random.randint(0, len(modules) - 1)
-            volume = modules[vol_index]
-            if 'footnotes' in volume.__file__:
-                quotes = []
-                for chapter in volume:
-                    quotes += volume[chapter]
-                quotes_list = quotes
-            else:
-                quotes_list = volume.quotes
-            quote_index = random.randint(0, len(quotes_list) - 1)
-            quote = quotes_list[quote_index]
-            return quote_index, quote, quotes_list
-        return index, quote, quotes_list
-
-
-    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, tries=0, chinese=False):
-        if tries > 2:
-            return -1, "Not found.", []
+    def pick_quote(self, files, process_func, word=None, lemmatize=False, case_sensitive=False, chinese=False):
         if word:
             word = self.remove_accents(word).lower() if not case_sensitive else word
             regex_list = []
@@ -1439,12 +1360,7 @@ class RobotBrain:
                 quotes_list.append((j_index + 1, EOF, i))
                 f.seek(0)
             if len(search_quotes) == 0:
-                print("Search_quotes is 0")
-                # j = JVReplacer()
-                index, quote, quotes_list = self.pick_quote(files, process_func, word, lemmatize,
-                                                            case_sensitive, tries + 1)
-                if not quote:
-                    return -1, "Not found.", []
+                return -1, "Not found.", []
             else:
                 return_values = []
                 for i, (j, quote, f_index) in enumerate(quotes_list):
@@ -1493,11 +1409,11 @@ class RobotBrain:
         if person in self.greek_quotes_dict:
             files = self.greek_quotes_dict[person]
             try:
-                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(RobotBrain._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(RobotBrain._process_text, word, lemmatize, case_sensitive)
                     return quote
                 else:
                     self.quote_tries = 0
@@ -1505,11 +1421,11 @@ class RobotBrain:
         elif "the " + person in self.greek_quotes_dict:
             files = self.greek_quotes_dict["the " + person]
             try:
-                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(RobotBrain._process_text, word, lemmatize, case_sensitive)
             except Exception as error:
                 if self.quote_tries < QUOTE_RETRIEVAL_MAX_TRIES:
                     self.quote_tries += 1
-                    i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
+                    i, quote = self.pick_quote(RobotBrain._process_text, word, lemmatize, case_sensitive)
                     return i, quote
                 else:
                     self.quote_tries = 0
@@ -1519,7 +1435,7 @@ class RobotBrain:
                 person = "the " + person
             files = self.latin_quotes_dict[person]
             if person == 'the bible':
-                i, quote = self.pick_quote(files, RobotBrain._process_holy_text, word, lemmatize, case_sensitive)
+                i, quote = self.pick_quote(RobotBrain._process_holy_text, word, lemmatize, case_sensitive)
             elif person == 'phrases':
                 res = [(i, e) for i, e in
                        enumerate(open(f"{LATIN_TEXTS_PATH}/phrases/phrases.txt").read().split("円"))]
@@ -1528,9 +1444,8 @@ class RobotBrain:
                 quote = res[i]
                 return quote
             else:
-                i, quote = self.pick_quote(files, RobotBrain._process_text, word, lemmatize, case_sensitive)
-        return re.sub(r"^[\s]*[\n]+[\s]*", " ",
-                      RobotBrain.fix_crushed_punctuation(RobotBrain._replace_placeholders(quote)))
+                i, quote = self.pick_quote(RobotBrain._process_text, word, lemmatize, case_sensitive)
+        return re.sub(r"^[\s]*[\n]+[\s]*", " ", RobotBrain.fix_crushed_punctuation(quote))
 
 
     def map_person_to_dict(self, person):
@@ -1582,9 +1497,10 @@ class RobotBrain:
 
     @staticmethod
     def sanitize(quote):
-        return RobotBrain.fix_crushed_punctuation(RobotBrain._replace_placeholders(quote))
+        return RobotBrain.fix_crushed_punctuation(quote)
 
 
+    @staticmethod
     def fix_crushed_punctuation(text):
         text = re.sub(r"(\w)\.([^\s])", r"\1. \2", text)
         text = re.sub(r"(\w);([^\s])", r"\1; \2", text)
@@ -1598,18 +1514,6 @@ class RobotBrain:
     def pick_greek_quote(self):
         author = random.choice(list(self.greek_quotes_dict.keys()))
         return f"{self.random_quote(author)[1]}\n\t―{self.format_name(author)}"
-
-
-    @staticmethod
-    def get_random_verse_by_testament(testament):
-        """
-        Get a random verse from either the Old Testament or the New Testament
-        :param testament: can be either "ot" or "nt"
-        :return: a random verse
-        """
-        with open(f"bible_verses_{testament}.txt") as file:
-            verses = file.read().split('|')
-            return random.choice(verses).title()
 
 
     @staticmethod
