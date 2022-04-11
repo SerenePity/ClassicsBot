@@ -5,6 +5,10 @@ ITERATION_MARKS = ['々', 'ゝ', 'ヽ ']
 ABBREVIATIONS_DICT = {'ゟ': 'より', '𪜈': 'とも', 'ヿ': 'こと', '𬼀': 'シテ', '〼': 'ます', 'ヶ': '個'}
 
 
+def remove_digits(s):
+    return ''.join([i for i in s if not i.isdigit()])
+
+
 def transliterate(text):
     text_list = []
     for i, char in enumerate(text):
@@ -20,4 +24,4 @@ def transliterate(text):
     romanized = []
     for item in result:
         romanized.append(item[ROMANIZATION_SCHEME])
-    return ' '.join(romanized).replace('ou', 'о̄')
+    return remove_digits(' '.join(romanized).replace('ou', 'о̄')).replace('  ', ' ')
