@@ -36,16 +36,24 @@ def transliterate(text):
 
     for char in text:
         if not is_chinese_char(char):
-            ret_array.append("‰" + char + "‰")
-        if char in puncutation_dict:
+            if char in puncutation_dict:
+                ret_array.append(puncutation_dict[char])
+                print(f"Appended {puncutation_dict[char]} instead of {char} because {char} is not a Chinese character")
+            else:
+                ret_array.append("‰" + char + "‰")
+        elif char in puncutation_dict:
             ret_array.append(puncutation_dict[char])
+            print(f"Appended {puncutation_dict[char]} instead of {char}")
         else:
             char = tradify(char)
-            pinyin, mc, oc_bax, gloss = get_reconstruction(char)
-            if oc_bax == 'n/a':
-                oc_bax = get_old_chinese_from_wiktionary(char)
-            ret_array.append(oc_bax)
-    ret_str = " ".join([r.replace("*", "") for r in ret_array])
+            pinyin, mc, oc, gloss = get_reconstruction(char)
+            if oc == 'n/a':
+                try:
+                    oc = get_old_chinese_from_wiktionary(char).split(",")[0].strip()
+                except:
+                    ret_array.append(char)
+            ret_array.append(oc.replace("*", ""))
+    ret_str = " ".join(ret_array)
     return ret_str.replace("‰ ‰", "").replace(" ‰", " ").replace("‰ ", " ").replace("‰", "").replace("「", "\"") \
         .replace("」", "\"").replace(" \"", "\"").replace(" ,", ",").replace(" :", ": ").replace(" ?", "?") \
-        .replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"")
+        .replace(" !", "!").replace(" .", ".").replace(" ;", ";").replace(": \" ", ": \"").replace(', ○', '.')

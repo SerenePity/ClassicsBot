@@ -228,9 +228,14 @@ def get_etymology(language_header, language, word):
     if etymology == "Not found.":
         return "Not found."
     print("ETYMOLOGY: " + str(etymology))
-    return '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]",
-                                                                                              "simp.]\n").replace(
+    ret_text = '\n'.join([p.strip() for p in etymology]).replace("[▼ expand/hide]", "\n").replace("simp.]",
+                                                                                                  "simp.]\n").replace(
         "[Pinyin]", "[Pinyin]\n")
+    return escape_markdown(ret_text)
+
+
+def escape_markdown(text):
+    return text.replace('*', '\\*').replace('_', '\\_').replace('`', '\\`').replace('~', '\\~')
 
 
 def get_definition(soup, language, include_examples=True):

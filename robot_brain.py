@@ -104,27 +104,6 @@ ABSOLUTE_DELIMITER = "‰"
 # List of delimiters
 DELIMITERS = [".", "?", "!", "...", ". . .", ".\"", "\.'", "?\"", "?'", "!\"", "!'", "。", "！", "？", ABSOLUTE_DELIMITER]
 
-# The below are versions of the Bible (some being exclusively New Testament for a variety of language to support my
-# parallel Bible text module
-COPTIC = ['bohairic', 'sahidic', 'coptic']
-ARAMAIC = ['peshitta']
-LATIN = ["vulgate", "newvulgates"]
-HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
-ARABIC = ['arabicsv', 'nav', 'erv-ar']
-GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
-         'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'sblgnt']
-RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
-UKRAINIAN = ['ukr', 'ukrainian', 'ukr-uk']
-BULGARIAN = ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg']
-SERBIAN = ['erv-sr']
-GEORGIAN = ['georgian']
-ARMENIAN = ['westernarmenian', 'easternarmenian']
-KOREAN = ['korean', 'klb']
-CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']
-
-# Authors for whom the primary delimiter is the 'absolute delimiter' mentioned above
-ABSOLUTE_DELIMITER_AUTHORS = ['yogi berra', 'bush', 'phrases']
-
 EOF = "--------------------------EOF--------------------------"
 
 CHINESE_WORD_CHOICES = ["https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
@@ -408,8 +387,6 @@ class RobotBrain:
         :param tries: the number of times we have tried to obtain the entry, currently stopping if this value exceeds 1
         :return: a formatted string containing word entry information retrieved from Wiktionary
         """
-        if tries > 2:
-            return "Error retrieving entry"
         if not word:
             word = self.get_random_word(language)
         if language.lower() == 'tradchinese':
@@ -940,12 +917,10 @@ class RobotBrain:
         raw_version = version.lower().replace("$", "").replace("#", "").replace("&", "")
         if raw_version not in bible_versions.all_versions:
             language = version.replace("$", "").replace("#", "").replace("&", "")
-            if '$' in original_version:
-                version = f'${version}'
             print(f"Getting a version from {language}")
             version = lang_to_versions[language.lower()][0]
             if '$' in original_version:
-                version = f"${version}"
+                version = f"Transliterating {version}"
             print(f"Using {version} for {language}")
         print(f"version: {version}")
         middle_chinese = False
