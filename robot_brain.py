@@ -34,6 +34,7 @@ import transliteration.korean
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.old_chinese
+import transliteration.japanese
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -108,6 +109,23 @@ EOF = "--------------------------EOF--------------------------"
 
 CHINESE_WORD_CHOICES = ["https://en.wiktionary.org/wiki/Special:RandomInCategory/Middle_Chinese_lemmas",
                         "https://en.wiktionary.org/wiki/Special:RandomInCategory/Mandarin_lemmas"]
+
+COPTIC = ['bohairic', 'sahidic', 'coptic']
+ARAMAIC = ['peshitta']
+LATIN = ["vulgate", "newvulgates"]
+HEBREW = ['aleppo', 'modernhebrew', 'bhsnovowels', 'bhs', 'wlcnovowels', 'wlc', 'codex']
+ARABIC = ['arabicsv', 'nav', 'erv-ar']
+GREEK = ['moderngreek', 'majoritytext', 'byzantine', 'textusreceptus', 'text', 'tischendorf', 'westcotthort',
+         'westcott', 'lxxpar', 'lxx', 'lxxunaccentspar', 'lxxunaccents', 'sblgnt']
+RUSSIAN = ['makarij', 'synodal', 'zhuromsky']
+UKRAINIAN = ['ukr', 'ukrainian', 'ukr-uk']
+BULGARIAN = ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg']
+SERBIAN = ['erv-sr']
+GEORGIAN = ['georgian']
+ARMENIAN = ['westernarmenian', 'easternarmenian']
+KOREAN = ['korean', 'klb']
+CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']
+JAPANESE = ['jlb', 'meiji']
 
 
 # Does nothing at the moment. May be useful when Discord has better color support
@@ -239,7 +257,7 @@ class RobotBrain:
             (format_color("Transliterate input ", "CSS"), f"`{prefix}tr [-<language>] <input>`" +
              "\n\tNotes: Current transliteration options are -gre (Greek), -heb (Hebrew), -cop (Coptic), -oc (Old "
              "Chinese), -mc (Middle Chinese), -mand (Mandarin), -aram (Aramaic), -arab (Arabic), -syr (Syriac), "
-             "-arm (Armenian), -geo (Georgian), -rus (Russian), -kor (Korean) "
+             "-arm (Armenian), -geo (Georgian), -rus (Russian), -kor (Korean) -jap (Japanese)"
              "\n\tExample: `tr -rus \"я не умею читать кириллицу\"`"),
             (format_color("List Latin authors ", "CSS"), f"`{prefix}latinauthors`"),
             (format_color("List Greek authors ", "CSS"), f"`{prefix}greekauthors`"),
@@ -948,7 +966,7 @@ class RobotBrain:
         print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
-                return get_meiji_japanese_verses(book.lower(), verse_numbers).strip()
+                return get_meiji_japanese_verses(book.lower(), verse_numbers, translit).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
@@ -1112,6 +1130,8 @@ class RobotBrain:
             text = translit(text, 'ka', reversed=True).replace('ჲ', 'y')
         if version in KOREAN:
             text = transliteration.korean.transliterate(text)
+        if version in JAPANESE:
+            text = transliteration.japanese.transliterate(text)
         if version in CHINESE:
             if middle_chinese:
                 text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")

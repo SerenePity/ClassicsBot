@@ -15,4 +15,5 @@ transliteratable_versions = {'coptic':    ['bohairic', 'sahidic', 'coptic'],
                              'bulgarian': ['bg1940', 'bulgarian1940', 'bulg', 'erv-bg'], 'serbian': ['erv-sr'],
                              'georgian':  ['georgian'], 'armenian': ['westernarmenian', 'easternarmenian'],
                              'korean':    ['korean', 'klb'],
-                             'chinese':   ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']}
+                             'chinese':   ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc'],
+                             'japanese':  ['meiji', 'jlb']}

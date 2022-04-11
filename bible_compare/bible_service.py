@@ -19,13 +19,7 @@ from bible_compare.gateway_abbreviations import abbreviations
 from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
 from bible_compare.old_english_bible import old_english_bible_translation
 from robot_brain import RobotBrain
-import transliteration.coptic
-import transliteration.greek
-import transliteration.hebrew
-import transliteration.korean
-import transliteration.mandarin
-import transliteration.middle_chinese
-import transliteration.old_chinese
+import transliteration.transliteratable_versions
 
 # Relative paths to files containing source texts
 LATIN_TEXTS_PATH = "latin_texts"
@@ -112,6 +106,7 @@ GEORGIAN = ['georgian']
 ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
 CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']
+JAPANESE = ['jlb', 'meiji']
 
 
 class BibleService:
@@ -393,23 +388,24 @@ class BibleService:
         print(f"Book: {book}, Verse numbers: {verse_numbers}")
         if version.strip().lower() == 'meiji':
             try:
+                print("Getting Meiji verses")
                 return get_meiji_japanese_verses(book.lower(), verse_numbers).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
-        if version.strip().lower() == 'cc':
+        elif version.strip().lower() == 'cc':
             try:
                 return get_cc_verses(book.lower(), verse_numbers, translit, middle_chinese, old_chinese)
             except:
                 traceback.print_exc()
                 return "Not found"
-        if version.strip().lower() == 'wyc':
+        elif version.strip().lower() == 'wyc':
             try:
                 return self.get_wycliffe_verse(verse).strip()
             except:
                 traceback.print_exc()
                 return "Not found"
-        if version.strip().lower() == 'old_english':
+        elif version.strip().lower() == 'old_english':
             return self.get_old_english_verse(verse).strip()
         passage = self.get_bible_verse_by_api(verse, version)
         if not passage:
@@ -505,39 +501,7 @@ class BibleService:
         """
         version = version.lower()
 
-        if version in COPTIC:
-            text = transliteration.coptic.transliterate(text).lower()
-        if version in ARAMAIC:
-            r = romanize3.__dict__['syc']
-            text = r.convert(text)
-        if version in HEBREW:
-            text = transliteration.hebrew.transliterate(text)
-        if version in ARABIC:
-            text = arabtex.transliterate(text)
-        if version in GREEK:
-            text = transliteration.greek.transliterate(text)
-        if version in RUSSIAN:
-            text = translit(text, 'ru', reversed=True)
-        if version in BULGARIAN:
-            text = translit(text, 'bg', reversed=True)
-        if version in SERBIAN:
-            text = translit(text, 'sr', reversed=True)
-        if version in UKRAINIAN:
-            text = translit(text, 'uk', reversed=True)
-        if version in ARMENIAN:
-            text = translit(text, 'hy', reversed=True).replace('ւ', 'v')
-        if version in GEORGIAN:
-            text = translit(text, 'ka', reversed=True).replace('ჲ', 'y')
-        if version in KOREAN:
-            text = transliteration.korean.transliterate(text)
-        if version in CHINESE:
-            if middle_chinese:
-                text = transliteration.middle_chinese.transliterate(text).replace("  ", " ")
-            elif old_chinese:
-                text = transliteration.old_chinese.transliterate(text).replace("  ", " ")
-            else:
-                text = transliteration.mandarin.transliterate(text).replace("  ", " ")
-        return text.replace("Read full chapter", "")
+        transliteration.transliteratable_versions.transliterate_verse(version, text, middle_chinese, old_chinese)
 
 
     def bible_compare(self, verse, versions: list):

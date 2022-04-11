@@ -19,6 +19,7 @@ import transliteration.korean
 import transliteration.mandarin
 import transliteration.middle_chinese
 import transliteration.old_chinese
+import transliteration.japanese
 
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
@@ -688,6 +689,8 @@ class ClassicsBot(discord.Client):
                     transliterated = translit(input, 'ru', reversed=True)
                 elif language == '-kor':
                     transliterated = transliteration.korean.transliterate(input)
+                elif language == '-jap':
+                    transliterated = transliteration.japanese.transliterate(input)
                 else:
                     transliterated = transliteration.greek.transliterate(input)
                 await self.send_in_chunks_if_needed(channel, transliterated)
