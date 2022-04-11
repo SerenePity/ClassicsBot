@@ -546,10 +546,6 @@ class ClassicsBot(discord.Client):
                 # traceback.print_exc()
                 url = f"https://en.wiktionary.org/wiki/{word}#{language.title()}"
                 await channel.send(f"The entry is too long. Here's the URL instead: {url}")
-            except:
-                # traceback.print_exc()
-                await channel.send("An error occurred while trying to retrieve the etymology.")
-                return
             return
 
         # ==================================================================================================================================================
@@ -765,11 +761,6 @@ class ClassicsBot(discord.Client):
             except discord.errors.HTTPException:
                 # traceback.print_exc()
                 await channel.send(f"Text is too long.")
-            except Exception as e:
-                # traceback.print_exc()
-                await channel.send(
-                    "Verse not found. Please check that you have a valid Bible version by checking here https://www.biblegateway.com/versions, and here https://getbible.net/api.")
-                return
             return
 
         # ==================================================================================================================================================

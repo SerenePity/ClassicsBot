@@ -1,8 +1,11 @@
 discord~=1.7.3
 beautifulsoup4~=4.11.1
+lang_trans
 romanize3~=0.1.14
 wiktionaryparser~=0.0.97
 transliterate~=1.10.2
 mafan~=0.3.1
+roman
+hangul-romanize
 pykakasi~=2.2.1
 requests~=2.27.1
