@@ -1096,3 +1096,8 @@ class ClassicsBot(discord.Client):
             if source == 'wikt':
                 await channel.send(lookup_wikt.combine_outputs(char))
             return
+
+        if content.lower().startswith(self.command_prefix + 'give me a toga'):
+            latin_guild = await self.fetch_guild(333434240610074627)
+            togam_gerens_role = discord.utils.get(latin_guild.roles, id=973986410048667718)
+            await author.add_roles(togam_gerens_role, atomic=True)
