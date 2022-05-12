@@ -1101,3 +1101,4 @@ class ClassicsBot(discord.Client):
             latin_guild = await self.fetch_guild(333434240610074627)
             togam_gerens_role = discord.utils.get(latin_guild.roles, id=973986410048667718)
             await author.add_roles(togam_gerens_role, atomic=True)
+            await channel.send(f"{author.mention} now has the Togam gerens role. Congrats.")
