@@ -1114,5 +1114,6 @@ class ClassicsBot(discord.Client):
 
         if content.lower().startswith(self.command_prefix + 'guildcount') and author.id == 285179803819311106:
             await channel.send(f"This bot is in {len(self.guilds)} servers")
-            guilds_list = '\n'.join(self.guilds)
-            await channel.send(f"The servers are: {guilds_list}")
+            await channel.send("They are:")
+            for guild in self.guilds:
+                await channel.send(f"The servers are: {guild}")
