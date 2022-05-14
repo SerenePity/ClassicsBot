@@ -23,7 +23,7 @@ import transliteration.japanese
 
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
-PROBATIONARY_ID = 716979211549540403
+NEWCOMER_ID = 716979211549540403
 POMERIUM_CHANNEL_ID = 716979999172853890
 LATIN_SERVER_ID = 596471999493308417
 POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
@@ -407,9 +407,9 @@ class ClassicsBot(discord.Client):
         """
         Send a message to new users when they are approved to join the server (i.e, when the "Newcomer" role is removed
         """
-        probationary_role = discord.utils.get(before.roles, id=PROBATIONARY_ID)
+        newcomer_role = discord.utils.get(before.roles, id=NEWCOMER_ID)
         try:
-            if probationary_role in before.roles and probationary_role not in after.roles:
+            if newcomer_role in before.roles and newcomer_role not in after.roles:
                 pm_channel = await self.start_private_message(after)
                 await self.send_message(pm_channel,
                                         f"Welcome {after.mention} to the Latin server. In order to ensure an "
@@ -452,12 +452,12 @@ class ClassicsBot(discord.Client):
         length greater than 15 characters.
         """
         if channel.id == POMERIUM_CHANNEL_ID:
-            if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(
+            if discord.utils.get(author.roles, id=NEWCOMER_ID) and len(
                     content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
                     latin_guild = await self.fetch_guild(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    probation_role = discord.utils.get(latin_guild.roles, id=PROBATIONARY_ID)
-                    await author.remove_roles(probation_role, atomic=True)
+                    newcomer_role = discord.utils.get(latin_guild.roles, id=NEWCOMER_ID)
+                    await author.remove_roles(newcomer_role, atomic=True)
 
                     pomerium_notifications_channel = discord.utils.get(latin_guild.channels,
                                                                        id=POMERIUM_NOTIFICATIONS_CHANNEL_ID)
