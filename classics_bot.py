@@ -455,7 +455,12 @@ class ClassicsBot(discord.Client):
             if discord.utils.get(author.roles, id=PROBATIONARY_ID) and len(
                     content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
-                    pomerium_notifications_channel = channel.id == POMERIUM_NOTIFICATIONS_CHANNEL_ID
+                    latin_guild = await self.fetch_guild(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
+                    probation_role = discord.utils.get(latin_guild.roles, id=PROBATIONARY_ID)
+                    await author.remove_roles(probation_role, atomic=True)
+
+                    pomerium_notifications_channel = discord.utils.get(latin_guild.channels,
+                                                                       id=POMERIUM_NOTIFICATIONS_CHANNEL_ID)
                     newlines = content.split('\n')
                     content_str = '\n'.join(['> ' + line for line in newlines])
                     await pomerium_notifications_channel.send(
