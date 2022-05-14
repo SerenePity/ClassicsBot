@@ -23,13 +23,17 @@ import transliteration.japanese
 
 MAX_TRIES = 5
 BOT_OWNER = 285179803819311106
+
 NEWCOMER_ID = 716979211549540403
 POMERIUM_CHANNEL_ID = 716979999172853890
-LATIN_SERVER_ID = 596471999493308417
 POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
 POMERIUM_MESSAGE_THRESHOLD = 3
-robot = RobotBrain("")
+
 DISCORD_CHAR_LIMIT = 2000
+LATIN_SERVER_ID = 333434240610074627
+TOGAM_GERENS_ROLE = 973986410048667718
+
+robot = RobotBrain("")
 
 
 class PlayerSession:
@@ -451,18 +455,18 @@ class ClassicsBot(discord.Client):
         Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
         length greater than 15 characters.
         """
-        if channel.id == POMERIUM_CHANNEL_ID:
-            if discord.utils.get(author.roles, id=NEWCOMER_ID) and len(
+        if channel.id == 975146010038910996:
+            newcomer_role = discord.utils.get(author.roles, id=NEWCOMER_ID)
+            if newcomer_role and len(
                     content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
-                    latin_guild = await self.fetch_guild(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    newcomer_role = discord.utils.get(latin_guild.roles, id=NEWCOMER_ID)
                     await author.remove_roles(newcomer_role, atomic=True)
 
-                    pomerium_notifications_channel = discord.utils.get(latin_guild.channels,
-                                                                       id=POMERIUM_NOTIFICATIONS_CHANNEL_ID)
+                    pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
                     newlines = content.split('\n')
                     content_str = '\n'.join(['> ' + line for line in newlines])
+                    print(f"New user {author.mention} has answered the Pomerium prompt:\n" +
+                          content_str)
                     await pomerium_notifications_channel.send(
                         f"New user {author.mention} has answered the Pomerium prompt:\n" +
                         content_str)
@@ -1103,7 +1107,7 @@ class ClassicsBot(discord.Client):
             return
 
         if content.lower().startswith(self.command_prefix + 'give me a toga'):
-            latin_guild = await self.fetch_guild(333434240610074627)
-            togam_gerens_role = discord.utils.get(latin_guild.roles, id=973986410048667718)
+            latin_guild = self.get_guild(LATIN_SERVER_ID)
+            togam_gerens_role = discord.utils.get(latin_guild.roles, id=TOGAM_GERENS_ROLE)
             await author.add_roles(togam_gerens_role, atomic=True)
             await channel.send(f"{author.mention} now has the Togam gerens role. Congrats.")
