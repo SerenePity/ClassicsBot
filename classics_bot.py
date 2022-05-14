@@ -1111,9 +1111,3 @@ class ClassicsBot(discord.Client):
             togam_gerens_role = discord.utils.get(latin_guild.roles, id=TOGAM_GERENS_ROLE)
             await author.add_roles(togam_gerens_role, atomic=True)
             await channel.send(f"{author.mention} now has the Togam gerens role. Congrats.")
-
-        if content.lower().startswith(self.command_prefix + 'guildcount') and author.id == 285179803819311106:
-            await channel.send(f"This bot is in {len(self.guilds)} servers")
-            await channel.send("They are:")
-            for guild in self.guilds:
-                await channel.send(f"The servers are: {guild}")
