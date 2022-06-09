@@ -455,13 +455,11 @@ class ClassicsBot(discord.Client):
         Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
         length greater than 15 characters.
         """
-        if channel.id == 975146010038910996:
+        if channel.id == POMERIUM_CHANNEL_ID:
             newcomer_role = discord.utils.get(author.roles, id=NEWCOMER_ID)
             if newcomer_role and len(
                     content.split()) > POMERIUM_MESSAGE_THRESHOLD:
                 try:
-                    await author.remove_roles(newcomer_role, atomic=True)
-
                     pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
                     newlines = content.split('\n')
                     content_str = '\n'.join(['> ' + line for line in newlines])
