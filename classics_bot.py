@@ -41,7 +41,6 @@ class PlayerSession:
     Class to simulate a player's game session
     """
 
-
     def __init__(self, player, answer, language, channel):
         self.player = player
         self.answer = answer
@@ -49,7 +48,6 @@ class PlayerSession:
         self.game_on = True
         self.language = language
         self.channel = channel
-
 
     def end_game(self):
         self.language = None
@@ -64,9 +62,8 @@ class Game:
     Class to simulate a game, which can be of multiple types
     """
 
-
     def __init__(self, game_owner, answer, language, channel, is_word_game=False, is_grammar_game=False,
-                 word_language='latin', hint=None, is_shuowen_game=False):
+                 is_text_game=False, word_language='latin', hint=None, is_shuowen_game=False):
         self.game_owner = game_owner
         self.game_on = True
         self.players_dict = dict()
@@ -76,15 +73,14 @@ class Game:
         self.exited_players = set()
         self.is_word_game = is_word_game
         self.is_grammar_game = is_grammar_game
+        self.is_text_game = is_text_game
         self.is_shuowen_game = is_shuowen_game
         self.word_language = word_language
         self.hint = hint
         self.players_dict[game_owner] = PlayerSession(game_owner, answer, language, channel)
 
-
     def get_game_owner_sess(self):
         return self.players_dict[self.game_owner]
-
 
     def add_player(self, player):
         """
@@ -95,7 +91,6 @@ class Game:
         """
         self.players_dict[player] = PlayerSession(player, self.answer, self.language, self.channel)
 
-
     def get_player_sess(self, player):
         """
         Get the PlayerSession associated with the player
@@ -104,7 +99,6 @@ class Game:
         :return: the PlayerSession associated with player
         """
         return self.players_dict[player]
-
 
     def end_player_sess(self, player):
         """
@@ -118,20 +112,17 @@ class Game:
             self.players_dict[player].end_game()
         del self.players_dict[player]
 
-
     def no_players_left(self):
         """
         Check if there are no players left in the game
         """
         return all(not self.players_dict[player].game_on for player in self.players_dict)
 
-
     def get_hint(self):
         """
         Return an answer hint
         """
         return self.hint
-
 
     def end_game(self):
         """
@@ -153,7 +144,6 @@ class ClassicsBot(discord.Client):
     Represents a bot connection that connects to Discord. Inherits from the discord.Client class.
     """
 
-
     def __init__(self, prefix=""):
         super().__init__(command_prefix=prefix)
         self.robot = robot
@@ -166,7 +156,6 @@ class ClassicsBot(discord.Client):
         self.command_dict = dict()
         self.command_prefix = prefix
         self.authors_set = set()
-
 
     async def is_nsfw(self, channel):
         """
@@ -184,7 +173,6 @@ class ClassicsBot(discord.Client):
         channeldata = [d for d in data if d['id'] == channel.id][0]
         return channeldata['nsfw']
 
-
     async def on_ready(self):
         """
         Some methods to call when the bot has finished initializing
@@ -200,13 +188,11 @@ class ClassicsBot(discord.Client):
         self.authors = [self.robot.format_name(person) for person in self.authors_set]
         print('Done initializing')
 
-
     def sanitize_user_input(self, text):
         """
         Remove the ',', '!', ':', and ';' characters from a string
         """
         return text.replace(',', '').replace('!', '').replace(':', '').replace(';', '')
-
 
     def language_format(self, language):
         """
@@ -221,7 +207,6 @@ class ClassicsBot(discord.Client):
         if language.lower().replace('_', ' ') == 'modern greek':
             return 'greek'
         return language
-
 
     async def process_guess(self, channel, player, content, word_game=False):
         """
@@ -257,11 +242,11 @@ class ClassicsBot(discord.Client):
             return
         if self.games[game_owner].language in ['greek', 'latin']:
 
-            if self.games[game_owner].language == 'greek' and guess not in self.robot.greek_authors and guess != 'hint':
+            if self.games[game_owner].language == 'greek' and self.games[game_owner].is_text_game and guess not in self.robot.greek_authors and guess != 'hint':
                 await channel.send(
                     "You did not pick a valid author for this game! For a list of valid authors, type 'greekauthors'.")
                 return
-            if self.games[game_owner].language == 'latin' and guess not in self.robot.latin_authors and guess != 'hint':
+            if self.games[game_owner].language == 'latin' and self.games[game_owner].is_text_game and guess not in self.robot.latin_authors and guess != 'hint':
                 await channel.send(
                     "You did not pick a valid author for this game! For a list of valid authors, type 'latinauthors'.")
                 return
@@ -300,7 +285,6 @@ class ClassicsBot(discord.Client):
                 self.games[game_owner].get_player_sess(player).end_game()
                 self.games[game_owner].exited_players.add(player)
                 del self.players_to_game_owners[player]
-
 
     async def start_game(self, channel, game_owner, language, is_text_game=False, is_word_game=False,
                          is_grammar_game=False, is_shuowen_game=False, macrons=False):
@@ -344,11 +328,10 @@ class ClassicsBot(discord.Client):
             answer, passage, hint = self.robot.shuowen_game()
             await channel.send(
                 f"{repeat_text}{game_owner.mention}, type the character with the following entry in Shuowen Jiezi: {passage}{instruction}")
-        self.games[game_owner] = Game(game_owner, answer, language, channel, is_word_game, is_grammar_game,
+        self.games[game_owner] = Game(game_owner, answer, language, channel, is_word_game, is_grammar_game, is_text_game,
                                       word_language=language, hint=hint)
         self.players_to_game_owners[game_owner] = game_owner
         print("Answer: " + answer)
-
 
     def end_game(self, game_owner):
         """
@@ -359,7 +342,6 @@ class ClassicsBot(discord.Client):
             if player in self.players_to_game_owners:
                 del self.players_to_game_owners[player]
         del self.games[game_owner]
-
 
     @staticmethod
     async def send_truncate(channel, text):
@@ -375,7 +357,6 @@ class ClassicsBot(discord.Client):
         else:
             await channel.send(text)
 
-
     async def send_in_chunks_if_needed(self, channel, text, n=2000):
         """
         Send a message in chunks if it exceeds a certain length.
@@ -390,7 +371,6 @@ class ClassicsBot(discord.Client):
         else:
             await channel.send(text)
 
-
     def format_chapter_for_gibbon(self, chapter):
         """
         Return the chapter title for Gibbon's Decline and Fall of the Roman Empire
@@ -404,7 +384,6 @@ class ClassicsBot(discord.Client):
                 return chapter
         else:
             return chapter.title()
-
 
     async def on_member_update(self, before, after):
         # FIXME: not entirely sure this works anymore.
@@ -434,7 +413,6 @@ class ClassicsBot(discord.Client):
                                         "***@Imperator*** role or message an Imperator directly._")
         except:
             traceback.print_exc()
-
 
     async def on_message(self, message):
         """
