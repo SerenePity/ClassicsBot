@@ -145,7 +145,7 @@ class ClassicsBot(discord.Client):
     """
 
     def __init__(self, prefix=""):
-        super().__init__(command_prefix=prefix)
+        super().__init__(command_prefix=prefix, intents=discord.Intents.all())
         self.robot = robot
         self.quotes_commands = dict()
         self.markov_commands = dict()
