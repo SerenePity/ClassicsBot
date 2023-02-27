@@ -2,6 +2,7 @@ import random
 import re
 import shlex
 import traceback
+import os
 
 import discord
 from lang_trans.arabic import arabtex
@@ -22,16 +23,15 @@ import transliteration.old_chinese
 import transliteration.japanese
 
 MAX_TRIES = 5
-BOT_OWNER = 285179803819311106
-
-NEWCOMER_ID = 716979211549540403
-POMERIUM_CHANNEL_ID = 716979999172853890
-POMERIUM_NOTIFICATIONS_CHANNEL_ID = 783851454514462730
 POMERIUM_MESSAGE_THRESHOLD = 3
-
 DISCORD_CHAR_LIMIT = 2000
-LATIN_SERVER_ID = 333434240610074627
-TOGAM_GERENS_ROLE = 973986410048667718
+
+BOT_OWNER = int(os.environ['BOT_OWNER'])
+NEWCOMER_ID = int(os.environ['NEWCOMER_ID'])
+POMERIUM_CHANNEL_ID = int(os.environ['POMERIUM_CHANNEL_ID'])
+POMERIUM_NOTIFICATIONS_CHANNEL_ID = int(os.environ['POMERIUM_NOTIFICATIONS_CHANNEL_ID'])
+LATIN_SERVER_ID = int(os.environ['LATIN_SERVER_ID'])
+TOGAM_GERENS_ROLE = int(os.environ['TOGAM_GERENS_ROLE'])
 
 robot = RobotBrain("")
 
