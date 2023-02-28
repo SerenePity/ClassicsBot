@@ -770,7 +770,7 @@ class RobotBrain:
             book = "Song of Songs"
             chapter = book_and_verse.split(" ")[3].split(":")[0]
         elif len(book_and_verse.split(" ")) == 3:
-            book = " ".join(book_and_verse[:2])
+            book = " ".join(book_and_verse.split(" ")[:2])
             chapter = book_and_verse[2].split(":")[0]
         elif len(book_and_verse.split(" ")) == 2:
             book = book_and_verse.split(" ")[0]
@@ -958,8 +958,8 @@ class RobotBrain:
         verse = verse.title()
         print(verse)
         if len(verse.split(" ")) == 3:
-            book = " ".join(verse.split()[:2])
-            verse_numbers = verse.split(2)
+            book = " ".join(verse.split(" ")[:2])
+            verse_numbers = verse.split(" ")[2]
         else:
             book = verse.split(" ")[0]
             verse_numbers = verse.split(" ")[1]
