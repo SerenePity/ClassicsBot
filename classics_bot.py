@@ -23,13 +23,10 @@ import transliteration.old_chinese
 import transliteration.japanese
 
 MAX_TRIES = 5
-POMERIUM_MESSAGE_THRESHOLD = 3
 DISCORD_CHAR_LIMIT = 2000
 
 BOT_OWNER = int(os.environ['BOT_OWNER'])
 NEWCOMER_ID = int(os.environ['NEWCOMER_ID'])
-POMERIUM_CHANNEL_ID = int(os.environ['POMERIUM_CHANNEL_ID'])
-POMERIUM_NOTIFICATIONS_CHANNEL_ID = int(os.environ['POMERIUM_NOTIFICATIONS_CHANNEL_ID'])
 LATIN_SERVER_ID = int(os.environ['LATIN_SERVER_ID'])
 TOGAM_GERENS_ROLE = int(os.environ['TOGAM_GERENS_ROLE'])
 
@@ -428,26 +425,6 @@ class ClassicsBot(discord.Client):
         author = message.author
         channel = message.channel
         content = message.content
-
-        """
-        Send a message in the Pomerium Notifications channel users when a Newcomer types a message in the Pomerium of 
-        length greater than 15 characters.
-        """
-        if channel.id == POMERIUM_CHANNEL_ID:
-            newcomer_role = discord.utils.get(author.roles, id=NEWCOMER_ID)
-            if newcomer_role and len(
-                    content.split()) > POMERIUM_MESSAGE_THRESHOLD:
-                try:
-                    pomerium_notifications_channel = self.get_channel(POMERIUM_NOTIFICATIONS_CHANNEL_ID)
-                    newlines = content.split('\n')
-                    content_str = '\n'.join(['> ' + line for line in newlines])
-                    print(f"New user {author.mention} has answered the Pomerium prompt:\n" +
-                          content_str)
-                    await pomerium_notifications_channel.send(
-                        f"New user {author.mention} has answered the Pomerium prompt:\n" +
-                        content_str)
-                except:
-                    traceback.print_exc()
 
         if content.lower().startswith(self.command_prefix + 'getdef'):
             args = shlex.split(content.replace('“', '"').replace('”', '"').strip())
