@@ -18,6 +18,7 @@ from bible_compare.classical_chinese_bible import get_cc_verses
 from bible_compare.gateway_abbreviations import abbreviations
 from bible_compare.meiji_japanese_bible import get_meiji_japanese_verses
 from bible_compare.old_english_bible import old_english_bible_translation
+from constants import GET_BIBLE_LEGACY_BASE_URL, GET_BIBLE_BASE_URL
 from robot_brain import RobotBrain
 import transliteration.transliteratable_versions
 
@@ -221,7 +222,7 @@ class BibleService:
 
     def get_bible_verse_by_api_v1(self, book_and_verse, version='kjv'):
         print(f"Getting {book_and_verse} in {version} from v1 API")
-        url = f"https://getbible.net/json?passage={book_and_verse}&version={version}"
+        url = f"{GET_BIBLE_LEGACY_BASE_URL}/json?passage={book_and_verse}&version={version}"
         print(f"v1 API endpoint: {url}")
         response = requests.get(url).text.replace(');', '').replace('(', '')
         try:
@@ -244,7 +245,7 @@ class BibleService:
 
         book, chapter = self.get_book_and_chapter(book_and_verse)
 
-        url = f"https://getbible.net/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
+        url = f"{GET_BIBLE_BASE_URL}/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
         print(f"Getting verses {book_and_verse} in {version} from v2 API: {url}")
         response = requests.get(url)
         if response.status_code == 404:

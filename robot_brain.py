@@ -25,6 +25,7 @@ import bible_compare.old_english_bible.john
 import bible_compare.old_english_bible.luke
 import bible_compare.old_english_bible.mark
 import bible_compare.old_english_bible.matthew
+from constants import GET_BIBLE_BASE_URL, GET_BIBLE_LEGACY_BASE_URL
 from latin_word_picker import word_picker
 import my_wiktionary_parser
 import transliteration.coptic
@@ -126,7 +127,6 @@ ARMENIAN = ['westernarmenian', 'easternarmenian']
 KOREAN = ['korean', 'klb']
 CHINESE = ['ccb', 'ccbt', 'erv-zh', 'cns', 'cnt', 'cus', 'cut', 'cc']
 JAPANESE = ['jlb', 'meiji']
-
 
 # Does nothing at the moment. May be useful when Discord has better color support
 def format_color(text, color_type="yaml"):
@@ -801,7 +801,7 @@ class RobotBrain:
 
     def get_bible_verse_by_api_v1(self, book_and_verse, version='kjv'):
         print(f"Getting {book_and_verse} in {version} from v1 API")
-        url = f"https://getbible.net/json?passage={book_and_verse}&version={version}"
+        url = f"{GET_BIBLE_LEGACY_BASE_URL}/json?passage={book_and_verse}&version={version}"
         print(f"v1 API endpoint: {url}")
         response = requests.get(url).text.replace(');', '').replace('(', '')
         try:
@@ -824,7 +824,7 @@ class RobotBrain:
 
         book, chapter = self.get_book_and_chapter(book_and_verse)
 
-        url = f"https://api.getbible.net/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
+        url = f"{GET_BIBLE_BASE_URL}/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
         print(f"Getting verses {book_and_verse} in {version} from v2 API: {url}")
         response = requests.get(url)
         if response.status_code == 404:
