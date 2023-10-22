@@ -824,7 +824,7 @@ class RobotBrain:
 
         book, chapter = self.get_book_and_chapter(book_and_verse)
 
-        url = f"https://getbible.net/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
+        url = f"https://api.getbible.net/v2/{version}/{getbible_books_to_numbers.mapping[book]}/{chapter}.json"
         print(f"Getting verses {book_and_verse} in {version} from v2 API: {url}")
         response = requests.get(url)
         if response.status_code == 404:
@@ -1083,7 +1083,8 @@ class RobotBrain:
                     verse = self.get_random_verse_by_testament("ot")
                     translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in
                                     versions]
-                except:
+                except Exception as e:
+                    print(e)
                     return "Failed to retrieve verse. Your target versions may be incompatible. For example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
 
         return '\n'.join(translations)
@@ -1153,7 +1154,8 @@ class RobotBrain:
         """
         try:
             translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in versions]
-        except:
+        except Exception as e:
+            print(e)
             return "Failed to retrieve verse. One of your target versions may not contain the requested verse. For example, the Gothic Bible only contains the New Testament, and so requesting an Old Testament verse will fail."
         return '\n'.join(translations)
 

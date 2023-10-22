@@ -479,7 +479,8 @@ class BibleService:
                     verse = self.get_random_verse_by_testament("ot")
                     translations = [f"**{verse.title()}** - {self.get_bible_verse(verse, version)}" for version in
                                     versions]
-                except:
+                except Exception as e:
+                    print(e)
                     return "Failed to retrieve verse. Your target versions may be incompatible. For example, the Gothic Bible contains only the New Testament, while the Westminster Leningrad Codex contains only the Old Testament. There will be no overlapping verses."
 
         return '\n'.join(translations)
