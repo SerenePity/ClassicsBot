@@ -366,33 +366,50 @@ class RobotBrain:
         return defs[0]
 
 
-    def get_word_definitions(self, word_input, language='latin', include_examples=True):
+    def strip_html_tags(self, text):
+        """
+        Remove HTML tags from the given text.
+
+        Args:
+            self (str): Text that may contain HTML tags.
+
+        Returns:
+            str: Cleaned text without HTML tags.
+        """
+        return re.sub(r'<[^>]+>', '', text)
+
+
+    def get_word_definitions(self, word, language='la', include_examples=True):
         """
         Get the definition of a word from Wiktionary in the target language
 
-        :param word_input: the word for which we wish to retrieve a list of definitions
+        :param word: the word for which we wish to retrieve a list of definitions
         :param language: the language in which to search for the word
         :param include_examples: whether or not we want to include example usages of the word
         :return: the definitions of the word as listed in Wiktionary
         """
-        defs = []
+        url = f"https://en.wiktionary.org/api/rest_v1/page/definition/{word}"
+
         try:
-            soup = my_wiktionary_parser.get_soup(word_input)
-            if "Wiktionary does not yet have an entry for " in str(soup):
-                return ["Not found."]
-            try:
-                defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
-            except:
-                if language.lower() == 'chinese' or language.lower() == 'tradchinese':
-                    soup = my_wiktionary_parser.get_soup(tradify(word_input))
-                    defs = my_wiktionary_parser.get_definitions(soup, language, include_examples)
-            if defs[0] == 'Not found':
-                defs = self.fetch_def_by_other_parser(word_input, language)
-            return defs
-        except:
-            defs = self.fetch_def_by_other_parser(word_input, language)
-            if not defs:
-                return "Not found"
+            response = requests.get(url)
+            response.raise_for_status()  # Raises HTTPError for bad responses
+
+            data = response.json()
+
+            # Check if definitions for the specified language exist
+            if language in data:
+                definitions = []
+                for entry in data[language]:
+                    for sense in entry['definitions']:
+                        print(f'sense: {sense}')
+                        definitions.append(self.strip_html_tags(sense['definition']))
+                print(definitions)
+                return definitions
+            else:
+                return f"No definitions found for the language '{language}' for the word '{word}'."
+
+        except requests.exceptions.RequestException as e:
+            return f"Error fetching data: {e}"
 
 
     def get_full_entry(self, word=None, language='latin', tries=0):
