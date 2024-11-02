@@ -699,7 +699,7 @@ class ClassicsBot(discord.Client):
 
         # ==================================================================================================================================================
 
-        if content.lower().startswith(self.command_prefix + 'comparebible'):
+        if content.lower().startswith(self.command_prefix + 'bibcomp'):
 
             qt_args = shlex.split(content)
             # print(qt_args)

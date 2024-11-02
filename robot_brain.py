@@ -286,12 +286,12 @@ class RobotBrain:
                                                                   f"a list of Bible translations for a particular "
                                                                   f"language"),
             (format_color("Compare bible versions ", "CSS"),
-             f"`{prefix}comparebible <verses> [$]<translation1> [$]<translation2> ...`" +
+             f"`{prefix}bibcomp <verses> [$]<translation1> [$]<translation2> ...`" +
              "\n\tNotes: The translation options can be a specific Bible translation, such as the KJV, or a language, "
              "such as Japanese, which will use a default translation. These can be mixed freely. Note also that some "
              "translations contain only the Old or New Testament, while others may be missing entire books--Aelfric's "
              "Old English translation, for example, has only the Gospels."
-             "\n\tExample: `comparebible Genesis 1:1-3 $lxx vulgate hebrew`"),
+             "\n\tExample: `bibcomp Genesis 1:1-3 $lxx vulgate hebrew`"),
             (
                 format_color("Get Chinese character origin from Wiktionary ", "CSS"),
                 f"`{prefix}char_origin <character>`"),
