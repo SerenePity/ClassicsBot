@@ -41,7 +41,7 @@ MIN_QUOTES_LENGTH = 50
 QUOTES = ["\"", "'", "“", "\"", "」", "「"]
 
 # List of abbreviated Roman praenomina, which often end with a period, which can artificially cut short a sentence.
-PRAENOMINA = ["C", "L", "M", "P", "Q", "T", "Ti", "Sex", "A", "D", "Cn", "Sp", "M", "Ser", "Ap", "N", "V", "K"]
+PRAENOMINA = ["C", "L", "M", "M'", "P", "Q", "T", "Ti", "Sex", "A", "D", "Cn", "Sp", "M", "Ser", "Ap", "N", "V", "K"]
 
 # Roman numerals also often end with a period, and must be dealt with in the like manner.
 ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI",
